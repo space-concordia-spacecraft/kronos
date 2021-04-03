@@ -1,21 +1,25 @@
-#include "include/bud.h"
+#include "bus.h"
 
 namespace kronos {
-    Bus::Bus(int op, string name):opcode(op), name(name) {
+
+    template<typename T>
+    Bus<T>::Bus(int op, const String& name): opcode(op), name(name) {}
+
+    template<typename T>
+    Bus<T>::~Bus(){
 
     }
 
-    Bus::~Bus(){
-
-    }
-
-    bool Bus::broadcast(T data) {
-        for(const auto& component: receivers)
-            component.onReceive(opcode, data);
+    template<typename T>
+    bool Bus<T>::broadcast(T data) {
+        for (Component c : receivers)
+            c.onReceive(opcode, data);
         return false;
     }
 
-    bool Bus::subscribe(Component newComponent) {
-        receivers.insert(newComponent);
+    template<typename T>
+    void Bus<T>::subscribe(Component newComponent) {
+        receivers.add(newComponent);
     }
+
 }
