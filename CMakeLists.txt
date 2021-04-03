@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.17)
 
 # Setup project
-project("kronos" LANGUAGES CXX)
+project("kronos")
 
 # Clump source files from src
 file(GLOB KRONOS_SRC "src/**/*.cpp" "src/**/*.c" "src/*.cpp" "src/*.c")
