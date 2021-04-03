@@ -12,7 +12,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 file(GLOB KRONOS_SRC "src/**/*.cpp" "src/**/*.c" "src/*.cpp" "src/*.c")
 
 # Specify include directories
-include_directories(include)
+include_directories(src/include)
 
 # Setup binary
 add_sam_executable("kronos" ${KRONOS_SRC})
+
+# Extra target linking
+target_include_directories("kronos" src/include)
