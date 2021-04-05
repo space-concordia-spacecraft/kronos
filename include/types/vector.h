@@ -33,7 +33,7 @@ public:
 
 
 template<typename T>
-class Vector : Iterable<VectorIterator<T>> {
+class Vector : Iterable< VectorIterator<T> > {
 
 private:
     int capacity;

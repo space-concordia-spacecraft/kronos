@@ -44,4 +44,8 @@ public:
         return concatenate(a, right);
     }
 
+    String operator=(const String& target) {
+        return target;
+    }
+
 };

@@ -9,9 +9,9 @@ namespace kronos {
     }
 
     template <typename T>
-    Vector<Bus<T>> Component::getBuses(int opcode) {
+    Vector< Bus<T> > Component::getBuses(int opcode) {
         // TODO replace with appropriate framework call
-        return Vector<Bus<T>>();
+        return Vector< Bus<T> >();
     }
 
     template <typename T>

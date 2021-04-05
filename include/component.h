@@ -16,7 +16,7 @@ namespace kronos {
         Bus<T> getBus(const String& name);
 
         template <typename T>
-        Vector<Bus<T>> getBuses(int opcode);
+        Vector< Bus<T> > getBuses(int opcode);
 
         template <typename T>
         void onReceive(int opcode, T data);
