@@ -10,36 +10,48 @@
 
 namespace kronos {
 
+    typedef struct {
+        const int code;
+        const char* msg;
+    } ErrorCode;
+
     template <typename T>
     class Kronos {
     private:
-        struct MyKeyHash {
+        struct HashingFunction {
             unsigned long operator()(const int& k) const
             {
                 return k % MAX_BUSES_NUM;
             }
         };
 
-        HashMap<int, Vector< Bus<T> >, 10, MyKeyHash> buses;
-        HashMap<int, T, 10, MyKeyHash> opcodeData;
+        const static int MAX_BUSES_NUM = 1000;
+        HashMap<int, Vector< Bus<T> >, MAX_BUSES_NUM, HashingFunction> buses;
+        HashMap<int, T, MAX_BUSES_NUM, HashingFunction> opcodeData;
 
         const int OPCODE_EMPTY_QUEUE = 0;
         int currentAvailableOpcode = OPCODE_EMPTY_QUEUE + 1;
 
-        const static int MAX_BUSES_NUM = 1000;
 
+        // error codes
+        const ErrorCode SUCCESS = {0, "Success!"};;
+        const ErrorCode RESERVED_OPCODE = {1, "Reserved opcode, please use another one!"};
+        const ErrorCode UNREGISTERED_OPCODE = {2, "Unregistered opcode, please register it first!"};
+        const ErrorCode NON_EXISTING_OPCODE = {3, "Non-existing opcode, please make sure to use an existing opcode"};
+        const ErrorCode NON_EXISTING_BUS = {4, "Non-existing bus, please make sure to use an existing bus"};
 
-        bool isValidOpcode(int opcode);
+        // private methods
+        ErrorCode isValidOpcode(int opcode);
     public:
         Kronos(int opcodeEmptyQueue);
 
         virtual ~Kronos();
 
         int registerEventType(T argType);
-        bool removeEventType(int opcode);
+        int removeEventType(int opcode);
 
-        bool registerBus(int opcode, Bus<T> bus);
-        bool removeBus(int opcode, Bus<T> bus);
+        int registerBus(int opcode, Bus<T> bus);
+        int removeBus(int opcode, Bus<T> bus);
     };
 
 

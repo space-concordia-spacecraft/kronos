@@ -20,9 +20,10 @@ namespace kronos {
     }
 
     template<typename T>
-    bool Kronos<T>::registerBus(int opcode, Bus<T> bus) {
-        if(!isValidOpcode(opcode))
-            return false;
+    int Kronos<T>::registerBus(int opcode, Bus<T> bus) {
+        ErrorCode errorCode = isValidOpcode(opcode);
+        if(errorCode.code != SUCCESS.code)
+            return errorCode.code;
 
         // TODO:: check whether the bus data type corresponds to the opcode
 
@@ -32,46 +33,48 @@ namespace kronos {
         this->buses.get(opcode, busesValues);
         busesValues.add(bus);
         this->buses.put(opcode, busesValues);
-        return true;
+        return SUCCESS.code;
     }
 
     template<typename T>
-    bool Kronos<T>::removeBus(int opcode, Bus<T> bus) {
-        if(!isValidOpcode(opcode))
-            return false;
+    int Kronos<T>::removeBus(int opcode, Bus<T> bus) {
+        ErrorCode errorCode = isValidOpcode(opcode);
+        if(errorCode.code != SUCCESS.code)
+            return errorCode.code;
 
         Vector< Bus<T> > busesValues;
 
         this->buses.get(opcode, busesValues);
         if(!busesValues.contains(bus))
-            return false;   // bus not existing for this opcode
+            return NON_EXISTING_BUS.code;   // bus not existing for this opcode
 
         this->buses.remove(opcode);
-        return true;
+        return SUCCESS.code;
     }
 
     template<typename T>
-    bool Kronos<T>::removeEventType(int opcode) {
-        if(!isValidOpcode(opcode))
-            return false;
+    int Kronos<T>::removeEventType(int opcode) {
+        ErrorCode errorCode = isValidOpcode(opcode);
+        if(errorCode.code != SUCCESS.code)
+            return errorCode.code;
 
         T data;
         if(!this->opcodeData.get(opcode, data))
-            return false;   // non existing opcode
+            return NON_EXISTING_OPCODE.code;   // non existing opcode
 
         this->opcodeData.remove(opcode);
-        return true;
+        return SUCCESS.code;
     }
 
     template<typename T>
-    bool Kronos<T>::isValidOpcode(int opcode) {
+    ErrorCode Kronos<T>::isValidOpcode(int opcode) {
         if(opcode == OPCODE_EMPTY_QUEUE)
-            return false;   // reserved opcode
+            return RESERVED_OPCODE;   // reserved opcode
 
         T data;
         if(!this->opcodeData.get(opcode, data))
-            return false;   // unregistered opcode, please register it first
+            return UNREGISTERED_OPCODE;   // unregistered opcode, please register it first
 
-        return true;
+        return SUCCESS;
     }
 }
