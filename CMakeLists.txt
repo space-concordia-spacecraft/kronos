@@ -1,16 +1,15 @@
-# CMAKE minimum version
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.14)
+project(testing_test)
 
-# Setup project
-project("kronos")
+set(CMAKE_CXX_STANDARD 14)
 
-# Clump source files from src
-file(GLOB KRONOS_SRC "src/**/*.cpp" "src/**/*.c" "src/*.cpp" "src/*.c" "include/*.hpp" "include/*.h" "include/**/*.h" "include/**/*.hpp")
+set(SOURCE_FILES main.cpp)
+add_executable(Kronos_run ${SOURCE_FILES})
 
-# Setup binary
-#add_sam_executable("kronos" ${KRONOS_SRC})
-add_executable(${PROJECT_NAME} ${KRONOS_SRC})
+include_directories(Kronos_lib)
+add_subdirectory(Kronos_lib)
 
-# Extra target linking
-target_include_directories(${PROJECT_NAME} PRIVATE include include/types)
+target_link_libraries(Kronos_run Kronos_lib)
+
+add_subdirectory(Google_tests)
 
