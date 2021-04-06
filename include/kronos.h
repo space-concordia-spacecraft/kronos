@@ -6,7 +6,7 @@
 #define KRONOS_KRONOS_H
 
 #include "bus.h"
-#include "types/hashmap.h"
+#include "hashmap.h"
 
 namespace kronos {
 
@@ -24,19 +24,22 @@ namespace kronos {
         HashMap<int, T, 10, MyKeyHash> opcodeData;
 
         const int OPCODE_EMPTY_QUEUE = 0;
+        int currentAvailableOpcode = OPCODE_EMPTY_QUEUE + 1;
 
         const static int MAX_BUSES_NUM = 1000;
 
+
+        bool isValidOpcode(int opcode);
     public:
         Kronos(int opcodeEmptyQueue);
 
         virtual ~Kronos();
 
         int registerEventType(T argType);
-        void removeEventType(int opcode);
+        bool removeEventType(int opcode);
 
-        void registerBus(int opcode, Bus<T> bus);
-        void removeBus(int opcode, Bus<T> bus);
+        bool registerBus(int opcode, Bus<T> bus);
+        bool removeBus(int opcode, Bus<T> bus);
     };
 
 

@@ -12,5 +12,5 @@ file(GLOB KRONOS_SRC "src/**/*.cpp" "src/**/*.c" "src/*.cpp" "src/*.c" "include/
 add_executable(${PROJECT_NAME} ${KRONOS_SRC})
 
 # Extra target linking
-target_include_directories(${PROJECT_NAME} PRIVATE "include")
+target_include_directories(${PROJECT_NAME} PRIVATE include include/types)
 

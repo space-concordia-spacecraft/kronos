@@ -1,7 +1,7 @@
-#include <iostream>
+#include <string.h>
+#include "hashmap.h"
 
-#include <types/string.h>
-#include "types/hashmap.h"
+
 
 struct MyKeyHash {
     unsigned long operator()(const int& k) const

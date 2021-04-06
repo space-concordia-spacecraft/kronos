@@ -1,4 +1,4 @@
-#include "types/string.h"
+#include "string.h"
 
 String::String(const char * str) : deallocate(false), str(str) {
     int i = 0;

@@ -53,6 +53,7 @@ public:
     void add(T element);
     void addAll(Vector<T> values);
     void remove(T element);
+    int contains(T element);
 
     virtual VectorIterator<T> begin();
     virtual VectorIterator<T> end();
@@ -60,5 +61,4 @@ public:
     inline T& operator[](int index) const {
         return elements[index];
     }
-
 };

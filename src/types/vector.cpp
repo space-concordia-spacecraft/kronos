@@ -1,4 +1,4 @@
-#include "types/vector.h"
+#include "vector.h"
 
 template <typename T>
 Vector<T>::Vector(int size) :
@@ -43,6 +43,7 @@ void Vector<T>::remove(T element) {
     length--;
 }
 
+
 template<typename T>
 void Vector<T>::expand(int minSize) {
     int newCapacity = 2 * capacity;
@@ -67,4 +68,17 @@ VectorIterator<T> Vector<T>::begin() {
 template<typename T>
 VectorIterator<T> Vector<T>::end() {
     return VectorIterator<T>(this, length);
+}
+
+
+template<typename T>
+int Vector<T>::contains(T element) {
+    int elementIndex = -1;
+    for (int i = 0; i < length; i++) {
+        if (elements[i] == element) {
+            elementIndex = i;
+            break;
+        }
+    }
+    return elementIndex;
 }

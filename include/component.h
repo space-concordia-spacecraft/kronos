@@ -1,7 +1,7 @@
 #pragma once
 
-#include "types/string.h"
-#include "types/vector.h"
+#include "string.h"
+#include "vector.h"
 
 namespace kronos {
 
