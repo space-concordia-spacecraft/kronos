@@ -3,7 +3,7 @@
 namespace kronos {
 
     template <typename T>
-    Bus<T> Component::getBus(const String & name) {
+    Bus<T> Component::getBus(const Ks_String & name) {
         // TODO replace with appropriate framework call
         return Bus<T>(0, "");
     }

@@ -3,7 +3,7 @@
 namespace kronos {
 
     template<typename T>
-    Bus<T>::Bus(int op, const String& name): opcode(op), name(name) {}
+    Bus<T>::Bus(int op, const Ks_String& name): opcode(op), name(name) {}
 
     template<typename T>
     Bus<T>::~Bus(){

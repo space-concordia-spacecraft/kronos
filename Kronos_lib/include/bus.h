@@ -1,6 +1,6 @@
 #pragma once
 
-#include "string.h"
+#include "ks_string.h"
 #include "vector.h"
 
 #include "component.h"
@@ -12,11 +12,11 @@ namespace kronos {
 
     private:
         int opcode;
-        String name;
+        Ks_String name;
         Vector<Component> receivers;
 
     public:
-        Bus(int opcode, const String& name);
+        Bus(int opcode, const Ks_String& name);
         ~Bus();
 
         bool broadcast(T data);

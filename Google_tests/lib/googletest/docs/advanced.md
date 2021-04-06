@@ -404,7 +404,7 @@ gMock is bundled with googletest, so you don't need to add any build dependency
 in order to take advantage of this. Just include `"gmock/gmock.h"`
 and you're ready to go.
 
-### More String Assertions
+### More Ks_String Assertions
 
 (Please read the [previous](#asserting-using-gmock-matchers) section first if
 you haven't.)

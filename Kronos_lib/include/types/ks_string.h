@@ -1,18 +1,18 @@
 #pragma once
 
 
-class String {
+class Ks_String {
 
 private:
     const bool deallocate;
     const char * str;
     int length;
 
-    String(const char * str, bool deallocate);
+    Ks_String(const char * str, bool deallocate);
 
 public:
-    String(const char * str);
-    ~String();
+    Ks_String(const char * str);
+    ~Ks_String();
 
     inline const char * ptr() const {
         return str;
@@ -22,7 +22,7 @@ public:
         return length;
     }
 
-    static inline String concatenate(const String& first, const String& second) {
+    static inline Ks_String concatenate(const Ks_String& first, const Ks_String& second) {
         char * newStr = new char[first.length + second.length + 1];
 
         // TODO replace with memory copying functions
@@ -33,19 +33,19 @@ public:
 
         newStr[first.length + second.length - 1] = '\0';
 
-        return String(newStr, true);
+        return Ks_String(newStr, true);
     }
 
-    friend String operator+(const String& left, const String& right) {
+    friend Ks_String operator+(const Ks_String& left, const Ks_String& right) {
         return concatenate(left, right);
     }
 
-    String operator+=(const String& right) {
-        String a = *this;
+    Ks_String operator+=(const Ks_String& right) {
+        Ks_String a = *this;
         return concatenate(a, right);
     }
 
-    String operator=(const String& target) {
+    Ks_String operator=(const Ks_String& target) {
         return target;
     }
 

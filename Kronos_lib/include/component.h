@@ -1,6 +1,6 @@
 #pragma once
 
-#include "string.h"
+#include "ks_string.h"
 #include "vector.h"
 
 namespace kronos {
@@ -13,7 +13,7 @@ namespace kronos {
     public:
 
         template <typename T>
-        Bus<T> getBus(const String& name);
+        Bus<T> getBus(const Ks_String& name);
 
         template <typename T>
         Vector< Bus<T> > getBuses(int opcode);

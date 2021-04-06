@@ -318,7 +318,7 @@ user wants.
 | `NanSensitiveFloatNear(a_float, max_abs_error)`   | `argument` is a `float` value close to `a_float` (absolute error <= `max_abs_error`), treating two NaNs as equal. |
 <!-- mdformat on -->
 
-### String Matchers
+### Ks_String Matchers
 
 The `argument` can be either a C string or a C++ string object:
 

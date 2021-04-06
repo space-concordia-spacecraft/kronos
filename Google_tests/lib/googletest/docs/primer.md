@@ -213,7 +213,7 @@ and `wstring`).
 as `ASSERT_EQ(expected, actual)`, so lots of existing code uses this order. Now
 `*_EQ` treats both parameters in the same way.
 
-### String Comparison
+### Ks_String Comparison
 
 The assertions in this group compare two **C strings**. If you want to compare
 two `string` objects, use `EXPECT_EQ`, `EXPECT_NE`, and etc instead.
