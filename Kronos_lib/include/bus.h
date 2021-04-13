@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ks_string.h"
-#include "vector.h"
 
 #include "component.h"
 
@@ -16,12 +14,19 @@ namespace kronos {
         Vector<Component> receivers;
 
     public:
-        Bus(int opcode, const Ks_String& name);
-        ~Bus();
+        Bus(int op, const Ks_String& name): opcode(op), name(name) {};
 
-        bool broadcast(T data);
-        void subscribe(Component newComponent);
+        ~Bus(){};
 
+        bool broadcast(T data) {
+            for (Component c : receivers)
+                c.onReceive(opcode, data);
+            return false;
+        };
+
+        void subscribe(Component newComponent) {
+            receivers.add(newComponent);
+        };
     };
 
 }

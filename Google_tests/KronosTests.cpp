@@ -1,16 +1,17 @@
 #include "gtest/gtest.h"
-#include "hashmap.h"
-#include "keyhash.h"
+#include "bus.h"
+//#include "kronos.h"
 
-//using namespace kronos;
+using namespace kronos;
 
 class KronosFixture : public ::testing::Test {
 
 protected:
     //Kronos<int>* framework;
+    //Kronos<int> framework;
 
     virtual void SetUp() {
-        //framework = new Kronos<int>();
+      //  framework = new Kronos<int>();
     }
 
     virtual void TearDown() {
@@ -19,8 +20,5 @@ protected:
 };
 
 TEST_F(KronosFixture, OpcodeValidity){
-    //auto* bus = new Bus<int>(1, "S");
-    //framework->registerBus(1, *bus);
-    //int i = framework->isValidOpcode(0).code;
-    //EXPECT_EQ(framework->isValidOpcode(0).code,framework->RESERVED_OPCODE.code);
+    auto* bus = new Bus<int>(1, "S");
 }
