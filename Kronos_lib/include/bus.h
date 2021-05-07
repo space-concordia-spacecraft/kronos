@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "component.h"
 
 namespace kronos {
@@ -10,13 +9,13 @@ namespace kronos {
 
     private:
         int opcode;
-        Ks_String name;
+        String name;
         Vector<Component> receivers;
 
     public:
-        Bus(int op, const Ks_String& name): opcode(op), name(name) {};
+        Bus(int op, const String& name): opcode(op), name(name) {};
 
-        ~Bus(){};
+        ~Bus() = default;
 
         bool broadcast(T data) {
             for (Component c : receivers)

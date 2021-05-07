@@ -1,45 +1,50 @@
 #pragma once
 
-#include "iterable.h"
-
 namespace kronos {
+
+    template<class T>
+    struct Iterable {
+        virtual T begin() = 0;
+
+        virtual T end() = 0;
+    };
+
     template<typename T>
     class Vector;
 
     template<typename T>
     class VectorIterator {
     private:
-        const Vector<T> *vector;
+        const Vector<T> & vector;
         const int index;
 
     public:
-        VectorIterator(Vector<T> *vector, int index) : vector(vector), index(index) {};
+        VectorIterator(Vector<T> & vector, int index) : vector(vector), index(index) {};
 
         VectorIterator operator++() {
             return VectorIterator(index + 1, vector);
         };
 
-        inline const T &operator*() {
+        inline T & operator*() {
             return vector[index];
         }
 
-        inline friend bool operator==(const VectorIterator<T> &left, const VectorIterator<T> &right) {
+        inline friend bool operator==(const VectorIterator<T> & left, const VectorIterator<T> & right) {
             return left.index == right.index && left.vector == right.vector;
         }
 
-        inline friend bool operator!=(const VectorIterator<T> &left, const VectorIterator<T> &right) {
+        inline friend bool operator!=(const VectorIterator<T> & left, const VectorIterator<T> & right) {
             return !(left == right);
         }
     };
 
-
     template<typename T>
-    class Vector : Iterable<VectorIterator<T> > {
+    class Vector : Iterable<VectorIterator<T>> {
 
     private:
         int capacity;
         int length;
-        T *elements;
+        T * elements;
 
         void expand(int minSize = 0) {
             int newCapacity = 2 * capacity;
@@ -57,7 +62,7 @@ namespace kronos {
         }
 
     public:
-        Vector(int size = 10) :
+        explicit Vector(int size = 10) :
                 capacity(size), length(0) {};
 
         ~Vector() {
@@ -114,13 +119,14 @@ namespace kronos {
             return VectorIterator<T>(this, 0);
         }
 
-
         VectorIterator<T> end() {
             return VectorIterator<T>(this, length);
         }
 
-        inline T &operator[](int index) const {
+        inline T & operator[](int index) const {
             return elements[index];
         }
+
     };
+
 }

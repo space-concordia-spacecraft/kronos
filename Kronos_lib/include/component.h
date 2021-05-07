@@ -1,7 +1,7 @@
 #pragma once
 
+#include "string.h"
 #include "vector.h"
-#include "ks_string.h"
 
 namespace kronos {
 
@@ -12,7 +12,7 @@ namespace kronos {
     public:
 
         template <typename T>
-        Bus<T> getBus(const Ks_String& name){
+        Bus<T> getBus(const String& name){
             // TODO replace with appropriate framework call
             return Bus<T>(0, "");
         };

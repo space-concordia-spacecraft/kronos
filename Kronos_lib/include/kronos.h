@@ -1,9 +1,4 @@
-//
-// Created by Mazen on 04.04.21.
-//
-
-#ifndef KRONOS_KRONOS_H
-#define KRONOS_KRONOS_H
+#pragma once
 
 #include "bus.h"
 #include "hashmap.h"
@@ -12,29 +7,22 @@ namespace kronos {
 
     typedef struct {
         const int code;
-        const char* msg;
+        const char * msg;
     } ErrorCode;
 
-    template <typename T>
+    template<typename T>
     class Kronos {
     private:
-        struct HashingFunction {
-            unsigned long operator()(const int& k) const
-            {
-                return k % MAX_BUSES_NUM;
-            }
-        };
-
-        const static int MAX_BUSES_NUM = 1000;
-        HashMap<int, Vector< Bus<T> >, MAX_BUSES_NUM, HashingFunction> buses;
-        HashMap<int, T, MAX_BUSES_NUM, HashingFunction> opcodeData;
+        HashMap<int, Vector<Bus<T>>> buses;
+        HashMap<int, T> opcodeData;
 
         const int OPCODE_EMPTY_QUEUE = 0;
         int currentAvailableOpcode = OPCODE_EMPTY_QUEUE + 1;
 
 
     public:
-        Kronos()= default;
+        Kronos() = default;
+
         virtual ~Kronos() = default;
 
 
@@ -46,14 +34,14 @@ namespace kronos {
 
         int registerBus(int opcode, Bus<T> bus) {
             ErrorCode errorCode = isValidOpcode(opcode);
-            if(errorCode.code != SUCCESS.code)
+            if (errorCode.code != SUCCESS.code)
                 return errorCode.code;
 
             // TODO:: check whether the bus data type corresponds to the opcode
 
 
             // add the bus
-            Vector< Bus<T> > busesValues;
+            Vector<Bus<T> > busesValues;
             this->buses.get(opcode, busesValues);
             busesValues.add(bus);
             this->buses.put(opcode, busesValues);
@@ -62,13 +50,13 @@ namespace kronos {
 
         int removeBus(int opcode, Bus<T> bus) {
             ErrorCode errorCode = isValidOpcode(opcode);
-            if(errorCode.code != SUCCESS.code)
+            if (errorCode.code != SUCCESS.code)
                 return errorCode.code;
 
-            Vector< Bus<T> > busesValues;
+            Vector<Bus<T> > busesValues;
 
             this->buses.get(opcode, busesValues);
-            if(!busesValues.contains(bus))
+            if (!busesValues.contains(bus))
                 return NON_EXISTING_BUS.code;   // bus not existing for this opcode
 
             this->buses.remove(opcode);
@@ -77,11 +65,11 @@ namespace kronos {
 
         int removeEventType(int opcode) {
             ErrorCode errorCode = isValidOpcode(opcode);
-            if(errorCode.code != SUCCESS.code)
+            if (errorCode.code != SUCCESS.code)
                 return errorCode.code;
 
             T data;
-            if(!this->opcodeData.get(opcode, data))
+            if (!this->opcodeData.get(opcode, data))
                 return NON_EXISTING_OPCODE.code;   // non existing opcode
 
             this->opcodeData.remove(opcode);
@@ -89,11 +77,11 @@ namespace kronos {
         }
 
         ErrorCode isValidOpcode(int opcode) {
-            if(opcode == OPCODE_EMPTY_QUEUE)
+            if (opcode == OPCODE_EMPTY_QUEUE)
                 return RESERVED_OPCODE;   // reserved opcode
 
             T data;
-            if(!this->opcodeData.get(opcode, data))
+            if (!this->opcodeData.get(opcode, data))
                 return UNREGISTERED_OPCODE;   // unregistered opcode, please register it first
 
             return SUCCESS;
@@ -109,6 +97,3 @@ namespace kronos {
 
 
 }
-
-
-#endif //KRONOS_KRONOS_H
