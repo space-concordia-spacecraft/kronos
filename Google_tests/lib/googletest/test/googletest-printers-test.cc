@@ -33,7 +33,7 @@
 // This file tests the universal value printer.
 
 #include <ctype.h>
-#include <string.h>
+#include <ks_string.h>
 #include <algorithm>
 #include <cstdint>
 #include <deque>

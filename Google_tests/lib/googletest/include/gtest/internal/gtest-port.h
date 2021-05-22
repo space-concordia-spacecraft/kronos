@@ -260,7 +260,7 @@
 #include <stddef.h>  // for ptrdiff_t
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <ks_string.h>
 
 #include <cerrno>
 #include <cstdint>

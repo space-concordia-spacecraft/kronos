@@ -1,15 +1,45 @@
 #include <iostream>
 
-#include "bus.h"
-#include "component.h"
+#include "ks_string.h"
 
-int main()
-{
-    std::cout << "Hello, World!" << std::endl;
+#include "event.h"
+#include "main.h"
 
-    kronos::Component a;
+using namespace kronos;
 
-    a.getBus<int>("");
+struct EventA : public Event<EventA> {
+    int a;
+    float b;
+    EventA(int a, float b) : a(a), b(b) {}
+};
+
+struct EventB : public Event<EventB> {
+    String a;
+    EventB(const String & a) : a(a) {}
+};
+
+struct Listener {
+    void receive(const EventB & event) {
+        std::cout << event.a.ptr() << std::endl;
+    }
+
+    void receive(const EventA & event) {
+        std::cout << event.a << " - " << event.b << std::endl;
+    }
+};
+
+int main() {
+
+    Listener listener1;
+    Listener listener2;
+
+    Bus<EventB, EventA> bus;
+
+    bus.reg(&listener1);
+    bus.reg(&listener2);
+
+    bus.publish<EventA>(23, 2.0f);
+    bus.publish<EventB>("asdasd");
 
     return 0;
 }

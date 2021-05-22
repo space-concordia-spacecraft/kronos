@@ -46,7 +46,7 @@
 # include <mem.h>
 #endif
 
-#include <string.h>
+#include <ks_string.h>
 #include <cstdint>
 #include <string>
 

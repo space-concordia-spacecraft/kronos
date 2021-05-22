@@ -35,7 +35,7 @@
 
 #include "gmock/gmock-matchers.h"
 
-#include <string.h>
+#include <ks_string.h>
 #include <iostream>
 #include <sstream>
 #include <string>

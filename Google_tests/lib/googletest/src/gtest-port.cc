@@ -33,7 +33,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <ks_string.h>
 #include <cstdint>
 #include <fstream>
 #include <memory>

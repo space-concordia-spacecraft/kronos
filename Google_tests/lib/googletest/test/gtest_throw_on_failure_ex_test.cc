@@ -34,7 +34,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <ks_string.h>
 #include <stdexcept>
 
 // Prints the given failure message and exits the program with

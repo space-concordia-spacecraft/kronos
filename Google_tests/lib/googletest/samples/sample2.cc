@@ -31,7 +31,7 @@
 
 #include "sample2.h"
 
-#include <string.h>
+#include <ks_string.h>
 
 // Clones a 0-terminated C string, allocating memory using new.
 const char* MyString::CloneCString(const char* a_c_string) {

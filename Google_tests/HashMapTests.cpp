@@ -1,24 +1,19 @@
-//
-// Created by Mazen on 06.04.21.
-//
-
 #include "gtest/gtest.h"
-#include "hashmap.h"
-#include "keyhash.h"
-
+#include "ks_hashmap.h"
 
 class HashMapFixture : public ::testing::Test {
 
 protected:
-    HashMap<int, int, 10, KeyHash<unsigned long, 10> >* map;
+    HashMap<int, int>* map;
 
     virtual void SetUp() {
-        map = new HashMap<int, int, 10, KeyHash<unsigned long, 10> >();
+        map = new HashMap<int, int>();
     }
 
     virtual void TearDown() {
         delete map;
     }
+
 };
 
 
@@ -33,7 +28,5 @@ TEST_F(HashMapFixture, PutAndGetSuccessScenario){
 }
 
 TEST_F(HashMapFixture, PutAndGetFailingScenario){
-    int val;
-
     EXPECT_FALSE(map->get(0));
 }

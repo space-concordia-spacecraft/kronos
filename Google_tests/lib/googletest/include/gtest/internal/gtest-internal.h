@@ -52,7 +52,7 @@
 
 #include <ctype.h>
 #include <float.h>
-#include <string.h>
+#include <ks_string.h>
 #include <cstdint>
 #include <iomanip>
 #include <limits>

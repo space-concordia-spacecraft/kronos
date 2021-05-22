@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 namespace kronos {
 
     class String {
@@ -7,7 +9,7 @@ namespace kronos {
     private:
         bool deallocate;
         const char * str;
-        int length;
+        size_t length;
 
         String(const char * str, bool deallocate) : deallocate(deallocate), str(str) {
             int i = 0;
@@ -34,7 +36,7 @@ namespace kronos {
             return str;
         }
 
-        inline int size() const {
+        inline size_t size() const {
             return length;
         }
 
@@ -42,12 +44,12 @@ namespace kronos {
             char * newStr = new char[first.length + second.length + 1];
 
             // TODO replace with memory copying functions
-            for (int i = 0; i < first.length; i++)
+            for (uint32_t i = 0; i < first.length; i++)
                 newStr[i] = first.str[i];
-            for (int i = 0; i <= second.length; i++)
-                newStr[i + first.length] = second.str[i];
+            for (uint32_t i = 0; i < second.length; i++)
+                newStr[first.length + i] = second.str[i];
 
-            newStr[first.length + second.length - 1] = '\0';
+            newStr[first.length + second.length] = '\0';
 
             return String(newStr, true);
         }
@@ -76,7 +78,7 @@ namespace kronos {
             deallocate = true;
 
             // TODO replace with memory copying function
-            for (int i = 0; i <= other.length; i++)
+            for (uint32_t i = 0; i <= other.length; i++)
                 newStr[i] = other.str[i];
 
             str = newStr;

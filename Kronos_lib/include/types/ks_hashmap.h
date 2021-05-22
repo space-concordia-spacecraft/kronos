@@ -1,13 +1,11 @@
 #pragma once
 
-#include <cstddef>
-
 #define KS_HASHTABLE_SIZE 16
 
 // Default hash function class
 template<typename K>
 struct KeyHash {
-    unsigned long operator()(const K & key) const {
+    uint32_t operator()(const K & key) const {
         return key & (KS_HASHTABLE_SIZE - 1);
     }
 };
@@ -17,14 +15,13 @@ template<typename K, typename V>
 class HashNode {
 public:
     HashNode(const K & key, const V & value) :
-            _key(key), _value(value), _next(NULL) {
-    }
+            _key(key), _value(value), _next(NULL) {}
 
-    K getKey() const {
+    K & getKey() {
         return _key;
     }
 
-    V getValue() const {
+    V & getValue() {
         return _value;
     }
 

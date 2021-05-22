@@ -2,10 +2,9 @@
 
 namespace kronos {
 
-    template<class T>
+    template<typename T>
     struct Iterable {
         virtual T begin() = 0;
-
         virtual T end() = 0;
     };
 
@@ -16,21 +15,32 @@ namespace kronos {
     class VectorIterator {
     private:
         const Vector<T> & vector;
-        const int index;
+        size_t index;
 
     public:
-        VectorIterator(Vector<T> & vector, int index) : vector(vector), index(index) {};
+        VectorIterator(const Vector<T> & vector, size_t index) : vector(vector), index(index) {};
 
-        VectorIterator operator++() {
-            return VectorIterator(index + 1, vector);
+        VectorIterator<T> & operator++() {
+            index++;
+            return *this;
+        };
+
+        VectorIterator<T> operator++(int) {
+            VectorIterator<T> temp = *this;
+            ++*this;
+            return temp;
         };
 
         inline T & operator*() {
             return vector[index];
         }
 
+        inline T * operator->() {
+            return &vector[index];
+        }
+
         inline friend bool operator==(const VectorIterator<T> & left, const VectorIterator<T> & right) {
-            return left.index == right.index && left.vector == right.vector;
+            return left.index == right.index && &left.vector == &right.vector;
         }
 
         inline friend bool operator!=(const VectorIterator<T> & left, const VectorIterator<T> & right) {
@@ -44,10 +54,10 @@ namespace kronos {
     private:
         int capacity;
         int length;
-        T * elements;
+        T * elements = nullptr;
 
-        void expand(int minSize = 0) {
-            int newCapacity = 2 * capacity;
+        void expand(size_t minSize = 0) {
+            size_t newCapacity = 2 * capacity;
             if (minSize && minSize > newCapacity)
                 newCapacity = minSize;
             T * newElements = new T[newCapacity];
@@ -56,14 +66,17 @@ namespace kronos {
             for (int i = 0; i < length; i++)
                 newElements[i] = elements[i];
 
-            delete[] elements;
+            if (elements != nullptr)
+                delete[] elements;
             elements = newElements;
             capacity = newCapacity;
         }
 
     public:
-        explicit Vector(int size = 10) :
-                capacity(size), length(0) {};
+        explicit Vector(size_t size = 10) :
+                capacity(size), length(0) {
+            expand(size);
+        };
 
         ~Vector() {
             delete[] elements;
@@ -100,8 +113,8 @@ namespace kronos {
                 for (int i = elementIndex; i < length - 1; i++) {
                     elements[i] = elements[i + 1];
                 }
+                length--;
             }
-            length--;
         }
 
         int contains(T element) {
@@ -116,14 +129,14 @@ namespace kronos {
         }
 
         VectorIterator<T> begin() {
-            return VectorIterator<T>(this, 0);
+            return VectorIterator<T>(*this, 0);
         }
 
         VectorIterator<T> end() {
-            return VectorIterator<T>(this, length);
+            return VectorIterator<T>(*this, length);
         }
 
-        inline T & operator[](int index) const {
+        inline T & operator[](size_t index) const {
             return elements[index];
         }
 

@@ -34,7 +34,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
+#include <ks_string.h>
 #include <stdexcept>
 
 class ThrowListener : public testing::EmptyTestEventListener {

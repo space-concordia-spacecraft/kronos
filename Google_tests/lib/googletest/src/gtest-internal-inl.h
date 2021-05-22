@@ -39,7 +39,7 @@
 #endif  // !_WIN32_WCE
 #include <stddef.h>
 #include <stdlib.h>  // For strtoll/_strtoul64/malloc/free.
-#include <string.h>  // For memmove.
+#include <ks_string.h>  // For memmove.
 
 #include <algorithm>
 #include <cstdint>

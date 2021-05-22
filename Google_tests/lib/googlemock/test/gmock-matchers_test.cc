@@ -42,7 +42,7 @@
 
 #include "gmock/gmock-matchers.h"
 
-#include <string.h>
+#include <ks_string.h>
 #include <time.h>
 
 #include <array>

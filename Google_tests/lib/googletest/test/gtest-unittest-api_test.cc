@@ -34,7 +34,7 @@
 
 #include "gtest/gtest.h"
 
-#include <string.h>  // For strcmp.
+#include <ks_string.h>  // For strcmp.
 #include <algorithm>
 
 using ::testing::InitGoogleTest;
