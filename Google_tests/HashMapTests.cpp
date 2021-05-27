@@ -20,6 +20,9 @@ protected:
 TEST_F(HashMapFixture, PutAndGetSuccessScenario){
     int val;
     map->put(0, 10);
+    map->put(1, 20);
+    map->put(2,13);
+    map->put(5,45);
 
     EXPECT_TRUE(map->get(0));
     EXPECT_EQ(val, 10);
