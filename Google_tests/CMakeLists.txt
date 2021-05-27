@@ -3,7 +3,7 @@ project(Kronos_Tests)
 add_subdirectory(lib)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(Kronos_Tests_run KronosTests.cpp HashMapTests.cpp)
+add_executable(Kronos_Tests_run KronosTests.cpp HashMapTests.cpp VectorTests.cpp)
 
 target_link_libraries(Kronos_Tests_run Kronos_lib)
 
