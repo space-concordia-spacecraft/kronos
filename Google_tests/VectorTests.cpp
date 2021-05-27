@@ -26,7 +26,7 @@ TEST_F(VectorFixture, PutAndGetSuccessScenario){
 
 //    EXPECT_TRUE(vector->remove(10));
 }
-//
+
 TEST_F(VectorFixture, PutAndGetFailingScenario){
 //    EXPECT_FALSE(vector->contains(10));
 }
