@@ -16,17 +16,17 @@ protected:
 
 };
 
-
-TEST_F(StringFixture, PutAndGetSuccessScenario){
-int val;
-map->put(0, 10);
-
-EXPECT_TRUE(map->get(0));
-EXPECT_EQ(val, 10);
-
-EXPECT_TRUE(map->get(0));
-}
-
-TEST_F(StringFixture, PutAndGetFailingScenario){
-EXPECT_FALSE(map->get(0));
-}
+//
+//TEST_F(StringFixture, PutAndGetSuccessScenario){
+//int val;
+//map->put(0, 10);
+//
+//EXPECT_TRUE(map->get(0));
+//EXPECT_EQ(val, 10);
+//
+//EXPECT_TRUE(map->get(0));
+//}
+//
+//TEST_F(StringFixture, PutAndGetFailingScenario){
+//EXPECT_FALSE(map->get(0));
+//}

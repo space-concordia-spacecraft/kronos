@@ -52,75 +52,79 @@ namespace kronos {
     class Vector : Iterable<VectorIterator<T>> {
 
     private:
-        int capacity;
-        int length;
-        T * elements = nullptr;
+        int m_capacity;
+        int m_size;
+        T * m_elements = nullptr;
 
         void expand(size_t minSize = 0) {
-            size_t newCapacity = 2 * capacity;
+            size_t newCapacity = 2 * m_capacity;
             if (minSize && minSize > newCapacity)
                 newCapacity = minSize;
             T * newElements = new T[newCapacity];
 
             // TODO replace with memory copying function
-            for (int i = 0; i < length; i++)
-                newElements[i] = elements[i];
+            for (int i = 0; i < m_size; i++)
+                newElements[i] = m_elements[i];
 
-            if (elements != nullptr)
-                delete[] elements;
-            elements = newElements;
-            capacity = newCapacity;
+            if (m_elements != nullptr)
+                delete[] m_elements;
+            m_elements = newElements;
+            m_capacity = newCapacity;
         }
 
     public:
-        explicit Vector(size_t size = 10) :
-                capacity(size), length(0) {
+        explicit Vector(size_t size = 5) :
+                m_capacity(size), m_size(0) {
             expand(size);
         };
 
         ~Vector() {
-            delete[] elements;
+            delete[] m_elements;
         }
 
         inline int size() const {
-            return length;
+            return m_size;
+        }
+
+        inline int capacity() const {
+            return m_capacity;
         }
 
         void add(T element) {
-            if (length + 1 > capacity)
-                expand(length + 1);
-            elements[length++] = element;
+            if (m_size + 1 > m_capacity)
+                expand(m_size + 1);
+            m_elements[m_size++] = element;
         }
 
         void addAll(Vector<T> values) {
-            if (length + values.length > capacity)
-                expand(length + values.length);
-            for (int i = 0; i < values.length; i++) {
-                elements[length + i] = values[i];
+            if (m_size + values.m_size > m_capacity)
+                expand(m_size + values.m_size);
+            for (int i = 0; i < values.m_size; i++) {
+                m_elements[m_size + i] = values[i];
             }
-            length += values.length;
+            m_size += values.m_size;
         }
 
         void remove(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < length; i++) {
-                if (elements[i] == element) {
+            for (int i = 0; i < m_size; i++) {
+                if (m_elements[i] == element) {
                     elementIndex = i;
                     break;
                 }
             }
             if (elementIndex >= 0) {
-                for (int i = elementIndex; i < length - 1; i++) {
-                    elements[i] = elements[i + 1];
+                for (int i = elementIndex; i < m_size - 1; i++) {
+                    m_elements[i] = m_elements[i + 1];
                 }
-                length--;
+                m_size--;
             }
         }
 
         int contains(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < length; i++) {
-                if (elements[i] == element) {
+            for (int i = 0; i < m_size; i++) {
+                if (m_elements[i] == element) {
                     elementIndex = i;
                     break;
                 }
@@ -128,16 +132,20 @@ namespace kronos {
             return elementIndex;
         }
 
+        void clear(){
+            m_size = 0;
+        }
+
         VectorIterator<T> begin() {
             return VectorIterator<T>(*this, 0);
         }
 
         VectorIterator<T> end() {
-            return VectorIterator<T>(*this, length);
+            return VectorIterator<T>(*this, m_size);
         }
 
         inline T & operator[](size_t index) const {
-            return elements[index];
+            return m_elements[index];
         }
 
     };
