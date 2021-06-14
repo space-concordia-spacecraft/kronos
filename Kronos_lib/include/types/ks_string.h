@@ -64,8 +64,7 @@ namespace kronos {
         // += operator overload
         String operator+=(const String & right) {
             String a = *this;
-            a = a + right;
-            return a;
+            return concatenate(a, right);
         }
 
         //= operator overload
