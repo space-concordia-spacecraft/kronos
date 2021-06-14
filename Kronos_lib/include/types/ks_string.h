@@ -19,6 +19,7 @@ namespace kronos {
         }
 
     public:
+        //Constructor
         String(const char * str) : deallocate(false), str(str) {
             int i = 0;
             while (str[i] != '\0')
@@ -26,6 +27,7 @@ namespace kronos {
             length = i;
         }
 
+        //Destructor
         ~String() {
             if (deallocate) {
                 delete[] str;
@@ -40,6 +42,7 @@ namespace kronos {
             return length;
         }
 
+        //Concatenate function
         static inline String concatenate(const String & first, const String & second) {
             char * newStr = new char[first.length + second.length + 1];
 
@@ -54,15 +57,18 @@ namespace kronos {
             return String(newStr, true);
         }
 
+        // + operator overload
         friend String operator+(const String & left, const String & right) {
             return concatenate(left, right);
         }
-
+        // += operator overload
         String operator+=(const String & right) {
             String a = *this;
-            return concatenate(a, right);
+            a = a + right;
+            return a;
         }
 
+        //= operator overload
         String & operator=(const String & other) {
             if (this == &other)
                 return *this;
@@ -85,6 +91,35 @@ namespace kronos {
             return *this;
         }
 
+        //== operator overload
+        friend bool operator==(const String& lhs, const String& rhs) {
+            if (lhs.length != rhs.length) {
+                return false;
+            }
+            for (uint32_t i = 0; i <= lhs.length; i++) {
+                if (lhs.str[i] != rhs.str[i]) {
+                    return false;
+                }
+            }
+
+
+            return true;
+        }
+
+        //!= operator overload
+        friend bool operator!=(const String& lhs, const String& rhs) {
+            if (lhs.length != rhs.length) {
+                return true;
+            }
+            for (uint32_t i = 0; i <= lhs.length; i++) {
+                if (lhs.str[i] != rhs.str[i]) {
+                    return true;
+                }
+            }
+
+
+            return false;
+        }
     };
 
 }
