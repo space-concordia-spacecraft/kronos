@@ -119,6 +119,13 @@ namespace kronos {
 
             return false;
         }
+
+        //[index] operator overload
+        char operator[](uint32_t idx) {
+
+
+            return str[idx];
+        }
     };
 
 }

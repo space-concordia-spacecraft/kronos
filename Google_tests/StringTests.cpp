@@ -56,7 +56,11 @@ TEST_F(StringFixture, StringAdditionAssignemntTest) {
     EXPECT_EQ(str, "KronosCronus") << "Incorrect string addition and assignment!";
 }
 
-
+//str []
+TEST_F(StringFixture, StringIndexTest) {
+    EXPECT_EQ(str[0], 'K') << "Incorrect string index!";
+    EXPECT_EQ(str[5], 's') << "Incorrect string index!";
+}
 
 
 
