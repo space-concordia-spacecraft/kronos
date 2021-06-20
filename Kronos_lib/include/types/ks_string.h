@@ -62,9 +62,10 @@ namespace kronos {
             return concatenate(left, right);
         }
         // += operator overload
-        String operator+=(const String & right) {
-            String a = *this;
-            return concatenate(a, right);
+        String & operator+=(const String & right) {
+            *this = concatenate(*this, right);
+
+            return *this;
         }
 
         //= operator overload
