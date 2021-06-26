@@ -3,7 +3,7 @@
 #include "ks_string.h"
 
 #include "event.h"
-#include "main.h"
+#include "bus.h"
 
 using namespace kronos;
 

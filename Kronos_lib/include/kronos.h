@@ -1,6 +1,6 @@
 #pragma once
 
-#include "main.h"
+#include "bus.h"
 #include "ks_hashmap.h"
 
 namespace kronos {
