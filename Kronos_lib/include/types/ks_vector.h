@@ -52,79 +52,89 @@ namespace kronos {
     class Vector : Iterable<VectorIterator<T>> {
 
     private:
-        int m_capacity;
-        int m_size;
-        T * m_elements = nullptr;
+        int m_Capacity;
+        int m_Size;
+        T * m_Elements = nullptr;
 
         void expand(size_t minSize = 0) {
-            size_t newCapacity = 2 * m_capacity;
+            size_t newCapacity = 2 * m_Capacity;
             if (minSize && minSize > newCapacity)
                 newCapacity = minSize;
             T * newElements = new T[newCapacity];
 
             // TODO replace with memory copying function
-            for (int i = 0; i < m_size; i++)
-                newElements[i] = m_elements[i];
+            for (int i = 0; i < m_Size; i++)
+                newElements[i] = m_Elements[i];
 
-            if (m_elements != nullptr)
-                delete[] m_elements;
-            m_elements = newElements;
-            m_capacity = newCapacity;
+            if (m_Elements != nullptr)
+                delete[] m_Elements;
+            m_Elements = newElements;
+            m_Capacity = newCapacity;
         }
 
     public:
         explicit Vector(size_t size = 5) :
-                m_capacity(size), m_size(0) {
+                m_Capacity(size), m_Size(0) {
             expand(size);
         };
 
         ~Vector() {
-            delete[] m_elements;
+            delete[] m_Elements;
         }
 
         inline int size() const {
-            return m_size;
+            return m_Size;
         }
 
         inline int capacity() const {
-            return m_capacity;
+            return m_Capacity;
         }
 
         void add(T element) {
-            if (m_size + 1 > m_capacity)
-                expand(m_size + 1);
-            m_elements[m_size++] = element;
+            if (m_Size + 1 > m_Capacity)
+                expand(m_Size + 1);
+            m_Elements[m_Size++] = element;
         }
 
         void addAll(Vector<T> values) {
-            if (m_size + values.m_size > m_capacity)
-                expand(m_size + values.m_size);
-            for (int i = 0; i < values.m_size; i++) {
-                m_elements[m_size + i] = values[i];
+            if (m_Size + values.m_Size > m_Capacity)
+                expand(m_Size + values.m_Size);
+            for (int i = 0; i < values.m_Size; i++) {
+                m_Elements[m_Size + i] = values[i];
             }
-            m_size += values.m_size;
+            m_Size += values.m_Size;
         }
 
         void remove(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < m_size; i++) {
-                if (m_elements[i] == element) {
+            for (int i = 0; i < m_Size; i++) {
+                if (m_Elements[i] == element) {
                     elementIndex = i;
                     break;
                 }
             }
             if (elementIndex >= 0) {
-                for (int i = elementIndex; i < m_size - 1; i++) {
-                    m_elements[i] = m_elements[i + 1];
+                for (int i = elementIndex; i < m_Size - 1; i++) {
+                    m_Elements[i] = m_Elements[i + 1];
                 }
-                m_size--;
+                m_Size--;
             }
+        }
+
+        void remove(size_t index) {
+            if(index >= m_Size)
+                return;
+
+            for (int i = index; i < m_Size - 1; i++) {
+                m_Elements[i] = m_Elements[i + 1];
+            }
+            m_Size--;
         }
 
         int contains(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < m_size; i++) {
-                if (m_elements[i] == element) {
+            for (int i = 0; i < m_Size; i++) {
+                if (m_Elements[i] == element) {
                     elementIndex = i;
                     break;
                 }
@@ -133,7 +143,7 @@ namespace kronos {
         }
 
         void clear(){
-            m_size = 0;
+            m_Size = 0;
         }
 
         VectorIterator<T> begin() {
@@ -141,11 +151,15 @@ namespace kronos {
         }
 
         VectorIterator<T> end() {
-            return VectorIterator<T>(*this, m_size);
+            return VectorIterator<T>(*this, m_Size);
         }
 
         inline T & operator[](size_t index) const {
-            return m_elements[index];
+            return get(index);
+        }
+
+        T & get(size_t index) const {
+            return m_Elements[index];
         }
 
     };
