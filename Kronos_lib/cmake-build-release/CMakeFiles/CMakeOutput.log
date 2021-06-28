@@ -1,0 +1,101 @@
+The system is: Windows - 10.0.19042 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) C/C++ Optimizing Compiler Version 19.28.29910 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 14.28.29910.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/3.17.3/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Microsoft (R) C/C++ Optimizing Compiler Version 19.28.29910 for x64
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 14.28.29910.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_0429c\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_0429c.dir\build.make /nologo -L                  CMakeFiles\cmTC_0429c.dir\build
+Building C object CMakeFiles/cmTC_0429c.dir/testCCompiler.c.obj
+	C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @C:\Users\Ruben\AppData\Local\Temp\nm8693.tmp
+testCCompiler.c
+Linking C executable cmTC_0429c.exe
+	"E:\Applications\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_0429c.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests  -- C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_0429c.dir\objects1.rsp @C:\Users\Ruben\AppData\Local\Temp\nm86E2.tmp
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp/cmTC_0429c.exe -installedDir C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_c88f6\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_c88f6.dir\build.make /nologo -L                  CMakeFiles\cmTC_c88f6.dir\build
+Building C object CMakeFiles/cmTC_c88f6.dir/CMakeCCompilerABI.c.obj
+	C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @C:\Users\Ruben\AppData\Local\Temp\nm8C8E.tmp
+CMakeCCompilerABI.c
+Linking C executable cmTC_c88f6.exe
+	"E:\Applications\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_c88f6.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests  -- C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_c88f6.dir\objects1.rsp @C:\Users\Ruben\AppData\Local\Temp\nm8CFC.tmp
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp/cmTC_c88f6.exe -installedDir C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_218bf\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_218bf.dir\build.make /nologo -L                  CMakeFiles\cmTC_218bf.dir\build
+Building CXX object CMakeFiles/cmTC_218bf.dir/testCXXCompiler.cxx.obj
+	C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @C:\Users\Ruben\AppData\Local\Temp\nm9316.tmp
+testCXXCompiler.cxx
+Linking CXX executable cmTC_218bf.exe
+	"E:\Applications\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_218bf.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests  -- C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_218bf.dir\objects1.rsp @C:\Users\Ruben\AppData\Local\Temp\nm9394.tmp
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp/cmTC_218bf.exe -installedDir C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_5dc70\fast && 	"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_5dc70.dir\build.make /nologo -L                  CMakeFiles\cmTC_5dc70.dir\build
+Building CXX object CMakeFiles/cmTC_5dc70.dir/CMakeCXXCompilerABI.cpp.obj
+	C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\cl.exe @C:\Users\Ruben\AppData\Local\Temp\nm9BC1.tmp
+CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_5dc70.exe
+	"E:\Applications\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_5dc70.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x64\mt.exe --manifests  -- C:\PROGRA~2\MICROS~1\2019\COMMUN~1\VC\Tools\MSVC\1428~1.299\bin\Hostx64\x64\link.exe /nologo @CMakeFiles\cmTC_5dc70.dir\objects1.rsp @C:\Users\Ruben\AppData\Local\Temp\nm9C4E.tmp
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/CMakeTmp/cmTC_5dc70.exe -installedDir C:/Users/Ruben/OneDrive/Desktop/space/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+
+
+

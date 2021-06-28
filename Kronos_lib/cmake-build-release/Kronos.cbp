@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Kronos"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\vcpkg\;CMake Files\..\..\vcpkg\scripts\;CMake Files\..\..\vcpkg\scripts\buildsystems\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kronos_lib">
+				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos_lib.lib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/Kronos_lib"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/PUBLIC"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/types"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/portable/GCC/ARM_CM7"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/FreeRTOSConfig.h"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos_lib"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kronos_lib/fast">
+				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos_lib.lib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/Kronos_lib"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/PUBLIC"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/types"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/portable/GCC/ARM_CM7"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/FreeRTOSConfig.h"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos_lib/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/main.cpp">
+			<Option target="Kronos_lib"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/../../vcpkg/scripts/buildsystems/vcpkg.cmake">
+			<Option virtualFolder="CMake Files\..\..\vcpkg\scripts\buildsystems\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

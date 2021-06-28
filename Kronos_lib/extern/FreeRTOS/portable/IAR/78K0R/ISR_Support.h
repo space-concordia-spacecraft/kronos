@@ -25,7 +25,7 @@
 ; * 1 tab == 4 spaces!
 ; */
 
-#include "FreeRTOSConfig.h"
+#include "extern/FreeRTOS/FreeRTOSConfig.h"
 
 ; Variables used by scheduler
 ;------------------------------------------------------------------------------

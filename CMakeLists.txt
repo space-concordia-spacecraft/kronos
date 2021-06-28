@@ -3,7 +3,6 @@ project(Kronos)
 
 set(CMAKE_CXX_STANDARD 14)
 
-
 set(SOURCE_FILES main.cpp)
 add_executable(Kronos_run ${SOURCE_FILES})
 
@@ -13,4 +12,3 @@ add_subdirectory(Kronos_lib)
 target_link_libraries(Kronos_run Kronos_lib)
 
 add_subdirectory(Google_tests)
-

@@ -24,7 +24,7 @@
  *
  * 1 tab == 4 spaces!
  */
-#include "FreeRTOSConfig.h"
+#include "extern/FreeRTOS/FreeRTOSConfig.h"
 #include "portasm.h"
 
 	IMPORT xTaskIncrementTick

@@ -25,7 +25,7 @@
 ; * 1 tab == 4 spaces!
 ; */
 ; Note: Select the correct include files for the device used by the application.
-#include "FreeRTOSConfig.h"
+#include "extern/FreeRTOS/FreeRTOSConfig.h"
 ;------------------------------------------------------------------------------
 
 ; Functions used by scheduler
