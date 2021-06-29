@@ -2,8 +2,8 @@
 
 #include "ks_string.h"
 
-#include "event.h"
-#include "bus.h"
+#include "ks_event.h"
+#include "ks_bus.h"
 
 using namespace kronos;
 

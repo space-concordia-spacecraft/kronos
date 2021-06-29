@@ -1,2 +1,0 @@
-C:\PROGRA~2\Atmel\Studio\7.0\TOOLCH~1\arm\ARM-GN~1\bin\ARM-NO~2.EXE qc libKronos_lib.a  CMakeFiles/Kronos_lib.dir/src/main.c.obj
-C:\PROGRA~2\Atmel\Studio\7.0\TOOLCH~1\arm\ARM-GN~1\bin\AR17F9~1.EXE libKronos_lib.a
