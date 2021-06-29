@@ -1,3 +1,4 @@
-C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/Kronos_lib.dir
+C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/Kronos.dir
+C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/Kronos.bin.dir
 C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/edit_cache.dir
 C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/CMakeFiles/rebuild_cache.dir

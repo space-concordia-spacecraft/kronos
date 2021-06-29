@@ -115,32 +115,1245 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Kronos_lib
+# Target rules for targets named Kronos
 
 # Build rule for target.
-Kronos_lib: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) Kronos_lib
-.PHONY : Kronos_lib
+Kronos: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) Kronos
+.PHONY : Kronos
 
 # fast build rule for target.
-Kronos_lib\fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos_lib.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos_lib.dir\build
-.PHONY : Kronos_lib\fast
+Kronos\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\build
+.PHONY : Kronos\fast
+
+#=============================================================================
+# Target rules for targets named Kronos.bin
+
+# Build rule for target.
+Kronos.bin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 /nologo -$(MAKEFLAGS) Kronos.bin
+.PHONY : Kronos.bin
+
+# fast build rule for target.
+Kronos.bin\fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.bin.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.bin.dir\build
+.PHONY : Kronos.bin\fast
+
+extern\ASF\common\services\clock\same70\sysclk.obj: extern\ASF\common\services\clock\same70\sysclk.c.obj
+
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.obj
 
 # target to build an object file
-src\main.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos_lib.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos_lib.dir\src\main.obj
-.PHONY : src\main.obj
+extern\ASF\common\services\clock\same70\sysclk.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\clock\same70\sysclk.c.obj
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.c.obj
+
+extern\ASF\common\services\clock\same70\sysclk.i: extern\ASF\common\services\clock\same70\sysclk.c.i
+
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.i
 
 # target to preprocess a source file
-src\main.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos_lib.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos_lib.dir\src\main.i
-.PHONY : src\main.i
+extern\ASF\common\services\clock\same70\sysclk.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\clock\same70\sysclk.c.i
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.c.i
+
+extern\ASF\common\services\clock\same70\sysclk.s: extern\ASF\common\services\clock\same70\sysclk.c.s
+
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.s
 
 # target to generate assembly for a file
-src\main.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos_lib.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos_lib.dir\src\main.s
+extern\ASF\common\services\clock\same70\sysclk.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\clock\same70\sysclk.c.s
+.PHONY : extern\ASF\common\services\clock\same70\sysclk.c.s
+
+extern\ASF\common\services\serial\usart_serial.obj: extern\ASF\common\services\serial\usart_serial.c.obj
+
+.PHONY : extern\ASF\common\services\serial\usart_serial.obj
+
+# target to build an object file
+extern\ASF\common\services\serial\usart_serial.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\serial\usart_serial.c.obj
+.PHONY : extern\ASF\common\services\serial\usart_serial.c.obj
+
+extern\ASF\common\services\serial\usart_serial.i: extern\ASF\common\services\serial\usart_serial.c.i
+
+.PHONY : extern\ASF\common\services\serial\usart_serial.i
+
+# target to preprocess a source file
+extern\ASF\common\services\serial\usart_serial.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\serial\usart_serial.c.i
+.PHONY : extern\ASF\common\services\serial\usart_serial.c.i
+
+extern\ASF\common\services\serial\usart_serial.s: extern\ASF\common\services\serial\usart_serial.c.s
+
+.PHONY : extern\ASF\common\services\serial\usart_serial.s
+
+# target to generate assembly for a file
+extern\ASF\common\services\serial\usart_serial.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\services\serial\usart_serial.c.s
+.PHONY : extern\ASF\common\services\serial\usart_serial.c.s
+
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.obj: extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.obj
+
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.obj
+
+# target to build an object file
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.obj
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.obj
+
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.i: extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.i
+
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.i
+
+# target to preprocess a source file
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.i
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.i
+
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.s: extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.s
+
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.s
+
+# target to generate assembly for a file
+extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.s
+.PHONY : extern\ASF\common\utils\interrupt\interrupt_sam_nvic.c.s
+
+extern\ASF\common\utils\stdio\read.obj: extern\ASF\common\utils\stdio\read.c.obj
+
+.PHONY : extern\ASF\common\utils\stdio\read.obj
+
+# target to build an object file
+extern\ASF\common\utils\stdio\read.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\read.c.obj
+.PHONY : extern\ASF\common\utils\stdio\read.c.obj
+
+extern\ASF\common\utils\stdio\read.i: extern\ASF\common\utils\stdio\read.c.i
+
+.PHONY : extern\ASF\common\utils\stdio\read.i
+
+# target to preprocess a source file
+extern\ASF\common\utils\stdio\read.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\read.c.i
+.PHONY : extern\ASF\common\utils\stdio\read.c.i
+
+extern\ASF\common\utils\stdio\read.s: extern\ASF\common\utils\stdio\read.c.s
+
+.PHONY : extern\ASF\common\utils\stdio\read.s
+
+# target to generate assembly for a file
+extern\ASF\common\utils\stdio\read.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\read.c.s
+.PHONY : extern\ASF\common\utils\stdio\read.c.s
+
+extern\ASF\common\utils\stdio\write.obj: extern\ASF\common\utils\stdio\write.c.obj
+
+.PHONY : extern\ASF\common\utils\stdio\write.obj
+
+# target to build an object file
+extern\ASF\common\utils\stdio\write.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\write.c.obj
+.PHONY : extern\ASF\common\utils\stdio\write.c.obj
+
+extern\ASF\common\utils\stdio\write.i: extern\ASF\common\utils\stdio\write.c.i
+
+.PHONY : extern\ASF\common\utils\stdio\write.i
+
+# target to preprocess a source file
+extern\ASF\common\utils\stdio\write.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\write.c.i
+.PHONY : extern\ASF\common\utils\stdio\write.c.i
+
+extern\ASF\common\utils\stdio\write.s: extern\ASF\common\utils\stdio\write.c.s
+
+.PHONY : extern\ASF\common\utils\stdio\write.s
+
+# target to generate assembly for a file
+extern\ASF\common\utils\stdio\write.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\common\utils\stdio\write.c.s
+.PHONY : extern\ASF\common\utils\stdio\write.c.s
+
+extern\ASF\sam\boards\same70_xplained\init.obj: extern\ASF\sam\boards\same70_xplained\init.c.obj
+
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.obj
+
+# target to build an object file
+extern\ASF\sam\boards\same70_xplained\init.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\boards\same70_xplained\init.c.obj
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.c.obj
+
+extern\ASF\sam\boards\same70_xplained\init.i: extern\ASF\sam\boards\same70_xplained\init.c.i
+
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.i
+
+# target to preprocess a source file
+extern\ASF\sam\boards\same70_xplained\init.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\boards\same70_xplained\init.c.i
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.c.i
+
+extern\ASF\sam\boards\same70_xplained\init.s: extern\ASF\sam\boards\same70_xplained\init.c.s
+
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.s
+
+# target to generate assembly for a file
+extern\ASF\sam\boards\same70_xplained\init.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\boards\same70_xplained\init.c.s
+.PHONY : extern\ASF\sam\boards\same70_xplained\init.c.s
+
+extern\ASF\sam\drivers\matrix\matrix.obj: extern\ASF\sam\drivers\matrix\matrix.c.obj
+
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\matrix\matrix.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\matrix\matrix.c.obj
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.c.obj
+
+extern\ASF\sam\drivers\matrix\matrix.i: extern\ASF\sam\drivers\matrix\matrix.c.i
+
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\matrix\matrix.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\matrix\matrix.c.i
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.c.i
+
+extern\ASF\sam\drivers\matrix\matrix.s: extern\ASF\sam\drivers\matrix\matrix.c.s
+
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\matrix\matrix.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\matrix\matrix.c.s
+.PHONY : extern\ASF\sam\drivers\matrix\matrix.c.s
+
+extern\ASF\sam\drivers\mpu\mpu.obj: extern\ASF\sam\drivers\mpu\mpu.c.obj
+
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\mpu\mpu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\mpu\mpu.c.obj
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.c.obj
+
+extern\ASF\sam\drivers\mpu\mpu.i: extern\ASF\sam\drivers\mpu\mpu.c.i
+
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\mpu\mpu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\mpu\mpu.c.i
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.c.i
+
+extern\ASF\sam\drivers\mpu\mpu.s: extern\ASF\sam\drivers\mpu\mpu.c.s
+
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\mpu\mpu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\mpu\mpu.c.s
+.PHONY : extern\ASF\sam\drivers\mpu\mpu.c.s
+
+extern\ASF\sam\drivers\pio\pio.obj: extern\ASF\sam\drivers\pio\pio.c.obj
+
+.PHONY : extern\ASF\sam\drivers\pio\pio.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\pio\pio.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio.c.obj
+.PHONY : extern\ASF\sam\drivers\pio\pio.c.obj
+
+extern\ASF\sam\drivers\pio\pio.i: extern\ASF\sam\drivers\pio\pio.c.i
+
+.PHONY : extern\ASF\sam\drivers\pio\pio.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\pio\pio.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio.c.i
+.PHONY : extern\ASF\sam\drivers\pio\pio.c.i
+
+extern\ASF\sam\drivers\pio\pio.s: extern\ASF\sam\drivers\pio\pio.c.s
+
+.PHONY : extern\ASF\sam\drivers\pio\pio.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\pio\pio.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio.c.s
+.PHONY : extern\ASF\sam\drivers\pio\pio.c.s
+
+extern\ASF\sam\drivers\pio\pio_handler.obj: extern\ASF\sam\drivers\pio\pio_handler.c.obj
+
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\pio\pio_handler.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio_handler.c.obj
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.c.obj
+
+extern\ASF\sam\drivers\pio\pio_handler.i: extern\ASF\sam\drivers\pio\pio_handler.c.i
+
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\pio\pio_handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio_handler.c.i
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.c.i
+
+extern\ASF\sam\drivers\pio\pio_handler.s: extern\ASF\sam\drivers\pio\pio_handler.c.s
+
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\pio\pio_handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pio\pio_handler.c.s
+.PHONY : extern\ASF\sam\drivers\pio\pio_handler.c.s
+
+extern\ASF\sam\drivers\pmc\pmc.obj: extern\ASF\sam\drivers\pmc\pmc.c.obj
+
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\pmc\pmc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\pmc.c.obj
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.c.obj
+
+extern\ASF\sam\drivers\pmc\pmc.i: extern\ASF\sam\drivers\pmc\pmc.c.i
+
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\pmc\pmc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\pmc.c.i
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.c.i
+
+extern\ASF\sam\drivers\pmc\pmc.s: extern\ASF\sam\drivers\pmc\pmc.c.s
+
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\pmc\pmc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\pmc.c.s
+.PHONY : extern\ASF\sam\drivers\pmc\pmc.c.s
+
+extern\ASF\sam\drivers\pmc\sleep.obj: extern\ASF\sam\drivers\pmc\sleep.c.obj
+
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\pmc\sleep.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\sleep.c.obj
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.c.obj
+
+extern\ASF\sam\drivers\pmc\sleep.i: extern\ASF\sam\drivers\pmc\sleep.c.i
+
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\pmc\sleep.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\sleep.c.i
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.c.i
+
+extern\ASF\sam\drivers\pmc\sleep.s: extern\ASF\sam\drivers\pmc\sleep.c.s
+
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\pmc\sleep.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\pmc\sleep.c.s
+.PHONY : extern\ASF\sam\drivers\pmc\sleep.c.s
+
+extern\ASF\sam\drivers\tc\tc.obj: extern\ASF\sam\drivers\tc\tc.c.obj
+
+.PHONY : extern\ASF\sam\drivers\tc\tc.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\tc\tc.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\tc\tc.c.obj
+.PHONY : extern\ASF\sam\drivers\tc\tc.c.obj
+
+extern\ASF\sam\drivers\tc\tc.i: extern\ASF\sam\drivers\tc\tc.c.i
+
+.PHONY : extern\ASF\sam\drivers\tc\tc.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\tc\tc.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\tc\tc.c.i
+.PHONY : extern\ASF\sam\drivers\tc\tc.c.i
+
+extern\ASF\sam\drivers\tc\tc.s: extern\ASF\sam\drivers\tc\tc.c.s
+
+.PHONY : extern\ASF\sam\drivers\tc\tc.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\tc\tc.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\tc\tc.c.s
+.PHONY : extern\ASF\sam\drivers\tc\tc.c.s
+
+extern\ASF\sam\drivers\uart\uart.obj: extern\ASF\sam\drivers\uart\uart.c.obj
+
+.PHONY : extern\ASF\sam\drivers\uart\uart.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\uart\uart.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\uart\uart.c.obj
+.PHONY : extern\ASF\sam\drivers\uart\uart.c.obj
+
+extern\ASF\sam\drivers\uart\uart.i: extern\ASF\sam\drivers\uart\uart.c.i
+
+.PHONY : extern\ASF\sam\drivers\uart\uart.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\uart\uart.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\uart\uart.c.i
+.PHONY : extern\ASF\sam\drivers\uart\uart.c.i
+
+extern\ASF\sam\drivers\uart\uart.s: extern\ASF\sam\drivers\uart\uart.c.s
+
+.PHONY : extern\ASF\sam\drivers\uart\uart.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\uart\uart.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\uart\uart.c.s
+.PHONY : extern\ASF\sam\drivers\uart\uart.c.s
+
+extern\ASF\sam\drivers\usart\usart.obj: extern\ASF\sam\drivers\usart\usart.c.obj
+
+.PHONY : extern\ASF\sam\drivers\usart\usart.obj
+
+# target to build an object file
+extern\ASF\sam\drivers\usart\usart.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\usart\usart.c.obj
+.PHONY : extern\ASF\sam\drivers\usart\usart.c.obj
+
+extern\ASF\sam\drivers\usart\usart.i: extern\ASF\sam\drivers\usart\usart.c.i
+
+.PHONY : extern\ASF\sam\drivers\usart\usart.i
+
+# target to preprocess a source file
+extern\ASF\sam\drivers\usart\usart.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\usart\usart.c.i
+.PHONY : extern\ASF\sam\drivers\usart\usart.c.i
+
+extern\ASF\sam\drivers\usart\usart.s: extern\ASF\sam\drivers\usart\usart.c.s
+
+.PHONY : extern\ASF\sam\drivers\usart\usart.s
+
+# target to generate assembly for a file
+extern\ASF\sam\drivers\usart\usart.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\drivers\usart\usart.c.s
+.PHONY : extern\ASF\sam\drivers\usart\usart.c.s
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.obj: extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.obj
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.obj
+
+# target to build an object file
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.obj
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.obj
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.i: extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.i
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.i
+
+# target to preprocess a source file
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.i
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.i
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.s: extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.s
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.s
+
+# target to generate assembly for a file
+extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.s
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\gcc\startup_same70.c.s
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.obj: extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.obj
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.obj
+
+# target to build an object file
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.obj
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.obj
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.i: extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.i
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.i
+
+# target to preprocess a source file
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.i
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.i
+
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.s: extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.s
+
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.s
+
+# target to generate assembly for a file
+extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.s
+.PHONY : extern\ASF\sam\utils\cmsis\same70\source\templates\system_same70.c.s
+
+extern\ASF\sam\utils\syscalls\gcc\syscalls.obj: extern\ASF\sam\utils\syscalls\gcc\syscalls.c.obj
+
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.obj
+
+# target to build an object file
+extern\ASF\sam\utils\syscalls\gcc\syscalls.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\syscalls\gcc\syscalls.c.obj
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.c.obj
+
+extern\ASF\sam\utils\syscalls\gcc\syscalls.i: extern\ASF\sam\utils\syscalls\gcc\syscalls.c.i
+
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.i
+
+# target to preprocess a source file
+extern\ASF\sam\utils\syscalls\gcc\syscalls.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\syscalls\gcc\syscalls.c.i
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.c.i
+
+extern\ASF\sam\utils\syscalls\gcc\syscalls.s: extern\ASF\sam\utils\syscalls\gcc\syscalls.c.s
+
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.s
+
+# target to generate assembly for a file
+extern\ASF\sam\utils\syscalls\gcc\syscalls.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\ASF\sam\utils\syscalls\gcc\syscalls.c.s
+.PHONY : extern\ASF\sam\utils\syscalls\gcc\syscalls.c.s
+
+extern\Common\Minimal\BlockQ.obj: extern\Common\Minimal\BlockQ.c.obj
+
+.PHONY : extern\Common\Minimal\BlockQ.obj
+
+# target to build an object file
+extern\Common\Minimal\BlockQ.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\BlockQ.c.obj
+.PHONY : extern\Common\Minimal\BlockQ.c.obj
+
+extern\Common\Minimal\BlockQ.i: extern\Common\Minimal\BlockQ.c.i
+
+.PHONY : extern\Common\Minimal\BlockQ.i
+
+# target to preprocess a source file
+extern\Common\Minimal\BlockQ.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\BlockQ.c.i
+.PHONY : extern\Common\Minimal\BlockQ.c.i
+
+extern\Common\Minimal\BlockQ.s: extern\Common\Minimal\BlockQ.c.s
+
+.PHONY : extern\Common\Minimal\BlockQ.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\BlockQ.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\BlockQ.c.s
+.PHONY : extern\Common\Minimal\BlockQ.c.s
+
+extern\Common\Minimal\EventGroupsDemo.obj: extern\Common\Minimal\EventGroupsDemo.c.obj
+
+.PHONY : extern\Common\Minimal\EventGroupsDemo.obj
+
+# target to build an object file
+extern\Common\Minimal\EventGroupsDemo.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\EventGroupsDemo.c.obj
+.PHONY : extern\Common\Minimal\EventGroupsDemo.c.obj
+
+extern\Common\Minimal\EventGroupsDemo.i: extern\Common\Minimal\EventGroupsDemo.c.i
+
+.PHONY : extern\Common\Minimal\EventGroupsDemo.i
+
+# target to preprocess a source file
+extern\Common\Minimal\EventGroupsDemo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\EventGroupsDemo.c.i
+.PHONY : extern\Common\Minimal\EventGroupsDemo.c.i
+
+extern\Common\Minimal\EventGroupsDemo.s: extern\Common\Minimal\EventGroupsDemo.c.s
+
+.PHONY : extern\Common\Minimal\EventGroupsDemo.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\EventGroupsDemo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\EventGroupsDemo.c.s
+.PHONY : extern\Common\Minimal\EventGroupsDemo.c.s
+
+extern\Common\Minimal\GenQTest.obj: extern\Common\Minimal\GenQTest.c.obj
+
+.PHONY : extern\Common\Minimal\GenQTest.obj
+
+# target to build an object file
+extern\Common\Minimal\GenQTest.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\GenQTest.c.obj
+.PHONY : extern\Common\Minimal\GenQTest.c.obj
+
+extern\Common\Minimal\GenQTest.i: extern\Common\Minimal\GenQTest.c.i
+
+.PHONY : extern\Common\Minimal\GenQTest.i
+
+# target to preprocess a source file
+extern\Common\Minimal\GenQTest.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\GenQTest.c.i
+.PHONY : extern\Common\Minimal\GenQTest.c.i
+
+extern\Common\Minimal\GenQTest.s: extern\Common\Minimal\GenQTest.c.s
+
+.PHONY : extern\Common\Minimal\GenQTest.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\GenQTest.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\GenQTest.c.s
+.PHONY : extern\Common\Minimal\GenQTest.c.s
+
+extern\Common\Minimal\IntQueue.obj: extern\Common\Minimal\IntQueue.c.obj
+
+.PHONY : extern\Common\Minimal\IntQueue.obj
+
+# target to build an object file
+extern\Common\Minimal\IntQueue.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntQueue.c.obj
+.PHONY : extern\Common\Minimal\IntQueue.c.obj
+
+extern\Common\Minimal\IntQueue.i: extern\Common\Minimal\IntQueue.c.i
+
+.PHONY : extern\Common\Minimal\IntQueue.i
+
+# target to preprocess a source file
+extern\Common\Minimal\IntQueue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntQueue.c.i
+.PHONY : extern\Common\Minimal\IntQueue.c.i
+
+extern\Common\Minimal\IntQueue.s: extern\Common\Minimal\IntQueue.c.s
+
+.PHONY : extern\Common\Minimal\IntQueue.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\IntQueue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntQueue.c.s
+.PHONY : extern\Common\Minimal\IntQueue.c.s
+
+extern\Common\Minimal\IntSemTest.obj: extern\Common\Minimal\IntSemTest.c.obj
+
+.PHONY : extern\Common\Minimal\IntSemTest.obj
+
+# target to build an object file
+extern\Common\Minimal\IntSemTest.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntSemTest.c.obj
+.PHONY : extern\Common\Minimal\IntSemTest.c.obj
+
+extern\Common\Minimal\IntSemTest.i: extern\Common\Minimal\IntSemTest.c.i
+
+.PHONY : extern\Common\Minimal\IntSemTest.i
+
+# target to preprocess a source file
+extern\Common\Minimal\IntSemTest.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntSemTest.c.i
+.PHONY : extern\Common\Minimal\IntSemTest.c.i
+
+extern\Common\Minimal\IntSemTest.s: extern\Common\Minimal\IntSemTest.c.s
+
+.PHONY : extern\Common\Minimal\IntSemTest.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\IntSemTest.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\IntSemTest.c.s
+.PHONY : extern\Common\Minimal\IntSemTest.c.s
+
+extern\Common\Minimal\QueueOverwrite.obj: extern\Common\Minimal\QueueOverwrite.c.obj
+
+.PHONY : extern\Common\Minimal\QueueOverwrite.obj
+
+# target to build an object file
+extern\Common\Minimal\QueueOverwrite.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\QueueOverwrite.c.obj
+.PHONY : extern\Common\Minimal\QueueOverwrite.c.obj
+
+extern\Common\Minimal\QueueOverwrite.i: extern\Common\Minimal\QueueOverwrite.c.i
+
+.PHONY : extern\Common\Minimal\QueueOverwrite.i
+
+# target to preprocess a source file
+extern\Common\Minimal\QueueOverwrite.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\QueueOverwrite.c.i
+.PHONY : extern\Common\Minimal\QueueOverwrite.c.i
+
+extern\Common\Minimal\QueueOverwrite.s: extern\Common\Minimal\QueueOverwrite.c.s
+
+.PHONY : extern\Common\Minimal\QueueOverwrite.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\QueueOverwrite.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\QueueOverwrite.c.s
+.PHONY : extern\Common\Minimal\QueueOverwrite.c.s
+
+extern\Common\Minimal\TaskNotify.obj: extern\Common\Minimal\TaskNotify.c.obj
+
+.PHONY : extern\Common\Minimal\TaskNotify.obj
+
+# target to build an object file
+extern\Common\Minimal\TaskNotify.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TaskNotify.c.obj
+.PHONY : extern\Common\Minimal\TaskNotify.c.obj
+
+extern\Common\Minimal\TaskNotify.i: extern\Common\Minimal\TaskNotify.c.i
+
+.PHONY : extern\Common\Minimal\TaskNotify.i
+
+# target to preprocess a source file
+extern\Common\Minimal\TaskNotify.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TaskNotify.c.i
+.PHONY : extern\Common\Minimal\TaskNotify.c.i
+
+extern\Common\Minimal\TaskNotify.s: extern\Common\Minimal\TaskNotify.c.s
+
+.PHONY : extern\Common\Minimal\TaskNotify.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\TaskNotify.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TaskNotify.c.s
+.PHONY : extern\Common\Minimal\TaskNotify.c.s
+
+extern\Common\Minimal\TimerDemo.obj: extern\Common\Minimal\TimerDemo.c.obj
+
+.PHONY : extern\Common\Minimal\TimerDemo.obj
+
+# target to build an object file
+extern\Common\Minimal\TimerDemo.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TimerDemo.c.obj
+.PHONY : extern\Common\Minimal\TimerDemo.c.obj
+
+extern\Common\Minimal\TimerDemo.i: extern\Common\Minimal\TimerDemo.c.i
+
+.PHONY : extern\Common\Minimal\TimerDemo.i
+
+# target to preprocess a source file
+extern\Common\Minimal\TimerDemo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TimerDemo.c.i
+.PHONY : extern\Common\Minimal\TimerDemo.c.i
+
+extern\Common\Minimal\TimerDemo.s: extern\Common\Minimal\TimerDemo.c.s
+
+.PHONY : extern\Common\Minimal\TimerDemo.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\TimerDemo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\TimerDemo.c.s
+.PHONY : extern\Common\Minimal\TimerDemo.c.s
+
+extern\Common\Minimal\blocktim.obj: extern\Common\Minimal\blocktim.c.obj
+
+.PHONY : extern\Common\Minimal\blocktim.obj
+
+# target to build an object file
+extern\Common\Minimal\blocktim.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\blocktim.c.obj
+.PHONY : extern\Common\Minimal\blocktim.c.obj
+
+extern\Common\Minimal\blocktim.i: extern\Common\Minimal\blocktim.c.i
+
+.PHONY : extern\Common\Minimal\blocktim.i
+
+# target to preprocess a source file
+extern\Common\Minimal\blocktim.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\blocktim.c.i
+.PHONY : extern\Common\Minimal\blocktim.c.i
+
+extern\Common\Minimal\blocktim.s: extern\Common\Minimal\blocktim.c.s
+
+.PHONY : extern\Common\Minimal\blocktim.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\blocktim.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\blocktim.c.s
+.PHONY : extern\Common\Minimal\blocktim.c.s
+
+extern\Common\Minimal\countsem.obj: extern\Common\Minimal\countsem.c.obj
+
+.PHONY : extern\Common\Minimal\countsem.obj
+
+# target to build an object file
+extern\Common\Minimal\countsem.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\countsem.c.obj
+.PHONY : extern\Common\Minimal\countsem.c.obj
+
+extern\Common\Minimal\countsem.i: extern\Common\Minimal\countsem.c.i
+
+.PHONY : extern\Common\Minimal\countsem.i
+
+# target to preprocess a source file
+extern\Common\Minimal\countsem.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\countsem.c.i
+.PHONY : extern\Common\Minimal\countsem.c.i
+
+extern\Common\Minimal\countsem.s: extern\Common\Minimal\countsem.c.s
+
+.PHONY : extern\Common\Minimal\countsem.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\countsem.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\countsem.c.s
+.PHONY : extern\Common\Minimal\countsem.c.s
+
+extern\Common\Minimal\death.obj: extern\Common\Minimal\death.c.obj
+
+.PHONY : extern\Common\Minimal\death.obj
+
+# target to build an object file
+extern\Common\Minimal\death.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\death.c.obj
+.PHONY : extern\Common\Minimal\death.c.obj
+
+extern\Common\Minimal\death.i: extern\Common\Minimal\death.c.i
+
+.PHONY : extern\Common\Minimal\death.i
+
+# target to preprocess a source file
+extern\Common\Minimal\death.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\death.c.i
+.PHONY : extern\Common\Minimal\death.c.i
+
+extern\Common\Minimal\death.s: extern\Common\Minimal\death.c.s
+
+.PHONY : extern\Common\Minimal\death.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\death.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\death.c.s
+.PHONY : extern\Common\Minimal\death.c.s
+
+extern\Common\Minimal\dynamic.obj: extern\Common\Minimal\dynamic.c.obj
+
+.PHONY : extern\Common\Minimal\dynamic.obj
+
+# target to build an object file
+extern\Common\Minimal\dynamic.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\dynamic.c.obj
+.PHONY : extern\Common\Minimal\dynamic.c.obj
+
+extern\Common\Minimal\dynamic.i: extern\Common\Minimal\dynamic.c.i
+
+.PHONY : extern\Common\Minimal\dynamic.i
+
+# target to preprocess a source file
+extern\Common\Minimal\dynamic.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\dynamic.c.i
+.PHONY : extern\Common\Minimal\dynamic.c.i
+
+extern\Common\Minimal\dynamic.s: extern\Common\Minimal\dynamic.c.s
+
+.PHONY : extern\Common\Minimal\dynamic.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\dynamic.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\dynamic.c.s
+.PHONY : extern\Common\Minimal\dynamic.c.s
+
+extern\Common\Minimal\flop.obj: extern\Common\Minimal\flop.c.obj
+
+.PHONY : extern\Common\Minimal\flop.obj
+
+# target to build an object file
+extern\Common\Minimal\flop.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\flop.c.obj
+.PHONY : extern\Common\Minimal\flop.c.obj
+
+extern\Common\Minimal\flop.i: extern\Common\Minimal\flop.c.i
+
+.PHONY : extern\Common\Minimal\flop.i
+
+# target to preprocess a source file
+extern\Common\Minimal\flop.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\flop.c.i
+.PHONY : extern\Common\Minimal\flop.c.i
+
+extern\Common\Minimal\flop.s: extern\Common\Minimal\flop.c.s
+
+.PHONY : extern\Common\Minimal\flop.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\flop.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\flop.c.s
+.PHONY : extern\Common\Minimal\flop.c.s
+
+extern\Common\Minimal\recmutex.obj: extern\Common\Minimal\recmutex.c.obj
+
+.PHONY : extern\Common\Minimal\recmutex.obj
+
+# target to build an object file
+extern\Common\Minimal\recmutex.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\recmutex.c.obj
+.PHONY : extern\Common\Minimal\recmutex.c.obj
+
+extern\Common\Minimal\recmutex.i: extern\Common\Minimal\recmutex.c.i
+
+.PHONY : extern\Common\Minimal\recmutex.i
+
+# target to preprocess a source file
+extern\Common\Minimal\recmutex.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\recmutex.c.i
+.PHONY : extern\Common\Minimal\recmutex.c.i
+
+extern\Common\Minimal\recmutex.s: extern\Common\Minimal\recmutex.c.s
+
+.PHONY : extern\Common\Minimal\recmutex.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\recmutex.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\recmutex.c.s
+.PHONY : extern\Common\Minimal\recmutex.c.s
+
+extern\Common\Minimal\semtest.obj: extern\Common\Minimal\semtest.c.obj
+
+.PHONY : extern\Common\Minimal\semtest.obj
+
+# target to build an object file
+extern\Common\Minimal\semtest.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\semtest.c.obj
+.PHONY : extern\Common\Minimal\semtest.c.obj
+
+extern\Common\Minimal\semtest.i: extern\Common\Minimal\semtest.c.i
+
+.PHONY : extern\Common\Minimal\semtest.i
+
+# target to preprocess a source file
+extern\Common\Minimal\semtest.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\semtest.c.i
+.PHONY : extern\Common\Minimal\semtest.c.i
+
+extern\Common\Minimal\semtest.s: extern\Common\Minimal\semtest.c.s
+
+.PHONY : extern\Common\Minimal\semtest.s
+
+# target to generate assembly for a file
+extern\Common\Minimal\semtest.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\Common\Minimal\semtest.c.s
+.PHONY : extern\Common\Minimal\semtest.c.s
+
+extern\FreeRTOS\event_groups.obj: extern\FreeRTOS\event_groups.c.obj
+
+.PHONY : extern\FreeRTOS\event_groups.obj
+
+# target to build an object file
+extern\FreeRTOS\event_groups.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\event_groups.c.obj
+.PHONY : extern\FreeRTOS\event_groups.c.obj
+
+extern\FreeRTOS\event_groups.i: extern\FreeRTOS\event_groups.c.i
+
+.PHONY : extern\FreeRTOS\event_groups.i
+
+# target to preprocess a source file
+extern\FreeRTOS\event_groups.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\event_groups.c.i
+.PHONY : extern\FreeRTOS\event_groups.c.i
+
+extern\FreeRTOS\event_groups.s: extern\FreeRTOS\event_groups.c.s
+
+.PHONY : extern\FreeRTOS\event_groups.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\event_groups.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\event_groups.c.s
+.PHONY : extern\FreeRTOS\event_groups.c.s
+
+extern\FreeRTOS\list.obj: extern\FreeRTOS\list.c.obj
+
+.PHONY : extern\FreeRTOS\list.obj
+
+# target to build an object file
+extern\FreeRTOS\list.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\list.c.obj
+.PHONY : extern\FreeRTOS\list.c.obj
+
+extern\FreeRTOS\list.i: extern\FreeRTOS\list.c.i
+
+.PHONY : extern\FreeRTOS\list.i
+
+# target to preprocess a source file
+extern\FreeRTOS\list.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\list.c.i
+.PHONY : extern\FreeRTOS\list.c.i
+
+extern\FreeRTOS\list.s: extern\FreeRTOS\list.c.s
+
+.PHONY : extern\FreeRTOS\list.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\list.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\list.c.s
+.PHONY : extern\FreeRTOS\list.c.s
+
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.obj: extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.obj
+
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.obj
+
+# target to build an object file
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.obj
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.obj
+
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.i: extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.i
+
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.i
+
+# target to preprocess a source file
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.i
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.i
+
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.s: extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.s
+
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.s
+.PHONY : extern\FreeRTOS\portable\GCC\ARM_CM7\r0p1\port.c.s
+
+extern\FreeRTOS\portable\MemMang\heap_4.obj: extern\FreeRTOS\portable\MemMang\heap_4.c.obj
+
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.obj
+
+# target to build an object file
+extern\FreeRTOS\portable\MemMang\heap_4.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\MemMang\heap_4.c.obj
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.c.obj
+
+extern\FreeRTOS\portable\MemMang\heap_4.i: extern\FreeRTOS\portable\MemMang\heap_4.c.i
+
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.i
+
+# target to preprocess a source file
+extern\FreeRTOS\portable\MemMang\heap_4.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\MemMang\heap_4.c.i
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.c.i
+
+extern\FreeRTOS\portable\MemMang\heap_4.s: extern\FreeRTOS\portable\MemMang\heap_4.c.s
+
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\portable\MemMang\heap_4.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\portable\MemMang\heap_4.c.s
+.PHONY : extern\FreeRTOS\portable\MemMang\heap_4.c.s
+
+extern\FreeRTOS\queue.obj: extern\FreeRTOS\queue.c.obj
+
+.PHONY : extern\FreeRTOS\queue.obj
+
+# target to build an object file
+extern\FreeRTOS\queue.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\queue.c.obj
+.PHONY : extern\FreeRTOS\queue.c.obj
+
+extern\FreeRTOS\queue.i: extern\FreeRTOS\queue.c.i
+
+.PHONY : extern\FreeRTOS\queue.i
+
+# target to preprocess a source file
+extern\FreeRTOS\queue.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\queue.c.i
+.PHONY : extern\FreeRTOS\queue.c.i
+
+extern\FreeRTOS\queue.s: extern\FreeRTOS\queue.c.s
+
+.PHONY : extern\FreeRTOS\queue.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\queue.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\queue.c.s
+.PHONY : extern\FreeRTOS\queue.c.s
+
+extern\FreeRTOS\tasks.obj: extern\FreeRTOS\tasks.c.obj
+
+.PHONY : extern\FreeRTOS\tasks.obj
+
+# target to build an object file
+extern\FreeRTOS\tasks.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\tasks.c.obj
+.PHONY : extern\FreeRTOS\tasks.c.obj
+
+extern\FreeRTOS\tasks.i: extern\FreeRTOS\tasks.c.i
+
+.PHONY : extern\FreeRTOS\tasks.i
+
+# target to preprocess a source file
+extern\FreeRTOS\tasks.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\tasks.c.i
+.PHONY : extern\FreeRTOS\tasks.c.i
+
+extern\FreeRTOS\tasks.s: extern\FreeRTOS\tasks.c.s
+
+.PHONY : extern\FreeRTOS\tasks.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\tasks.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\tasks.c.s
+.PHONY : extern\FreeRTOS\tasks.c.s
+
+extern\FreeRTOS\timers.obj: extern\FreeRTOS\timers.c.obj
+
+.PHONY : extern\FreeRTOS\timers.obj
+
+# target to build an object file
+extern\FreeRTOS\timers.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\timers.c.obj
+.PHONY : extern\FreeRTOS\timers.c.obj
+
+extern\FreeRTOS\timers.i: extern\FreeRTOS\timers.c.i
+
+.PHONY : extern\FreeRTOS\timers.i
+
+# target to preprocess a source file
+extern\FreeRTOS\timers.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\timers.c.i
+.PHONY : extern\FreeRTOS\timers.c.i
+
+extern\FreeRTOS\timers.s: extern\FreeRTOS\timers.c.s
+
+.PHONY : extern\FreeRTOS\timers.s
+
+# target to generate assembly for a file
+extern\FreeRTOS\timers.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\extern\FreeRTOS\timers.c.s
+.PHONY : extern\FreeRTOS\timers.c.s
+
+src\Blinky_Demo\main_blinky.obj: src\Blinky_Demo\main_blinky.c.obj
+
+.PHONY : src\Blinky_Demo\main_blinky.obj
+
+# target to build an object file
+src\Blinky_Demo\main_blinky.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Blinky_Demo\main_blinky.c.obj
+.PHONY : src\Blinky_Demo\main_blinky.c.obj
+
+src\Blinky_Demo\main_blinky.i: src\Blinky_Demo\main_blinky.c.i
+
+.PHONY : src\Blinky_Demo\main_blinky.i
+
+# target to preprocess a source file
+src\Blinky_Demo\main_blinky.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Blinky_Demo\main_blinky.c.i
+.PHONY : src\Blinky_Demo\main_blinky.c.i
+
+src\Blinky_Demo\main_blinky.s: src\Blinky_Demo\main_blinky.c.s
+
+.PHONY : src\Blinky_Demo\main_blinky.s
+
+# target to generate assembly for a file
+src\Blinky_Demo\main_blinky.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Blinky_Demo\main_blinky.c.s
+.PHONY : src\Blinky_Demo\main_blinky.c.s
+
+src\Full_Demo\IntQueueTimer.obj: src\Full_Demo\IntQueueTimer.c.obj
+
+.PHONY : src\Full_Demo\IntQueueTimer.obj
+
+# target to build an object file
+src\Full_Demo\IntQueueTimer.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\IntQueueTimer.c.obj
+.PHONY : src\Full_Demo\IntQueueTimer.c.obj
+
+src\Full_Demo\IntQueueTimer.i: src\Full_Demo\IntQueueTimer.c.i
+
+.PHONY : src\Full_Demo\IntQueueTimer.i
+
+# target to preprocess a source file
+src\Full_Demo\IntQueueTimer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\IntQueueTimer.c.i
+.PHONY : src\Full_Demo\IntQueueTimer.c.i
+
+src\Full_Demo\IntQueueTimer.s: src\Full_Demo\IntQueueTimer.c.s
+
+.PHONY : src\Full_Demo\IntQueueTimer.s
+
+# target to generate assembly for a file
+src\Full_Demo\IntQueueTimer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\IntQueueTimer.c.s
+.PHONY : src\Full_Demo\IntQueueTimer.c.s
+
+src\Full_Demo\RegTest_GCC.obj: src\Full_Demo\RegTest_GCC.c.obj
+
+.PHONY : src\Full_Demo\RegTest_GCC.obj
+
+# target to build an object file
+src\Full_Demo\RegTest_GCC.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\RegTest_GCC.c.obj
+.PHONY : src\Full_Demo\RegTest_GCC.c.obj
+
+src\Full_Demo\RegTest_GCC.i: src\Full_Demo\RegTest_GCC.c.i
+
+.PHONY : src\Full_Demo\RegTest_GCC.i
+
+# target to preprocess a source file
+src\Full_Demo\RegTest_GCC.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\RegTest_GCC.c.i
+.PHONY : src\Full_Demo\RegTest_GCC.c.i
+
+src\Full_Demo\RegTest_GCC.s: src\Full_Demo\RegTest_GCC.c.s
+
+.PHONY : src\Full_Demo\RegTest_GCC.s
+
+# target to generate assembly for a file
+src\Full_Demo\RegTest_GCC.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\RegTest_GCC.c.s
+.PHONY : src\Full_Demo\RegTest_GCC.c.s
+
+src\Full_Demo\main_full.obj: src\Full_Demo\main_full.c.obj
+
+.PHONY : src\Full_Demo\main_full.obj
+
+# target to build an object file
+src\Full_Demo\main_full.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\main_full.c.obj
+.PHONY : src\Full_Demo\main_full.c.obj
+
+src\Full_Demo\main_full.i: src\Full_Demo\main_full.c.i
+
+.PHONY : src\Full_Demo\main_full.i
+
+# target to preprocess a source file
+src\Full_Demo\main_full.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\main_full.c.i
+.PHONY : src\Full_Demo\main_full.c.i
+
+src\Full_Demo\main_full.s: src\Full_Demo\main_full.c.s
+
+.PHONY : src\Full_Demo\main_full.s
+
+# target to generate assembly for a file
+src\Full_Demo\main_full.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\Full_Demo\main_full.c.s
+.PHONY : src\Full_Demo\main_full.c.s
+
+src\main.obj: src\main.c.obj
+
+.PHONY : src\main.obj
+
+# target to build an object file
+src\main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\main.c.obj
+.PHONY : src\main.c.obj
+
+src\main.i: src\main.c.i
+
+.PHONY : src\main.i
+
+# target to preprocess a source file
+src\main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\main.c.i
+.PHONY : src\main.c.i
+
+src\main.s: src\main.c.s
+
 .PHONY : src\main.s
+
+# target to generate assembly for a file
+src\main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Kronos.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Kronos.dir\src\main.c.s
+.PHONY : src\main.c.s
 
 # Help Target
 help:
@@ -150,7 +1363,140 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... Kronos_lib
+	@echo ... Kronos.bin
+	@echo ... Kronos
+	@echo ... extern/ASF/common/services/clock/same70/sysclk.obj
+	@echo ... extern/ASF/common/services/clock/same70/sysclk.i
+	@echo ... extern/ASF/common/services/clock/same70/sysclk.s
+	@echo ... extern/ASF/common/services/serial/usart_serial.obj
+	@echo ... extern/ASF/common/services/serial/usart_serial.i
+	@echo ... extern/ASF/common/services/serial/usart_serial.s
+	@echo ... extern/ASF/common/utils/interrupt/interrupt_sam_nvic.obj
+	@echo ... extern/ASF/common/utils/interrupt/interrupt_sam_nvic.i
+	@echo ... extern/ASF/common/utils/interrupt/interrupt_sam_nvic.s
+	@echo ... extern/ASF/common/utils/stdio/read.obj
+	@echo ... extern/ASF/common/utils/stdio/read.i
+	@echo ... extern/ASF/common/utils/stdio/read.s
+	@echo ... extern/ASF/common/utils/stdio/write.obj
+	@echo ... extern/ASF/common/utils/stdio/write.i
+	@echo ... extern/ASF/common/utils/stdio/write.s
+	@echo ... extern/ASF/sam/boards/same70_xplained/init.obj
+	@echo ... extern/ASF/sam/boards/same70_xplained/init.i
+	@echo ... extern/ASF/sam/boards/same70_xplained/init.s
+	@echo ... extern/ASF/sam/drivers/matrix/matrix.obj
+	@echo ... extern/ASF/sam/drivers/matrix/matrix.i
+	@echo ... extern/ASF/sam/drivers/matrix/matrix.s
+	@echo ... extern/ASF/sam/drivers/mpu/mpu.obj
+	@echo ... extern/ASF/sam/drivers/mpu/mpu.i
+	@echo ... extern/ASF/sam/drivers/mpu/mpu.s
+	@echo ... extern/ASF/sam/drivers/pio/pio.obj
+	@echo ... extern/ASF/sam/drivers/pio/pio.i
+	@echo ... extern/ASF/sam/drivers/pio/pio.s
+	@echo ... extern/ASF/sam/drivers/pio/pio_handler.obj
+	@echo ... extern/ASF/sam/drivers/pio/pio_handler.i
+	@echo ... extern/ASF/sam/drivers/pio/pio_handler.s
+	@echo ... extern/ASF/sam/drivers/pmc/pmc.obj
+	@echo ... extern/ASF/sam/drivers/pmc/pmc.i
+	@echo ... extern/ASF/sam/drivers/pmc/pmc.s
+	@echo ... extern/ASF/sam/drivers/pmc/sleep.obj
+	@echo ... extern/ASF/sam/drivers/pmc/sleep.i
+	@echo ... extern/ASF/sam/drivers/pmc/sleep.s
+	@echo ... extern/ASF/sam/drivers/tc/tc.obj
+	@echo ... extern/ASF/sam/drivers/tc/tc.i
+	@echo ... extern/ASF/sam/drivers/tc/tc.s
+	@echo ... extern/ASF/sam/drivers/uart/uart.obj
+	@echo ... extern/ASF/sam/drivers/uart/uart.i
+	@echo ... extern/ASF/sam/drivers/uart/uart.s
+	@echo ... extern/ASF/sam/drivers/usart/usart.obj
+	@echo ... extern/ASF/sam/drivers/usart/usart.i
+	@echo ... extern/ASF/sam/drivers/usart/usart.s
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.obj
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.i
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.s
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.obj
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.i
+	@echo ... extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.s
+	@echo ... extern/ASF/sam/utils/syscalls/gcc/syscalls.obj
+	@echo ... extern/ASF/sam/utils/syscalls/gcc/syscalls.i
+	@echo ... extern/ASF/sam/utils/syscalls/gcc/syscalls.s
+	@echo ... extern/Common/Minimal/BlockQ.obj
+	@echo ... extern/Common/Minimal/BlockQ.i
+	@echo ... extern/Common/Minimal/BlockQ.s
+	@echo ... extern/Common/Minimal/EventGroupsDemo.obj
+	@echo ... extern/Common/Minimal/EventGroupsDemo.i
+	@echo ... extern/Common/Minimal/EventGroupsDemo.s
+	@echo ... extern/Common/Minimal/GenQTest.obj
+	@echo ... extern/Common/Minimal/GenQTest.i
+	@echo ... extern/Common/Minimal/GenQTest.s
+	@echo ... extern/Common/Minimal/IntQueue.obj
+	@echo ... extern/Common/Minimal/IntQueue.i
+	@echo ... extern/Common/Minimal/IntQueue.s
+	@echo ... extern/Common/Minimal/IntSemTest.obj
+	@echo ... extern/Common/Minimal/IntSemTest.i
+	@echo ... extern/Common/Minimal/IntSemTest.s
+	@echo ... extern/Common/Minimal/QueueOverwrite.obj
+	@echo ... extern/Common/Minimal/QueueOverwrite.i
+	@echo ... extern/Common/Minimal/QueueOverwrite.s
+	@echo ... extern/Common/Minimal/TaskNotify.obj
+	@echo ... extern/Common/Minimal/TaskNotify.i
+	@echo ... extern/Common/Minimal/TaskNotify.s
+	@echo ... extern/Common/Minimal/TimerDemo.obj
+	@echo ... extern/Common/Minimal/TimerDemo.i
+	@echo ... extern/Common/Minimal/TimerDemo.s
+	@echo ... extern/Common/Minimal/blocktim.obj
+	@echo ... extern/Common/Minimal/blocktim.i
+	@echo ... extern/Common/Minimal/blocktim.s
+	@echo ... extern/Common/Minimal/countsem.obj
+	@echo ... extern/Common/Minimal/countsem.i
+	@echo ... extern/Common/Minimal/countsem.s
+	@echo ... extern/Common/Minimal/death.obj
+	@echo ... extern/Common/Minimal/death.i
+	@echo ... extern/Common/Minimal/death.s
+	@echo ... extern/Common/Minimal/dynamic.obj
+	@echo ... extern/Common/Minimal/dynamic.i
+	@echo ... extern/Common/Minimal/dynamic.s
+	@echo ... extern/Common/Minimal/flop.obj
+	@echo ... extern/Common/Minimal/flop.i
+	@echo ... extern/Common/Minimal/flop.s
+	@echo ... extern/Common/Minimal/recmutex.obj
+	@echo ... extern/Common/Minimal/recmutex.i
+	@echo ... extern/Common/Minimal/recmutex.s
+	@echo ... extern/Common/Minimal/semtest.obj
+	@echo ... extern/Common/Minimal/semtest.i
+	@echo ... extern/Common/Minimal/semtest.s
+	@echo ... extern/FreeRTOS/event_groups.obj
+	@echo ... extern/FreeRTOS/event_groups.i
+	@echo ... extern/FreeRTOS/event_groups.s
+	@echo ... extern/FreeRTOS/list.obj
+	@echo ... extern/FreeRTOS/list.i
+	@echo ... extern/FreeRTOS/list.s
+	@echo ... extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.obj
+	@echo ... extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.i
+	@echo ... extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.s
+	@echo ... extern/FreeRTOS/portable/MemMang/heap_4.obj
+	@echo ... extern/FreeRTOS/portable/MemMang/heap_4.i
+	@echo ... extern/FreeRTOS/portable/MemMang/heap_4.s
+	@echo ... extern/FreeRTOS/queue.obj
+	@echo ... extern/FreeRTOS/queue.i
+	@echo ... extern/FreeRTOS/queue.s
+	@echo ... extern/FreeRTOS/tasks.obj
+	@echo ... extern/FreeRTOS/tasks.i
+	@echo ... extern/FreeRTOS/tasks.s
+	@echo ... extern/FreeRTOS/timers.obj
+	@echo ... extern/FreeRTOS/timers.i
+	@echo ... extern/FreeRTOS/timers.s
+	@echo ... src/Blinky_Demo/main_blinky.obj
+	@echo ... src/Blinky_Demo/main_blinky.i
+	@echo ... src/Blinky_Demo/main_blinky.s
+	@echo ... src/Full_Demo/IntQueueTimer.obj
+	@echo ... src/Full_Demo/IntQueueTimer.i
+	@echo ... src/Full_Demo/IntQueueTimer.s
+	@echo ... src/Full_Demo/RegTest_GCC.obj
+	@echo ... src/Full_Demo/RegTest_GCC.i
+	@echo ... src/Full_Demo/RegTest_GCC.s
+	@echo ... src/Full_Demo/main_full.obj
+	@echo ... src/Full_Demo/main_full.i
+	@echo ... src/Full_Demo/main_full.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

@@ -48,6 +48,16 @@ if (NOT SAM_MCU)
     )
 endif()
 
+string(TOUPPER "${SAM_MCU}" SAM_MCU_UPPER)
+
+# Board
+if (NOT SAM_BOARD)
+    set (
+            SAM_BOARD SAME70_XPLAINED
+            CACHE STRING "Set the default MCU platform: SAME70_XPLAINED"
+    )
+endif()
+
 #
 #	Bossac Specific
 #
@@ -108,6 +118,7 @@ else()
 endif()
 
 
+
 ##
 #	FUNCTION add_sam_executable
 #
@@ -144,11 +155,11 @@ function (add_sam_executable EXECUTABLE_NAME)
     set_target_properties (
             ${EXECUTABLE_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-mthumb -D${BUILD_TYPE} -D__${SAM_MCU_UPPER}__ -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=${ARM_CPU} -c -MD -MP"
-            LINK_FLAGS "-mthumb -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_SOURCE_DIR}\\scripts\\gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld --specs=nano.specs -specs=nosys.specs"
+            COMPILE_FLAGS "-x c -mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -std=gnu99 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP -MF"
+            LINK_FLAGS "-mthumb -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_SOURCE_DIR}\\..\\scripts\\gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld --specs=nano.specs -specs=nosys.specs"
     )	# TODO: Hardcoded -> DEBUG, __SAMD51J20A__
 
-
+    target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
 
     ##
     #	Create binary from ELF.
@@ -239,9 +250,11 @@ function (add_sam_library LIBRARY_NAME)
     set_target_properties (
             ${LIBRARY_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-x c -mthumb -D__${SAM_MCU_UPPER}__ -D${BUILD_TYPE} -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=${ARM_CPU} -c -std=gnu99 -MD -MP -MF \"${LIBRARY_NAME}.d\"" #-MT\"library.d\" -MT\"library.o\"   -o \"library.o\" \".././library.c\""
+            COMPILE_FLAGS "-x c -mthumb -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=${ARM_CPU} -c -std=gnu99 -MD -MP -MF \"${LIBRARY_NAME}.d\"" #-MT\"library.d\" -MT\"library.o\"   -o \"library.o\" \".././library.c\""
             LINKER_LANGUAGE "C"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     ) # TODO: __SAMD51J20A__ is hardcoded!
+
+    target_compile_definitions(${LIBRARY_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD}")
 
 endfunction(add_sam_library)

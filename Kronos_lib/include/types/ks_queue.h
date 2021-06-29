@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ks_vector.h"
-#include <queue>
 
 namespace kronos {
     template<typename V>

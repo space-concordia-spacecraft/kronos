@@ -4,8 +4,8 @@
 	<Project>
 		<Option title="Kronos"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="msvc8"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\vcpkg\;CMake Files\..\..\vcpkg\scripts\;CMake Files\..\..\vcpkg\scripts\buildsystems\;"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\build\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
@@ -17,61 +17,135 @@
 					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Kronos_lib">
-				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos_lib.lib" prefix_auto="0" extension_auto="0"/>
+			<Target title="Kronos">
+				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos.elf" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
 				<Option object_output="./"/>
-				<Option type="2"/>
-				<Option compiler="msvc8"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/Kronos_lib"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/PUBLIC"/>
+					<Add option="-DNDEBUG"/>
+					<Add option="-D__SAME70Q21__"/>
+					<Add option="-DBOARD=SAME70_XPLAINED"/>
+					<Add option="-Dscanf=iscanf"/>
+					<Add option="-DARM_MATH_CM7=true"/>
+					<Add option="-Dprintf=iprintf"/>
+					<Add directory="C:/Program Files (x86)/Atmel/Studio/7.0/packs/arm/CMSIS/5.4.0/CMSIS/Core/Include"/>
+					<Add directory="C:/Program Files (x86)/Atmel/Studio/7.0/packs/atmel/SAME70_DFP/2.4.166/same70a/include"/>
 					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include"/>
 					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/types"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/include"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/portable/GCC/ARM_CM7"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/FreeRTOSConfig.h"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/components"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/config"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/boards/same70_xplained"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/fpu"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/serial/sam_uart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/matrix"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/gpio"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/boards"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/boards"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/header_files"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/tc"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/ioport"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/mpu"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/thirdparty/CMSIS/Include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/thirdparty/CMSIS/Lib/GCC"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/clock"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/source/templates"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/stdio/stdio_serial"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/preprocessor"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/serial"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/usart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/uart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/include"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1/backward"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/include"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/include-fixed"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos_lib"/>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos"/>
 					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
 					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="Kronos_lib/fast">
-				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos_lib.lib" prefix_auto="0" extension_auto="0"/>
+			<Target title="Kronos/fast">
+				<Option output="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release/Kronos.elf" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
 				<Option object_output="./"/>
-				<Option type="2"/>
-				<Option compiler="msvc8"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/Kronos_lib"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/PUBLIC"/>
+					<Add option="-DNDEBUG"/>
+					<Add option="-D__SAME70Q21__"/>
+					<Add option="-DBOARD=SAME70_XPLAINED"/>
+					<Add option="-Dscanf=iscanf"/>
+					<Add option="-DARM_MATH_CM7=true"/>
+					<Add option="-Dprintf=iprintf"/>
+					<Add directory="C:/Program Files (x86)/Atmel/Studio/7.0/packs/arm/CMSIS/5.4.0/CMSIS/Core/Include"/>
+					<Add directory="C:/Program Files (x86)/Atmel/Studio/7.0/packs/atmel/SAME70_DFP/2.4.166/same70a/include"/>
 					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include"/>
 					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/types"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/include"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/FreeRTOS/portable/GCC/ARM_CM7"/>
-					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/FreeRTOSConfig.h"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\ATLMFC\include"/>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29910\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\cppwinrt"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/include/components"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/config"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/boards/same70_xplained"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/fpu"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/serial/sam_uart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/matrix"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/gpio"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/boards"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/boards"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/header_files"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/tc"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/ioport"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/mpu"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/thirdparty/CMSIS/Include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/thirdparty/CMSIS/Lib/GCC"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/clock"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/source/templates"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/stdio/stdio_serial"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/preprocessor"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/serial"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/usart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/uart"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/include"/>
+					<Add directory="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/include"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include/c++/6.3.1/backward"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/include"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/include-fixed"/>
+					<Add directory="c:\program files (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos_lib/fast"/>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Kronos.bin">
+				<Option working_dir="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/cmake-build-release"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 Kronos.bin"/>
 					<CompileFile command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
 					<DistClean command="nmake /NOLOGO /f C:\Users\Ruben\OneDrive\Desktop\space\kronos\Kronos_lib\cmake-build-release\Makefile VERBOSE=1 clean"/>
@@ -98,14 +172,185 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/main.cpp">
-			<Option target="Kronos_lib"/>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/clock/same70/sysclk.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/clock/same70/sysclk.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/services/serial/usart_serial.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/stdio/read.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/common/utils/stdio/write.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/boards/same70_xplained/init.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/matrix/matrix.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/matrix/matrix.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/mpu/mpu.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/mpu/mpu.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio/pio.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio/pio.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio/pio_handler.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pio/pio_handler.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc/pmc.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc/pmc.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc/sleep.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/pmc/sleep.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/tc/tc.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/tc/tc.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/uart/uart.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/uart/uart.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/usart/usart.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/drivers/usart/usart.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/ASF/sam/utils/syscalls/gcc/syscalls.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/BlockQ.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/EventGroupsDemo.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/GenQTest.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/IntQueue.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/IntSemTest.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/QueueOverwrite.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/TaskNotify.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/TimerDemo.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/blocktim.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/countsem.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/death.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/dynamic.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/flop.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/recmutex.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/Common/Minimal/semtest.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/event_groups.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/list.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/portable/MemMang/heap_4.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/queue.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/tasks.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/extern/FreeRTOS/timers.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Blinky_Demo/main_blinky.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo/IntQueueTimer.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo/IntQueueTimer.h">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo/RegTest_GCC.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/Full_Demo/main_full.c">
+			<Option target="Kronos"/>
+		</Unit>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/src/main.c">
+			<Option target="Kronos"/>
 		</Unit>
 		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
-		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/../../vcpkg/scripts/buildsystems/vcpkg.cmake">
-			<Option virtualFolder="CMake Files\..\..\vcpkg\scripts\buildsystems\"/>
+		<Unit filename="C:/Users/Ruben/OneDrive/Desktop/space/kronos/Kronos_lib/../build/sam_gcc.cmake">
+			<Option virtualFolder="CMake Files\..\build\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

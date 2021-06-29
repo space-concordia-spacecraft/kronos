@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "Kronos_lib.lib"
+  "libKronos_lib.a"
 )
