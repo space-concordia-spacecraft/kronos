@@ -148,6 +148,8 @@ function (set_compile_flags SRC_FILE)
     endif()
 
 endfunction (set_compile_flags)
+
+
 ##
 #	FUNCTION add_sam_executable
 #
@@ -213,7 +215,7 @@ function (add_sam_executable EXECUTABLE_NAME)
         #	Create utility project for uploading via BOSSA
         add_custom_target (
                 "Upload_${EXECUTABLE_NAME}"
-                ${ARM_UPLOADTOOL} -i -d --port=${UPLOAD_PORT} -U --offset=0x4000 -w -v ./${BIN_OUTPUT_FILE} -R
+                ${ARM_UPLOADTOOL} -e -w -v -b ./Kronos.bin
                 DEPENDS ${BIN_OUTPUT_FILE}
         )
 
