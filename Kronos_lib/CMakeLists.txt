@@ -51,7 +51,7 @@ file(GLOB SOURCE_FILES
         "src/Full_Demo/RegTest_GCC.c"
         "src/Full_Demo/IntQueueTimer.c"
         "src/Full_Demo/main_full.c"
-        "src/main.c")
+        "src/main.cpp")
 
 add_sam_executable(Kronos ${SOURCE_FILES} )
 

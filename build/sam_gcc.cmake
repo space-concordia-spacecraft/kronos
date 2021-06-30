@@ -24,14 +24,22 @@ SET ( CMAKE_C_STANDARD 99 )
 SET ( CMAKE_CXX_STANDARD 17 )
 
 # C and C++ specific flags
-SET ( CMAKE_C_FLAGS "-x c -std=gnu99" )
-SET ( CMAKE_CXX_FLAGS "-fno-rtti -fno-exceptions" )
+#SET ( CMAKE_C_FLAGS "-x c -std=gnu99" )
+#SET ( CMAKE_CXX_FLAGS "-fno-rtti -fno-exceptions" )
+
+# ARM GCC Toolchain Folder
+if(NOT ARM_TOOLCHAIN_PATH)
+    set (
+            ARM_TOOLCHAIN_PATH "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\arm\\arm-gnu-toolchain\\bin"
+            CACHE STRING "Set default path: C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\arm\\arm-gnu-toolchain\\bin"
+    )
+endif()
 
 # CPU
 if (NOT ARM_CPU)
     set (
             ARM_CPU cortex-m7
-            CACHE STRING "Set default MCU: cortex-m07 (see 'arm-none-eabi-gcc --target-help' for valid values)"
+            CACHE STRING "Set default MCU: cortex-m7 (see 'arm-none-eabi-gcc --target-help' for valid values)"
     )
 endif()
 
@@ -121,7 +129,25 @@ else()
 endif()
 
 
+##
+# FUNCTION get_file_language
+#
+#   PARAM SRC_FILE The path of the source file
+#
+function (set_compile_flags SRC_FILE)
+    get_filename_component(SRC_EXT ${SRC_FILE} EXT)
 
+    # SRC_EXT includes the .
+    # The following regex removes the . so that only the language remains. For example: c, cpp
+    string(REGEX REPLACE "\\." "" SRC_EXT ${SRC_EXT})
+
+    # Set language to C
+    if (${SRC_EXT} IN_LIST CMAKE_C_SOURCE_FILE_EXTENSIONS)
+        set_source_files_properties(${SRC_FILE} PROPERTIES COMPILE_FLAGS "-x c")
+        return()
+    endif()
+
+endfunction (set_compile_flags)
 ##
 #	FUNCTION add_sam_executable
 #
@@ -138,6 +164,7 @@ function (add_sam_executable EXECUTABLE_NAME)
     else()
         foreach(src_file ${additional_source_files})
             message (STATUS "Including source: ${src_file}")
+            set_compile_flags(${src_file} SRC_LANG)
         endforeach()
     endif()
 
@@ -168,7 +195,7 @@ function (add_sam_executable EXECUTABLE_NAME)
     #	Create binary from ELF.
     add_custom_target (
             ${BIN_OUTPUT_FILE}
-            ${CMAKE_OBJCOPY} -O binary ./${ELF_OUTPUT_FILE} ./${BIN_OUTPUT_FILE}
+            "${ARM_TOOLCHAIN_PATH}/${CMAKE_OBJCOPY}" -O binary ./${ELF_OUTPUT_FILE} ./${BIN_OUTPUT_FILE}
             DEPENDS ${EXECUTABLE_NAME}
     )
 
