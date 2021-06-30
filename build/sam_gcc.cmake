@@ -7,6 +7,9 @@ SET ( CMAKE_SYSTEM_VERSION 1 )
 
 SET ( PACKS_REPO "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\packs")
 
+SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+SET ( CMAKE_VERBOSE_MAKEFILE ON )
+
 #
 #	ARM GCC Toolchain Configuration
 #
@@ -21,7 +24,7 @@ SET ( CMAKE_C_STANDARD 99 )
 SET ( CMAKE_CXX_STANDARD 17 )
 
 # C and C++ specific flags
-SET ( CMAKE_C_FLAGS "-x c" )
+SET ( CMAKE_C_FLAGS "-x c -std=gnu99" )
 SET ( CMAKE_CXX_FLAGS "-fno-rtti -fno-exceptions" )
 
 # CPU
@@ -151,12 +154,12 @@ function (add_sam_executable EXECUTABLE_NAME)
     add_executable(${EXECUTABLE_NAME} EXCLUDE_FROM_ALL ${additional_source_files})
     set_target_properties(${EXECUTABLE_NAME} PROPERTIES OUTPUT_NAME "${ELF_OUTPUT_FILE}")
 
-    target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PACKS_REPO}/arm/CMSIS/5.4.0/CMSIS/Core/Include" PUBLIC "${PACKS_REPO}/atmel/SAME70_DFP/2.4.166/same70a/include"  )
+    target_include_directories(${EXECUTABLE_NAME} PUBLIC "${PACKS_REPO}/arm/CMSIS/5.4.0/CMSIS/Core/Include")
     set_target_properties (
             ${EXECUTABLE_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-x c -mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -std=gnu99 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP -MF"
-            LINK_FLAGS "-mthumb -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_SOURCE_DIR}\\..\\scripts\\gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld --specs=nano.specs -specs=nosys.specs"
+            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
+            LINK_FLAGS "-mthumb -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_SOURCE_DIR}/../scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld"
     )	# TODO: Hardcoded -> DEBUG, __SAMD51J20A__
 
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
@@ -250,7 +253,7 @@ function (add_sam_library LIBRARY_NAME)
     set_target_properties (
             ${LIBRARY_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-x c -mthumb -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=${ARM_CPU} -c -std=gnu99 -MD -MP -MF \"${LIBRARY_NAME}.d\"" #-MT\"library.d\" -MT\"library.o\"   -o \"library.o\" \".././library.c\""
+            COMPILE_FLAGS "-mthumb -O1 -ffunction-sections -mlong-calls -g3 -Wall -mcpu=${ARM_CPU} -c -std=gnu99 -MD -MP -MF \"${LIBRARY_NAME}.d\"" #-MT\"library.d\" -MT\"library.o\"   -o \"library.o\" \".././library.c\""
             LINKER_LANGUAGE "C"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     ) # TODO: __SAMD51J20A__ is hardcoded!

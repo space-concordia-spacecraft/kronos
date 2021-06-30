@@ -1,9 +1,13 @@
 cmake_minimum_required(VERSION 3.17)
 
+SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+SET ( CMAKE_VERBOSE_MAKEFILE ON )
+
 project(Kronos)
 
 # Glob source files
-file(GLOB_RECURSE SOURCE_FILES "extern/FreeRTOS/event_groups.c"
+file(GLOB SOURCE_FILES
+        "extern/FreeRTOS/event_groups.c"
         "extern/FreeRTOS/portable/MemMang/heap_4.c"
         "extern/FreeRTOS/list.c"
         "extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
