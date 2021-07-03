@@ -21,7 +21,7 @@
 namespace kronos {
 
     class ActiveComponent : private QueuedComponent {
-        ActiveComponent(char * id, unsigned short stackSize, int priority);
+        ActiveComponent(const char * id, unsigned short stackSize, UBaseType_t priority);
         ~ActiveComponent();
     public:
         void Init();
@@ -32,11 +32,11 @@ namespace kronos {
         void setPriority(UBaseType_t prio);
 
     private:
-        char * m_Id;
+        const char * m_Id;
         int m_Priority;
         uint16_t m_StackSize;
 
-        bool m_Running;
+        volatile bool m_Running;
 
         TaskHandle_t m_Task;
 

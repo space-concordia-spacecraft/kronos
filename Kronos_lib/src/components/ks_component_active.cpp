@@ -1,7 +1,7 @@
 #include "ks_component_active.h"
 
 namespace kronos {
-    ActiveComponent::ActiveComponent(char * id, uint16_t stackSize, int priority):m_Id(id),m_StackSize(stackSize),m_Priority(priority) {
+    ActiveComponent::ActiveComponent(const char * id, uint16_t stackSize, UBaseType_t priority):m_Id(id),m_StackSize(stackSize),m_Priority(priority) {
 
     }
 

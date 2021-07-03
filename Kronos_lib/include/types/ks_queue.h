@@ -14,28 +14,16 @@ namespace kronos {
             vQueueDelete(m_Queue);
         }
 
-        bool push(V element, TickType_t ticksToWait) {
+        BaseType_t push(V element, TickType_t ticksToWait = 0) {
             return xQueueSend(m_Queue, element, ticksToWait);
         }
 
-        bool push(V element) {
-            return push(element, 0);
-        }
-
-        bool pop(V *buffer, TickType_t ticksToWait) {
+        BaseType_t pop(V *buffer, TickType_t ticksToWait = 0) {
             return xQueueReceive( m_Queue, &( buffer ), ticksToWait);
         }
 
-        bool pop(V *buffer) {
-            return pop(buffer, 0);
-        }
-
-        bool peek(V *buffer, TickType_t ticksToWait) {
-            return ( xQueuePeek( m_Queue, &( buffer ), ticksToWait);
-        }
-
-        bool peek(V *buffer) {
-            return peek(buffer, 0);
+        BaseType_t peek(V *buffer, TickType_t ticksToWait = 0) {
+            return xQueuePeek( m_Queue, &( buffer ), ticksToWait);
         }
 
         void clear() {
