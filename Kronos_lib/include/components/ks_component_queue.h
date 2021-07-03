@@ -1,6 +1,8 @@
 #pragma once
 
-#include "../component.h"
+/* Kronos includes. */
+#include "ks_component.h"
+#include "ks_queue.h"
 
 namespace kronos {
 

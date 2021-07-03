@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../component.h"
+#include "ks_component.h"
 
 namespace kronos {
 

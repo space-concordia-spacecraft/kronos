@@ -51,14 +51,14 @@ file(GLOB SOURCE_FILES
         "src/Full_Demo/RegTest_GCC.c"
         "src/Full_Demo/IntQueueTimer.c"
         "src/Full_Demo/main_full.c"
-        "src/main.cpp")
+        "src/main.cpp"
+        "src/components/ks_component_active.cpp")
 
 add_sam_executable(Kronos ${SOURCE_FILES} )
 
 target_include_directories(Kronos PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Full_Demo"
 
