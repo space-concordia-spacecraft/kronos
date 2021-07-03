@@ -2,7 +2,7 @@
 
 #define KS_HASHTABLE_SIZE 16
 
-#include "types.h"
+#include "asf.h"
 
 namespace kronos {
 
@@ -19,7 +19,7 @@ namespace kronos {
     class HashNode {
     public:
         HashNode(const K & key, const V & value) :
-                _key(key), _value(value), _next(NULL) {}
+                _key(key), _value(value), _next(nullptr) {}
 
         K & getKey() {
             return _key;

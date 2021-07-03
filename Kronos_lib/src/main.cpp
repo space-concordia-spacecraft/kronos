@@ -51,26 +51,13 @@
 #include "board.h"
 #include "asf.h"
 
-/* Set mainCREATE_SIMPLE_BLINKY_DEMO_ONLY to one to run the simple blinky demo,
-or 0 to run the more comprehensive test and demo application. */
-#define mainCREATE_SIMPLE_BLINKY_DEMO_ONLY	1
-
 /*-----------------------------------------------------------*/
 
 /*
  * Configure the hardware as necessary to run this demo.
  */
 static void prvSetupHardware( void );
-
-/*
- * main_blinky() is used when mainCREATE_SIMPLE_BLINKY_DEMO_ONLY is set to 1.
- * main_full() is used when mainCREATE_SIMPLE_BLINKY_DEMO_ONLY is set to 0.
- */
-#if mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 1
 extern "C" void main_blinky( void );
-#else
-extern void main_full( void );
-#endif /* #if mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 1 */
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -88,15 +75,7 @@ int main( void )
 
     /* The mainCREATE_SIMPLE_BLINKY_DEMO_ONLY setting is described at the top
     of this file. */
-#if( mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 1 )
-    {
-        main_blinky();
-    }
-#else
-    {
-		main_full();
-	}
-#endif
+    main_blinky();
 
     return 0;
 }
@@ -118,7 +97,7 @@ void vApplicationMallocFailedHook( void )
     configTOTAL_HEAP_SIZE configuration constant in FreeRTOSConfig.h. */
 
     /* Force an assert. */
-    configASSERT( ( volatile void * ) NULL );
+    configASSERT( ( volatile void * ) nullptr );
 }
 /*-----------------------------------------------------------*/
 
@@ -132,7 +111,7 @@ void vApplicationStackOverflowHook( TaskHandle_t pxTask, char *pcTaskName )
     function is called if a stack overflow is detected. */
 
     /* Force an assert. */
-    configASSERT( ( volatile void * ) NULL );
+    configASSERT( ( volatile void * ) nullptr );
 }
 /*-----------------------------------------------------------*/
 
@@ -156,15 +135,6 @@ void vApplicationIdleHook( void )
 
 void vApplicationTickHook( void )
 {
-#if( mainCREATE_SIMPLE_BLINKY_DEMO_ONLY == 0 )
-    {
-	extern void vFullDemoTickHook( void );
-
-		/* The full demo includes some tests that execute in an interrupt
-		context, and the tick hook is used for this purpose. */
-		vFullDemoTickHook();
-	}
-#endif
 }
 /*-----------------------------------------------------------*/
 

@@ -80,14 +80,6 @@ if (USE_UPLOADER)
         )
         find_program(ARM_UPLOADTOOL bossac)
     endif(NOT ARM_UPLOADTOOL)
-
-
-    if (NOT UPLOAD_PORT)
-        SET (
-                UPLOAD_PORT COM6
-                CACHE STRING "Set upload port: COM<port_num>"
-        )
-    endif(NOT UPLOAD_PORT)
 endif(USE_UPLOADER)
 
 

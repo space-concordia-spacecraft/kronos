@@ -2,7 +2,6 @@
 
 #include <type_traits>
 
-#include "types.h"
 #include "ks_vector.h"
 #include "ks_channel.h"
 

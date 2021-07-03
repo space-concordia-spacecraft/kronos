@@ -2,50 +2,48 @@
 
 #include "FreeRTOS.h"
 #include "queue.h"
-#include "portmacro.h"
+#include "asf.h"
+
+#define KS_QUEUE_DEFAULT_WAIT_TIME ( 1000 / portTICK_PERIOD_MS )
 
 namespace kronos {
-    template<typename V>
+
+    template<typename T>
     class Queue {
     public:
-        Queue(UBaseType_t length = 5): m_Length(length), m_Queue(xQueueCreate( length, sizeof( V ) )){ }
+        explicit Queue(size_t length = 10)
+                : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}
 
         ~Queue() {
             vQueueDelete(m_Queue);
         }
 
-        bool push(V element, TickType_t ticksToWait) {
-            return xQueueSend(m_Queue, element, ticksToWait);
+        BaseType_t Push(const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
+            return xQueueSend(m_Queue, &element, ticksToWait);
         }
 
-        bool push(V element) {
-            return push(element, 0);
+        BaseType_t Pop(T* buffer, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
+            return xQueueReceive(m_Queue, &(buffer), ticksToWait);
         }
 
-        bool pop(V *buffer, TickType_t ticksToWait) {
-            return xQueueReceive( m_Queue, &( buffer ), ticksToWait);
+        BaseType_t Peek(T* buffer, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) const {
+            return xQueuePeek(m_Queue, &(buffer), ticksToWait);
         }
 
-        bool pop(V *buffer) {
-            return pop(buffer, 0);
+        BaseType_t Clear() {
+            return xQueueReset(m_Queue);
         }
 
-        bool peek(V *buffer, TickType_t ticksToWait) {
-            return ( xQueuePeek( m_Queue, &( buffer ), ticksToWait);
+        size_t Length() const {
+            return m_Length;
         }
 
-        bool peek(V *buffer) {
-            return peek(buffer, 0);
+        size_t Size() const {
+            return Length() - uxQueueSpacesAvailable(m_Queue);
         }
-
-        void clear() {
-            xQueueReset(m_Queue);
-        }
-
-        UBaseType_t getLength() { return m_Length; }
 
     private:
         QueueHandle_t m_Queue;
-        UBaseType_t m_Length;
+        const size_t m_Length;
     };
 }

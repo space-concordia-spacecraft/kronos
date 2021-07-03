@@ -1,16 +1,32 @@
 #pragma once
 
-#include "ks_component.h"
+#include "asf.h"
+
+#include "ks_vector.h"
+#include "ks_string.h"
 
 namespace kronos {
 
-    class PassiveComponent : private Component {
+    struct CommandMessage {
+        uint16_t opcode = 0;
+        void * data = nullptr;
+        size_t size = 0;
+    };
 
+    class ComponentPassive {
     public:
-        PassiveComponent();
-        ~PassiveComponent();
+        explicit ComponentPassive(const String& name);
 
-        virtual void onReceive(int opcode, void * data) override;
+        virtual void Init();
+        virtual void Destroy();
+
+        virtual void ReceiveCommand(const CommandMessage& message);
+        virtual void ProcessCommand(const CommandMessage& message) = 0;
+
+        virtual Vector<uint16_t> AvailableCommands();
+
+    protected:
+        String m_Name;
     };
 }
 
