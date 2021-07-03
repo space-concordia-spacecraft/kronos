@@ -2,6 +2,8 @@
 
 #define KS_HASHTABLE_SIZE 16
 
+#include "types.h"
+
 namespace kronos {
 
     // Default hash function class

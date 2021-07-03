@@ -4,7 +4,7 @@
 
 #include "types.h"
 #include "ks_vector.h"
-#include "channel.h"
+#include "ks_channel.h"
 
 namespace kronos {
 

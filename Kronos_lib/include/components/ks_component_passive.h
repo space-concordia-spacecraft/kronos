@@ -4,8 +4,13 @@
 
 namespace kronos {
 
-    class Passive : private Component {
+    class PassiveComponent : private Component {
 
+    public:
+        PassiveComponent();
+        ~PassiveComponent();
+
+        virtual void onReceive(int opcode, void * data) override;
     };
 }
 

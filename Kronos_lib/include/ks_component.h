@@ -5,6 +5,12 @@
 
 namespace kronos {
 
+    struct CommandMessage {
+        int opcode;
+        void * data;
+        int size;
+    };
+
     template<typename T>
     class Bus;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 /* Kronos includes. */
-#include "ks_component.h"
+#include "ks_component_queue.h"
 #include "ks_queue.h"
 
 /* Kernel includes. */
@@ -20,15 +20,16 @@
 
 namespace kronos {
 
-    class Active : private Component {
-        Active(char * id, unsigned short stackSize, int priority);
-        ~Active();
+    class ActiveComponent : private QueuedComponent {
+        ActiveComponent(char * id, unsigned short stackSize, int priority);
+        ~ActiveComponent();
     public:
-        void Start();
+        void Init();
         void Stop();
         void Run();
 
-
+        UBaseType_t getPriority();
+        void setPriority(UBaseType_t prio);
 
     private:
         char * m_Id;
@@ -37,9 +38,9 @@ namespace kronos {
 
         bool m_Running;
 
-        kronos::Queue<int> m_Queue;
+        TaskHandle_t m_Task;
 
-        static void StartTask(void *);
+        static void Start(void *);
     };
 }
 
