@@ -4,12 +4,8 @@ namespace kronos {
     Bus::Bus(uint16_t opcode, String name):m_Opcode(opcode),m_Name(name) {
 
     }
-    void Bus::AddComponent(ComponentPassive * component) {
-        m_Components.add(component);
-    }
-
-    void Bus::RemoveComponent(ComponentPassive * component) {
-        m_Components.remove(component);
+    void Bus::AddReceivingComponent(ComponentPassive * component) {
+        m_ReceivingComponents.add(component);
     }
 
     void Bus::Publish(CommandMessage message) {
@@ -18,8 +14,8 @@ namespace kronos {
             return;
         }
 
-        for(int i = 0; i < m_Components.size(); i ++) {
-            m_Components[i]->ReceiveCommand(message);
+        for(int i = 0; i < m_ReceivingComponents.size(); i ++) {
+            m_ReceivingComponents[i]->ReceiveCommand(message);
         }
     }
 }

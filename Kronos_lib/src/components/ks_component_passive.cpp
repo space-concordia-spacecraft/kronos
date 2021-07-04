@@ -13,8 +13,4 @@ namespace kronos {
         ProcessCommand(message);
     }
 
-    Vector<KsOpcode> ComponentPassive::AvailableCommands() {
-        return {};
-    }
-
 }

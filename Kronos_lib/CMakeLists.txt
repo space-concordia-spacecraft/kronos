@@ -45,6 +45,7 @@ file(GLOB SOURCE_FILES
         "src/Blinky_Demo/main_blinky.c"
         "src/main.cpp"
         "src/ks_bus.cpp"
+        "src/utilities/ks_util_scheduler.cpp"
         "src/components/ks_component_passive.cpp"
         "src/components/ks_component_queued.cpp"
         "src/components/ks_component_active.cpp")
@@ -55,6 +56,8 @@ target_include_directories(Kronos PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/services"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Full_Demo"
 
