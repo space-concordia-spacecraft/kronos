@@ -11,7 +11,7 @@
 namespace kronos {
 
     struct CommandMessage {
-        KsOpcode opcode = 0;
+        KsOpcode opcode = KS_OPCODE_INVALID;
         void * data = nullptr;
         size_t size = 0;
         String returnBusName = "";

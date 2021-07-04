@@ -49,6 +49,7 @@ file(GLOB SOURCE_FILES
         "src/components/ks_component_passive.cpp"
         "src/components/ks_component_queued.cpp"
         "src/components/ks_component_active.cpp"
+        "src/utilities/ks_util_scheduler.cpp"
         "src/ks_bus.cpp"
         "src/kronos.cpp"
         "src/main.cpp"

@@ -153,12 +153,12 @@ namespace kronos {
     }
 
     template<typename T>
-    VectorIterator<T> Vector<T>::Begin() {
+    VectorIterator<T> Vector<T>::begin() {
         return VectorIterator<T>(*this, 0);
     }
 
     template<typename T>
-    VectorIterator<T> Vector<T>::End() {
+    VectorIterator<T> Vector<T>::end() {
         return VectorIterator<T>(*this, m_Size);
     }
 

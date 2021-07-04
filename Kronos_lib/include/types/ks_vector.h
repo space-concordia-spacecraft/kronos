@@ -6,8 +6,8 @@ namespace kronos {
 
     template<typename T>
     struct Iterable {
-        virtual T Begin() = 0;
-        virtual T End() = 0;
+        virtual T begin() = 0;
+        virtual T end() = 0;
     };
 
     template<typename T>
@@ -25,8 +25,8 @@ namespace kronos {
         VectorIterator<T>& operator++();
         VectorIterator<T> operator++(int);
 
-        inline T& operator*();
-        inline T* operator->();
+        T& operator*();
+        T* operator->();
 
         template<typename Ty>
         friend bool operator==(const VectorIterator<Ty>& left, const VectorIterator<Ty>& right);
@@ -58,8 +58,8 @@ namespace kronos {
 
         void Clear();
 
-        VectorIterator<T> Begin() override;
-        VectorIterator<T> End() override;
+        VectorIterator<T> begin() override;
+        VectorIterator<T> end() override;
 
         T& operator[](size_t index) const;
         T& Get(size_t index) const;

@@ -16,9 +16,10 @@
 #define KS_COMPONENT_PRIORITY_LOW       ( tskIDLE_PRIORITY + 1 )
 
 // Stack sizes
-#define KS_COMPONENT_STACK_SIZE_LARGE   2048
-#define KS_COMPONENT_STACK_SIZE_MEDIUM  1024
-#define KS_COMPONENT_STACK_SIZE_SMALL   512
+#define KS_COMPONENT_STACK_SIZE_XLARGE  configMINIMAL_STACK_SIZE * 8
+#define KS_COMPONENT_STACK_SIZE_LARGE   configMINIMAL_STACK_SIZE * 4
+#define KS_COMPONENT_STACK_SIZE_MEDIUM  configMINIMAL_STACK_SIZE * 2
+#define KS_COMPONENT_STACK_SIZE_SMALL   configMINIMAL_STACK_SIZE
 
 namespace kronos {
 
@@ -34,7 +35,6 @@ namespace kronos {
     private:
         size_t m_StackSize;
         uint16_t m_Priority;
-
         TaskHandle_t m_Task = nullptr;
 
         static void Start(void* data);

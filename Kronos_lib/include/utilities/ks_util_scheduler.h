@@ -2,6 +2,7 @@
 
 // Kronos includes
 #include "ks_component_queued.h"
+#include "ks_hashmap.h"
 
 // Kernel includes
 #include "FreeRTOS.h"
@@ -16,24 +17,23 @@
 
 namespace kronos {
     class Scheduler {
+    private:
+        static void TimerCallbackStub(TimerHandle_t timerHandle);
+        void TimerCallback();
+
     public:
-        Scheduler(String& name, void * const timerId, TickType_t interval, BaseType_t autoReloaded);
+        Scheduler(String& name, TickType_t interval, BaseType_t autoReload);
 
         void Start();
         void Destroy();
 
         void AddBus(Bus * bus);
+
     private:
-
-        void m_TimerCallBack(TimerHandle_t timerHandle);
-
         String m_SchedulerName;
         BaseType_t m_AutoReload = pdTRUE;
         TickType_t m_SchedulerInterval = 1000;
-        void * const m_TimerID;
-
         TimerHandle_t m_Timer;
-
         kronos::Vector<Bus *> m_PublishingBuses;
     };
 }
