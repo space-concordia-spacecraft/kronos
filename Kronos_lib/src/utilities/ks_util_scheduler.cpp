@@ -2,7 +2,7 @@
 
 namespace kronos {
 
-    Scheduler::Scheduler(String& name, TickType_t interval, BaseType_t autoReload)
+    Scheduler::Scheduler(const String& name, TickType_t interval, BaseType_t autoReload)
             : m_SchedulerName(name), m_AutoReload(autoReload), m_SchedulerInterval(interval) {
         m_Timer = xTimerCreate(
                 m_SchedulerName.Ptr(),                  // The text name assigned to the timer - for debug only as it is not used by the kernel.

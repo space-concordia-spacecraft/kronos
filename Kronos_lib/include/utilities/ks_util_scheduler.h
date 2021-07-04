@@ -16,13 +16,14 @@
 #include "ks_bus.h"
 
 namespace kronos {
+
     class Scheduler {
     private:
         static void TimerCallbackStub(TimerHandle_t timerHandle);
         void TimerCallback();
 
     public:
-        Scheduler(String& name, TickType_t interval, BaseType_t autoReload);
+        Scheduler(const String& name, TickType_t interval, BaseType_t autoReload);
 
         void Start();
         void Destroy();
@@ -36,4 +37,5 @@ namespace kronos {
         TimerHandle_t m_Timer;
         kronos::Vector<Bus *> m_PublishingBuses;
     };
+
 }
