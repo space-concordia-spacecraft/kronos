@@ -6,8 +6,8 @@ namespace kronos {
 
     template<typename T>
     struct Iterable {
-        virtual T begin() = 0;
-        virtual T end() = 0;
+        virtual T Begin() = 0;
+        virtual T End() = 0;
     };
 
     template<typename T>
@@ -16,165 +16,58 @@ namespace kronos {
     template<typename T>
     class VectorIterator {
     private:
-        const Vector<T> & vector;
+        const Vector<T>& vector;
         size_t index;
 
     public:
-        VectorIterator(const Vector<T> & vector, size_t index) : vector(vector), index(index) {};
+        VectorIterator(const Vector<T>& vector, size_t index);
 
-        VectorIterator<T> & operator++() {
-            index++;
-            return *this;
-        };
+        VectorIterator<T>& operator++();
+        VectorIterator<T> operator++(int);
 
-        VectorIterator<T> operator++(int) {
-            VectorIterator<T> temp = *this;
-            ++*this;
-            return temp;
-        };
+        inline T& operator*();
+        inline T* operator->();
 
-        inline T & operator*() {
-            return vector[index];
-        }
+        template<typename Ty>
+        friend bool operator==(const VectorIterator<Ty>& left, const VectorIterator<Ty>& right);
 
-        inline T * operator->() {
-            return &vector[index];
-        }
-
-        inline friend bool operator==(const VectorIterator<T> & left, const VectorIterator<T> & right) {
-            return left.index == right.index && &left.vector == &right.vector;
-        }
-
-        inline friend bool operator!=(const VectorIterator<T> & left, const VectorIterator<T> & right) {
-            return !(left == right);
-        }
+        template<typename Ty>
+        friend bool operator!=(const VectorIterator<Ty>& left, const VectorIterator<Ty>& right);
     };
 
     template<typename T>
     class Vector : Iterable<VectorIterator<T>> {
+    private:
+        void Expand(size_t minSize = 0);
+
+    public:
+        Vector(size_t capacity = 10);
+        Vector(T elements...);
+        ~Vector();
+
+        int Size() const;
+        int Capacity() const;
+
+        void Add(T element);
+        void AddAll(Vector<T> values);
+
+        void Remove(T element);
+        void Remove(size_t index);
+
+        int Contains(T element);;
+
+        void Clear();
+
+        VectorIterator<T> Begin() override;
+        VectorIterator<T> End() override;
+
+        T& operator[](size_t index) const;
+        T& Get(size_t index) const;
 
     private:
         int m_Capacity;
         int m_Size;
-        T * m_Elements = nullptr;
-
-        void expand(size_t minSize = 0) {
-            size_t newCapacity = 2 * m_Capacity;
-            if (minSize > 0 && minSize > newCapacity)
-                newCapacity = minSize;
-            T * newElements = new T[newCapacity];
-
-            // TODO replace with memory copying function
-            for (int i = 0; i < m_Size; i++)
-                newElements[i] = m_Elements[i];
-
-            if (m_Elements != nullptr)
-                delete[] m_Elements;
-            m_Elements = newElements;
-            m_Capacity = newCapacity;
-        }
-
-    public:
-        Vector(size_t capacity = 10)
-            : m_Capacity(0), m_Size(0) {
-            expand(capacity);
-        };
-
-        Vector(T elements...)
-            : m_Capacity(0), m_Size(0) {
-            expand(m_Size);
-            T tempElements[] = { elements };
-            size_t size = sizeof(tempElements) / sizeof(T);
-            for (size_t i = 0; i < size; i++) {
-                m_Elements[i] = tempElements[i];
-            }
-            m_Size = size;
-        };
-
-        ~Vector() {
-            delete[] m_Elements;
-        }
-
-        inline int size() const {
-            return m_Size;
-        }
-
-        inline int capacity() const {
-            return m_Capacity;
-        }
-
-        void add(T element) {
-            if (m_Size + 1 > m_Capacity)
-                expand(m_Size + 1);
-            m_Elements[m_Size++] = element;
-        }
-
-        void addAll(Vector<T> values) {
-            if (m_Size + values.m_Size > m_Capacity)
-                expand(m_Size + values.m_Size);
-            for (int i = 0; i < values.m_Size; i++) {
-                m_Elements[m_Size + i] = values[i];
-            }
-            m_Size += values.m_Size;
-        }
-
-        void remove(T element) {
-            int elementIndex = -1;
-            for (int i = 0; i < m_Size; i++) {
-                if (m_Elements[i] == element) {
-                    elementIndex = i;
-                    break;
-                }
-            }
-            if (elementIndex >= 0) {
-                for (int i = elementIndex; i < m_Size - 1; i++) {
-                    m_Elements[i] = m_Elements[i + 1];
-                }
-                m_Size--;
-            }
-        }
-
-        void remove(size_t index) {
-            if(index >= m_Size)
-                return;
-
-            for (int i = index; i < m_Size - 1; i++) {
-                m_Elements[i] = m_Elements[i + 1];
-            }
-            m_Size--;
-        }
-
-        int contains(T element) {
-            int elementIndex = -1;
-            for (int i = 0; i < m_Size; i++) {
-                if (m_Elements[i] == element) {
-                    elementIndex = i;
-                    break;
-                }
-            }
-            return elementIndex;
-        }
-
-        void clear(){
-            m_Size = 0;
-        }
-
-        VectorIterator<T> begin() {
-            return VectorIterator<T>(*this, 0);
-        }
-
-        VectorIterator<T> end() {
-            return VectorIterator<T>(*this, m_Size);
-        }
-
-        inline T & operator[](size_t index) const {
-            return get(index);
-        }
-
-        T & get(size_t index) const {
-            return m_Elements[index];
-        }
-
+        T* m_Elements = nullptr;
     };
 
 }

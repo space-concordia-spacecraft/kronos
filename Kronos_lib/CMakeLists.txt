@@ -42,12 +42,17 @@ file(GLOB SOURCE_FILES
         "extern/ASF/sam/utils/syscalls/gcc/syscalls.c"
         "extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.c"
         "extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c"
-        "src/Blinky_Demo/main_blinky.c"
-        "src/main.cpp"
-        "src/ks_bus.cpp"
+        "src/types/ks_hashmap.cpp"
+        "src/types/ks_queue.cpp"
+        "src/types/ks_string.cpp"
+        "src/types/ks_vector.cpp"
         "src/components/ks_component_passive.cpp"
         "src/components/ks_component_queued.cpp"
-        "src/components/ks_component_active.cpp")
+        "src/components/ks_component_active.cpp"
+        "src/ks_bus.cpp"
+        "src/kronos.cpp"
+        "src/main.cpp"
+)
 
 add_sam_executable(Kronos ${SOURCE_FILES} )
 

@@ -21,5 +21,5 @@ namespace kronos {
     protected:
         kronos::Queue<CommandMessage> m_Queue;
     };
-    
+
 }
