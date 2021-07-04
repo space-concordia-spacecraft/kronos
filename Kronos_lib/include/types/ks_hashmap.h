@@ -88,6 +88,22 @@ namespace kronos {
             return get(key);
         }
 
+        bool peek(const K & key, V * value) {
+            unsigned long hashValue = hashFunc(key);
+            HashNode<K, V> * entry = table[hashValue];
+
+            while (entry != nullptr) {
+                if (entry->getKey() == key) {
+                    * value = entry->getValue();
+                    return true;
+                }
+
+                entry = entry->getNext();
+            }
+
+            return false;
+        }
+
         void put(const K & key, const V & value) {
             unsigned long hashValue = hashFunc(key);
             HashNode<K, V> * prev = nullptr;

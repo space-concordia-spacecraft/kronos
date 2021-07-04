@@ -1,5 +1,7 @@
 #pragma once
 
+#include "asf.h"
+
 namespace kronos {
 
     template<typename T>
