@@ -31,8 +31,4 @@ namespace kronos {
         }
     }
 
-    Vector<KsOpcode> ComponentQueued::AvailableCommands() {
-        return { KS_OPCODE_EMPTY_QUEUE };
-    }
-
 }

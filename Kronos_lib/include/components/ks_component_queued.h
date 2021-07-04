@@ -16,7 +16,6 @@ namespace kronos {
         virtual void Destroy() override;
 
         virtual void ReceiveCommand(const CommandMessage& message) override;
-        virtual Vector<KsOpcode> AvailableCommands() override;
 
     protected:
         kronos::Queue<CommandMessage> m_Queue;

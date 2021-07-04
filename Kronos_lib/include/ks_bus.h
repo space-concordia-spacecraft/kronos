@@ -9,11 +9,10 @@ namespace kronos {
     public:
         Bus(uint16_t opcode, String name);
 
-        void AddComponent(ComponentPassive * component);
-        void RemoveComponent(ComponentPassive * component);
+        void AddReceivingComponent(ComponentPassive * component);
         void Publish(CommandMessage message);
     private:
-        Vector<ComponentPassive*> m_Components;
+        Vector<ComponentPassive*> m_ReceivingComponents;
         uint16_t m_Opcode;
         String m_Name;
     };

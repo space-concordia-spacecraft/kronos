@@ -60,6 +60,8 @@ target_include_directories(Kronos PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/services"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/Full_Demo"
 

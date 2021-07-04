@@ -29,7 +29,7 @@ namespace kronos {
             if (m_Queue.Pop(&message) == pdPASS) {
                 ProcessCommand(message);
             }
-            taskYIELD()
+            taskYIELD();
         }
     }
 

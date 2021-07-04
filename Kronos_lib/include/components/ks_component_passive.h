@@ -14,6 +14,7 @@ namespace kronos {
         KsOpcode opcode = 0;
         void * data = nullptr;
         size_t size = 0;
+        String returnBusName = "";
     };
 
     class ComponentPassive {
@@ -25,8 +26,6 @@ namespace kronos {
 
         virtual void ReceiveCommand(const CommandMessage& message);
         virtual void ProcessCommand(const CommandMessage& message) = 0;
-
-        virtual Vector<KsOpcode> AvailableCommands();
 
     protected:
         String m_Name;
