@@ -1,4 +1,20 @@
-//
-// Created by Cristian on 7/3/2021.
-//
+#include "ks_component_passive.h"
 
+namespace kronos {
+
+    ComponentPassive::ComponentPassive(const String& name)
+            : m_Name(name) {}
+
+    void ComponentPassive::Init() {}
+
+    void ComponentPassive::Destroy() {}
+
+    void ComponentPassive::ReceiveCommand(const CommandMessage& message) {
+        ProcessCommand(message);
+    }
+
+    Vector<KsOpcode> ComponentPassive::AvailableCommands() {
+        return {};
+    }
+
+}

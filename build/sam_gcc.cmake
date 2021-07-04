@@ -7,8 +7,8 @@ SET ( CMAKE_SYSTEM_VERSION 1 )
 
 SET ( PACKS_REPO "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\packs")
 
-SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
-SET ( CMAKE_VERBOSE_MAKEFILE ON )
+#SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+#SET ( CMAKE_VERBOSE_MAKEFILE ON )
 
 #
 #	ARM GCC Toolchain Configuration
@@ -22,10 +22,6 @@ SET ( CMAKE_LINKER arm-none-eabi-ld )
 SET ( CMAKE_SIZE arm-none-eabi-size )
 SET ( CMAKE_C_STANDARD 99 )
 SET ( CMAKE_CXX_STANDARD 17 )
-
-# C and C++ specific flags
-#SET ( CMAKE_C_FLAGS "-x c -std=gnu99" )
-#SET ( CMAKE_CXX_FLAGS "-fno-rtti -fno-exceptions" )
 
 # ARM GCC Toolchain Folder
 if(NOT ARM_TOOLCHAIN_PATH)
@@ -179,7 +175,7 @@ function (add_sam_executable EXECUTABLE_NAME)
     set_target_properties (
             ${EXECUTABLE_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
+            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
             LINK_FLAGS "-mthumb -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_SOURCE_DIR}/../scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld"
     )	# TODO: Hardcoded -> DEBUG, __SAMD51J20A__
 

@@ -1,31 +1,35 @@
 #pragma once
 
-/* Kronos includes. */
+// Kronos includes
 #include "ks_component_queued.h"
 
-/* Kernel includes. */
+// Kernel includes
 #include "FreeRTOS.h"
 #include "task.h"
 
-/* Library includes. */
+// Microchip ASF
 #include "asf.h"
 
-/* Task Priority */
-#define KS_TASK_PRIORITY_HIGH      ( tskIDLE_PRIORITY + 3 )
-#define KS_TASK_PRIORITY_MEDIUM    ( tskIDLE_PRIORITY + 2 )
-#define KS_TASK_PRIORITY_LOW       ( tskIDLE_PRIORITY + 1 )
+// Task Priorities
+#define KS_COMPONENT_PRIORITY_HIGH      ( tskIDLE_PRIORITY + 3 )
+#define KS_COMPONENT_PRIORITY_MEDIUM    ( tskIDLE_PRIORITY + 2 )
+#define KS_COMPONENT_PRIORITY_LOW       ( tskIDLE_PRIORITY + 1 )
+
+// Stack sizes
+#define KS_COMPONENT_STACK_SIZE_LARGE   2048
+#define KS_COMPONENT_STACK_SIZE_MEDIUM  1024
+#define KS_COMPONENT_STACK_SIZE_SMALL   512
 
 namespace kronos {
 
     class ComponentActive : public ComponentQueued {
-
     public:
         ComponentActive(const String& name, size_t stackSize, uint16_t priority);
 
-        void Init() override;
-        void Destroy() override;
+        virtual void Init() override;
+        virtual void Destroy() override;
 
-        void Run();
+        [[noreturn]] void Run();
 
     private:
         size_t m_StackSize;
@@ -35,5 +39,6 @@ namespace kronos {
 
         static void Start(void* data);
     };
+
 }
 

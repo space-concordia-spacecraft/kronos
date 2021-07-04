@@ -37,9 +37,12 @@ MSYS2 provides an easy-to-use building environment for Windows. We will be using
 pacman -Syu
 ```
 
-You may need to execute the command multiple times until you see a **`there is nothing to do`** prompt. MSYS2 is only required for Windows users. For Linux and Mac
+You may need to execute the command multiple times until you see a **`there is nothing to do`** prompt. MSYS2 is only required for Windows users. For Linux users, MSYS2 is not needed as you may simply install the packages using your distribution's package manager. The same goes for Mac OS users, which can use Homebrew to get the same packages.
 
-### OpenOCD
+### Binary Packages
+
+#### OpenOCD
+###
 
 
 ## Configuration

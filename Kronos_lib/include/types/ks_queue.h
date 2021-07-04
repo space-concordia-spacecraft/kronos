@@ -43,7 +43,7 @@ namespace kronos {
         }
 
     private:
-        QueueHandle_t m_Queue;
         const size_t m_Length;
+        QueueHandle_t m_Queue;
     };
 }

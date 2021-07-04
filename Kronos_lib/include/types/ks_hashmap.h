@@ -19,47 +19,46 @@ namespace kronos {
     class HashNode {
     public:
         HashNode(const K & key, const V & value) :
-                _key(key), _value(value), _next(nullptr) {}
+                m_Key(key), m_Value(value), m_Next(nullptr) {}
 
-        K & getKey() {
-            return _key;
+        K & GetKey() {
+            return m_Key;
         }
 
-        V & getValue() {
-            return _value;
+        V & GetValue() {
+            return m_Value;
         }
 
-        void setValue(V value) {
-            _value = value;
+        HashNode * GetNext() const {
+            return m_Next;
         }
 
-        HashNode * getNext() const {
-            return _next;
+        void SetValue(V value) {
+            m_Value = value;
         }
 
-        void setNext(HashNode * next) {
-            _next = next;
+        void SetNext(HashNode * next) {
+            m_Next = next;
         }
 
     private:
         // key-value pair
-        K _key;
-        V _value;
+        K m_Key;
+        V m_Value;
         // next bucket with the same key
-        HashNode * _next;
+        HashNode * m_Next;
     };
 
     // Hash map class template
     template<typename K, typename V, typename F = KeyHash<K>>
     class HashMap {
     public:
-        HashMap() :
-                table(),
-                hashFunc() {}
+        HashMap()
+            : m_HashTable(), m_HashFunction() {}
 
         ~HashMap() {
             // destroy all buckets one by one
-            for (auto & i : table) {
+            for (auto & i : m_HashTable) {
                 HashNode<K, V> * entry = i;
 
                 while (entry != nullptr) {
@@ -72,9 +71,9 @@ namespace kronos {
             }
         }
 
-        V & get(const K & key) {
-            unsigned long hashValue = hashFunc(key);
-            HashNode<K, V> * entry = table[hashValue];
+        V & Get(const K & key) {
+            unsigned long hashValue = m_HashFunction(key);
+            HashNode<K, V> * entry = m_HashTable[hashValue];
 
             while (entry != nullptr) {
                 if (entry->getKey() == key) {
@@ -84,13 +83,13 @@ namespace kronos {
                 entry = entry->getNext();
             }
 
-            put(key, V());
-            return get(key);
+            Put(key, V());
+            return Get(key);
         }
 
-        bool peek(const K & key, V * value) {
-            unsigned long hashValue = hashFunc(key);
-            HashNode<K, V> * entry = table[hashValue];
+        bool Peek(const K & key, V * value) {
+            unsigned long hashValue = m_HashFunction(key);
+            HashNode<K, V> * entry = m_HashTable[hashValue];
 
             while (entry != nullptr) {
                 if (entry->getKey() == key) {
@@ -104,10 +103,10 @@ namespace kronos {
             return false;
         }
 
-        void put(const K & key, const V & value) {
-            unsigned long hashValue = hashFunc(key);
+        void Put(const K & key, const V & value) {
+            unsigned long hashValue = m_HashFunction(key);
             HashNode<K, V> * prev = nullptr;
-            HashNode<K, V> * entry = table[hashValue];
+            HashNode<K, V> * entry = m_HashTable[hashValue];
 
             while (entry != nullptr && entry->getKey() != key) {
                 prev = entry;
@@ -119,7 +118,7 @@ namespace kronos {
 
                 if (prev == nullptr) {
                     // insert as first bucket
-                    table[hashValue] = entry;
+                    m_HashTable[hashValue] = entry;
 
                 } else {
                     prev->setNext(entry);
@@ -131,10 +130,10 @@ namespace kronos {
             }
         }
 
-        void remove(const K & key) {
-            unsigned long hashValue = hashFunc(key);
+        void Remove(const K & key) {
+            unsigned long hashValue = m_HashFunction(key);
             HashNode<K, V> * prev = nullptr;
-            HashNode<K, V> * entry = table[hashValue];
+            HashNode<K, V> * entry = m_HashTable[hashValue];
 
             while (entry != nullptr && entry->getKey() != key) {
                 prev = entry;
@@ -148,7 +147,7 @@ namespace kronos {
             } else {
                 if (prev == nullptr) {
                     // remove first bucket of the list
-                    table[hashValue] = entry->getNext();
+                    m_HashTable[hashValue] = entry->getNext();
 
                 } else {
                     prev->setNext(entry->getNext());
@@ -159,13 +158,13 @@ namespace kronos {
         }
 
         V & operator[](const K & key) {
-            return get(key);
+            return Get(key);
         }
 
     private:
         // hash table
-        HashNode<K, V> * table[KS_HASHTABLE_SIZE];
-        F hashFunc;
+        HashNode<K, V> * m_HashTable[KS_HASHTABLE_SIZE];
+        F m_HashFunction;
     };
 
 }
