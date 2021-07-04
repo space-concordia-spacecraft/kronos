@@ -1,6 +1,6 @@
 #pragma once
 
-/* Kronos includes. */
+// Kronos includes
 #include "ks_component_passive.h"
 #include "ks_queue.h"
 
@@ -8,15 +8,18 @@ namespace kronos {
 
     class ComponentQueued : public ComponentPassive {
     public:
+        explicit ComponentQueued(const String& name);
 
         void ProcessCommandQueue();
 
         virtual void Init() override;
         virtual void Destroy() override;
 
-        virtual void ReceiveCommand(const CommandMessage& commandMessage) override;
+        virtual void ReceiveCommand(const CommandMessage& message) override;
+        virtual Vector<KsOpcode> AvailableCommands() override;
 
-    private:
+    protected:
         kronos::Queue<CommandMessage> m_Queue;
     };
+    
 }

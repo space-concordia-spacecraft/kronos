@@ -60,7 +60,7 @@ namespace kronos {
 
         void expand(size_t minSize = 0) {
             size_t newCapacity = 2 * m_Capacity;
-            if (minSize && minSize > newCapacity)
+            if (minSize > 0 && minSize > newCapacity)
                 newCapacity = minSize;
             T * newElements = new T[newCapacity];
 
@@ -75,9 +75,20 @@ namespace kronos {
         }
 
     public:
-        explicit Vector(size_t size = 5) :
-                m_Capacity(size), m_Size(0) {
-            expand(size);
+        Vector(size_t capacity = 10)
+            : m_Capacity(0), m_Size(0) {
+            expand(capacity);
+        };
+
+        Vector(T elements...)
+            : m_Capacity(0), m_Size(0) {
+            expand(m_Size);
+            T tempElements[] = { elements };
+            size_t size = sizeof(tempElements) / sizeof(T);
+            for (size_t i = 0; i < size; i++) {
+                m_Elements[i] = tempElements[i];
+            }
+            m_Size = size;
         };
 
         ~Vector() {

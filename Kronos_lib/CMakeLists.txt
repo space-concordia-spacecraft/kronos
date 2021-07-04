@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.17)
 
-SET ( CMAKE_EXPORT_COMPILE_COMMANDS ON )
-SET ( CMAKE_VERBOSE_MAKEFILE ON )
-
 project(Kronos)
 
 # Glob source files
@@ -22,8 +19,6 @@ file(GLOB SOURCE_FILES
         "extern/Common/Minimal/EventGroupsDemo.c"
         "extern/Common/Minimal/GenQTest.c"
         "extern/Common/Minimal/flop.c"
-        "extern/Common/Minimal/IntQueue.c"
-        "extern/Common/Minimal/IntSemTest.c"
         "extern/Common/Minimal/QueueOverwrite.c"
         "extern/Common/Minimal/recmutex.c"
         "extern/Common/Minimal/TaskNotify.c"

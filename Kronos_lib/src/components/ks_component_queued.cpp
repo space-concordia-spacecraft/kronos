@@ -2,6 +2,17 @@
 
 namespace kronos {
 
+    ComponentQueued::ComponentQueued(const String& name)
+        : ComponentPassive(name) {}
+
+    void ComponentQueued::Init() {
+        ComponentPassive::Init();
+    }
+
+    void ComponentQueued::Destroy() {
+        ComponentPassive::Destroy();
+    }
+
     void ComponentQueued::ProcessCommandQueue() {
         CommandMessage message;
         while (m_Queue.Pop(&message) == pdPASS) {
@@ -9,17 +20,19 @@ namespace kronos {
         }
     }
 
-    void ComponentQueued::ReceiveCommand(const CommandMessage& commandMessage) {
-        if (commandMessage.opcode == KS_OPCODE_EMPTY_QUEUE) {
+    void ComponentQueued::ReceiveCommand(const CommandMessage& message) {
+        if (message.opcode == KS_OPCODE_EMPTY_QUEUE) {
             ProcessCommandQueue();
             return;
         }
 
-        if (m_Queue.Push(commandMessage) != pdPASS) {
-#ifndef NDEBUG
-            // TODO: Handle Error
-#endif
+        if (m_Queue.Push(message) != pdPASS) {
+            // TODO: Handle Error or Warning
         }
-
     }
+
+    Vector<KsOpcode> ComponentQueued::AvailableCommands() {
+        return { KS_OPCODE_EMPTY_QUEUE };
+    }
+
 }

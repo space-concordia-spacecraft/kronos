@@ -57,7 +57,6 @@
  * Configure the hardware as necessary to run this demo.
  */
 static void prvSetupHardware( void );
-extern "C" void main_blinky( void );
 
 /* Prototypes for the standard FreeRTOS callback/hook functions implemented
 within this file. */
@@ -72,10 +71,6 @@ int main( void )
 {
     /* Configure the hardware ready to run the demo. */
     prvSetupHardware();
-
-    /* The mainCREATE_SIMPLE_BLINKY_DEMO_ONLY setting is described at the top
-    of this file. */
-    main_blinky();
 
     return 0;
 }
