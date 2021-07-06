@@ -15,6 +15,8 @@ int main() {
     while (true);
 }
 
+extern "C" {
+
 void vApplicationMallocFailedHook(void) {
     /* Called if a call to pvPortMalloc() fails because there is insufficient
     free memory available in the FreeRTOS heap.  pvPortMalloc() is called
@@ -57,5 +59,6 @@ void vApplicationIdleHook(void) {
 }
 /*-----------------------------------------------------------*/
 
-void vApplicationTickHook(void) {
+void vApplicationTickHook(void) {}
+
 }

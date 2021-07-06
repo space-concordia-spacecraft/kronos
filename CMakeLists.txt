@@ -8,7 +8,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_subdirectory(Kronos_lib)
 
-set(DEMO_SRC demo.c)
+set(DEMO_SRC demo.cpp)
 
 add_sam_executable(Kronos_Demo ${DEMO_SRC})
 

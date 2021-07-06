@@ -122,13 +122,7 @@ endfunction(set_compile_flags)
 #
 function(add_sam_executable EXECUTABLE_NAME)
 
-    set(additional_source_files ${ARGN}
-            "${CMAKE_TOOLCHAIN_DIR}/../extern/ASF/common/services/clock/${SAM_ARCH}/sysclk.c"
-            "${CMAKE_TOOLCHAIN_DIR}/../extern/ASF/sam/boards/${SAM_BOARD}/init.c"
-            "${CMAKE_TOOLCHAIN_DIR}/../extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/system_${SAM_ARCH}.c"
-            "${CMAKE_TOOLCHAIN_DIR}/../extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/gcc/startup_${SAM_ARCH}.c"
-    )
-    message("${additional_source_files}")
+    set(additional_source_files ${ARGN})
     list(LENGTH additional_source_files num_of_source_files)
 
     if (num_of_source_files LESS 0)
