@@ -27,7 +27,7 @@ namespace kronos {
         }
 
         if (m_Queue.Push(message) != pdPASS) {
-            // TODO: Handle Error or Warning
+            // TODO: HANDLE ERROR OR WARNING
         }
     }
 

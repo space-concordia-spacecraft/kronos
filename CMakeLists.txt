@@ -3,12 +3,22 @@ project(Kronos)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(SOURCE_FILES main.cpp)
-add_executable(Kronos_run ${SOURCE_FILES})
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
-include_directories(Kronos_lib Kronos_lib/include Kronos_lib/include/types Kronos_lib/include/components)
 add_subdirectory(Kronos_lib)
 
-target_link_libraries(Kronos_run Kronos_lib)
+set(DEMO_SRC demo.c)
 
-add_subdirectory(Google_tests)
+add_sam_executable(Kronos_Demo ${DEMO_SRC})
+
+target_include_directories(Kronos_Demo PUBLIC
+        "${KRONOS_INCLUDE_DIRS}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Kronos_lib/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Kronos_lib/include/components"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Kronos_lib/include/services"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Kronos_lib/include/types"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Kronos_lib/include/utilities"
+)
+
+target_link_libraries(Kronos_Demo Kronos)

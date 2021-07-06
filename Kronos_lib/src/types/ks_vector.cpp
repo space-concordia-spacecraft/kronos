@@ -70,7 +70,7 @@ namespace kronos {
             newCapacity = minSize;
         T * newElements = new T[newCapacity];
 
-        // TODO replace with memory copying function
+        // TODO: Replace with memory copying function
         for (int i = 0; i < m_Size; i++)
             newElements[i] = m_Elements[i];
 

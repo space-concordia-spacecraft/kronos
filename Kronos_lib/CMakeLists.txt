@@ -1,80 +1,75 @@
 cmake_minimum_required(VERSION 3.17)
 
+set(CMAKE_CXX_STANDARD 14)
+
 project(Kronos)
 
+message(STATUS "Using the following variables to include Kronos source:")
+message("")
+message("ARM_CPU: \t\t\t${ARM_CPU}")
+message("SAM_ARCH: \t\t\t${SAM_ARCH}")
+message("SAM_MCU: \t\t\t${SAM_MCU}")
+message("SAM_BOARD: \t\t\t${SAM_BOARD}")
+message("USE_UPLOADER: \t\t${USE_UPLOADER}")
+message("SAM_UPLOAD_TOOL: \t${SAM_UPLOAD_TOOL}")
+message("")
+
 # Glob source files
-file(GLOB SOURCE_FILES
-        "extern/FreeRTOS/event_groups.c"
-        "extern/FreeRTOS/portable/MemMang/heap_4.c"
-        "extern/FreeRTOS/list.c"
-        "extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
-        "extern/FreeRTOS/queue.c"
-        "extern/FreeRTOS/tasks.c"
-        "extern/FreeRTOS/timers.c"
-        "extern/Common/Minimal/BlockQ.c"
-        "extern/Common/Minimal/death.c"
-        "extern/Common/Minimal/blocktim.c"
-        "extern/Common/Minimal/countsem.c"
-        "extern/Common/Minimal/dynamic.c"
-        "extern/Common/Minimal/EventGroupsDemo.c"
-        "extern/Common/Minimal/GenQTest.c"
-        "extern/Common/Minimal/flop.c"
-        "extern/Common/Minimal/QueueOverwrite.c"
-        "extern/Common/Minimal/recmutex.c"
-        "extern/Common/Minimal/TaskNotify.c"
-        "extern/Common/Minimal/semtest.c"
-        "extern/Common/Minimal/TimerDemo.c"
-        "extern/ASF/common/services/clock/same70/sysclk.c"
-        "extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c"
-        "extern/ASF/common/services/serial/usart_serial.c"
-        "extern/ASF/common/utils/stdio/read.c"
-        "extern/ASF/common/utils/stdio/write.c"
-        "extern/ASF/sam/boards/same70_xplained/init.c"
-        "extern/ASF/sam/drivers/matrix/matrix.c"
-        "extern/ASF/sam/drivers/mpu/mpu.c"
-        "extern/ASF/sam/drivers/pio/pio.c"
-        "extern/ASF/sam/drivers/pio/pio_handler.c"
-        "extern/ASF/sam/drivers/pmc/pmc.c"
-        "extern/ASF/sam/drivers/pmc/sleep.c"
-        "extern/ASF/sam/drivers/tc/tc.c"
-        "extern/ASF/sam/drivers/uart/uart.c"
-        "extern/ASF/sam/drivers/usart/usart.c"
-        "extern/ASF/sam/utils/syscalls/gcc/syscalls.c"
-        "extern/ASF/sam/utils/cmsis/same70/source/templates/system_same70.c"
-        "extern/ASF/sam/utils/cmsis/same70/source/templates/gcc/startup_same70.c"
-        "src/types/ks_hashmap.cpp"
-        "src/types/ks_queue.cpp"
-        "src/types/ks_string.cpp"
-        "src/types/ks_vector.cpp"
-        "src/components/ks_component_passive.cpp"
-        "src/components/ks_component_queued.cpp"
-        "src/components/ks_component_active.cpp"
-        "src/utilities/ks_util_scheduler.cpp"
-        "src/ks_bus.cpp"
-        "src/kronos.cpp"
-        "src/main.cpp"
+set(KRONOS_SRC
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/event_groups.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/list.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/queue.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/tasks.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/timers.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/MemMang/heap_4.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/usart_serial.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/read.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/write.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix/matrix.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu/mpu.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio_handler.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/pmc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/sleep.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/tc/tc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart/uart.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart/usart.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_hashmap.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_queue.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_string.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_vector.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_passive.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utilities/ks_util_scheduler.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 )
 
-add_sam_executable(Kronos ${SOURCE_FILES} )
+add_sam_library(Kronos ${KRONOS_SRC})
 
-target_include_directories(Kronos PRIVATE
+set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/services"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/Full_Demo"
-
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/config"
 
-#        "${CMAKE_CURRENT_SOURCE_DIR}/../sam/applications/getting-started/same70q21_same70_xplained"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/${SAM_BOARD}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/include"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/same70_xplained"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/fpu"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/sam_uart"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix"
@@ -88,16 +83,15 @@ target_include_directories(Kronos PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/ioport"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Include"
-
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Lib/GCC"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/clock"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/same70/source/templates"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/stdio_serial"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/preprocessor"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/same70/include"
+)
+set(KRONOS_INCLUDE_DIRS ${KRONOS_INCLUDE_DIRS} PARENT_SCOPE)
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/Common/include")
+target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})

@@ -18,7 +18,7 @@ namespace kronos {
 
     String::String(const String& from) : m_Deallocate(true), m_Length(from.m_Length) {
         char * str = new char[m_Length + 1];
-        // TODO replace with memory copying function
+        // TODO: Replace with memory copying function
         for (size_t i = 0; i < m_Length + 1; i++)
             str[i] = from.m_String[i];
         m_String = str;
@@ -41,7 +41,7 @@ namespace kronos {
     String String::Concatenate(const String & first, const String & second) {
         char * newStr = new char[first.m_Length + second.m_Length + 1];
 
-        // TODO replace with memory copying functions
+        // TODO: Replace with memory copying functions
         for (uint32_t i = 0; i < first.m_Length; i++)
             newStr[i] = first.m_String[i];
         for (uint32_t i = 0; i < second.m_Length; i++)
@@ -75,7 +75,7 @@ namespace kronos {
         m_Length = other.m_Length;
         m_Deallocate = true;
 
-        // TODO replace with memory copying function
+        // TODO: Replace with memory copying function
         for (size_t i = 0; i < other.m_Length + 1; i++)
             newStr[i] = other.m_String[i];
 
