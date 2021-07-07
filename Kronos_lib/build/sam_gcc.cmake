@@ -19,6 +19,11 @@ set(CMAKE_SIZE arm-none-eabi-size)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
+set(CMAKE_C_ARCHIVE_APPEND "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
+set(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
+set(CMAKE_CXX_ARCHIVE_APPEND "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
+
 get_filename_component(CMAKE_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_FILE}" DIRECTORY)
 
 # CPU
@@ -151,7 +156,7 @@ function(add_sam_executable EXECUTABLE_NAME)
             ${EXECUTABLE_NAME}
             PROPERTIES
             COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
-            LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -T ${SAM_MCU}_flash.ld"
+            LINK_FLAGS "--specs=nosys.specs -mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T ${SAM_MCU}_flash.ld"
     )
 
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
@@ -215,11 +220,10 @@ function(add_sam_library LIBRARY_NAME)
     set_target_properties(
             ${LIBRARY_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP -Wl,--gc-sections"
+            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     )
 
     target_compile_definitions(${LIBRARY_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
-    target_link_options(${LIBRARY_NAME} PUBLIC "-r")
 
 endfunction(add_sam_library)
