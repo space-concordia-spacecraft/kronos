@@ -17,13 +17,13 @@
 
 namespace kronos {
 
-    class Timer : public ComponentPassive {
+    class ComponentTimer : public ComponentPassive {
     private:
         static void TimerCallbackStub(TimerHandle_t timerHandle);
         void TimerCallback();
 
     public:
-        Timer(const String& name, TickType_t interval = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
+        ComponentTimer(const String& name, TickType_t interval = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
 
         virtual void Init() override;
         virtual void Destroy() override;
