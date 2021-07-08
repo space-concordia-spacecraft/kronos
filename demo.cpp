@@ -12,7 +12,7 @@
     }
 }
 
-[[noreturn]] int main() {
+int main() {
     sysclk_init();
     board_init();
 
