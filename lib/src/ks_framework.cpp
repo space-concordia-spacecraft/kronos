@@ -2,6 +2,8 @@
 
 namespace kronos {
 
+    Framework* Framework::s_Instance = nullptr;
+
     Framework::Framework() {
         if (s_Instance != nullptr)
             delete s_Instance;
