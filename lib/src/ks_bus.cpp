@@ -5,7 +5,7 @@ namespace kronos {
     Bus::Bus(uint16_t opcode, String name)
         : m_Opcode(opcode), m_Name(name) {}
 
-    void Bus::AddReceivingComponent(ComponentPassive* component) {
+    void Bus::AddReceivingComponent(ComponentBase* component) {
         m_ReceivingComponents.Add(component);
     }
 
