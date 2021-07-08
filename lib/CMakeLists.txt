@@ -53,6 +53,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/drivers/console.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
 )
@@ -65,6 +66,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/drivers"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"
