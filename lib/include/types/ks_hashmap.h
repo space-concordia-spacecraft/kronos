@@ -46,6 +46,8 @@ namespace kronos {
         void Put(const K& key, const V& value);
         void Remove(const K& key);
 
+        size_t Size();
+
         V& operator[](const K& key);
 
     private:

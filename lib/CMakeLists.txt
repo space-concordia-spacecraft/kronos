@@ -48,10 +48,11 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_queue.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_string.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_vector.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_base.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_passive.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utilities/ks_util_scheduler.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
 )
@@ -62,7 +63,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/services"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"

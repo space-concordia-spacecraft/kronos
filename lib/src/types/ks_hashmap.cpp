@@ -155,6 +155,13 @@ namespace kronos {
     }
 
     template<typename K, typename V, typename F>
+    size_t HashMap<K, V, F>::Size() {
+        // TODO: return the size of the hashmap
+
+        return 0;
+    }
+
+    template<typename K, typename V, typename F>
     V & HashMap<K, V, F>::operator[](const K & key) {
         return Get(key);
     }
