@@ -53,7 +53,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utilities/ks_util_scheduler.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
 )
 
 add_sam_library(Kronos ${KRONOS_SRC})

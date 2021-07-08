@@ -1,8 +1,20 @@
-#include "kronos.h"
+#include "ks_framework.h"
 
 namespace kronos {
 
-    KsResult Kronos::AddBus(const String& name, Bus* bus) {
+    Framework::Framework() {
+        if (s_Instance != nullptr)
+            delete s_Instance;
+
+        s_Instance = this;
+    }
+
+    Framework::~Framework() {
+        if (s_Instance == this)
+            delete s_Instance;
+    }
+
+    KsResult Framework::AddBus(const String& name, Bus* bus) {
         Bus* tempBus;
         if (m_Buses.Peek(name, &tempBus))
             return KS_ERROR_DUPLICATE_BUS;
@@ -11,7 +23,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult Kronos::RemoveBus(const String& name) {
+    KsResult Framework::RemoveBus(const String& name) {
         Bus* bus;
         if (!m_Buses.Peek(name, &bus))
             return KS_ERROR_MISSING_BUS;
@@ -20,7 +32,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult Kronos::GetBus(const String& name, Bus** bus) {
+    KsResult Framework::GetBus(const String& name, Bus** bus) {
         if (!m_Buses.Peek(name, bus))
             return KS_ERROR_MISSING_BUS;
 
