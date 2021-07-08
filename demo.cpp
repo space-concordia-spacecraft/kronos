@@ -4,11 +4,19 @@
 #include "board.h"
 #include "asf.h"
 
-int main() {
+[[noreturn]] void pvTaskBlink(void * pvParam) {
+    TickType_t xLastWakeTime = xTaskGetTickCount();
+    while (true) {
+        ioport_toggle_pin_level(LED0_GPIO);
+        xTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(200));
+    }
+}
+
+[[noreturn]] int main() {
     sysclk_init();
     board_init();
 
-    ioport_toggle_pin_level(LED0_GPIO);
+    xTaskCreate(pvTaskBlink, "BLINK", configMINIMAL_STACK_SIZE, nullptr, 1, nullptr);
 
     vTaskStartScheduler();
 
