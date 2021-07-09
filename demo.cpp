@@ -5,6 +5,7 @@
 #include "asf.h"
 
 #include "console.h"
+#include "ks_logger.h"
 
 [[noreturn]] void pvTaskBlink(void * pvParam) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -29,8 +30,10 @@ int main() {
 
     xTaskCreate(pvTaskBlink, "BLINK", configMINIMAL_STACK_SIZE, nullptr, 1, nullptr);
 
-    vTaskStartScheduler();
 
+
+    vTaskStartScheduler();
+    kronos::ComponentLogger thelogger("logger","/Logs");
     while (true);
 }
 

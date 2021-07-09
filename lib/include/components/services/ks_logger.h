@@ -1,24 +1,32 @@
 #pragma once
 
 #include "ks_component_queued.h"
-#include "../types/ks_string.h"
+#include "ks_string.h"
+#include "ks_opcodes.h"
 
 namespace kronos {
 
+    struct LogMessage {
+        String message;
+        uint32_t timestamp;
+        uint8_t severity;
+    };
+
+
+
     class ComponentLogger : public ComponentQueued {
     public:
-        ComponentLogger();
-        ComponentLogger(String, int);
+        ComponentLogger(const String &name, const String &filepath);
 
-        void ProcessCommand(const CommandMessage& message) overrid
-        void clearLogs();
-        void changeFilepath(String);
-        void changeFrequency(int);
+        void ProcessCommand(const CommandMessage& message) override;
+        void ClearLogs();
+        void ChangeFilepath(const String &str);
 
-        void startLogging()
+        String ConvertTimestamp(uint32_t timestamp);
+        void Init() override;
     private:
-        int m_logFrequency;            //Logs per minute
-        String m_filePath;
+
+        String m_FilePath;
     };
 
 }
