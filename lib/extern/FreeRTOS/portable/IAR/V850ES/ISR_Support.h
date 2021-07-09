@@ -28,7 +28,7 @@
 	EXTERN pxCurrentTCB
 	EXTERN usCriticalNesting
 
-#include "extern/FreeRTOS/FreeRTOSConfig.h"
+#include "FreeRTOSConfig.h"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Context save and restore macro definitions

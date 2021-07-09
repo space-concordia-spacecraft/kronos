@@ -1,5 +1,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
+#include "semphr.h"
 
 #include "board.h"
 #include "asf.h"
@@ -47,7 +48,7 @@ void vApplicationMallocFailedHook(void) {
     configTOTAL_HEAP_SIZE configuration constant in FreeRTOSConfig.h. */
 
     /* Force an assert. */
-    configASSERT((volatile void*) NULL);
+    configASSERT((volatile void*) nullptr);
 }
 /*-----------------------------------------------------------*/
 
@@ -60,7 +61,7 @@ void vApplicationStackOverflowHook(TaskHandle_t pxTask, char* pcTaskName) {
     function is called if a stack overflow is detected. */
 
     /* Force an assert. */
-    configASSERT((volatile void*) NULL);
+    configASSERT((volatile void*) nullptr);
 }
 /*-----------------------------------------------------------*/
 

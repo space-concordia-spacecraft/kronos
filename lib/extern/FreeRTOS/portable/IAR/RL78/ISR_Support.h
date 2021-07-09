@@ -26,7 +26,7 @@
 ; */
 
 
-#include "extern/FreeRTOS/FreeRTOSConfig.h"
+#include "FreeRTOSConfig.h"
 
 ; Variables used by scheduler
 ;------------------------------------------------------------------------------

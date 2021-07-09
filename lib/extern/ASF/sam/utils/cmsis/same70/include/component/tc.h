@@ -1,35 +1,45 @@
 /**
  * \file
  *
- * Copyright (c) 2015-2018 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Subject to your compliance with these terms, you may use Microchip
- * software and any derivatives exclusively with Microchip products.
- * It is your responsibility to comply with third party license terms applicable
- * to your use of third party software (including open source software) that
- * may accompany Microchip software.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
- * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
- * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
- * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
- * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
- * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
- * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
- * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
- * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
- * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
- * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef _SAME70_TC_COMPONENT_
@@ -72,8 +82,6 @@ typedef struct {
   __IO uint32_t  TC_FMR;                       /**< \brief (Tc Offset: 0xD8) Fault Mode Register */
   __I  uint32_t  Reserved1[2];
   __IO uint32_t  TC_WPMR;                      /**< \brief (Tc Offset: 0xE4) Write Protection Mode Register */
-  __I  uint32_t  Reserved2[5];
-  __I  uint32_t  TC_VER;                       /**< \brief (Tc Offset: 0xFC) Version Register */
 } Tc;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 /* -------- TC_CCR : (TC Offset: N/A) Channel Control Register -------- */
@@ -320,30 +328,23 @@ typedef struct {
 #define TC_BMR_MAXFILT_Pos 20
 #define TC_BMR_MAXFILT_Msk (0x3fu << TC_BMR_MAXFILT_Pos) /**< \brief (TC_BMR) Maximum Filter */
 #define TC_BMR_MAXFILT(value) ((TC_BMR_MAXFILT_Msk & ((value) << TC_BMR_MAXFILT_Pos)))
-#define TC_BMR_MAXCMP_Pos 26 /**< (TC_BMR) Maximum Consecutive Missing Pulses Position */
-#define TC_BMR_MAXCMP_Msk (0xfu << TC_BMR_MAXCMP_Pos) /**< (TC_BMR) Maximum Consecutive Missing Pulses Mask */
-#define TC_BMR_MAXCMP(value) (TC_BMR_MAXCMP_Msk & ((value) << TC_BMR_MAXCMP_Pos))
 /* -------- TC_QIER : (TC Offset: 0xC8) QDEC Interrupt Enable Register -------- */
 #define TC_QIER_IDX (0x1u << 0) /**< \brief (TC_QIER) Index */
 #define TC_QIER_DIRCHG (0x1u << 1) /**< \brief (TC_QIER) Direction Change */
 #define TC_QIER_QERR (0x1u << 2) /**< \brief (TC_QIER) Quadrature Error */
-#define TC_QIER_MPE (0x1u << 3) /**< \brief (TC_QIER) Consecutive Missing Pulse Error */
 /* -------- TC_QIDR : (TC Offset: 0xCC) QDEC Interrupt Disable Register -------- */
 #define TC_QIDR_IDX (0x1u << 0) /**< \brief (TC_QIDR) Index */
 #define TC_QIDR_DIRCHG (0x1u << 1) /**< \brief (TC_QIDR) Direction Change */
 #define TC_QIDR_QERR (0x1u << 2) /**< \brief (TC_QIDR) Quadrature Error */
-#define TC_QIDR_MPE (0x1u << 3) /**< \brief (TC_QIDR) Consecutive Missing Pulse Error */
 /* -------- TC_QIMR : (TC Offset: 0xD0) QDEC Interrupt Mask Register -------- */
 #define TC_QIMR_IDX (0x1u << 0) /**< \brief (TC_QIMR) Index */
 #define TC_QIMR_DIRCHG (0x1u << 1) /**< \brief (TC_QIMR) Direction Change */
 #define TC_QIMR_QERR (0x1u << 2) /**< \brief (TC_QIMR) Quadrature Error */
-#define TC_QIMR_MPE (0x1u << 3) /**< \brief (TC_QIMR) Consecutive Missing Pulse Error */
 /* -------- TC_QISR : (TC Offset: 0xD4) QDEC Interrupt Status Register -------- */
 #define TC_QISR_IDX (0x1u << 0) /**< \brief (TC_QISR) Index */
 #define TC_QISR_DIRCHG (0x1u << 1) /**< \brief (TC_QISR) Direction Change */
 #define TC_QISR_QERR (0x1u << 2) /**< \brief (TC_QISR) Quadrature Error */
 #define TC_QISR_DIR (0x1u << 8) /**< \brief (TC_QISR) Direction */
-#define TC_QISR_MPE (0x1u << 3) /**< \brief (TC_QISR) Consecutive Missing Pulse Error */
 /* -------- TC_FMR : (TC Offset: 0xD8) Fault Mode Register -------- */
 #define TC_FMR_ENCF0 (0x1u << 0) /**< \brief (TC_FMR) Enable Compare Fault Channel 0 */
 #define TC_FMR_ENCF1 (0x1u << 1) /**< \brief (TC_FMR) Enable Compare Fault Channel 1 */
@@ -353,11 +354,6 @@ typedef struct {
 #define TC_WPMR_WPKEY_Msk (0xffffffu << TC_WPMR_WPKEY_Pos) /**< \brief (TC_WPMR) Write Protection Key */
 #define TC_WPMR_WPKEY(value) ((TC_WPMR_WPKEY_Msk & ((value) << TC_WPMR_WPKEY_Pos)))
 #define   TC_WPMR_WPKEY_PASSWD (0x54494Du << 8) /**< \brief (TC_WPMR) Writing any other value in this field aborts the write operation of the WPEN bit.Always reads as 0. */
-/* -------- TC_VER : (TC Offset: 0xFC) Version Register -------- */
-#define TC_VER_VERSION_Pos 0
-#define TC_VER_VERSION_Msk (0xfffu << TC_VER_VERSION_Pos) /**< \brief (TC_VER) Version of the Hardware Module */
-#define TC_VER_MFN_Pos 16
-#define TC_VER_MFN_Msk (0x7u << TC_VER_MFN_Pos) /**< \brief (TC_VER) Metal Fix Number */
 
 /*@}*/
 

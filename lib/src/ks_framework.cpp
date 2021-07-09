@@ -17,22 +17,13 @@ namespace kronos {
     void Framework::Init() {
         sysclk_init();
         board_init();
-
-        // TODO: printf is messing with context switching idk wth is going on
-        // TODO: need to fix this
-        // console_init();
+        console_init();
     }
 
     void Framework::Run() {
-        for (auto& m_Component : m_Components) {
+        for (auto& m_Component : m_Components)
             m_Component.GetValue()->Init();
-        }
-
         vTaskStartScheduler();
-
-        for (auto& entry : m_Components) {
-            entry.GetValue()->Destroy();
-        }
     }
 
     KsResult Framework::RegisterComponent(ComponentBase* component) {

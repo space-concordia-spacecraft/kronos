@@ -56,7 +56,7 @@
 /*
 Include any RTOS specific definitions that are needed by this header.
 */
-#include    <extern/FreeRTOS/FreeRTOSConfig.h>
+#include    <FreeRTOSConfig.h>
 
 /*
 Convert FreeRTOSConfig definitions to XTENSA definitions.

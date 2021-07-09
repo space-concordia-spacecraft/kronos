@@ -3,35 +3,45 @@
  *
  * \brief Chip-specific generic clock management.
  *
- * Copyright (c) 2015-2019 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Subject to your compliance with these terms, you may use Microchip
- * software and any derivatives exclusively with Microchip products.
- * It is your responsibility to comply with third party license terms applicable
- * to your use of third party software (including open source software) that
- * may accompany Microchip software.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
- * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
- * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
- * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
- * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
- * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
- * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
- * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
- * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
- * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
- * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #ifndef CHIP_GENCLK_H_INCLUDED
@@ -39,7 +49,6 @@
 
 #include <osc.h>
 #include <pll.h>
-#include <sysclk.h>
 
 /// @cond 0
 /**INDENT-OFF**/
@@ -246,66 +255,6 @@ static inline void genclk_enable_source(enum genclk_source e_src)
 		break;
 	}
 }
-
-//! \name Retrieves the current rate in Hz of the Programmable Clock Source
-//@{
-static inline uint32_t genclk_get_frequency_hz(uint32_t ul_id)
-{
-	uint32_t pck_source,clock_config;
-	uint32_t pck_freq = 0;
-	pck_source = (PMC->PMC_PCK[ul_id] & PMC_PCK_CSS_Msk) >> PMC_PCK_CSS_Pos;
-	switch(pck_source)
-	{
-		case PMC_PCK_CSS_SLOW_CLK:
-			if (pmc_get_slck_config())
-				pck_freq = OSC_SLCK_32K_RC_HZ;
-			else
-				pck_freq = OSC_SLCK_32K_XTAL_HZ;
-			break;
-		case PMC_PCK_CSS_MAIN_CLK:
-		case PMC_PCK_CSS_PLLA_CLK:
-			clock_config = pmc_get_mainck_config();
-			if (clock_config & CKGR_MOR_MOSCSEL)
-			{
-				switch(clock_config & CKGR_MOR_MOSCRCF_Msk)
-				{
-					case CKGR_MOR_MOSCRCF_4_MHz:
-						pck_freq = OSC_MAINCK_4M_RC_HZ;
-						break;
-					case CKGR_MOR_MOSCRCF_8_MHz:
-						pck_freq = OSC_MAINCK_8M_RC_HZ;
-						break;
-					case CKGR_MOR_MOSCRCF_12_MHz:
-						pck_freq = OSC_MAINCK_12M_RC_HZ;
-						break;
-				}
-			}
-			else
-			{
-				pck_freq = OSC_MAINCK_XTAL_HZ;
-			}
-
-			if (pck_source == PMC_PCK_CSS_PLLA_CLK)
-			{
-				clock_config = pmc_get_pllack_config();
-				if ((clock_config & CKGR_PLLAR_DIVA_Msk) == 0)
-					return 0;
-				pck_freq *= ((((clock_config & CKGR_PLLAR_MULA_Msk)>>CKGR_PLLAR_MULA_Pos) + 1)/(clock_config & CKGR_PLLAR_DIVA_Msk));
-			}
-			break;
-		case PMC_PCK_CSS_UPLL_CLK:
-			pck_freq = pmc_get_upllckdiv_config() ? PLL_UPLL_HZ/2: PLL_UPLL_HZ;
-			break;
-		case PMC_PCK_CSS_MCK:
-			pck_freq = sysclk_get_main_hz();
-			break;
-		default:
-			break;
-	}
-	pck_freq /= ((PMC->PMC_PCK[ul_id] & PMC_PCK_PRES_Msk) >> PMC_PCK_PRES_Pos)+1;
-	return pck_freq;
-}
-//! @}
 
 //! @}
 

@@ -19,12 +19,12 @@ namespace kronos {
             return xQueueSend(m_Queue, &element, ticksToWait);
         }
 
-        BaseType_t Pop(T* buffer, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
-            return xQueueReceive(m_Queue, &(buffer), ticksToWait);
+        BaseType_t Pop(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
+            return xQueueReceive(m_Queue, pElement, ticksToWait);
         }
 
-        BaseType_t Peek(T* buffer, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) const {
-            return xQueuePeek(m_Queue, &(buffer), ticksToWait);
+        BaseType_t Peek(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) const {
+            return xQueuePeek(m_Queue, pElement, ticksToWait);
         }
 
         BaseType_t Clear() {

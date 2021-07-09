@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
-project(Kronos)
 
 set(CMAKE_CXX_STANDARD 14)
+
+project(Kronos)
 
 add_subdirectory(lib)
 add_subdirectory(tests)
 
+set(KRONOS_EXTRA_SRC "${KRONOS_EXTRA_SRC}" PARENT_SCOPE)
 set(DEMO_SRC demo.cpp)
 
 add_sam_executable(Kronos_Demo "${DEMO_SRC}")

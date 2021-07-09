@@ -25,7 +25,7 @@
  * 1 tab == 4 spaces!
  */
 
-#include "extern/FreeRTOS/FreeRTOSConfig.h"
+#include "FreeRTOSConfig.h"
 
 #define portCONTEXT_SIZE 132
 #define portEPC_STACK_LOCATION	124

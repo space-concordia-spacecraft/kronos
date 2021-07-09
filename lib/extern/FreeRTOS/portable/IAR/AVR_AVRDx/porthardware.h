@@ -4,7 +4,7 @@
 #ifndef __IAR_SYSTEMS_ASM__
     #include <ioavr.h>
 #endif
-#include "extern/FreeRTOS/FreeRTOSConfig.h"
+#include "FreeRTOSConfig.h"
 
 /*-----------------------------------------------------------*/
 

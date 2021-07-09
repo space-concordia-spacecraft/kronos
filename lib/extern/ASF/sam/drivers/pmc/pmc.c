@@ -3,35 +3,45 @@
  *
  * \brief Power Management Controller (PMC) driver for SAM.
  *
- * Copyright (c) 2011-2019 Microchip Technology Inc. and its subsidiaries.
+ * Copyright (c) 2011-2015 Atmel Corporation. All rights reserved.
  *
  * \asf_license_start
  *
  * \page License
  *
- * Subject to your compliance with these terms, you may use Microchip
- * software and any derivatives exclusively with Microchip products.
- * It is your responsibility to comply with third party license terms applicable
- * to your use of third party software (including open source software) that
- * may accompany Microchip software.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
  *
- * THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES,
- * WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE,
- * INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY,
- * AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP BE
- * LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, INCIDENTAL OR CONSEQUENTIAL
- * LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND WHATSOEVER RELATED TO THE
- * SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS BEEN ADVISED OF THE
- * POSSIBILITY OR THE DAMAGES ARE FORESEEABLE.  TO THE FULLEST EXTENT
- * ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN ANY WAY
- * RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
- * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. The name of Atmel may not be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * 4. This software may only be redistributed and used in connection with an
+ *    Atmel microcontroller product.
+ *
+ * THIS SOFTWARE IS PROVIDED BY ATMEL "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE
+ * EXPRESSLY AND SPECIFICALLY DISCLAIMED. IN NO EVENT SHALL ATMEL BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+ * STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
  *
  * \asf_license_stop
  *
  */
 /*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
  */
 
 #include "pmc.h"
@@ -681,13 +691,6 @@ uint32_t pmc_is_locked_upll(void)
  */
 uint32_t pmc_enable_periph_clk(uint32_t ul_id)
 {
-#if defined(REG_PMC_PCR) && !SAMG55
-	uint32_t pcr;
-	PMC->PMC_PCR = ul_id & 0x7F;
-	pcr = PMC->PMC_PCR | PMC_PCR_EN | PMC_PCR_CMD;
-	PMC->PMC_PCR = pcr;
-	return 0;
-#else
 	if (ul_id > MAX_PERIPH_ID) {
 		return 1;
 	}
@@ -706,7 +709,6 @@ uint32_t pmc_enable_periph_clk(uint32_t ul_id)
 	}
 
 	return 0;
-#endif /* defined(REG_PMC_PCR) && !SAMG55 */
 }
 
 /**
@@ -721,13 +723,6 @@ uint32_t pmc_enable_periph_clk(uint32_t ul_id)
  */
 uint32_t pmc_disable_periph_clk(uint32_t ul_id)
 {
-#if defined(REG_PMC_PCR) && !SAMG55
-	uint32_t pcr;
-	PMC->PMC_PCR = ul_id & 0x7F;
-	pcr = PMC->PMC_PCR | PMC_PCR_CMD;
-	PMC->PMC_PCR = pcr;
-	return 0;
-#else
 	if (ul_id > MAX_PERIPH_ID) {
 		return 1;
 	}
@@ -746,7 +741,6 @@ uint32_t pmc_disable_periph_clk(uint32_t ul_id)
 #endif
 	}
 	return 0;
-#endif /* defined(REG_PMC_PCR) && !SAMG55 */
 }
 
 /**
@@ -761,12 +755,6 @@ void pmc_enable_all_periph_clk(void)
 		|| SAMV70 || SAME70 || SAMS70)
 	PMC->PMC_PCER1 = PMC_MASK_STATUS1;
 	while ((PMC->PMC_PCSR1 & PMC_MASK_STATUS1) != PMC_MASK_STATUS1);
-#endif
-
-#if defined(REG_PMC_PCR) && !SAMG55
-	for (uint32_t id = 64; id <= 0x7F; id ++) {
-		pmc_enable_periph_clk(id);
-	}
 #endif
 }
 
@@ -783,12 +771,6 @@ void pmc_disable_all_periph_clk(void)
 	PMC->PMC_PCDR1 = PMC_MASK_STATUS1;
 	while ((PMC->PMC_PCSR1 & PMC_MASK_STATUS1) != 0);
 #endif
-
-#if defined(REG_PMC_PCR) && !SAMG55
-	for (uint32_t id = 64; id <= 0x7F; id ++) {
-		pmc_disable_periph_clk(id);
-	}
-#endif
 }
 
 /**
@@ -803,10 +785,6 @@ void pmc_disable_all_periph_clk(void)
  */
 uint32_t pmc_is_periph_clk_enabled(uint32_t ul_id)
 {
-#if defined(REG_PMC_PCR) && !SAMG55
-	PMC->PMC_PCR = ul_id & 0x7F;
-	return (PMC->PMC_PCR & PMC_PCR_EN) ? 1 : 0;
-#else
 	if (ul_id > MAX_PERIPH_ID) {
 		return 0;
 	}
@@ -831,7 +809,6 @@ uint32_t pmc_is_periph_clk_enabled(uint32_t ul_id)
 		}
 	}
 #endif
-#endif /* defined(REG_PMC_PCR) && !SAMG55 */
 }
 
 /**
@@ -933,48 +910,6 @@ uint32_t pmc_switch_pck_to_pllack(uint32_t ul_id, uint32_t ul_pres)
 
 	return 0;
 }
-
-#if (SAMV71 || SAMV70 || SAME70 || SAMS70)
-/**
- * \brief Get Slow clock source configuration.
- *
- * \retval Crystal Oscillator Select value.
- */
-uint32_t pmc_get_slck_config(void)
-{
-	return (SUPC->SUPC_CR & SUPC_CR_XTALSEL);
-}
-
-/**
- * \brief Get Main clock source configuration.
- *
- * \retval Main Clock Source Oscillator Selection and Main RC Oscillator Frequency Selection values.
- */
-uint32_t pmc_get_mainck_config(void)
-{
-	return (PMC->CKGR_MOR & (CKGR_MOR_MOSCSEL | CKGR_MOR_MOSCRCF_Msk));
-}
-
-/**
- * \brief Get PLLA clock configuration.
- *
- * \retval PLLA Multiplier and PLLA Front End Divider values.
- */
-uint32_t pmc_get_pllack_config(void)
-{
-	return (PMC->CKGR_PLLAR & (CKGR_PLLAR_DIVA_Msk | CKGR_PLLAR_MULA_Msk));
-}
-
-/**
- * \brief Get UPLLCKDIV configuration.
- *
- * \retval UPLL Divider by 2 value.
- */
-uint32_t pmc_get_upllckdiv_config(void)
-{
-	return (PMC->PMC_MCKR & PMC_MCKR_UPLLDIV2);
-}
-#endif
 
 #if (SAM3S || SAM4S || SAM4C || SAM4CM || SAM4CP || SAMG55)
 /**
@@ -1144,7 +1079,7 @@ bool pmc_is_cpck_enabled(void)
  */
 void pmc_enable_cpbmck(void)
 {
-	PMC->PMC_SCER = PMC_SCER_CPBMCK | PMC_SCER_CPKEY_PASSWD;
+	PMC->PMC_SCER = PMC_SCER_CPCK | PMC_SCER_CPKEY_PASSWD;
 }
 
 /**
@@ -1152,7 +1087,7 @@ void pmc_enable_cpbmck(void)
  */
 void pmc_disable_cpbmck(void)
 {
-	PMC->PMC_SCDR = PMC_SCDR_CPBMCK | PMC_SCDR_CPKEY_PASSWD;
+	PMC->PMC_SCDR = PMC_SCDR_CPCK | PMC_SCDR_CPKEY_PASSWD;
 }
 
 /**
@@ -1379,6 +1314,7 @@ void pmc_cp_clr_fast_startup_input(uint32_t ul_inputs)
 }
 #endif
 
+#if (!(SAMG51 || SAMG53 || SAMG54))
 /**
  * \brief Enable Sleep Mode.
  * Enter condition: (WFE or WFI) + (SLEEPDEEP bit = 0) + (LPM bit = 0)
@@ -1396,18 +1332,16 @@ void pmc_enable_sleepmode(uint8_t uc_type)
 
 #if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMV71 || SAMV70 || SAME70 || SAMS70)
 	UNUSED(uc_type);
-	__DSB();
 	__WFI();
 #else
 	if (uc_type == 0) {
-		__DSB();
 		__WFI();
 	} else {
-		__DSB();
 		__WFE();
 	}
 #endif
 }
+#endif
 
 #if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAMG || SAM4CP || SAMV71 || SAMV70 || SAME70 || SAMS70)
 static uint32_t ul_flash_in_wait_mode = PMC_WAIT_MODE_FLASH_DEEP_POWERDOWN;
@@ -1440,7 +1374,6 @@ void pmc_enable_waitmode(void)
 #if !(SAMV71 || SAMV70 || SAME70 || SAMS70)
 	i |= ul_flash_in_wait_mode;
 #else
-	(void)ul_flash_in_wait_mode;
 	i |= PMC_WAIT_MODE_FLASH_IDLE;
 #endif
 	PMC->PMC_FSMR = i;
@@ -1479,7 +1412,6 @@ void pmc_enable_waitmode(void)
 	PMC->PMC_FSMR |= PMC_FSMR_LPM; /* Enter Wait mode */
 	SCB->SCR &= (uint32_t) ~ SCB_SCR_SLEEPDEEP_Msk; /* Deep sleep */
 
-	__DSB();
 	__WFE();
 
 	/* Waiting for MOSCRCEN bit cleared is strongly recommended
@@ -1508,13 +1440,9 @@ void pmc_enable_backupmode(void)
 	SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
 #if (SAM4S || SAM4E || SAM4N || SAM4C || SAM4CM || SAM4CP || SAMG55 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 	SUPC->SUPC_CR = SUPC_CR_KEY_PASSWD | SUPC_CR_VROFF_STOP_VREG;
-	uint32_t ul_dummy = SUPC->SUPC_MR;
-	UNUSED(ul_dummy);
-	__DSB();
 	__WFE();
 	__WFI();
 #else
-	__DSB();
 	__WFE();
 #endif
 }

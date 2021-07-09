@@ -9,6 +9,7 @@
 // Kernel includes
 #include "FreeRTOS.h"
 #include "timers.h"
+#include "semphr.h"
 
 // Microchip ASF
 #include "asf.h"

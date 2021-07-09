@@ -1,7 +1,7 @@
 #ifndef PORTHARDWARE_H
 #define PORTHARDWARE_H
 
-#include "extern/FreeRTOS/FreeRTOSConfig.h"
+#include "FreeRTOSConfig.h"
 
 /*-----------------------------------------------------------*/
 
