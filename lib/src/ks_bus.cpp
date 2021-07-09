@@ -2,22 +2,27 @@
 
 namespace kronos {
 
-    Bus::Bus(uint16_t opcode, String name)
+    Bus::Bus(uint16_t opcode, const String& name)
         : m_Opcode(opcode), m_Name(name) {}
 
     void Bus::AddReceivingComponent(ComponentBase* component) {
         m_ReceivingComponents.Add(component);
     }
 
-    void Bus::Publish(CommandMessage message) {
+    void Bus::Publish(const CommandMessage& message) {
         if (message.opcode != m_Opcode) {
             // TODO: HANDLE ERROR OR WARNING
             return;
         }
 
-        for(int i = 0; i < m_ReceivingComponents.Size(); i ++) {
-            m_ReceivingComponents[i]->ReceiveCommand(message);
+        for(size_t i = 0; i < m_ReceivingComponents.Size(); i ++) {
+            ComponentBase* component = m_ReceivingComponents[i];
+            component->ReceiveCommand(message);
         }
+    }
+
+    String Bus::GetName() {
+        return m_Name;
     }
 
 }

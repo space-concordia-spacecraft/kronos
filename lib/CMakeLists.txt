@@ -44,10 +44,6 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/system_${SAM_ARCH}.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/gcc/startup_${SAM_ARCH}.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_hashmap.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_queue.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_string.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/types/ks_vector.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_base.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_passive.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
@@ -56,6 +52,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/drivers/console.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 )
 
 add_sam_library(Kronos ${KRONOS_SRC})

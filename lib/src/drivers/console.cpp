@@ -1,4 +1,5 @@
-#include "console.h"
+#include "board.h"
+#include "asf.h"
 
 void console_init() {
     usart_serial_options_t usartOptions = {

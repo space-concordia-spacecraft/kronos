@@ -7,10 +7,13 @@ namespace kronos {
 
     class Bus {
     public:
-        Bus(uint16_t opcode, String name);
+        Bus(uint16_t opcode, const String& name);
 
         void AddReceivingComponent(ComponentBase * component);
-        void Publish(CommandMessage message);
+        void Publish(const CommandMessage& message);
+
+        String GetName();
+
     private:
         Vector<ComponentBase*> m_ReceivingComponents;
         uint16_t m_Opcode;
