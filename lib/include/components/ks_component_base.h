@@ -4,6 +4,7 @@
 #include "ks_opcodes.h"
 
 namespace kronos {
+
     struct CommandMessage {
         KsOpcode opcode = KS_OPCODE_INVALID;
         void * data = nullptr;
@@ -25,4 +26,5 @@ namespace kronos {
     protected:
         const String m_Name;
     };
+
 }

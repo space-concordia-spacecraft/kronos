@@ -2,6 +2,9 @@
 
 namespace kronos {
 
+    ComponentPassive::ComponentPassive(const String& name)
+        : ComponentBase(name) {}
+
     void ComponentPassive::Init() {}
 
     void ComponentPassive::Destroy() {}

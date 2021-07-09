@@ -3,9 +3,6 @@ project(Kronos)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_VERBOSE_MAKEFILE ON)
-
 add_subdirectory(lib)
 add_subdirectory(tests)
 

@@ -12,14 +12,14 @@
 
 namespace kronos {
 
-    class ComponentPassive : public ComponentBase{
+    class ComponentPassive : public ComponentBase {
     public:
         explicit ComponentPassive(const String& name);
 
-        virtual void Init() override;
-        virtual void Destroy() override;
+        void Init() override;
+        void Destroy() override;
 
-        virtual void ReceiveCommand(const CommandMessage& message) override;
+        void ReceiveCommand(const CommandMessage& message) override;
     };
 
 }

@@ -12,10 +12,10 @@ namespace kronos {
 
         void ProcessCommandQueue();
 
-        virtual void Init() override;
-        virtual void Destroy() override;
+        void Init() override;
+        void Destroy() override;
 
-        virtual void ReceiveCommand(const CommandMessage& message) override;
+        void ReceiveCommand(const CommandMessage& message) override;
 
     protected:
         kronos::Queue<CommandMessage> m_Queue;
