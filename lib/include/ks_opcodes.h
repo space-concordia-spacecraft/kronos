@@ -1,3 +1,5 @@
+#include "asf.h"
+
 typedef uint16_t KsResult;
 typedef uint16_t KsOpcode;
 

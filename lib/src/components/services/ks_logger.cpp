@@ -11,10 +11,11 @@ namespace kronos {
     void ComponentLogger::ProcessCommand(const CommandMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_LOG_MESSAGE:
-                LogMessage* logMsg = reinterpret_cast<LogMessage*>(message.data);
-                logMsg->message;
-                //printf(message.data);
-                //printf("[%s] [%s] %s", logMsg->timestamp, logMsg->severity, logMsg->message);
+//                auto* logMsg = reinterpret_cast<LogMessage*>(message.data);
+//                logMsg->message;
+//                printf(message.data);
+//                printf("[%s] [%s] %s", logMsg->timestamp, logMsg->severity, logMsg->message);
+                break;
         }
 
     }
