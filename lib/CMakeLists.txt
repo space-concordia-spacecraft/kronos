@@ -55,6 +55,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/configuration/redconf.c"
 )
 
 add_sam_library(Kronos ${KRONOS_SRC})
@@ -97,6 +99,9 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/configuration"
 )
 
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
