@@ -2,6 +2,7 @@
 
 // Kronos includes
 #include "ks_component_queued.h"
+#include "ks_framework.h"
 
 // Kernel includes
 #include "FreeRTOS.h"
@@ -26,12 +27,14 @@ namespace kronos {
     class ComponentActive : public ComponentQueued {
     public:
 
-        ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
+        explicit ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
-        virtual void Init() override;
-        virtual void Destroy() override;
+        void Init() override;
+        void Destroy() override;
 
         [[noreturn]] void Run();
+
+        KsCmdResult ProcessCommand(const CommandMessage& message) override;
 
     private:
         size_t m_StackSize;

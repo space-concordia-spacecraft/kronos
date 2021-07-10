@@ -13,13 +13,13 @@ namespace kronos {
         void Run();
 
         KsResult RegisterComponent(ComponentBase* component);
-        KsResult GetComponent(const String& name, ComponentBase** component);
+        static KsResult GetComponent(const String& name, ComponentBase** component);
 
         KsResult RegisterBus(BusSync* bus);
         KsResult RegisterBus(BusAsync* bus);
 
-        KsResult GetSyncBus(const String& name, BusSync** bus);
-        KsResult GetAsyncBus(const String& name, BusAsync** bus);
+        static KsResult GetSyncBus(const String& name, BusSync** bus);
+        static KsResult GetAsyncBus(const String& name, BusAsync** bus);
 
         static Framework* s_Instance;
 

@@ -24,7 +24,7 @@ namespace kronos {
         m_ReceivingComponent = component;
     }
 
-    void BusSync::Publish(const CommandMessage& message) {
+    void BusSync::Publish(const CommandMessage& message) const {
         if (m_ReceivingComponent == nullptr) {
             // TODO: HANDLE ERROR OR WARNING
             return;
@@ -52,7 +52,7 @@ namespace kronos {
         m_ReceivingComponents.Add(component);
     }
 
-    void BusAsync::Publish(const CommandMessage& message) {
+    void BusAsync::Publish(const CommandMessage& message) const {
         if (m_ReceivingComponents.Size() == 0) {
             // TODO: HANDLE ERROR OR WARNING
             return;

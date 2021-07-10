@@ -1,15 +1,31 @@
 #pragma once
 
-#include "ks_component_queued.h"
+#include "ks_hashmap.h"
+
+#include "ks_component_active.h"
+#include "ks_bus.h"
+
+#define KS_HEALTH_PING_RATE 3000
 
 namespace kronos {
 
+    struct ComponentInfo {
+        uint32_t lastResponse = 0;
+    };
+
     class ComponentHealthMonitor : public ComponentQueued {
     public:
-        void ProcessCommand(const CommandMessage& message) override;
-        void RegisterActiveComponent(String& name);
-    private:
+        ComponentHealthMonitor(const kronos::String& name, kronos::BusBase* healthIn, kronos::BusBase* healthOut);
 
+        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        void RegisterActiveComponent(ComponentActive* component);
+
+    private:
+        HashMap<ComponentActive*, ComponentInfo> m_ActiveComponentInfos;
+        BusBase* m_HealthIn;
+        BusBase* m_HealthOut;
+
+        void PingComponents();
     };
 
 }

@@ -36,7 +36,7 @@ namespace kronos {
     }
 
     KsResult Framework::GetComponent(const String& name, ComponentBase** component) {
-        if (!m_Components.Peek(name, component))
+        if (!s_Instance->m_Components.Peek(name, component))
             return KS_ERROR_MISSING_COMPONENT;
 
         return KS_SUCCESS;
@@ -61,14 +61,14 @@ namespace kronos {
     }
 
     KsResult Framework::GetSyncBus(const String& name, BusSync** bus) {
-        if (!m_SyncBuses.Peek(name, bus))
+        if (!s_Instance->m_SyncBuses.Peek(name, bus))
             return KS_ERROR_MISSING_BUS;
 
         return KS_SUCCESS;
     }
 
     KsResult Framework::GetAsyncBus(const String& name, BusAsync** bus) {
-        if (!m_AsyncBuses.Peek(name, bus))
+        if (!s_Instance->m_AsyncBuses.Peek(name, bus))
             return KS_ERROR_MISSING_BUS;
 
         return KS_SUCCESS;
