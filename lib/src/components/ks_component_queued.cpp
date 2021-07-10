@@ -20,15 +20,17 @@ namespace kronos {
         }
     }
 
-    void ComponentQueued::ReceiveCommand(const CommandMessage& message) {
+    KsCmdResult ComponentQueued::ReceiveCommand(const CommandMessage& message) {
         if (message.opcode == KS_OPCODE_EMPTY_QUEUE) {
             ProcessCommandQueue();
-            return;
+            return KS_CMDRESULT_NORETURN;
         }
 
         if (m_Queue.Push(message) != pdPASS) {
             // TODO: HANDLE ERROR OR WARNING
         }
+
+        return KS_CMDRESULT_NORETURN;
     }
 
 }

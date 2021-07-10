@@ -10,7 +10,6 @@ namespace kronos {
                 m_AutoReload,                                          // If true, timer will continue indefinitely
                 this,                                         // Identifier for the timer.
                 TimerCallbackStub);                                    // Call of the function when the timer expires.
-//        vTimerSetReloadMode(m_Timer)
     }
 
     void ComponentTimer::Init() {
@@ -21,16 +20,18 @@ namespace kronos {
         xTimerStop(m_Timer, 0);
     }
 
-    void ComponentTimer::AddBus(Bus* bus) {
+    void ComponentTimer::AddBus(BusBase* bus) {
         m_PublishingBuses.Add(bus);
     }
 
-    void ComponentTimer::ProcessCommand(const CommandMessage& message) {}
+    KsCmdResult ComponentTimer::ProcessCommand(const CommandMessage& message) {
+        return KS_CMDRESULT_NORETURN;
+    }
 
     void ComponentTimer::TimerCallback() {
         CommandMessage message;
         message.opcode = KS_OPCODE_TIMER_TICK;
-        for (Bus* bus : m_PublishingBuses) {
+        for (BusBase* bus : m_PublishingBuses) {
             bus->Publish(message);
         }
     }

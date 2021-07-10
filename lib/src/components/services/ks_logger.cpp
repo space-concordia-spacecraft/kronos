@@ -8,7 +8,7 @@ namespace kronos {
 
     }
 
-    void ComponentLogger::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentLogger::ProcessCommand(const CommandMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_LOG_MESSAGE:
 //                auto* logMsg = reinterpret_cast<LogMessage*>(message.data);
@@ -17,7 +17,7 @@ namespace kronos {
 //                printf("[%s] [%s] %s", logMsg->timestamp, logMsg->severity, logMsg->message);
                 break;
         }
-
+        return KS_CMDRESULT_NORETURN;
     }
 
 

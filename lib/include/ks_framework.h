@@ -28,13 +28,17 @@ namespace kronos {
         KsResult RegisterComponent(ComponentBase* component);
         KsResult GetComponent(const String& name, ComponentBase** component);
 
-        KsResult RegisterBus(Bus* bus);
-        KsResult GetBus(const String& name, Bus** bus);
+        KsResult RegisterBus(BusSync* bus);
+        KsResult RegisterBus(BusAsync* bus);
+
+        KsResult GetSyncBus(const String& name, BusSync** bus);
+        KsResult GetAsyncBus(const String& name, BusAsync** bus);
 
         static Framework* s_Instance;
 
     private:
-        HashMap<String, Bus*> m_Buses;
+        HashMap<String, BusSync*> m_SyncBuses;
+        HashMap<String, BusAsync*> m_AsyncBuses;
         HashMap<String, ComponentBase*> m_Components;
     };
 

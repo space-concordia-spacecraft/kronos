@@ -5,19 +5,54 @@
 
 namespace kronos {
 
-    class Bus {
+    class BusBase {
     public:
-        Bus(uint16_t opcode, const String& name);
+        BusBase(KsOpcode opcode, const String& name);
 
-        void AddReceivingComponent(ComponentBase * component);
-        void Publish(const CommandMessage& message);
+        virtual void AddReceivingComponent(ComponentBase* component) = 0;
+
+        virtual void Publish(const CommandMessage& message) = 0;
 
         String GetName();
 
+    protected:
+        KsOpcode m_Opcode;
+        String m_Name;
+    };
+
+    class BusSync : public BusBase {
+    public:
+        BusSync(KsOpcode opcode, const String& name);
+
+        void AddReceivingComponent(ComponentBase* component) override;
+
+        void Publish(const CommandMessage& message) override;
+
+        template<typename T>
+        T* PublishSync(const CommandMessage& message);
+
+        template<typename T, typename R>
+        R* PublishSync(T* data = nullptr);
+
+    private:
+        ComponentBase* m_ReceivingComponent = nullptr;
+    };
+
+    class BusAsync : public BusBase {
+    public:
+        BusAsync(KsOpcode opcode, const String& name);
+
+        void AddReceivingComponent(ComponentBase* component) override;
+
+        void Publish(const CommandMessage& message) override;
+
+        void PublishAsync(const CommandMessage& message);
+
+        template<typename T>
+        void PublishAsync(T* data, BusBase* returnBus);
+
     private:
         Vector<ComponentBase*> m_ReceivingComponents;
-        uint16_t m_Opcode;
-        String m_Name;
     };
 
 }

@@ -9,8 +9,8 @@ namespace kronos {
 
     void ComponentPassive::Destroy() {}
 
-    void ComponentPassive::ReceiveCommand(const CommandMessage& message) {
-        ProcessCommand(message);
+    KsCmdResult ComponentPassive::ReceiveCommand(const CommandMessage& message) {
+        return ProcessCommand(message);
     }
 
 }

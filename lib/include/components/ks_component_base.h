@@ -5,11 +5,13 @@
 
 namespace kronos {
 
+    class BusBase;
+
     struct CommandMessage {
         KsOpcode opcode = KS_OPCODE_INVALID;
         void * data = nullptr;
-        size_t size = 0;
-        String returnBusName = "";
+        size_t dataSize = 0;
+        BusBase * returnBus = nullptr;
     };
 
     class ComponentBase {
@@ -19,8 +21,8 @@ namespace kronos {
         virtual void Init() = 0;
         virtual void Destroy() = 0;
 
-        virtual void ReceiveCommand(const CommandMessage& message) = 0;
-        virtual void ProcessCommand(const CommandMessage& message) = 0;
+        virtual KsCmdResult ReceiveCommand(const CommandMessage& message) = 0;
+        virtual KsCmdResult ProcessCommand(const CommandMessage& message) = 0;
 
         String GetName();
     protected:
