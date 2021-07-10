@@ -8,6 +8,7 @@ typedef uint16_t KsOpcode;
 #define KS_OPCODE_EMPTY_QUEUE               ((KsOpcode) 0)
 #define KS_OPCODE_TIMER_TICK                ((KsOpcode) 1)
 #define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 2)
+#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 3)
 
 #define KS_CMDRESULT_NORETURN               ((KsCmdResult) nullptr)
 
