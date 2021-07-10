@@ -7,7 +7,11 @@ project(Kronos)
 add_subdirectory(lib)
 add_subdirectory(tests)
 
-set(KRONOS_EXTRA_SRC "${KRONOS_EXTRA_SRC}" PARENT_SCOPE)
+get_directory_property(HAS_PARENT PARENT_DIRECTORY)
+if (HAS_PARENT)
+    set(KRONOS_EXTRA_SRC "${KRONOS_EXTRA_SRC}" PARENT_SCOPE)
+endif ()
+
 set(DEMO_SRC demo.cpp)
 
 add_sam_executable(Kronos_Demo "${DEMO_SRC}")
