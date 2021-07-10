@@ -11,7 +11,7 @@ namespace kronos {
 
         virtual void AddReceivingComponent(ComponentBase* component) = 0;
 
-        virtual void Publish(const CommandMessage& message) = 0;
+        virtual void Publish(const CommandMessage& message) const = 0;
 
         String GetName();
 
@@ -26,7 +26,7 @@ namespace kronos {
 
         void AddReceivingComponent(ComponentBase* component) override;
 
-        void Publish(const CommandMessage& message) override;
+        void Publish(const CommandMessage& message) const override;
 
         template<typename R>
         R* PublishSync(const CommandMessage& message) {
@@ -73,7 +73,7 @@ namespace kronos {
 
         void AddReceivingComponent(ComponentBase* component) override;
 
-        void Publish(const CommandMessage& message) override;
+        void Publish(const CommandMessage& message) const override;
 
         void PublishAsync(const CommandMessage& message);
 

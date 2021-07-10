@@ -33,4 +33,20 @@ namespace kronos {
         }
     }
 
+    KsCmdResult ComponentActive::ProcessCommand(const CommandMessage& message) {
+        switch (message.opcode) {
+            case KS_OPCODE_HEALTH_PING:
+                BusAsync* healthIn;
+                if (Framework::GetAsyncBus("healthIn", &healthIn) == KS_SUCCESS) {
+                    CommandMessage healthResponse;
+                    healthResponse.opcode = KS_OPCODE_HEALTH_RESPONSE;
+                    healthResponse.data = this;
+                    healthResponse.dataSize = sizeof(uint32_t);
+                    healthIn->PublishAsync(healthResponse);
+                }
+
+        }
+        return nullptr;
+    }
+
 }

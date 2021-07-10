@@ -1,9 +1,10 @@
 #pragma once
 
-#define KS_HASHTABLE_SIZE   16
-#define KS_HASH_MEMBER_FN   0
-#define KS_HASH_CLASS       1
-#define KS_HASH_TYPE        2
+#define KS_HASHTABLE_SIZE           16
+#define KS_HASH_MEMBER_FN           0
+#define KS_HASH_CLASS               1
+#define KS_HASH_TYPE                2
+#define KS_HASH_INVALID_KEY_INDEX   0xFFFFFFFF
 
 #include "asf.h"
 #include <type_traits>
@@ -12,13 +13,19 @@
 
 namespace kronos {
 
+    template <typename T, typename = void>
+    struct has_hash : std::false_type{};
+
+    template<class T>
+    struct has_hash<T, decltype((void)T::Hash, void())> : std::true_type {};
+
     template<int T, typename K>
     struct KeyHash {};
 
     // Default hash function class
     template<typename K>
     struct KeyHash<KS_HASH_MEMBER_FN, K> {
-        uint32_t operator()(const K& key) const {
+        auto operator()(const K& key) const -> std::enable_if<std::is_member_function_pointer<decltype(&K::Hash)>::value, uint32_t> {
             return key.Hash() & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
@@ -69,6 +76,9 @@ namespace kronos {
             : m_HashMap(hashMap), m_HashIndex(hashIndex), m_KeyIndex(keyIndex) {}
 
         HashMapIterator<K, V, F>& operator++() {
+            if (m_HashIndex == KS_HASHTABLE_SIZE - 1 && m_KeyIndex == KS_HASH_INVALID_KEY_INDEX)
+                return *this;
+
             HashNode<K, V>* node = &(**this);
             if (node != nullptr && node->GetNext() != nullptr) {
                 m_KeyIndex++;
@@ -85,7 +95,7 @@ namespace kronos {
 
             m_HashIndex = KS_HASHTABLE_SIZE - 1;
             node = m_HashMap->m_HashTable[m_HashIndex];
-            m_KeyIndex = 0;
+            m_KeyIndex = KS_HASH_INVALID_KEY_INDEX;
             while (node != nullptr && node->GetNext() != nullptr) {
                 node = node->GetNext();
                 m_KeyIndex++;
@@ -125,9 +135,9 @@ namespace kronos {
 
     // Hash map class template
     template<typename K, typename V, typename F = KeyHash<
-            std::is_class<K>::value &&
-            std::is_member_function_pointer<decltype(&K::Hash)>::value ? KS_HASH_MEMBER_FN :
-            std::is_class<K>::value ? KS_HASH_CLASS : KS_HASH_TYPE, K>>
+            std::is_class<K>::value && has_hash<K>::value ? KS_HASH_MEMBER_FN :
+            std::is_class<K>::value ? KS_HASH_CLASS :
+                KS_HASH_TYPE, K>>
     class HashMap : public Iterable<HashMapIterator<K, V, F>> {
         friend class HashMapIterator<K, V, F>;
 

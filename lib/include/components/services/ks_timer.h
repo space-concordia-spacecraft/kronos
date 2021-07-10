@@ -23,20 +23,18 @@ namespace kronos {
         void TimerCallback();
 
     public:
-        explicit ComponentTimer(const String& name, TickType_t interval = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
+        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t interval = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
 
         void Init() override;
         void Destroy() override;
 
-        void AddBus(BusBase* bus);
-
         KsCmdResult ProcessCommand(const CommandMessage& message) override;
 
     private:
+        BusBase* m_OutBus;
         BaseType_t m_AutoReload;
         TickType_t m_SchedulerInterval;
         TimerHandle_t m_Timer;
-        kronos::Vector<BusBase*> m_PublishingBuses;
     };
 
 }

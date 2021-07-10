@@ -1,3 +1,5 @@
+#pragma once
+
 #include "asf.h"
 
 typedef uint16_t KsResult;
@@ -7,8 +9,12 @@ typedef uint16_t KsOpcode;
 #define KS_OPCODE_INVALID                   ((KsOpcode) 0xFFFF)
 #define KS_OPCODE_EMPTY_QUEUE               ((KsOpcode) 0)
 #define KS_OPCODE_TIMER_TICK                ((KsOpcode) 1)
-#define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 2)
-#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 3)
+#define KS_OPCODE_RATE_GROUP_TICK           ((KsOpcode) 2)
+#define KS_OPCODE_HEALTH_PING               ((KsOpcode) 3)
+#define KS_OPCODE_HEALTH_RESPONSE           ((KsOpcode) 4)
+#define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 5)
+#define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 6)
+#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 7)
 
 #define KS_CMDRESULT_NORETURN               ((KsCmdResult) nullptr)
 
