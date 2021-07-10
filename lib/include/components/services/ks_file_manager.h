@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ks_component_active.h"
+#include "ks_component_passive.h"
 #include "ks_file.h"
 
 #include "redposix.h"
@@ -8,13 +8,13 @@
 namespace kronos {
 
     struct FileOpenMessage {
-        String path;
+        String path = "";
         uint32_t mode;
     };
 
-    class ComponentFileManager : public ComponentActive {
+    class ComponentFileManager : public ComponentPassive {
     public:
-        ComponentFileManager(String & componentName, String & volume);
+        ComponentFileManager(const String & componentName, const String & volume);
 
         void Init() override;
 
@@ -28,5 +28,7 @@ namespace kronos {
 
         KsResult CreateDirectory();
         KsResult RemoveDirectory();
+
+        String m_Volume;
     };
 }

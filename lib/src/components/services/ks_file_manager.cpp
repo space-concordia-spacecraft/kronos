@@ -1,17 +1,27 @@
 #include "ks_file_manager.h"
 
 namespace kronos {
-    ComponentFileManager::ComponentFileManager(String& componentName, String& volume): ComponentActive(componentName) {}
+    ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
+            componentName), m_Volume(volume) {}
 
     void ComponentFileManager::Init() {
-        ComponentActive::Init();
+        ComponentPassive::Init();
 
-        red_init();
-        red_mount("C");
+        int32_t initResult = red_init();
+
+        if (initResult == KS_SUCCESS)
+            initResult = red_format(m_Volume.Ptr());
+
+        if (initResult == KS_SUCCESS)
+            initResult = red_mount(m_Volume.Ptr());
+
+        if (initResult != KS_SUCCESS) {
+            //TODO: ERROR
+        }
     }
 
     KsCmdResult ComponentFileManager::ProcessCommand(const CommandMessage& message) {
-        switch(message.opcode) {
+        switch (message.opcode) {
             case KS_OPCODE_OPEN_FILE:
                 auto* fileOpenMsg = reinterpret_cast<FileOpenMessage*>(message.data);
                 return Open(fileOpenMsg->path, fileOpenMsg->mode);

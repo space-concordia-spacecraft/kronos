@@ -38,41 +38,6 @@ namespace kronos {
         m_ReceivingComponent->ReceiveCommand(message);
     }
 
-    template<typename R>
-    R* BusSync::PublishSync(const CommandMessage& message) {
-        if (m_ReceivingComponent == nullptr) {
-            // TODO: HANDLE ERROR OR WARNING
-            return KS_CMDRESULT_NORETURN;
-        }
-
-        if (m_Opcode != message.opcode) {
-            // TODO: HANDLE ERROR OR WARNING
-            return KS_CMDRESULT_NORETURN;
-        }
-
-        return reinterpret_cast<R*>(m_ReceivingComponent->ReceiveCommand(message));
-    }
-
-    template<typename T, typename R>
-    R* BusSync::PublishSync(T* data) {
-        if (m_ReceivingComponent == nullptr) {
-            // TODO: HANDLE ERROR OR WARNING
-            return KS_CMDRESULT_NORETURN;
-        }
-
-        CommandMessage message;
-        message.opcode = m_Opcode;
-
-        if (data != nullptr) {
-            T* newData = new T;
-            *newData = *data;
-            message.data = reinterpret_cast<void*>(newData);
-            message.dataSize = sizeof(T);
-        }
-
-        return PublishSync<R>(message);
-    }
-
 
     // ==================== Asynchronous Bus ====================
 
@@ -106,27 +71,6 @@ namespace kronos {
 
     void BusAsync::PublishAsync(const CommandMessage& message) {
         Publish(message);
-    }
-
-    template<typename T>
-    void BusAsync::PublishAsync(T* data, BusBase* returnBus) {
-        if (m_ReceivingComponents.Size() == 0) {
-            // TODO: HANDLE ERROR OR WARNING
-            return;
-        }
-
-        CommandMessage message;
-        message.opcode = m_Opcode;
-        message.returnBus = returnBus;
-
-        if (data != nullptr) {
-            T* newData = new T;
-            *newData = *data;
-            message.data = reinterpret_cast<void*>(newData);
-            message.dataSize = sizeof(T);
-        }
-
-        PublishAsync(message);
     }
 
 }
