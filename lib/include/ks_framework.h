@@ -1,19 +1,6 @@
 #pragma once
 
-// Kronos includes
-#include "ks_hashmap.h"
-#include "ks_string.h"
-#include "ks_bus.h"
-#include "ks_component_base.h"
-
-// Kernel includes
-#include "FreeRTOS.h"
-#include "timers.h"
-#include "semphr.h"
-
-// Microchip ASF
-#include "asf.h"
-#include "console.h"
+#include "kronos.h"
 
 namespace kronos {
 

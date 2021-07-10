@@ -75,7 +75,3 @@ namespace kronos {
     }
 
 }
-
-extern "C" {
-
-}

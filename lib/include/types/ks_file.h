@@ -1,6 +1,9 @@
+#pragma once
+
 #include "ks_string.h"
 
 namespace kronos {
+
     class File {
     public:
         File();
@@ -19,4 +22,5 @@ namespace kronos {
 
         RedFileHandle m_FileHandler;
     };
+
 }
