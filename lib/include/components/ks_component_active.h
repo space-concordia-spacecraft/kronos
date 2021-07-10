@@ -25,6 +25,7 @@ namespace kronos {
 
     class ComponentActive : public ComponentQueued {
     public:
+
         ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
         virtual void Init() override;

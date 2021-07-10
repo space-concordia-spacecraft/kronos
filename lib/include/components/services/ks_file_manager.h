@@ -1,5 +1,7 @@
 #include "ks_component_active.h"
 
+#include "redposix.h"
+
 namespace kronos {
     class ComponentFileManager : public ComponentActive {
     public:
