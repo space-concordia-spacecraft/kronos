@@ -1,12 +1,4 @@
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-
-#include "board.h"
-#include "asf.h"
-
-#include "console.h"
-#include "ks_logger.h"
+#include "kronos.h"
 
 [[noreturn]] void pvTaskBlink(void * pvParam) {
     TickType_t xLastWakeTime = xTaskGetTickCount();
@@ -36,24 +28,4 @@ int main() {
     vTaskStartScheduler();
 
     while (true);
-}
-
-extern "C" {
-
-void vApplicationMallocFailedHook(void) {
-    configASSERT((volatile void*) nullptr);
-}
-/*-----------------------------------------------------------*/
-
-void vApplicationStackOverflowHook(TaskHandle_t pxTask, char* pcTaskName) {
-    configASSERT((volatile void*) nullptr);
-}
-/*-----------------------------------------------------------*/
-
-void vApplicationIdleHook(void) {}
-
-/*-----------------------------------------------------------*/
-
-void vApplicationTickHook(void) {}
-
 }

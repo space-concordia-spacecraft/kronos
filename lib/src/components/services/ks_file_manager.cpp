@@ -21,7 +21,7 @@ namespace kronos {
     }
 
     File* ComponentFileManager::Open(String path, uint32_t mode) {
-        uint32_t fileId = red_open(path.Ptr(), mode);
+        int32_t fileId = red_open(path.Ptr(), mode);
 
         if (fileId == KS_FILE_INVALID_HANDLE)
             return nullptr;

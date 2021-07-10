@@ -5,6 +5,8 @@
 */
 /** @file
 */
+#include "string.h"
+
 #ifndef REDCONF_H
 #define REDCONF_H
 
@@ -36,7 +38,7 @@
 
 #define REDCONF_PATH_SEPARATOR '/'
 
-#define REDCONF_TASK_COUNT 10U
+#define REDCONF_TASK_COUNT 1
 
 #define REDCONF_HANDLE_COUNT 10U
 
@@ -105,5 +107,9 @@
 #define RED_CONFIG_UTILITY_VERSION 0x2000000U
 
 #define RED_CONFIG_MINCOMPAT_VER 0x1000200U
+
+#define REDCONF_API_POSIX_CWD 0
+
+#define REDCONF_API_POSIX_FSTRIM 0
 
 #endif

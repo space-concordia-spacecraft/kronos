@@ -139,6 +139,8 @@ set(KRONOS_SRC
                 "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
 
                 "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
+                "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
+                "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/include"
         )
 
         set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" PARENT_SCOPE)
