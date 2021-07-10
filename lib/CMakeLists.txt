@@ -87,7 +87,7 @@ set(KRONOS_SRC
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_logger.cpp"
-
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
