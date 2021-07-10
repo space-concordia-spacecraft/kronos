@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ks_component_active.h"
 
 #include "redposix.h"
@@ -9,7 +11,7 @@ namespace kronos {
 
         void Init() override;
 
-        void ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessCommand(const CommandMessage& message) override;
 
         KsResult CreateFile();
         KsResult RemoveFile();

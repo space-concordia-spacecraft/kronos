@@ -1,9 +1,12 @@
+#pragma once
+
 #include "ks_string.h"
 #include "ks_opcodes.h"
 
 #include "redposix.h"
 
 namespace kronos {
+
     class File {
     public:
         File(String& path, String& name) : m_Path(path),m_Name(name) {}
@@ -61,4 +64,5 @@ namespace kronos {
         int32_t m_FileId = -1;
         REDSTAT * m_FileInfo;
     };
+
 }

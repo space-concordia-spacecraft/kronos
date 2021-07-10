@@ -28,15 +28,15 @@ namespace kronos {
         void Init() override;
         void Destroy() override;
 
-        void AddBus(Bus* bus);
+        void AddBus(BusBase* bus);
 
-        void ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessCommand(const CommandMessage& message) override;
 
     private:
         BaseType_t m_AutoReload;
         TickType_t m_SchedulerInterval;
         TimerHandle_t m_Timer;
-        kronos::Vector<Bus*> m_PublishingBuses;
+        kronos::Vector<BusBase*> m_PublishingBuses;
     };
 
 }

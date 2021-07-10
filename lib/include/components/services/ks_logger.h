@@ -18,7 +18,7 @@ namespace kronos {
     public:
         ComponentLogger(const String &name, const String &filepath);
 
-        void ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessCommand(const CommandMessage& message) override;
         void ClearLogs();
         void ChangeFilepath(const String &str);
 

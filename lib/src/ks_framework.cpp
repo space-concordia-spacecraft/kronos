@@ -30,8 +30,8 @@ namespace kronos {
         ComponentBase* tempComponent;
         if (m_Components.Peek(component->GetName(), &tempComponent))
             return KS_ERROR_DUPLICATE_COMPONENT;
-        m_Components.Put(component->GetName(), component);
 
+        m_Components.Put(component->GetName(), component);
         return KS_SUCCESS;
     }
 
@@ -42,24 +42,36 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult Framework::RegisterBus(Bus* bus) {
-        Bus* tempBus;
-        if (m_Buses.Peek(bus->GetName().Ptr(), &tempBus))
+    KsResult Framework::RegisterBus(BusSync* bus) {
+        BusSync* tempBus;
+        if (m_SyncBuses.Peek(bus->GetName().Ptr(), &tempBus))
             return KS_ERROR_DUPLICATE_BUS;
-        m_Buses.Put(bus->GetName().Ptr(), bus);
 
+        m_SyncBuses.Put(bus->GetName().Ptr(), bus);
         return KS_SUCCESS;
     }
 
-    KsResult Framework::GetBus(const String& name, Bus** bus) {
-        if (!m_Buses.Peek(name, bus))
+    KsResult Framework::RegisterBus(BusAsync* bus) {
+        BusAsync* tempBus;
+        if (m_AsyncBuses.Peek(bus->GetName().Ptr(), &tempBus))
+            return KS_ERROR_DUPLICATE_BUS;
+
+        m_AsyncBuses.Put(bus->GetName().Ptr(), bus);
+        return KS_SUCCESS;
+    }
+
+    KsResult Framework::GetSyncBus(const String& name, BusSync** bus) {
+        if (!m_SyncBuses.Peek(name, bus))
             return KS_ERROR_MISSING_BUS;
 
         return KS_SUCCESS;
     }
 
-}
+    KsResult Framework::GetAsyncBus(const String& name, BusAsync** bus) {
+        if (!m_AsyncBuses.Peek(name, bus))
+            return KS_ERROR_MISSING_BUS;
 
-extern "C" {
+        return KS_SUCCESS;
+    }
 
 }
