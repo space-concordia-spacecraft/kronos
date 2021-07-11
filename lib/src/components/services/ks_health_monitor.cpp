@@ -5,7 +5,7 @@ namespace kronos {
     ComponentHealthMonitor::ComponentHealthMonitor(const String& name, BusBase* healthIn, BusBase* healthOut)
             : ComponentQueued(name), m_HealthIn(healthIn), m_HealthOut(healthOut) {}
 
-    KsCmdResult ComponentHealthMonitor::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_RATE_GROUP_TICK:
                 PingComponents();
@@ -28,7 +28,7 @@ namespace kronos {
     }
 
     void ComponentHealthMonitor::PingComponents() {
-        CommandMessage message;
+        EventMessage message;
         message.opcode = KS_OPCODE_HEALTH_PING;
         message.returnBus = m_HealthIn;
         m_HealthOut->Publish(message);

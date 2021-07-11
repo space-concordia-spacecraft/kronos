@@ -14,13 +14,13 @@ namespace kronos {
     }
 
     void ComponentQueued::ProcessCommandQueue() {
-        CommandMessage message;
+        EventMessage message;
         while (m_Queue.Pop(&message) == pdPASS) {
-            ProcessCommand(message);
+            ProcessEvent(message);
         }
     }
 
-    KsCmdResult ComponentQueued::ReceiveCommand(const CommandMessage& message) {
+    KsCmdResult ComponentQueued::ReceiveEvent(const EventMessage& message) {
         if (message.opcode == KS_OPCODE_EMPTY_QUEUE) {
             ProcessCommandQueue();
             return KS_CMDRESULT_NORETURN;

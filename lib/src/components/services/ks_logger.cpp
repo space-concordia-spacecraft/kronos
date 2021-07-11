@@ -2,13 +2,11 @@
 #include <ctime>
 
 namespace kronos {
-    //Regular Constructor
-    ComponentLogger::ComponentLogger(const String& name, const String& filepath, BusSync* filebus)
-            : ComponentActive(name, KS_COMPONENT_STACK_SIZE_LARGE), m_FilePath(filepath), m_FileBus(filebus) {
 
-    }
+    ComponentLogger::ComponentLogger(const String& name, const String& filePath, BusSync* fileBus)
+            : ComponentActive(name, KS_COMPONENT_STACK_SIZE_LARGE), m_FilePath(filePath), m_FileBus(fileBus) {}
 
-    KsCmdResult ComponentLogger::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentLogger::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_LOG_MESSAGE:
                 auto* logMsg = reinterpret_cast<LogMessage*>(message.data);
@@ -16,31 +14,27 @@ namespace kronos {
                 delete logMsg;
                 break;
         }
-        return ComponentActive::ProcessCommand(message);
+        return ComponentActive::ProcessEvent(message);
     }
-
 
     void ComponentLogger::ChangeFilepath(const String& newPath) {
         m_FilePath = newPath;
     }
 
-
     void ComponentLogger::Init() {
-        //TO DO create log file .txt
         FileOpenMessage openMsg;
-        m_FilePath = "/Logs/logs.txt";
+        m_FilePath = "/logs/log.txt";
         openMsg.path = m_FilePath;
         openMsg.mode = RED_O_CREAT | RED_O_RDWR;
         m_File = m_FileBus->PublishSync<FileOpenMessage, File>(&openMsg);
 
         if (m_File == nullptr) {
-            //Bad stuff happened
+            // TODO: HANDLE ERROR
         }
-
     }
 
     void ComponentLogger::ClearLogs() {
-//Overwrite the file with empty string
+        //Overwrite the file with empty string
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
@@ -55,8 +49,6 @@ namespace kronos {
     }
 
     void ComponentLogger::Log(LogMessage* logMsg) {
-        //Time Stamp Severity : Message
-        logMsg->message;
         char buf[250];
         int buffLen = sprintf(buf, "%s %s: %s\n\r", ConvertTimestamp(logMsg->timestamp).Ptr(),
                               ConvertSeverity(logMsg->severity).Ptr(), logMsg->message.Ptr());
@@ -83,6 +75,5 @@ namespace kronos {
         ComponentActive::Destroy();
         m_File->Close();
     }
-
 
 }

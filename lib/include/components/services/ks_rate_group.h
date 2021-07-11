@@ -12,7 +12,7 @@ namespace kronos {
                                     uint32_t tickRate,
                                     KsOpcode opcode = KS_OPCODE_RATE_GROUP_TICK);
 
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         BusBase* m_OutBus;

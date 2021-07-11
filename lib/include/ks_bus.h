@@ -11,7 +11,7 @@ namespace kronos {
 
         virtual void AddReceivingComponent(ComponentBase* component) = 0;
 
-        virtual void Publish(const CommandMessage& message) const = 0;
+        virtual void Publish(const EventMessage& message) const = 0;
 
         String GetName();
 
@@ -26,10 +26,10 @@ namespace kronos {
 
         void AddReceivingComponent(ComponentBase* component) override;
 
-        void Publish(const CommandMessage& message) const override;
+        void Publish(const EventMessage& message) const override;
 
         template<typename R>
-        R* PublishSync(const CommandMessage& message) {
+        R* PublishSync(const EventMessage& message) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
@@ -40,7 +40,7 @@ namespace kronos {
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
             }
 
-            return static_cast<R*>(m_ReceivingComponent->ReceiveCommand(message));
+            return static_cast<R*>(m_ReceivingComponent->ReceiveEvent(message));
         }
 
         template<typename T, typename R>
@@ -50,7 +50,7 @@ namespace kronos {
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
             }
 
-            CommandMessage message;
+            EventMessage message;
             message.opcode = m_Opcode;
 
             if (data != nullptr) {
@@ -73,18 +73,18 @@ namespace kronos {
 
         void AddReceivingComponent(ComponentBase* component) override;
 
-        void Publish(const CommandMessage& message) const override;
+        void Publish(const EventMessage& message) const override;
 
-        void PublishAsync(const CommandMessage& message);
+        void PublishAsync(const EventMessage& message);
 
         template<typename T>
-        void PublishAsync(T* data, BusBase* returnBus) {
+        void PublishAsync(T* data, BusBase* returnBus = nullptr) {
             if (m_ReceivingComponents.Size() == 0) {
                 // TODO: HANDLE ERROR OR WARNING
                 return;
             }
 
-            CommandMessage message;
+            EventMessage message;
             message.opcode = m_Opcode;
             message.returnBus = returnBus;
 

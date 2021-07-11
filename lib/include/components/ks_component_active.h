@@ -33,7 +33,7 @@ namespace kronos {
 
         [[noreturn]] void Run();
 
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         size_t m_StackSize;
