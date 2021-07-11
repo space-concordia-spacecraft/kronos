@@ -7,8 +7,9 @@
 
 namespace kronos {
 
-
-
+    /**
+     *
+     */
     class ComponentFileManager : public ComponentPassive {
     public:
         ComponentFileManager(const String & componentName, const String & volume);
