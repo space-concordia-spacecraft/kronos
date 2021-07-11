@@ -28,7 +28,8 @@ namespace kronos {
     void ComponentLogger::Init() {
         //TO DO create log file .txt
         FileOpenMessage openMsg;
-        openMsg.path = "/Logs/logs.txt";
+        m_FilePath = "/Logs/logs.txt";
+        openMsg.path = m_FilePath;
         openMsg.mode = RED_O_CREAT | RED_O_RDWR;
         m_File = m_FileBus->PublishSync<FileOpenMessage, File>(&openMsg);
 
@@ -39,7 +40,7 @@ namespace kronos {
     }
 
     void ComponentLogger::ClearLogs() {
-
+//Overwrite the file with empty string
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {

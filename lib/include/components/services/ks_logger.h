@@ -34,9 +34,9 @@ namespace kronos {
         File* m_File = nullptr;
         void ClearLogs();
         void ChangeFilepath(const String& str);
-        String ConvertTimestamp(uint32_t timestamp);
+        static String ConvertTimestamp(uint32_t timestamp);
         void Log(LogMessage* logMsg);
-        String ConvertSeverity(uint8_t severity);
+        static String ConvertSeverity(uint8_t severity);
     };
 
 }
