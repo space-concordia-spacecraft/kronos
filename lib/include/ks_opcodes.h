@@ -13,8 +13,7 @@ typedef uint16_t KsOpcode;
 #define KS_OPCODE_HEALTH_PING               ((KsOpcode) 3)
 #define KS_OPCODE_HEALTH_RESPONSE           ((KsOpcode) 4)
 #define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 5)
-#define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 6)
-#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 7)
+#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 6)
 
 #define KS_CMDRESULT_NORETURN               ((KsCmdResult) nullptr)
 

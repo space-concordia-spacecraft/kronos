@@ -15,6 +15,12 @@
 #include "ks_string.h"
 #include "ks_vector.h"
 
+// Component Base Classes
+#include "ks_component_base.h"
+#include "ks_component_passive.h"
+#include "ks_component_queued.h"
+#include "ks_component_active.h"
+
 // Framework
 #include "ks_opcodes.h"
 #include "ks_bus.h"

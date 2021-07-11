@@ -164,7 +164,7 @@ namespace kronos {
             HashNode<K, V> * entry = m_HashTable[hashValue];
 
             while (entry != nullptr) {
-                if (entry->getKey() == key) {
+                if (entry->GetKey() == key) {
                     return entry->GetValue();
                 }
 

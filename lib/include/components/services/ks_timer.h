@@ -23,7 +23,7 @@ namespace kronos {
         void TimerCallback();
 
     public:
-        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t interval = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
+        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
 
         void Init() override;
         void Destroy() override;

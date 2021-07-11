@@ -24,7 +24,9 @@ namespace kronos {
         switch (message.opcode) {
             case KS_OPCODE_OPEN_FILE:
                 auto* fileOpenMsg = reinterpret_cast<FileOpenMessage*>(message.data);
-                return Open(fileOpenMsg->path, fileOpenMsg->mode);
+                File* file = Open(fileOpenMsg->path, fileOpenMsg->mode);
+                delete message.data;
+                return file;
         }
 
         return KS_CMDRESULT_NORETURN;
