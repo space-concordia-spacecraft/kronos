@@ -7,10 +7,7 @@
 
 namespace kronos {
 
-    struct FileOpenMessage {
-        String path = "";
-        uint32_t mode;
-    };
+
 
     class ComponentFileManager : public ComponentPassive {
     public:

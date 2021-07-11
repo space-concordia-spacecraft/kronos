@@ -10,6 +10,11 @@
 
 namespace kronos {
 
+    struct FileOpenMessage {
+        String path = "";
+        uint32_t mode;
+    };
+
     class ComponentFileManager;
 
     class File {
