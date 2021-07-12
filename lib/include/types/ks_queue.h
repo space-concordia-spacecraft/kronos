@@ -4,7 +4,7 @@
 #include "queue.h"
 #include "asf.h"
 
-#define KS_QUEUE_DEFAULT_WAIT_TIME ( 1000 / portTICK_PERIOD_MS )
+#define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
 
 namespace kronos {
 

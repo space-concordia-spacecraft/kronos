@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstring>
 #include "asf.h"
 
 #include "ks_iterable.h"
@@ -50,23 +51,19 @@ namespace kronos {
     class Vector : public Iterable<VectorIterator<T>> {
     private:
         void Expand(size_t minSize = 0) {
-            size_t newCapacity = 2 * m_Capacity;
-            if (minSize > 0 && minSize > newCapacity)
-                newCapacity = minSize;
+            size_t newCapacity = max(2 * m_Capacity, minSize);
             T * newElements = new T[newCapacity];
-
-            // TODO: Replace with memory copying function
-            for (int i = 0; i < m_Size; i++)
-                newElements[i] = m_Elements[i];
+            memcpy(newElements, m_Elements, m_Size * sizeof(T));
 
             if (m_Elements != nullptr)
                 delete[] m_Elements;
+
             m_Elements = newElements;
             m_Capacity = newCapacity;
         }
 
     public:
-        Vector(size_t capacity = 10)
+        explicit Vector(size_t capacity = 10)
             : m_Capacity(0), m_Size(0) {
             Expand(capacity);
         }
@@ -98,7 +95,7 @@ namespace kronos {
         void AddAll(Vector<T> values) {
             if (m_Size + values.m_Size > m_Capacity)
                 Expand(m_Size + values.m_Size);
-            for (int i = 0; i < values.m_Size; i++) {
+            for (size_t i = 0; i < values.m_Size; i++) {
                 m_Elements[m_Size + i] = values[i];
             }
             m_Size += values.m_Size;
@@ -106,14 +103,14 @@ namespace kronos {
 
         void Remove(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < m_Size; i++) {
+            for (size_t i = 0; i < m_Size; i++) {
                 if (m_Elements[i] == element) {
                     elementIndex = i;
                     break;
                 }
             }
             if (elementIndex >= 0) {
-                for (int i = elementIndex; i < m_Size - 1; i++) {
+                for (size_t i = elementIndex; i < m_Size - 1; i++) {
                     m_Elements[i] = m_Elements[i + 1];
                 }
                 m_Size--;
@@ -124,7 +121,7 @@ namespace kronos {
             if(index >= m_Size)
                 return;
 
-            for (int i = index; i < m_Size - 1; i++) {
+            for (size_t i = index; i < m_Size - 1; i++) {
                 m_Elements[i] = m_Elements[i + 1];
             }
             m_Size--;
@@ -132,7 +129,7 @@ namespace kronos {
 
         int Find(T element) {
             int elementIndex = -1;
-            for (int i = 0; i < m_Size; i++) {
+            for (size_t i = 0; i < m_Size; i++) {
                 if (m_Elements[i] == element) {
                     elementIndex = i;
                     break;
@@ -162,8 +159,8 @@ namespace kronos {
         }
 
     private:
-        int m_Capacity;
-        int m_Size;
+        size_t m_Capacity;
+        size_t m_Size;
         T* m_Elements = nullptr;
     };
 

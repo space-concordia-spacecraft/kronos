@@ -26,6 +26,7 @@ namespace kronos {
         BusBase* m_HealthOut;
 
         void PingComponents();
+        void HandleComponentResponse(ComponentActive* component);
     };
 
 }

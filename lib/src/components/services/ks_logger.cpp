@@ -4,7 +4,7 @@
 namespace kronos {
 
     ComponentLogger::ComponentLogger(const String& name, const String& filePath, BusSync* fileBus)
-            : ComponentActive(name, KS_COMPONENT_STACK_SIZE_LARGE), m_FilePath(filePath), m_FileBus(fileBus) {}
+            : ComponentActive(name, KS_COMPONENT_STACK_SIZE_XLARGE), m_FilePath(filePath), m_FileBus(fileBus) {}
 
     KsCmdResult ComponentLogger::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
@@ -22,6 +22,8 @@ namespace kronos {
     }
 
     void ComponentLogger::Init() {
+        ComponentActive::Init();
+
         FileOpenMessage openMsg;
         m_FilePath = "/logs/log.txt";
         openMsg.path = m_FilePath;
@@ -38,21 +40,24 @@ namespace kronos {
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
-        time_t rawtime = timestamp;
-        struct tm ts{};
         char buf[80];
+        itoa(timestamp, buf, 10);
 
-        // Format time, "ddd yyyy-mm-dd hh:mm:ss zzz"
-        ts = *localtime(&rawtime);
-        strftime(buf, sizeof(buf), "%a %Y-%m-%d %H:%M:%S %Z", &ts);
+//        time_t rawtime = timestamp;
+//        struct tm ts{};
+//        ts = *localtime(&rawtime);
+//        strftime(buf, sizeof(buf), "%a %Y-%m-%d %H:%M:%S %Z", &ts);
         return buf;
     }
 
     void ComponentLogger::Log(LogMessage* logMsg) {
         char buf[250];
-        int buffLen = sprintf(buf, "%s %s: %s\n\r", ConvertTimestamp(logMsg->timestamp).Ptr(),
+        int buffLen = sprintf(buf, "[%s] [%s] %s\n\r", ConvertTimestamp(logMsg->timestamp).Ptr(),
                               ConvertSeverity(logMsg->severity).Ptr(), logMsg->message.Ptr());
-        m_File->Write(buf, buffLen);
+        printf("%s", buf);
+        if (m_File != nullptr) {
+            m_File->Write(buf, buffLen);
+        }
     }
 
     String ComponentLogger::ConvertSeverity(uint8_t severity) {
@@ -74,6 +79,7 @@ namespace kronos {
     void ComponentLogger::Destroy() {
         ComponentActive::Destroy();
         m_File->Close();
+        delete m_File;
     }
 
 }

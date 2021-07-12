@@ -15,7 +15,7 @@ namespace kronos {
 
     void ComponentQueued::ProcessCommandQueue() {
         EventMessage message;
-        while (m_Queue.Pop(&message) == pdPASS) {
+        while (m_Queue.Pop(&message, 0) == pdPASS) {
             ProcessEvent(message);
         }
     }

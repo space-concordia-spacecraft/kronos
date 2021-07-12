@@ -21,6 +21,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/queue.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/tasks.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/timers.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/memcpy.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/MemMang/heap_4.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
 

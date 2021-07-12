@@ -1,4 +1,5 @@
 #include "ks_health_monitor.h"
+#include "ks_framework.h"
 
 namespace kronos {
 
@@ -12,7 +13,7 @@ namespace kronos {
                 break;
             case KS_OPCODE_HEALTH_RESPONSE:
                 auto* component = reinterpret_cast<ComponentActive*>(message.data);
-                m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
+                HandleComponentResponse(component);
                 break;
         }
         return KS_CMDRESULT_NORETURN;
@@ -28,6 +29,7 @@ namespace kronos {
     }
 
     void ComponentHealthMonitor::PingComponents() {
+        Framework::LogDebug("Health ping");
         EventMessage message;
         message.opcode = KS_OPCODE_HEALTH_PING;
         message.returnBus = m_HealthIn;
@@ -39,6 +41,11 @@ namespace kronos {
                 // TODO: Component has not responded
             }
         }
+    }
+
+    void ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
+        m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
+        Framework::LogDebug("Health response from " + component->GetName());
     }
 
 }

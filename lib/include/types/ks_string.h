@@ -1,44 +1,33 @@
 #pragma once
 
+#include <cstring>
 #include "asf.h"
 
 namespace kronos {
 
     class String {
-    private:
-        String(const char* str, bool deallocate)
-            : m_Deallocate(deallocate), m_String(str) {
-            int i = 0;
-            while (str[i] != '\0')
-                i++;
-            m_Length = i;
-        }
-
     public:
-        String(const char* str)
-            : m_Deallocate(false), m_String(str) {
-            int i = 0;
-            while (str[i] != '\0')
-                i++;
-            m_Length = i;
+        String(const char* str) {
+            m_Length = 0;
+            while (str[m_Length] != '\0')
+                m_Length++;
+            char* newStr = new char[m_Length + 1];
+            memcpy(newStr, str, m_Length + 1);
+            m_String = newStr;
         }
 
-        String(const String& from)
-            : m_Deallocate(true), m_Length(from.m_Length) {
-            char * str = new char[m_Length + 1];
-            // TODO: Replace with memory copying function
-            for (size_t i = 0; i < m_Length + 1; i++)
-                str[i] = from.m_String[i];
+        String(const String& from) : m_Length(from.m_Length) {
+            char* str = new char[m_Length + 1];
+            memcpy(str, from.m_String, m_Length + 1);
             m_String = str;
         }
 
         ~String() {
-            if (m_Deallocate) {
-                delete[] m_String;
-            }
+            delete[] m_String;
         }
 
         const char* Ptr() const { return m_String; }
+
         size_t Size() const { return m_Length; }
 
         size_t Hash() const {
@@ -49,17 +38,16 @@ namespace kronos {
         }
 
         static String Concatenate(const String& first, const String& second) {
-            char * newStr = new char[first.m_Length + second.m_Length + 1];
+            char* newStr = new char[first.m_Length + second.m_Length + 1];
 
-            // TODO: Replace with memory copying functions
-            for (uint32_t i = 0; i < first.m_Length; i++)
-                newStr[i] = first.m_String[i];
-            for (uint32_t i = 0; i < second.m_Length; i++)
-                newStr[first.m_Length + i] = second.m_String[i];
-
+            memcpy(newStr, first.m_String, first.m_Length);
+            memcpy(newStr + first.m_Length, second.m_String, second.m_Length);
             newStr[first.m_Length + second.m_Length] = '\0';
 
-            return String(newStr, true);
+            String result(newStr);
+            delete[] newStr;
+
+            return result;
         }
 
         friend String operator+(const String& left, const String& right) {
@@ -76,20 +64,14 @@ namespace kronos {
                 return *this;
 
             // Delete previous buffer
-            if (m_Deallocate) {
-                delete[] m_String;
-            }
+            delete[] m_String;
 
             // Allocate new buffer
-            char * newStr = new char[other.m_Length + 1];
+            char* newStr = new char[other.m_Length + 1];
             m_Length = other.m_Length;
-            m_Deallocate = true;
-
-            // TODO: Replace with memory copying function
-            for (size_t i = 0; i < other.m_Length + 1; i++)
-                newStr[i] = other.m_String[i];
-
+            memcpy(newStr, other.m_String, other.m_Length + 1);
             m_String = newStr;
+
             return *this;
         }
 
@@ -114,7 +96,6 @@ namespace kronos {
         }
 
     private:
-        bool m_Deallocate;
         const char* m_String;
         size_t m_Length;
     };
