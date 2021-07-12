@@ -1,6 +1,7 @@
 #include "ks_file_manager.h"
 
 namespace kronos {
+
     ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
             componentName), m_Volume(volume) {}
 
@@ -20,12 +21,12 @@ namespace kronos {
         }
     }
 
-    KsCmdResult ComponentFileManager::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentFileManager::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_OPEN_FILE:
                 auto* fileOpenMsg = reinterpret_cast<FileOpenMessage*>(message.data);
                 File* file = Open(fileOpenMsg->path, fileOpenMsg->mode);
-                delete message.data;
+                delete fileOpenMsg;
                 return file;
         }
 
@@ -40,4 +41,5 @@ namespace kronos {
 
         return new File(path, fileId);
     }
+
 }

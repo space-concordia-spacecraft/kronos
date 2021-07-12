@@ -60,6 +60,16 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
+    KsResult Framework::SetLoggerBus(const String& busName) {
+        BusAsync* asyncBus;
+        if (m_AsyncBuses.Peek(busName, &asyncBus)) {
+            m_LoggerBus = asyncBus;
+            return KS_SUCCESS;
+        }
+
+        return KS_ERROR_MISSING_BUS;
+    }
+
     KsResult Framework::GetSyncBus(const String& name, BusSync** bus) {
         if (!s_Instance->m_SyncBuses.Peek(name, bus))
             return KS_ERROR_MISSING_BUS;
@@ -73,5 +83,33 @@ namespace kronos {
 
         return KS_SUCCESS;
     }
+
+    void Framework::Log(const String& msg, uint8_t severity) {
+        if (s_Instance->m_LoggerBus == nullptr)
+            return;
+
+        LogMessage message;
+        message.timestamp = xTaskGetTickCount();
+        message.severity = severity;
+        message.message = msg;
+        s_Instance->m_LoggerBus->PublishAsync(&message);
+    }
+
+    void Framework::LogDebug(const String& msg) {
+        Log(msg, KS_LOG_DEBUG);
+    }
+
+    void Framework::LogInfo(const String& msg) {
+        Log(msg, KS_LOG_INFO);
+    }
+
+    void Framework::LogWarn(const String& msg) {
+        Log(msg, KS_LOG_WARN);
+    }
+
+    void Framework::LogError(const String& msg) {
+        Log(msg, KS_LOG_ERROR);
+    }
+
 
 }

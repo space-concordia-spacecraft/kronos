@@ -2,11 +2,12 @@
 
 namespace kronos {
 
-    KsCmdResult ComponentTelemetryLogger::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentTelemetryLogger::ProcessEvent(const EventMessage& message) {
         return nullptr;
     }
 
     KsResult ComponentTelemetryLogger::AddTelemetryGroup(uint32_t rate, const Vector<TelemetryChannel>& channels) {
         return 0;
     }
+
 }

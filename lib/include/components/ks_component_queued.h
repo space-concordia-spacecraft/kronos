@@ -15,10 +15,10 @@ namespace kronos {
         void Init() override;
         void Destroy() override;
 
-        KsCmdResult ReceiveCommand(const CommandMessage& message) override;
+        KsCmdResult ReceiveEvent(const EventMessage& message) override;
 
     protected:
-        kronos::Queue<CommandMessage> m_Queue;
+        kronos::Queue<EventMessage> m_Queue;
     };
 
 }

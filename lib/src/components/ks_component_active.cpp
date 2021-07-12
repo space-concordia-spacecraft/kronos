@@ -26,19 +26,19 @@ namespace kronos {
 
     void ComponentActive::Run() {
         while (true) {
-            CommandMessage message;
-            if (m_Queue.Pop(&message) == pdPASS) {
-                ProcessCommand(message);
+            EventMessage message;
+            if (m_Queue.Pop(&message, 0) == pdPASS) {
+                ProcessEvent(message);
             }
             taskYIELD();
         }
     }
 
-    KsCmdResult ComponentActive::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentActive::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
             case KS_OPCODE_HEALTH_PING:
                 if (message.returnBus != nullptr) {
-                    CommandMessage healthResponse;
+                    EventMessage healthResponse;
                     healthResponse.opcode = KS_OPCODE_HEALTH_RESPONSE;
                     healthResponse.data = this;
                     healthResponse.dataSize = sizeof(uint32_t);

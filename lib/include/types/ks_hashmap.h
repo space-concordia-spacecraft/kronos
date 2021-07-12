@@ -13,11 +13,11 @@
 
 namespace kronos {
 
-    template <typename T, typename = void>
-    struct has_hash : std::false_type{};
+    template<typename T, typename = void>
+    struct has_hash : std::false_type {};
 
     template<class T>
-    struct has_hash<T, decltype((void)T::Hash, void())> : std::true_type {};
+    struct has_hash<T, decltype((void) &T::Hash, void())> : std::true_type {};
 
     template<int T, typename K>
     struct KeyHash {};
@@ -25,7 +25,7 @@ namespace kronos {
     // Default hash function class
     template<typename K>
     struct KeyHash<KS_HASH_MEMBER_FN, K> {
-        auto operator()(const K& key) const -> std::enable_if<std::is_member_function_pointer<decltype(&K::Hash)>::value, uint32_t> {
+        uint32_t operator()(const K& key) const {
             return key.Hash() & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
@@ -33,14 +33,14 @@ namespace kronos {
     template<typename K>
     struct KeyHash<KS_HASH_CLASS, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t)(&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t) (&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
     template<typename K>
     struct KeyHash<KS_HASH_TYPE, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t)(key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t) (key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
@@ -73,7 +73,7 @@ namespace kronos {
     class HashMapIterator {
     public:
         HashMapIterator(const HashMap<K, V, F>* hashMap, size_t hashIndex, size_t keyIndex)
-            : m_HashMap(hashMap), m_HashIndex(hashIndex), m_KeyIndex(keyIndex) {}
+                : m_HashMap(hashMap), m_HashIndex(hashIndex), m_KeyIndex(keyIndex) {}
 
         HashMapIterator<K, V, F>& operator++() {
             if (m_HashIndex == KS_HASHTABLE_SIZE - 1 && m_KeyIndex == KS_HASH_INVALID_KEY_INDEX)
@@ -136,8 +136,7 @@ namespace kronos {
     // Hash map class template
     template<typename K, typename V, typename F = KeyHash<
             std::is_class<K>::value && has_hash<K>::value ? KS_HASH_MEMBER_FN :
-            std::is_class<K>::value ? KS_HASH_CLASS :
-                KS_HASH_TYPE, K>>
+            std::is_class<K>::value ? KS_HASH_CLASS : KS_HASH_TYPE, K>>
     class HashMap : public Iterable<HashMapIterator<K, V, F>> {
         friend class HashMapIterator<K, V, F>;
 
@@ -146,11 +145,11 @@ namespace kronos {
 
         ~HashMap() {
             // destroy all buckets one by one
-            for (auto & i : m_HashTable) {
-                HashNode<K, V> * entry = i;
+            for (auto& i : m_HashTable) {
+                HashNode<K, V>* entry = i;
 
                 while (entry != nullptr) {
-                    HashNode<K, V> * prev = entry;
+                    HashNode<K, V>* prev = entry;
                     entry = entry->GetNext();
                     delete prev;
                 }
@@ -161,7 +160,7 @@ namespace kronos {
 
         V& Get(const K& key) {
             unsigned long hashValue = m_HashFunction(key);
-            HashNode<K, V> * entry = m_HashTable[hashValue];
+            HashNode<K, V>* entry = m_HashTable[hashValue];
 
             while (entry != nullptr) {
                 if (entry->GetKey() == key) {
@@ -177,11 +176,11 @@ namespace kronos {
 
         bool Peek(const K& key, V* value) {
             unsigned long hashValue = m_HashFunction(key);
-            HashNode<K, V> * entry = m_HashTable[hashValue];
+            HashNode<K, V>* entry = m_HashTable[hashValue];
 
             while (entry != nullptr) {
                 if (entry->GetKey() == key) {
-                    * value = entry->GetValue();
+                    *value = entry->GetValue();
                     return true;
                 }
 
@@ -193,8 +192,8 @@ namespace kronos {
 
         void Put(const K& key, const V& value) {
             unsigned long hashValue = m_HashFunction(key);
-            HashNode<K, V> * prev = nullptr;
-            HashNode<K, V> * entry = m_HashTable[hashValue];
+            HashNode<K, V>* prev = nullptr;
+            HashNode<K, V>* entry = m_HashTable[hashValue];
 
             while (entry != nullptr && entry->GetKey() != key) {
                 prev = entry;
@@ -220,8 +219,8 @@ namespace kronos {
 
         void Remove(const K& key) {
             unsigned long hashValue = m_HashFunction(key);
-            HashNode<K, V> * prev = nullptr;
-            HashNode<K, V> * entry = m_HashTable[hashValue];
+            HashNode<K, V>* prev = nullptr;
+            HashNode<K, V>* entry = m_HashTable[hashValue];
 
             while (entry != nullptr && entry->GetKey() != key) {
                 prev = entry;
@@ -276,7 +275,9 @@ namespace kronos {
 
     template<typename K_, typename V_, typename F_>
     bool operator==(const HashMapIterator<K_, V_, F_>& left, const HashMapIterator<K_, V_, F_>& right) {
-        return left.m_HashMap == right.m_HashMap && left.m_HashIndex == right.m_HashIndex && left.m_KeyIndex == right.m_KeyIndex;
+        return  left.m_HashMap == right.m_HashMap &&
+                left.m_HashIndex == right.m_HashIndex &&
+                left.m_KeyIndex == right.m_KeyIndex;
     }
 
     template<typename K_, typename V_, typename F_>

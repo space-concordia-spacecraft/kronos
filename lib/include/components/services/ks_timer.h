@@ -28,7 +28,7 @@ namespace kronos {
         void Init() override;
         void Destroy() override;
 
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         BusBase* m_OutBus;

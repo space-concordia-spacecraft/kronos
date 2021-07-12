@@ -31,12 +31,6 @@ namespace kronos {
     class ComponentActive : public ComponentQueued {
     public:
 
-        /**
-         *
-         * @param name
-         * @param stackSize
-         * @param priority
-         */
         explicit ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
         void Init() override;
@@ -44,12 +38,7 @@ namespace kronos {
 
         [[noreturn]] void Run();
 
-        /**
-         * ProcessCommand() takes care of directing the event message, being sent to the component, into the correct handler.
-         * @param message - EventMessage struct containing the opcode, data, and return bus
-         * @return Whether the function was successful or not. It will return KS_SUCCESS if it worked, otherwise it will return an error code.
-         */
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         /// Stack size provided to the task.
@@ -61,10 +50,6 @@ namespace kronos {
         /// Task handle used to manipulate the task created by the FreeRTOS API.
         TaskHandle_t m_Task = nullptr;
 
-        /**
-         * Start() is the static function that allows the FreeRTOS task to run.
-         * @param data - void ptr used to obtain this class in order to be able to call the Run() function.
-         */
         static void Start(void* data);
     };
 

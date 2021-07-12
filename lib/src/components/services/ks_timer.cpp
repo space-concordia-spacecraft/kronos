@@ -20,12 +20,12 @@ namespace kronos {
         xTimerStop(m_Timer, 0);
     }
 
-    KsCmdResult ComponentTimer::ProcessCommand(const CommandMessage& message) {
+    KsCmdResult ComponentTimer::ProcessEvent(const EventMessage& message) {
         return KS_CMDRESULT_NORETURN;
     }
 
     void ComponentTimer::TimerCallback() {
-        CommandMessage message;
+        EventMessage message;
         message.opcode = KS_OPCODE_TIMER_TICK;
         m_OutBus->Publish(message);
     }

@@ -14,16 +14,16 @@
 namespace kronos {
 
     struct LogMessage {
-        String message;
         uint32_t timestamp;
         uint8_t severity;
+        String message = "";
     };
 
     class ComponentLogger : public ComponentActive {
     public:
         ComponentLogger(const String& name, const String& filepath, BusSync* fileBus);
 
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         void Init() override;
         void Destroy() override;

@@ -24,7 +24,7 @@ namespace kronos {
         m_ReceivingComponent = component;
     }
 
-    void BusSync::Publish(const CommandMessage& message) const {
+    void BusSync::Publish(const EventMessage& message) const {
         if (m_ReceivingComponent == nullptr) {
             // TODO: HANDLE ERROR OR WARNING
             return;
@@ -35,7 +35,7 @@ namespace kronos {
             return;
         }
 
-        m_ReceivingComponent->ReceiveCommand(message);
+        m_ReceivingComponent->ReceiveEvent(message);
     }
 
 
@@ -52,7 +52,7 @@ namespace kronos {
         m_ReceivingComponents.Add(component);
     }
 
-    void BusAsync::Publish(const CommandMessage& message) const {
+    void BusAsync::Publish(const EventMessage& message) const {
         if (m_ReceivingComponents.Size() == 0) {
             // TODO: HANDLE ERROR OR WARNING
             return;
@@ -65,11 +65,11 @@ namespace kronos {
 
         for (size_t i = 0; i < m_ReceivingComponents.Size(); i ++) {
             ComponentBase* component = m_ReceivingComponents[i];
-            component->ReceiveCommand(message);
+            component->ReceiveEvent(message);
         }
     }
 
-    void BusAsync::PublishAsync(const CommandMessage& message) {
+    void BusAsync::PublishAsync(const EventMessage& message) {
         Publish(message);
     }
 

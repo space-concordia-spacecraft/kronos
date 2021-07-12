@@ -19,10 +19,11 @@ namespace kronos {
 
     class ComponentTelemetryLogger : ComponentActive {
     public:
-        KsCmdResult ProcessCommand(const CommandMessage& message) override;
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         KsResult AddTelemetryGroup(uint32_t rate, const Vector<TelemetryChannel>& channels);
     private:
         Vector<TelemetryRateGroup> m_TelemetryChannels;
     };
+
 }
