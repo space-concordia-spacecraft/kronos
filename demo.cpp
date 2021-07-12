@@ -21,7 +21,8 @@ int main() {
     board_init();
     console_init();
 
-    kronos::ComponentLogger thelogger("logger","/Logs");
+
+    //kronos::ComponentLogger thelogger("logger","/Logs");
 
     xTaskCreate(pvTaskBlink, "BLINK", configMINIMAL_STACK_SIZE, nullptr, 1, nullptr);
 
