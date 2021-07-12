@@ -36,7 +36,15 @@ namespace kronos {
     }
 
     void ComponentLogger::ClearLogs() {
-        //Overwrite the file with empty string
+        FileOpenMessage openMsg;
+        m_FilePath = "/logs/log.txt";
+        openMsg.path = m_FilePath;
+        openMsg.mode = RED_O_TRUNC;
+        m_File = m_FileBus->PublishSync<FileOpenMessage, File>(&openMsg);
+
+        if (m_File == nullptr) {
+            // TODO: HANDLE ERROR
+        }
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
