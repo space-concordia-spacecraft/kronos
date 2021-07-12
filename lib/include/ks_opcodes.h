@@ -28,4 +28,5 @@ typedef uint16_t KsOpcode;
 #define KS_ERROR_FILE_UNABLE_TO_WRITE       ((KsResult) 8)
 #define KS_ERROR_FILE_UNABLE_TO_READ        ((KsResult) 9)
 #define KS_ERROR_FILE_UNABLE_TO_RENAME      ((KsResult) 10)
-#define KS_ERROR_FILE_UNABLE_TO_GET_STATUS  ((KsResult) 11)
+#define KS_ERROR_FILE_UNABLE_TO_MOVE        ((KsResult) 11)
+#define KS_ERROR_FILE_UNABLE_TO_GET_STATUS  ((KsResult) 12)

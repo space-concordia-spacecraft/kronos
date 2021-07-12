@@ -8,7 +8,7 @@
 namespace kronos {
 
     /**
-     *
+     * ComponentFileManager is a component that takes care of opening files.
      */
     class ComponentFileManager : public ComponentPassive {
     public:
@@ -20,12 +20,6 @@ namespace kronos {
 
     private:
         File* Open(String path, uint32_t mode);
-
-        KsResult CreateFile();
-        KsResult RemoveFile();
-
-        KsResult CreateDirectory();
-        KsResult RemoveDirectory();
 
         String m_Volume;
     };

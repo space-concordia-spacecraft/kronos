@@ -2,7 +2,7 @@
 #include "ks_framework.h"
 
 namespace kronos {
-
+    
     ComponentActive::ComponentActive(const String& name, size_t stackSize, uint16_t priority)
         : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
 
