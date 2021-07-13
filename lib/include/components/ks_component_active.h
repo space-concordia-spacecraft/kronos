@@ -22,22 +22,26 @@
 #define KS_COMPONENT_STACK_SIZE_SMALL   configMINIMAL_STACK_SIZE
 
 namespace kronos {
-    /**
-     * A class that implements the logic for Active components.
-     *
-     * An Active component works the same way as the queued component except that it has it's own thread that clears the queue.
-     * When creating an active component, it's important to implement the ProcessCommand() function and then call ComponentActive::ProcessCommand() as the base component takes care of the health checks of the thread.
-     */
+
+    /// Class implementation for Active components.
+    ///
+    /// Active components inherit directly from the queue. The main difference is that active components have a thread that is constantly processing events from the queue.
     class ComponentActive : public ComponentQueued {
     public:
 
+        /// @copydoc
         explicit ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
+        /// @copydoc
         void Init() override;
+
+        /// @copydoc
         void Destroy() override;
 
+        /// Function containing main loop for the event processing thread.
         [[noreturn]] void Run();
 
+        /// @copydoc
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
@@ -50,6 +54,10 @@ namespace kronos {
         /// Task handle used to manipulate the task created by the FreeRTOS API.
         TaskHandle_t m_Task = nullptr;
 
+        /**
+         * Function that takes care of starting the thread.
+         * @param pointer to the class that starts the thread.
+         */
         static void Start(void* data);
     };
 

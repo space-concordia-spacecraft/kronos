@@ -13,7 +13,7 @@ namespace kronos {
         ComponentPassive::Destroy();
     }
 
-    void ComponentQueued::ProcessCommandQueue() {
+    void ComponentQueued::ProcessEventQueue() {
         EventMessage message;
         while (m_Queue.Pop(&message, 0) == pdPASS) {
             ProcessEvent(message);
@@ -22,7 +22,7 @@ namespace kronos {
 
     KsCmdResult ComponentQueued::ReceiveEvent(const EventMessage& message) {
         if (message.opcode == KS_OPCODE_EMPTY_QUEUE) {
-            ProcessCommandQueue();
+            ProcessEventQueue();
             return KS_CMDRESULT_NORETURN;
         }
 

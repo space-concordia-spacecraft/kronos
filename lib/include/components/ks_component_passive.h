@@ -12,13 +12,20 @@
 
 namespace kronos {
 
+    /// Class implementation for Passive components. These components don't have a thread or a queue.
     class ComponentPassive : public ComponentBase {
     public:
+
+        /// @copydoc
         explicit ComponentPassive(const String& name);
 
+        /// @copydoc
         void Init() override;
+
+        /// @copydoc
         void Destroy() override;
 
+        /// @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;
     };
 
