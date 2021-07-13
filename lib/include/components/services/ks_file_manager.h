@@ -7,9 +7,6 @@
 
 namespace kronos {
 
-    /**
-     * ComponentFileManager is a component that takes care of opening files.
-     */
     class ComponentFileManager : public ComponentPassive {
     public:
         ComponentFileManager(const String & componentName, const String & volume);
