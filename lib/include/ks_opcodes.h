@@ -4,16 +4,18 @@
 
 typedef uint16_t KsResult;
 typedef void* KsCmdResult;
+typedef uint16_t KsEventCode;
 typedef uint16_t KsOpcode;
 
-#define KS_OPCODE_INVALID                   ((KsOpcode) 0xFFFF)
-#define KS_OPCODE_EMPTY_QUEUE               ((KsOpcode) 0)
-#define KS_OPCODE_TIMER_TICK                ((KsOpcode) 1)
-#define KS_OPCODE_RATE_GROUP_TICK           ((KsOpcode) 2)
-#define KS_OPCODE_HEALTH_PING               ((KsOpcode) 3)
-#define KS_OPCODE_HEALTH_RESPONSE           ((KsOpcode) 4)
-#define KS_OPCODE_LOG_MESSAGE               ((KsOpcode) 5)
-#define KS_OPCODE_OPEN_FILE                 ((KsOpcode) 6)
+#define KS_EVENT_CODE_INVALID                   ((KsEventCode) 0xFFFF)
+#define KS_EVENT_CODE_EMPTY_QUEUE               ((KsEventCode) 0)
+#define KS_EVENT_CODE_TIMER_TICK                ((KsEventCode) 1)
+#define KS_EVENT_CODE_RATE_GROUP_TICK           ((KsEventCode) 2)
+#define KS_EVENT_CODE_HEALTH_PING               ((KsEventCode) 3)
+#define KS_EVENT_CODE_HEALTH_RESPONSE           ((KsEventCode) 4)
+#define KS_EVENT_CODE_LOG_MESSAGE               ((KsEventCode) 5)
+#define KS_EVENT_CODE_OPEN_FILE                 ((KsEventCode) 6)
+#define KS_EVENT_CODE_DISPATCH_COMMAND          ((KsEventCode) 7)
 
 #define KS_CMDRESULT_NORETURN               ((KsCmdResult) nullptr)
 

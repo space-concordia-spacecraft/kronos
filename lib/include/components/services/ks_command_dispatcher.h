@@ -2,11 +2,21 @@
 
 #include "ks_component_active.h"
 
+#include "ks_hashmap.h"
+
 namespace kronos {
-    class ComponentCommandDispatcher : public ComponentActive  {
+
+    struct CommandMessage {
+        KsOpcode opcode;
+        void* parameter;
+    };
+
+    class ComponentCommandDispatcher : public ComponentActive {
     public:
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
+        void RegisterCommand(KsOpcode opcode, void (* pFunction)(void*));
     private:
+        HashMap<KsOpcode , void (*)(void*)> m_CommandMessages;
     };
 }

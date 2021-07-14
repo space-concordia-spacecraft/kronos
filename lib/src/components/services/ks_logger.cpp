@@ -8,7 +8,7 @@ namespace kronos {
 
     KsCmdResult ComponentLogger::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
-            case KS_OPCODE_LOG_MESSAGE:
+            case KS_EVENT_CODE_LOG_MESSAGE:
                 auto* logMsg = reinterpret_cast<LogMessage*>(message.data);
                 Log(logMsg);
                 delete logMsg;

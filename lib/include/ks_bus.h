@@ -7,7 +7,7 @@ namespace kronos {
 
     class BusBase {
     public:
-        BusBase(KsOpcode opcode, const String& name);
+        BusBase(KsEventCode opcode, const String& name);
 
         virtual void AddReceivingComponent(ComponentBase* component) = 0;
 
@@ -16,13 +16,13 @@ namespace kronos {
         String GetName();
 
     protected:
-        KsOpcode m_Opcode;
+        KsEventCode m_Opcode;
         String m_Name;
     };
 
     class BusSync : public BusBase {
     public:
-        BusSync(KsOpcode opcode, const String& name);
+        BusSync(KsEventCode opcode, const String& name);
 
         void AddReceivingComponent(ComponentBase* component) override;
 
@@ -69,7 +69,7 @@ namespace kronos {
 
     class BusAsync : public BusBase {
     public:
-        BusAsync(KsOpcode opcode, const String& name);
+        BusAsync(KsEventCode opcode, const String& name);
 
         void AddReceivingComponent(ComponentBase* component) override;
 

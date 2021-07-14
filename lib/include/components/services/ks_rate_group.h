@@ -10,7 +10,7 @@ namespace kronos {
         explicit ComponentRateGroup(const String& name,
                                     BusBase* outBus,
                                     uint32_t tickRate,
-                                    KsOpcode opcode = KS_OPCODE_RATE_GROUP_TICK);
+                                    KsEventCode opcode = KS_EVENT_CODE_RATE_GROUP_TICK);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
@@ -18,7 +18,7 @@ namespace kronos {
         BusBase* m_OutBus;
         uint32_t m_TickRate;
         uint32_t m_TickCount = 0;
-        KsOpcode m_Opcode;
+        KsEventCode m_Opcode;
 
         void ExecuteTimerTick();
     };

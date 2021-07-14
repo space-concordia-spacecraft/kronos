@@ -26,7 +26,7 @@ namespace kronos {
 
     void ComponentTimer::TimerCallback() {
         EventMessage message;
-        message.opcode = KS_OPCODE_TIMER_TICK;
+        message.opcode = KS_EVENT_CODE_TIMER_TICK;
         m_OutBus->Publish(message);
     }
 

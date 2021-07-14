@@ -8,10 +8,10 @@ namespace kronos {
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
-            case KS_OPCODE_RATE_GROUP_TICK:
+            case KS_EVENT_CODE_RATE_GROUP_TICK:
                 PingComponents();
                 break;
-            case KS_OPCODE_HEALTH_RESPONSE:
+            case KS_EVENT_CODE_HEALTH_RESPONSE:
                 auto* component = reinterpret_cast<ComponentActive*>(message.data);
                 HandleComponentResponse(component);
                 break;
@@ -31,7 +31,7 @@ namespace kronos {
     void ComponentHealthMonitor::PingComponents() {
         Framework::LogDebug("Health ping");
         EventMessage message;
-        message.opcode = KS_OPCODE_HEALTH_PING;
+        message.opcode = KS_EVENT_CODE_HEALTH_PING;
         message.returnBus = m_HealthIn;
         m_HealthOut->Publish(message);
 

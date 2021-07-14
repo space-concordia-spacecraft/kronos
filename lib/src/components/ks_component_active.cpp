@@ -36,10 +36,10 @@ namespace kronos {
 
     KsCmdResult ComponentActive::ProcessEvent(const EventMessage& message) {
         switch (message.opcode) {
-            case KS_OPCODE_HEALTH_PING:
+            case KS_EVENT_CODE_HEALTH_PING:
                 if (message.returnBus != nullptr) {
                     EventMessage healthResponse;
-                    healthResponse.opcode = KS_OPCODE_HEALTH_RESPONSE;
+                    healthResponse.opcode = KS_EVENT_CODE_HEALTH_RESPONSE;
                     healthResponse.data = this;
                     healthResponse.dataSize = sizeof(uint32_t);
                     message.returnBus->Publish(healthResponse);

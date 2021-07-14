@@ -10,7 +10,7 @@ namespace kronos {
     /// Contains information about an event. This information includes: opcode, the data, the size of the data, and the return bus if needed.
     struct EventMessage {
         /// Identifier for the event. This allows the user to process the event properly.
-        KsOpcode opcode = KS_OPCODE_INVALID;
+        KsEventCode opcode = KS_EVENT_CODE_INVALID;
 
         /// The data being passed through the event.
         void * data = nullptr;
