@@ -1,44 +1,64 @@
-Framework                         {#mainpage}
+{#mainpage} Spacecraft Framework
 ============
 
 This framework was originally developed by [Space Concordia](http://www.spaceconcordia.ca/en/) members to be used in [SC-ODIN](http://www.spaceconcordia.ca/en/division/spacecraft/).
 
 ## Overview
 
-Kronos is a component-driven framework inspired by the [Fprime](https://github.com/nasa/fprime) architecture. The main difference is that the components in Kronos communicate through busses rather than through ports. 
+Kronos is a component-driven framework inspired by the [Fprime](https://github.com/nasa/fprime) architecture. The framework splits up a complex system into various components. A component is defined as an isolated collection of logic created to achieve a single specific goal. Components communicate between each other through the use of busses by publishing or listening to events carried through them. Each bus may only carry one event type and is used to directionally link various components together. 
 
-The architecture revolves around publishing an event onto a bus and having each component process the event. There are 3 types of components, Passive, Queued, and Active, and 2 types of busses, Synchronous, and Asynchronous.
+More detail about each part of the architecture is included in the sections below.
 
-The framework is currently built around FreeRTOS, and Reliance Edge, but it's possible that in the future it will support other Operating Systems and FileSystems.
+The framework is currently built around FreeRTOS and Reliance Edge but, as a future endeavour, it will be modulated to allow for support of other operating systems and file systems.
 
 ## Installation
 
+This upcoming section will be dedicated to the installation of a build environment for Kronos on most popular OS' to date.
 
+#### Pre-requisites
+
+#### Windows
+
+#### Linux
+
+#### Mac OS
 
 ## Components
 
-Components are simply a collection of functions and variables used for specific behavior. For instance, if you wanted to implement logging behavior, you would want to create a component called logger and implement all functions related to logging within that component.
+As mentioned above, a component is a collection of logic used to achieve a targeted goal. For instance, if logging is a requirement of your system, you may want to create a _**Logger**_ component which serves to handle logging to a standard output and/or file, and possibly includes various log levels to easily filter incoming data.
 
-It's important to note that components don't really know who is sending the information, they just know how to process the event. This allows for modularity, as it would be possible to remove certain components without crashing the whole system.
+It is important to note that components are self-contained, meaning that they are not aware of the source of the events they are processing. This allows for modularity, as it is possible to add or remove certain components without affecting the rest of the system.
 
-As mentioned previously, there are three types of components: Passive, Queued, and Active. 
+There are three types of components: Passive, Queued, and Active, explained in detail below.
 
-#### Passive
+#### Passive Components
 
-Passive components are the most basic type of component. These are a collection of functions that run on the thread of the component that sends the event.
+A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions. 
 
-#### Queued
+Passive components are made to be invoked by active or queued components. An example of a passive component could be a File Manager component in charge of tracking files used and providing thread-safe file operations for other components. Such operations do not need to run on the same thread and can instead be executed by the calling components.
 
-Queued components are derived from the passive component. These components have a queue used to store events being sent to it. When it receives the event to clear the queue, a function is called to pop each of the events in the queue until it's empty. Just like the passive components, they run on the thread of the component that publishes the event.
+#### Queued Components
+
+A queued component implements a queue used to store incoming events which must be cleared by another active component. When its queue is cleared, all events in the queue are processed and the queue is emptied, ready to receive more events. Queued components are similar to passive components in the sense that they do not provide their own thread. However, unlike passive components, incoming events are processed asynchronously and not on the calling component's thread. Events are instead processed by another active component whose job is to intermittently clear the queued component's event queue. 
+
+Queued components are useful in applications where specific inexpensive logic must be executed periodically but does not warrant its own thread. A good example is a scheduled component such as a health monitoring component whose job is to regularly make sure that all active threads are performing their tasks. 
 
 #### Active
 
-Active components are derived from the queued component. These components behave just like the queued components, the only difference is that they have their own thread to clear the queue. All events being sent to the component are also processed on the thread of the component.
+In addition to having a queue, active components also provide an execution thread. Active components process events in a similar asynchronous manner to how queued components work. The difference is that instead of having their queue cleared by another component, they process events in their queue one-by-one in their own execution thread. The implications are the same as in the case of queued components, were the logic is not executed on the calling thread but is instead executed on the component's own thread.
+
+Active components are used when components need to coordinate other parts of the system and execute costly logic. These components are the critical components of the system that must remain responsive and timely. In general, there will usually be few active components in a system as maintaining more threads becomes more expensive for the OS' task scheduler. A good example of an active component might be a component that would be in charge of running Attitude Determination and Control logic for the spacecraft. Such a component will need to call upon various other components and is mission critical.
 
 ## Busses
 
-Busses act as the connections between components. 
+Busses are used to connect the various components of a system together. Each bus is limited to a carrying single event type and may not switch the event type it is carrying at runtime.
 
-#### Synchronous
+Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. However, there are two main types of busses (synchronous and asynchronous), each with its own restrictions.
 
-#### Asynchronous
+It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, if it is synchronous. In _**all cases**_, it is the _**receiving component's**_ jobs to delete any message data received, as it is _**always**_ copied before being sent.
+
+#### Synchronous Busses
+
+A synchronous bus is, as its name suggests, always invoked synchronously, meaning on the calling thread. This allows it to provide a return value but also imposes some restrictions on the type of connections it can be used to create. Most prominently, synchronous busses may _**ONLY HAVE AT MOST ONE RECEIVING COMPONENT**_ and that component _**MUST BE A PASSIVE COMPONENT**_. This is with good reason as only passive components allow for execution on the calling thread, and can therefore be treated just like a regular function call. A synchronous bus invocation will always return a void pointer. However, the framework does provide templated functions to automatically cast the result to the needed type. This also means that to invoke a synchronous bus, a user _**MUST KNOW**_ the _**RETURN TYPE**_ of the operation they are requesting. A synchronous bus may have _**MULTIPLE PUBLISHING COMPONENTS**_. It is also important to note that 
+
+#### Asynchronous Busses
