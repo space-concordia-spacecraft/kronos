@@ -37,6 +37,25 @@ namespace kronos {
             return hash;
         }
 
+        size_t Find(char *str) {
+            char * ptr = strstr(m_String, str);
+            if(ptr == nullptr)
+                return UINT32_MAX;
+
+            return ptr - m_String;
+        }
+
+        String Substring(size_t start) {
+            Substring(start, m_Length);
+        }
+
+        String Substring(size_t start, size_t end) {
+            if (start >= m_Length || end > m_Length || end <= start)
+                return "";
+
+            return String(*this, start, end);
+        }
+
         static String Concatenate(const String& first, const String& second) {
             char* newStr = new char[first.m_Length + second.m_Length + 1];
 
@@ -96,6 +115,12 @@ namespace kronos {
         }
 
     private:
+        String(const String& from, size_t start, size_t end) {
+            char* str = new char[end - start + 1];
+            memcpy(str, from.m_String + start, end - start + 1);
+            m_String = str;
+        }
+
         const char* m_String;
         size_t m_Length;
     };
