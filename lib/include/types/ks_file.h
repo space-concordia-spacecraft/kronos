@@ -50,8 +50,11 @@ namespace kronos {
     friend class ComponentFileManager;
 
     private:
-        File(const String& path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_Path(path), m_FileId(fileId) {
-            // TODO: split name from path with helper?
+        File(const String& path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_FileId(fileId) {
+            size_t index = path.Find("/");
+
+            m_Name = path.Substring(index);
+            m_Path = path.Substring(0, index);
         }
 
     public:
@@ -108,23 +111,15 @@ namespace kronos {
          * @param newName - The new name of the file.
          * @return KS_SUCCESS if it was able to rename the file, otherwise it will return an error.
          */
-        KsResult Rename(const String& newName) {
-            if (red_rename((m_Path + m_Name).Ptr(), (m_Path + newName).Ptr()) == KS_FILE_ERROR)
+        KsResult Rename(const String& newName, const String& newPath) {
+            if (red_rename((m_Path + m_Name).Ptr(), (newPath + newName).Ptr()) == KS_FILE_ERROR)
                 return KS_ERROR_FILE_UNABLE_TO_RENAME;
 
             return KS_SUCCESS;
         }
 
-        /**
-         * Move() takes care of moving the file to a new folder.
-         * @param newPath - The new path you want to move the file to.
-         * @return KS_SUCCESS if it was able to move the file, otherwise it will return an error.
-         */
-        KsResult Move(const String& newPath) {
-            if (red_rename((m_Path + m_Name).Ptr(), (m_Path + newPath).Ptr()) == KS_FILE_ERROR)
-                return KS_ERROR_FILE_UNABLE_TO_MOVE;
-
-            return KS_SUCCESS;
+        KsResult Rename(const String& newName) {
+            return Rename(newName, m_Path);
         }
 
         /**
@@ -147,7 +142,7 @@ namespace kronos {
         String m_Name = "";
 
         /// The absolute path of the file, not including the volume.
-        String m_Path;
+        String m_Path = "";
 
         /// The file descriptor used to interface with the Reliance Edge API.
         int32_t m_FileId;

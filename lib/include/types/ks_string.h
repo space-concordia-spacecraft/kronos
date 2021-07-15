@@ -37,7 +37,7 @@ namespace kronos {
             return hash;
         }
 
-        size_t Find(char *str) {
+        size_t Find(const char *str) const {
             char * ptr = strstr(m_String, str);
             if(ptr == nullptr)
                 return UINT32_MAX;
@@ -45,11 +45,11 @@ namespace kronos {
             return ptr - m_String;
         }
 
-        String Substring(size_t start) {
+        String Substring(size_t start) const {
             Substring(start, m_Length);
         }
 
-        String Substring(size_t start, size_t end) {
+        String Substring(size_t start, size_t end) const {
             if (start >= m_Length || end > m_Length || end <= start)
                 return "";
 
