@@ -33,7 +33,7 @@ There are three types of components: Passive, Queued, and Active, explained in d
 
 #### Passive Components
 
-A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions. 
+A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists of a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions. 
 
 Passive components are made to be invoked by active or queued components. An example of a passive component could be a File Manager component in charge of tracking files used and providing thread-safe file operations for other components. Such operations do not need to run on the same thread and can instead be executed by the calling components.
 
@@ -55,10 +55,10 @@ Busses are used to connect the various components of a system together. Each bus
 
 Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. However, there are two main types of busses (synchronous and asynchronous), each with its own restrictions.
 
-It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, if it is synchronous. In _**all cases**_, it is the _**receiving component's**_ jobs to delete any message data received, as it is _**always**_ copied before being sent.
+It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, if it is synchronous. In _**all cases**_, it is the _**receiving component's**_ job to delete any message data received, as it is _**always**_ copied before being sent.
 
 #### Synchronous Busses
 
-A synchronous bus is, as its name suggests, always invoked synchronously, meaning on the calling thread. This allows it to provide a return value but also imposes some restrictions on the type of connections it can be used to create. Most prominently, synchronous busses may _**ONLY HAVE AT MOST ONE RECEIVING COMPONENT**_ and that component _**MUST BE A PASSIVE COMPONENT**_. This is with good reason as only passive components allow for execution on the calling thread, and can therefore be treated just like a regular function call. A synchronous bus invocation will always return a void pointer. However, the framework does provide templated functions to automatically cast the result to the needed type. This also means that to invoke a synchronous bus, a user _**MUST KNOW**_ the _**RETURN TYPE**_ of the operation they are requesting. A synchronous bus may have _**MULTIPLE PUBLISHING COMPONENTS**_. It is also important to note that 
+A synchronous bus is, as its name suggests, always invoked synchronously, meaning on the calling thread. This allows it to provide a return value but also imposes some restrictions on the type of connections it can be used to create. Most prominently, synchronous busses may _**ONLY HAVE AT MOST ONE RECEIVING COMPONENT**_ and that component _**MUST BE A PASSIVE COMPONENT**_. This is with good reason as only passive components allow for execution on the calling thread, and can therefore be treated just like a regular function call. A synchronous bus invocation will always return a void pointer. The framework does provide templated functions to automatically cast the result to the needed type. This also means that to invoke a synchronous bus, a user _**MUST KNOW**_ the _**RETURN TYPE**_ of the operation they are requesting. A synchronous bus may have _**MULTIPLE PUBLISHING COMPONENTS**_. It is also important to note that 
 
 #### Asynchronous Busses
