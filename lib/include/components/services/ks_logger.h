@@ -33,7 +33,6 @@ namespace kronos {
         BusSync* m_FileBus;
         File* m_File = nullptr;
         void ClearLogs();
-        void ChangeFilepath(const String& str);
         static String ConvertTimestamp(uint32_t timestamp);
         void Log(LogMessage* logMsg);
         static String ConvertSeverity(uint8_t severity);
