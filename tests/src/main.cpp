@@ -1,9 +1,22 @@
-#include <stdlib.h>
-#include "ks_string.h"
+#include "kronos.h"
+
+#include "test.h"
+
+void init() {
+    board_init();
+    sysclk_init();
+    console_init();
+}
+
+class A {
+
+
+};
 
 int main() {
-    kronos::String a = "asd;laksjlaskdjasd";
-    a += "as;lk,djaslkdjaslkd";
-    printf("asjdkasjdlk");
+    init();
+
+    printf("here");
+
     return 0;
 }

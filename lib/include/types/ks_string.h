@@ -46,7 +46,7 @@ namespace kronos {
         }
 
         String Substring(size_t start) const {
-            Substring(start, m_Length);
+            return Substring(start, m_Length);
         }
 
         String Substring(size_t start, size_t end) const {

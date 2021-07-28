@@ -33,6 +33,7 @@ In order to run the demo application, a SAM microcontroller is needed. This fram
 For Windows users, all the binaries required for compilation can be installed through the MinGW64 MSYS2 port. We will use MinGW because it is the only toolchain on Windows that is supported by CLion for OpenOCD embedded development, as stated [here](https://www.jetbrains.com/help/clion/openocd-support.html). All the required packages are available for MinGW, notably the Open On-Chip Debugger (OpenOCD) which is required to upload and debug code on Atmel SAM MCUs.
 
 #### MSYS2
+
 MSYS2 provides an easy-to-use building environment for Windows. We will be using MinGW64 packages as they are the only supported ones by CLion. Download and install MSYS2 from [here](https://www.msys2.org/). Once installed, open the MSYS2 shell and update the package repository with the following command:
 
 ```Bash
@@ -47,6 +48,7 @@ pacman -Syu mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openoc
 
 The full list of packages is included below in a more readable list format.
 
+- [x] `mingw-w64-x86_64-toolchain`
 - [x] `mingw-w64-x86_64-make`
 - [x] `mingw-w64-x86_64-cmake` 
 - [x] `mingw-w64-x86_64-openocd`
@@ -97,7 +99,7 @@ With that, your CLion is ready to go. You may now right-click on the `CMakeLists
  
 #### Adding a Run Configuration
 
-To check that your build environment is correctly setup, you may attempt to build the Kronos demo app. To do so, plug in your SAM board to your PC using the debug USB port. Make sure it is already flashed once with some working Software. You may do this through Atmel Studio using and example project. When you have plugged your board in and flashed it once, follow these instructions to add a run configuration:
+To check that your build environment is correctly setup, you may attempt to build the Kronos demo app. To do so, plug in your SAM board to your PC using the debug USB port. Make sure it is already flashed once with some working Software. You may do this through Atmel Studio using an example project. When you have plugged your board in and flashed it once, follow these instructions to add a run configuration:
 
 1. Open the run configurations dialog in the top-right corner of your CLion project window, in between the build and run icons. 
 
