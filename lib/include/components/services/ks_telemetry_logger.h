@@ -23,7 +23,8 @@ namespace kronos {
 
         KsResult AddTelemetryGroup(uint32_t rate, const Vector<TelemetryChannel>& channels);
     private:
-        Vector<TelemetryRateGroup> m_TelemetryChannels;
+        Vector<TelemetryRateGroup> m_TelemetryRateGroups;
+        KsResult Log();
     };
 
 }

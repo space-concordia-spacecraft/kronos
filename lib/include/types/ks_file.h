@@ -50,7 +50,14 @@ namespace kronos {
     friend class ComponentFileManager;
 
     private:
+        /**
+         * Private constructor to initialize a File object. It's made private so that only the friend class "ComponentFileManager" can use this constructor.
+         * @param path - Path of the file the user wants to open. It should include the name and extension of the file.
+         * @param fileId - Identifier for the file.
+         */
         File(const String& path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_FileId(fileId) {
+            // Separate path variable into the name and path of the file.
+            // TODO: Switch for a FindLast.
             size_t index = path.Find("/");
 
             m_Name = path.Substring(index);

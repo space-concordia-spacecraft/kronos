@@ -17,15 +17,11 @@ namespace kronos {
         return ComponentActive::ProcessEvent(message);
     }
 
-    void ComponentLogger::ChangeFilepath(const String& newPath) {
-        m_FilePath = newPath;
-    }
-
     void ComponentLogger::Init() {
         ComponentActive::Init();
 
         FileOpenMessage openMsg;
-        m_FilePath = "/logs/log.txt";
+        m_FilePath = "/logs/log.txt"; // TODO: Store the file path somewhere
         openMsg.path = m_FilePath;
         openMsg.mode = RED_O_CREAT | RED_O_RDWR;
         m_File = m_FileBus->PublishSync<FileOpenMessage, File>(&openMsg);
@@ -33,11 +29,13 @@ namespace kronos {
         if (m_File == nullptr) {
             // TODO: HANDLE ERROR
         }
+
+        // TODO: Make sure to close the File
     }
 
     void ComponentLogger::ClearLogs() {
         FileOpenMessage openMsg;
-        m_FilePath = "/logs/log.txt";
+        m_FilePath = "/logs/log.txt"; // TODO: Store the file path somewhere
         openMsg.path = m_FilePath;
         openMsg.mode = RED_O_TRUNC;
         m_File = m_FileBus->PublishSync<FileOpenMessage, File>(&openMsg);
@@ -45,11 +43,15 @@ namespace kronos {
         if (m_File == nullptr) {
             // TODO: HANDLE ERROR
         }
+
+        // TODO: Make sure to close the File
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
         char buf[80];
         itoa(timestamp, buf, 10);
+
+    // TODO: get rid of the comments after this if not needed.
 
 //        time_t rawtime = timestamp;
 //        struct tm ts{};

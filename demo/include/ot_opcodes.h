@@ -1,0 +1,1 @@
+#define OT_OPCODE_TOGGLE_LED    ((KsOpcode) 2)
