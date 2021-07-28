@@ -7,8 +7,8 @@
 namespace kronos {
 
     struct TelemetryChannel {
-        String name;
-        uint32_t (*telemetry)();
+        String name = "";
+        uint32_t (*retrieveTelemetry)() = nullptr;
     };
 
     struct TelemetryRateGroup {
@@ -24,7 +24,6 @@ namespace kronos {
         KsResult AddTelemetryGroup(uint32_t rate, const Vector<TelemetryChannel>& channels);
     private:
         Vector<TelemetryRateGroup> m_TelemetryRateGroups;
-        KsResult Log();
     };
 
 }

@@ -14,7 +14,7 @@ namespace kronos {
     class VectorIterator {
     public:
         VectorIterator(const Vector<T>* vector, size_t index)
-            : m_Vector(vector), m_Index(index) {}
+                : m_Vector(vector), m_Index(index) {}
 
         VectorIterator<T>& operator++() {
             if (m_Index < m_Vector->Size())
@@ -52,8 +52,9 @@ namespace kronos {
     private:
         void Expand(size_t minSize = 0) {
             size_t newCapacity = max(2 * m_Capacity, minSize);
-            T * newElements = new T[newCapacity];
-            memcpy(newElements, m_Elements, m_Size * sizeof(T));
+            T* newElements = new T[newCapacity];
+            for (size_t i = 0; i < m_Size; i++)
+                newElements[i] = m_Elements[i];
 
             if (m_Elements != nullptr)
                 delete[] m_Elements;
@@ -118,7 +119,7 @@ namespace kronos {
         }
 
         void Remove(size_t index) {
-            if(index >= m_Size)
+            if (index >= m_Size)
                 return;
 
             for (size_t i = index; i < m_Size - 1; i++) {
