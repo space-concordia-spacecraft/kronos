@@ -43,7 +43,7 @@ pacman -Syu
 You may need to execute the command multiple times until you see a **`there is nothing to do`** prompt. Once ready, you may proceed to installing all the needed packages. Simply run the following command and the system will automatically fetch the required binaries for you.
 
 ```Bash
-pacman -Syu mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openocd mingw-w64-x86_64-arm-none-eabi-gcc mingw-w64-x86_64-arm-none-eabi-gdb
+pacman -Syu mingw-w64-x86_64-toolchain mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openocd mingw-w64-x86_64-arm-none-eabi-gcc mingw-w64-x86_64-arm-none-eabi-gdb
 ```
 
 The full list of packages is included below in a more readable list format.
