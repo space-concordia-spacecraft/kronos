@@ -1,55 +1,50 @@
+#define CATCH_CONFIG_MAIN
+#include "../../include/catch_amalgamated.hpp"
+
 #include "ks_hashmap.h"
+#include "../../../lib/include/types/ks_hashmap.h"
 
-class HashMapFixture : public ::testing::Test {
 
-protected:
+TEST_CASE("Put And Get Test", "[MapPut]") {
     kronos::HashMap<int, int> map;
 
-    virtual void SetUp() {
-    }
+    map.Put(0, 10);
+    map.Put(16, 70);
+    map.Put(1, 20);
+    map.Put(2, 13);
+    map.Put(5, 45);
 
-    virtual void TearDown() {
-    }
-
-};
-
-
-TEST_F(HashMapFixture, PutAndGetTest) {
-    map.put(0, 10);
-    map.put(16, 70);
-    map.put(1, 20);
-    map.put(2, 13);
-    map.put(5, 45);
-
-    EXPECT_EQ(map.get(16), 70);
-    EXPECT_EQ(map.get(0), 10);
-    EXPECT_EQ(map.get(5), 45);
-    EXPECT_EQ(map.get(2), 13);
-    EXPECT_EQ(map.get(1), 20);
-
+    CHECK(map.Get(16) == 70);
+    CHECK(map.Get(0) == 10);
+    CHECK(map.Get(5) == 45);
+    CHECK(map.Get(2) == 13);
+    CHECK(map.Get(1) == 20);
 
 }
 
-TEST_F(HashMapFixture, RemoveTest) {
-    map.put(0, 10);
-    map.put(16, 70);
-    map.put(1, 20);
-    map.put(2, 13);
-    map.put(5, 45);
+TEST_CASE("Remove Test", "[MapRemove]") {
+    kronos::HashMap<int, int> map;
 
-    EXPECT_EQ(map.get(16), 70);
-    EXPECT_EQ(map.get(0), 10);
-    EXPECT_EQ(map.get(5), 45);
-    EXPECT_EQ(map.get(2), 13);
-    EXPECT_EQ(map.get(1), 20);
+    map.Put(0, 10);
+    map.Put(16, 70);
+    map.Put(1, 20);
+    map.Put(2, 13);
+    map.Put(5, 45);
 
-    map.remove(0);
-    map.remove(16);
-    map.remove(1);
+    CHECK(map.Get(16) == 70);
+    CHECK(map.Get(0) == 10);
+    CHECK(map.Get(5) == 45);
+    CHECK(map.Get(2) == 13);
+    CHECK(map.Get(1) == 20);
 
-    EXPECT_NE(map.get(16), 70);
-    EXPECT_NE(map.get(0), 10);
-    EXPECT_EQ(map.get(5), 45);
-    EXPECT_EQ(map.get(2), 13);
-    EXPECT_NE(map.get(1), 20);
+    map.Remove(0);
+    map.Remove(16);
+    map.Remove(1);
+
+    CHECK(map.Get(16) != 70);
+    CHECK(map.Get(0) != 10);
+    CHECK(map.Get(1) != 20);
+
+    CHECK(map.Get(5), 45);
+    CHECK(map.Get(2), 13);
 }
