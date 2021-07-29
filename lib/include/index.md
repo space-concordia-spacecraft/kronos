@@ -43,7 +43,7 @@ pacman -Syu
 You may need to execute the command multiple times until you see a **`there is nothing to do`** prompt. Once ready, you may proceed to installing all the needed packages. Simply run the following command and the system will automatically fetch the required binaries for you.
 
 ```Bash
-pacman -Syu mingw-w64-x86_64-toolchain mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openocd mingw-w64-x86_64-arm-none-eabi-gcc mingw-w64-x86_64-arm-none-eabi-gdb
+pacman -Syu mingw-w64-x86_64-toolchain mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openocd mingw-w64-x86_64-arm-none-eabi-binutils
 ```
 
 The full list of packages is included below in a more readable list format.
@@ -52,8 +52,7 @@ The full list of packages is included below in a more readable list format.
 - [x] `mingw-w64-x86_64-make`
 - [x] `mingw-w64-x86_64-cmake` 
 - [x] `mingw-w64-x86_64-openocd`
-- [x] `mingw-w64-x86_64-arm-none-eabi-gcc` 
-- [x] `mingw-w64-x86_64-arm-none-eabi-gdb`
+- [x] `mingw-w64-x86_64-arm-none-eabi-binutils`
 
 #### CLion Configuration
 
@@ -71,7 +70,7 @@ Once all the required packages are finished installing, you may configure your M
 
 6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-gcc.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
 
-7. Still in the same dialog, change the debugger path to point to the `arm-none-eabi-gdb.exe` executable. Just like the compilers, the GDB executable is located in the same `bin` folder.
+7. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the compilers, the GDB executable is located in the same `bin` folder. Ignore any warning about the debugger version, version 10 is not technically fully supported by CLion but it should work good enough.
 
 8. Set the toolchain to the be your default toolchain. You can do this but putting on the top of the list by promoting it with the upward caret (`^`) button on the left-hand side.
 
