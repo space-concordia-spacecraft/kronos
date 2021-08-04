@@ -45,6 +45,6 @@ TEST_CASE("Remove Test", "[MapRemove]") {
     CHECK(map.Get(0) != 10);
     CHECK(map.Get(1) != 20);
 
-    CHECK(map.Get(5), 45);
-    CHECK(map.Get(2), 13);
+    CHECK(map.Get(5) == 45);
+    CHECK(map.Get(2) == 13);
 }

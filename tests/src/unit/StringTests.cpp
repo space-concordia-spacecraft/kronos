@@ -5,21 +5,18 @@ class StringFixture : public ::testing::Test {
 
 protected:
     kronos::String str = "Kronos";
+
     virtual void SetUp() {
-       
     }
 
     virtual void TearDown() {
-
     }
-
 };
 
 
 //Matteo Testing string Code
 TEST_F(StringFixture, StringSizeTest) {
     EXPECT_EQ(str.size(), 6) << "Wrong size!";
-    
 }
 
 // str.concatenate
