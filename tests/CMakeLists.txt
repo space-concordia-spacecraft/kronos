@@ -7,6 +7,7 @@ project(Kronos_Tests)
 set(KRONOS_TESTS_SRC "${KRONOS_EXTRA_SRC}"
         "src/catch_amalgamated.cpp"
         "src/unit/HashMapTests.cpp"
+        "src/unit/QueueTests.cpp"
         "src/stub.cpp"
 )
 
