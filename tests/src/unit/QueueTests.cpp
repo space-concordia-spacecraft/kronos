@@ -1,61 +1,68 @@
 #include "ks_queue.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 
-class QueueFixture : public ::testing::Test {
 
-protected:
+TEST_CASE("Pushing and Popping from the Queue", "[QueuePushAndPop]") {
+    kronos::Queue<int> queue;
+    queue.Clear();
+
+    queue.Push(10);
+    queue.Push(11);
+
+    int *popped = nullptr;
+
+    queue.Pop(popped);
+    CHECK(*popped == 10);
+
+    queue.Pop(popped);
+    CHECK(*popped == 11);
+
+    CHECK(queue.Size() == 1);
+}
+
+
+TEST_CASE("Testing queue peek", "QueuePeekTest"){
+    kronos::Queue<int> queue;
+    queue.Clear();
+
+    queue.Push(10);
+    queue.Push(11);
+
+    int* peeked = nullptr;
+    int* popped = nullptr;
+
+    queue.Peek(peeked);
+    CHECK(*peeked == 10);
+
+    queue.Pop(popped);
+    queue.Peek(peeked);
+
+    CHECK(*peeked == 11);
+    CHECK(queue.Size() == 1);
+}
+
+TEST_CASE("Testing clearing queue", "QueueClearTest") {
     kronos::Queue<int> queue;
 
-    virtual void SetUp() {
-    }
+    queue.Clear();
+    queue.Push(10);
+    queue.Push(11);
+    queue.Clear();
 
-    virtual void TearDown() {
-    }
-};
+    CHECK(queue.Size() == 0);
 
-
-TEST_F(QueueFixture, QueuePushTest){
-    queue.clear();
-    queue.push(10);
-    queue.push(11);
-    EXPECT_EQ(queue[0], 10);
-    EXPECT_NE(queue[0], 11);
-    EXPECT_EQ(queue[1], 11);
+    queue.Push(12);
+    int* popped = nullptr;
+    queue.Pop(popped);
+    CHECK(*popped == 12);
 }
 
-TEST_F(QueueFixture, QueuePopTest){
-    queue.clear();
-    queue.push(10);
-    queue.push(11);
-    queue.pop();
-    EXPECT_EQ(queue[0], 11);
-    EXPECT_NE(queue[0], 10);
-    EXPECT_EQ(queue.size(), 1);
-}
+TEST_CASE("Testing queue capacity", "QueueCapacityTest") {
+    kronos::Queue<int> queue;
 
-TEST_F(QueueFixture, QueuePeekTest){
-    queue.clear();
-    queue.push(10);
-    queue.push(11);
-    EXPECT_EQ(queue.peek(), 10);
-    EXPECT_EQ(queue.peek(), queue[0]);
-    queue.pop()
-    EXPECT_EQ(queue.peek(), 11);
-    EXPECT_EQ(queue.peek(), queue[0]);
-    EXPECT_EQ(queue.size(), 1);
-}
+    queue.Clear();
+    queue.Push(10);
 
-TEST_F(QueueFixture, QueueClearTest){
-    queue.clear();
-    queue.push(10);
-    queue.push(11);
-    queue.clear();
-    EXPECT_EQ(vector.size(), 0);
-    queue.push(12);
-    EXPECT_EQ(vector[0], 12);
-}
-
-TEST_F(QueueFixture, QueueCapacityTest){
-    queue.clear();
-    queue.push(10);
-    EXPECT_EQ(queue.capacity(), 10);
+    CHECK(queue.Length() == 10);
 }
