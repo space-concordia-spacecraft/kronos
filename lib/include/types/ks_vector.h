@@ -51,7 +51,7 @@ namespace kronos {
     class Vector : public Iterable<VectorIterator<T>> {
     private:
         void Expand(size_t minSize = 0) {
-            size_t newCapacity = max(2 * m_Capacity, minSize);
+            size_t newCapacity = Max(2 * m_Capacity, minSize);
             T* newElements = new T[newCapacity];
             for (size_t i = 0; i < m_Size; i++)
                 newElements[i] = m_Elements[i];

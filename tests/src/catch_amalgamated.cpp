@@ -22,7 +22,7 @@
 #include <cassert>
 #include <iterator>
 #include <random>
-
+#include "kronos.h"
 
 #if defined(CATCH_CONFIG_USE_ASYNC)
 #include <future>
@@ -3782,13 +3782,13 @@ namespace Catch {
         sigStack.ss_sp = altStackMem;
         sigStack.ss_size = sigStackSize;
         sigStack.ss_flags = 0;
-        sigaltstack(&sigStack, &oldSigStack);
+//        sigaltstack(&sigStack, &oldSigStack);
         struct sigaction sa = { };
 
         sa.sa_handler = handleSignal;
-        sa.sa_flags = SA_ONSTACK;
+        sa.sa_flags = SS_ONSTACK;
         for (std::size_t i = 0; i < sizeof(signalDefs)/sizeof(SignalDefs); ++i) {
-            sigaction(signalDefs[i].id, &sa, &oldSigActions[i]);
+            //sigaction(signalDefs[i].id, &sa, &oldSigActions[i]);
         }
     }
 
@@ -3796,10 +3796,10 @@ namespace Catch {
         if( isSet ) {
             // Set signals back to previous values -- hopefully nobody overwrote them in the meantime
             for( std::size_t i = 0; i < sizeof(signalDefs)/sizeof(SignalDefs); ++i ) {
-                sigaction(signalDefs[i].id, &oldSigActions[i], nullptr);
+//                sigaction(signalDefs[i].id, &oldSigActions[i], nullptr);
             }
             // Return the old stack
-            sigaltstack(&oldSigStack, nullptr);
+            //sigaltstack(&oldSigStack, nullptr);
             isSet = false;
         }
     }
@@ -3923,6 +3923,8 @@ extern "C" int wmain (int argc, wchar_t * argv[], wchar_t * []) {
 // Standard C/C++ main entry point
 int main (int argc, char * argv[]) {
 #endif
+    kronos::Framework fw;
+    fw.Init();
 
     // We want to force the linker not to discard the global variable
     // and its constructor, as it (optionally) registers leak detector

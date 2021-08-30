@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
-#include "../../include/catch_amalgamated.hpp"
 
 #include "ks_hashmap.h"
-#include "../../../lib/include/types/ks_hashmap.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 
 
 TEST_CASE("Put And Get Test", "[MapPut]") {
