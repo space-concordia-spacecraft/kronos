@@ -1,59 +1,49 @@
+#define CATCH_CONFIG_MAIN
+
 #include "ks_vector.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 
-class VectorFixture : public ::testing::Test {
-
-protected:
+TEST_CASE("Add Method Test ", "[VectorAddTest]") {
     kronos::Vector<int> vector;
-
-    virtual void SetUp() {
-    }
-
-    virtual void TearDown() {
-    }
-
-};
-
-
-TEST_F(VectorFixture, VectorAddTest){
-    vector.clear();
     vector.add(10);
     vector.add(11);
-    EXPECT_EQ(vector[0], 10);
-    EXPECT_NE(vector[0], 11);
-    EXPECT_EQ(vector[1], 11);
+    CHECK(vector[0] == 10);
+    CHECK(vector[0] != 11);
+    CHECK(vector[1] == 11);
 }
 
-TEST_F(VectorFixture, VectorContainsTest){
-    vector.clear();
+TEST_CASE("Contain Method Test ", "[VectorContainsTest]") {
+    kronos::Vector<int> vector;
     vector.add(10);
     vector.add(11);
-    EXPECT_EQ(vector.contains(10), 0);
-    EXPECT_EQ(vector.contains(12), -1);
+    CHECK(vector.contains(10) == 0);
+    CHECK(vector.contains(12) == -1);
 }
 
-TEST_F(VectorFixture, VectorRemoveTest){
-    vector.clear();
+TEST_CASE("Remove Method Test ", "[VectorRemoveTest]") {
+    kronos::Vector<int> vector;
     vector.add(10);
     vector.add(11);
     vector.remove(10);
-    EXPECT_EQ(vector.contains(10), -1);
-    EXPECT_EQ(vector.contains(11), 0);
-    EXPECT_EQ(vector[0], 11);
-    EXPECT_EQ(vector.size(), 1);
+    CHECK(vector.contains(10) == -1);
+    CHECK(vector.contains(11) == 0);
+    CHECK(vector[0] == 11);
+    CHECK(vector.size() == 1);
 }
 
-TEST_F(VectorFixture, VectorClearTest){
-    vector.clear();
+TEST_CASE("Clear Method Test ", "[VectorClearTest]") {
+    kronos::Vector<int> vector;
     vector.add(10);
     vector.add(11);
     vector.clear();
-    EXPECT_EQ(vector.size(), 0);
+    CHECK(vector.size() == 0);
     vector.add(12);
-    EXPECT_EQ(vector[0], 12);
+    CHECK(vector[0] == 12);
 }
 
-TEST_F(VectorFixture, VectorCapacityTest){
-    vector.clear();
+TEST_CASE("Capacity Method Test ", "[VectorCapacityTest]") {
+    kronos::Vector<int> vector;
     vector.add(10);
-    EXPECT_EQ(vector.capacity(), 10);
+    CHECK(vector.capacity() == 10);
 }

@@ -1,4 +1,8 @@
+#define CATCH_CONFIG_MAIN
+
 #include "ks_string.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 #include <iostream>
 
 class StringFixture : public ::testing::Test {
@@ -13,47 +17,50 @@ protected:
     }
 };
 
-
-//Matteo Testing string Code
-TEST_F(StringFixture, StringSizeTest) {
-    EXPECT_EQ(str.size(), 6) << "Wrong size!";
+TEST_CASE("Size Method Test ", "[StringSizeTest]") {
+    kronos::String str = "Kronos";
+    CHECK(str.size() == 6);
 }
 
 // str.concatenate
-TEST_F(StringFixture, StringConcatenateTest) {
+TEST_CASE("Concatenate Method Test ", "[StringConcatenateTest]") {
+    kronos::String str = "Kronos";
     kronos::String str1 = str.concatenate(str,"Cronus");
-    EXPECT_EQ(str1.size(), 12) << "Wrong size!";
-    EXPECT_EQ(str1, "KronosCronus") << "Incorrect concatenation!";
+    CHECK(str1.size() == 12);
+    CHECK(str1 == "KronosCronus");
 }
 
-// str == / !=
-TEST_F(StringFixture, StringComparisonTest) {
+TEST_CASE("Comparison Test ", "[StringComparisonTest]") {
+    kronos::String str = "Kronos";
     kronos::String str1 = "Cronus";
-    EXPECT_NE(str, str1) << "The strings are not the same";
+    CHECK(str != str1);
 }
 
-//str =
-TEST_F(StringFixture, StringAssignmentTest) {
+TEST_CASE("Assignment Test ", "[StringAssignmentTest]") {
+    kronos::String str = "Kronos";
     kronos::String str1 = str.concatenate(str, "Cronus");
-    EXPECT_EQ(str1.size(), 12) << "Wrong size!";
+    CHECK(str1.size() == 12);
 }
 
 //str +
-TEST_F(StringFixture, StringAdditionTest) {
-    kronos::String str1 = str + "Cronus" ;
-    EXPECT_EQ(str1, "KronosCronus") << "Incorrect string addition!";
+TEST_CASE("Addition Test ", "[StringAdditionTest]") {
+    kronos::String str = "Kronos";
+    kronos::String str1 = str + "Cronus";
+    CHECK(str1 == "KronosCronus");
 }
 
 //str +=
-TEST_F(StringFixture, StringAdditionAssignemntTest) {
+TEST_CASE("Addition Assignment Test ", "[StringAdditionAssignemntTest]") {
+    kronos::String str = "Kronos";
     kronos::String str1 = "Cronus";
     str += str1;
-    
-    EXPECT_EQ(str, "KronosCronus") << "Incorrect string addition and assignment!";
+
+    CHECK(str == "KronosCronus");
 }
 
 //str []
-TEST_F(StringFixture, StringIndexTest) {
-    EXPECT_EQ(str[0], 'K') << "Incorrect string index!";
-    EXPECT_EQ(str[5], 's') << "Incorrect string index!";
+TEST_CASE("Index Test ", "[StringIndexTest]") {
+    kronos::String str = "Kronos";
+    CHECK(str[0] == 'K');
+    CHECK(str[5] == 's');
 }
