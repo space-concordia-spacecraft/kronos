@@ -817,7 +817,7 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#define min(a, b)   Min(a, b)
+//#define min(a, b)   Min(a, b)
 
 /*! \brief Takes the maximal value of \a a and \a b.
  *
@@ -828,7 +828,7 @@ typedef struct
  *
  * \note More optimized if only used with values unknown at compile time.
  */
-#define max(a, b)   Max(a, b)
+//#define max(a, b)   Max(a, b)
 
 //! @}
 

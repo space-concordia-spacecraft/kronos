@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
-#include "../../include/catch_amalgamated.hpp"
 
 #include "ks_hashmap.h"
-#include "../../../lib/include/types/ks_hashmap.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 
 
 TEST_CASE("Put And Get Test", "[MapPut]") {
@@ -45,6 +45,6 @@ TEST_CASE("Remove Test", "[MapRemove]") {
     CHECK(map.Get(0) != 10);
     CHECK(map.Get(1) != 20);
 
-    CHECK(map.Get(5), 45);
-    CHECK(map.Get(2), 13);
+    CHECK(map.Get(5) == 45);
+    CHECK(map.Get(2) == 13);
 }
