@@ -5,28 +5,17 @@
 #include "../../include/catch_amalgamated.hpp"
 #include <iostream>
 
-class StringFixture : public ::testing::Test {
-
-protected:
-    kronos::String str = "Kronos";
-
-    virtual void SetUp() {
-    }
-
-    virtual void TearDown() {
-    }
-};
 
 TEST_CASE("Size Method Test ", "[StringSizeTest]") {
     kronos::String str = "Kronos";
-    CHECK(str.size() == 6);
+    CHECK(str.Size() == 6);
 }
 
 // str.concatenate
 TEST_CASE("Concatenate Method Test ", "[StringConcatenateTest]") {
     kronos::String str = "Kronos";
-    kronos::String str1 = str.concatenate(str,"Cronus");
-    CHECK(str1.size() == 12);
+    kronos::String str1 = str.Concatenate(str,"Cronus");
+    CHECK(str1.Size() == 12);
     CHECK(str1 == "KronosCronus");
 }
 
@@ -38,8 +27,8 @@ TEST_CASE("Comparison Test ", "[StringComparisonTest]") {
 
 TEST_CASE("Assignment Test ", "[StringAssignmentTest]") {
     kronos::String str = "Kronos";
-    kronos::String str1 = str.concatenate(str, "Cronus");
-    CHECK(str1.size() == 12);
+    kronos::String str1 = str.Concatenate(str, "Cronus");
+    CHECK(str1.Size() == 12);
 }
 
 //str +

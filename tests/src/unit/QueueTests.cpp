@@ -14,7 +14,6 @@ TEST_CASE("Pushing and Popping from the Queue", "[QueuePushAndPop]") {
 
     queue.Pop(popped);
     CHECK(*popped == 10);
-
     queue.Pop(popped);
     CHECK(*popped == 11);
 

@@ -1,79 +1,86 @@
+#define CATCH_CONFIG_MAIN
+
 #include "ks_file.h"
+#undef FAIL
+#include "../../include/catch_amalgamated.hpp"
 
-class FileTest : public ::testing::Test{
+TEST_CASE("Reading and Writing into a File in the File System", "[Read and Write Test]"){
+    kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    kronos::BusSync* openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
+    openFileBus->AddReceivingComponent(fileManager);
+    fileManager->Init();
 
-protected:
-    kronos::ComponentFileManager* fileManager;
-    kronos::BusSync* openFileBus;
-
-    virtual void SetUp() {
-        fileManager = new kronos::ComponentFileManager("File Manager", "C:");
-        openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
-        openFileBus->AddReceivingComponent(fileManager);
-        fileManager->Init();
-    }
-
-    virtual void TearDown() {
-    }
-};
-
-TEST_F(FileTest, WriteTest){
     kronos::FileOpenMessage message;
     message.path = "/test.txt";
     message.mode = KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE;
     kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
+    CHECK_FALSE(file == nullptr);
     const char str[10] = "Read test";
-    EXPECT_EQ(file->Write(str, sizeof (str)), KS_SUCCESS);
-    file->Close();
-}
-
-TEST_F(FileTest, ReadTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_READ_ONLY; //change readonly
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
     char buffer[100];
-    EXPECT_EQ(file->Read(buffer, sizeof (buffer)), KS_SUCCESS);
-    EXPECT_EQ(strncmp(buffer, "Read test", 10), 0);
+    CHECK(file->Read(buffer, sizeof (buffer)) == KS_SUCCESS);
+    CHECK(strncmp(buffer, "Read test", 10) == 0);
+    CHECK(file->Write(str, sizeof (str)) == KS_SUCCESS);
     file->Close();
 }
 
-TEST_F(FileTest, RenameTest){
+TEST_CASE("Renaming a File in the File System", "[Rename Test]"){
+    kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    kronos::BusSync* openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
+    openFileBus->AddReceivingComponent(fileManager);
+    fileManager->Init();
+
     kronos::FileOpenMessage message;
     message.path = "/test.txt";
     message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
     kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
+    CHECK_FALSE(file == nullptr);
     file->Rename("newtest", "/");
-    EXPECT_EQ(file.path, "/newtest.txt")
+    CHECK(file.path == "/newtest.txt");
+    file->Close();
 }
 
-TEST_F(FileTest, MoveDirectoryThenRenameTest){
+TEST_CASE("Moving in Directory then Rename File Test", "[Moving in Directory then Rename Test]"){
+    kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    kronos::BusSync* openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
+    openFileBus->AddReceivingComponent(fileManager);
+    fileManager->Init();
+
     kronos::FileOpenMessage message;
     message.path = "/test.txt";
     message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
     kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
+    CHECK_FALSE(file, nullptr);
     file->Rename("newtest.txt", "/newdir/");
-    EXPECT_EQ(file.path, "/newdir/newtest.txt")
+    CHECK(file.path == "/newdir/newtest.txt")
+    file->Close();
 }
 
-TEST_F(FileTest, StressTest){
+TEST_CASE("File Stress Test", "[Stress Test]"){
+    kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    kronos::BusSync* openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
+    openFileBus->AddReceivingComponent(fileManager);
+    fileManager->Init();
+
     kronos::FileOpenMessage message;
     message.path = "/test.txt";
     message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
     kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
+    CHECK_FALSE(file, nullptr);
+    file->Close();
 }
 
-TEST_F(FileTest, RemoveTest){
+TEST_CASE("File Removal Test", "[File Removal Test]"){
+    kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    kronos::BusSync* openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
+    openFileBus->AddReceivingComponent(fileManager);
+    fileManager->Init();
+
     kronos::FileOpenMessage message;
     message.path = "/newdir/newtest.txt";
     message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
     kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
-    EXPECT_NE(file, nullptr);
+    CHECK_FALSE(file == nullptr);
     file = nullptr;
-    EXPECT_EQ(file, nullptr);
+    CHECK(file == nullptr);
+    file->Close();
 }
