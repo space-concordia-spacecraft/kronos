@@ -31,6 +31,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/read.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/write.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix/matrix.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan/mcan.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu/mpu.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio_handler.c"
@@ -95,6 +96,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_rate_group.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_command_dispatcher.cpp"
 
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_can.cpp"
+
         "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
@@ -108,6 +111,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/drivers"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/drivers"
 
@@ -142,6 +146,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
