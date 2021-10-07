@@ -1,10 +1,4 @@
-#pragma once
-
-#define CATCH_CONFIG_MAIN
-
 #include "ks_hashmap.h"
-#undef FAIL
-#include "../../include/catch_amalgamated.hpp"
 
 
 TEST_CASE("Put And Get Test", "[MapPut]") {

@@ -1,5 +1,3 @@
-#define CATCH_CONFIG_MAIN
-
 #include "ks_file.h"
 
 TEST_CASE("Reading and Writing into a File in the File System", "[Read and Write Test]"){

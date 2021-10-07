@@ -1,9 +1,4 @@
-#define CATCH_CONFIG_MAIN
-
 #include "ks_string.h"
-#undef FAIL
-#include "../../include/catch_amalgamated.hpp"
-#include <iostream>
 
 
 TEST_CASE("Size Method Test ", "[StringSizeTest]") {

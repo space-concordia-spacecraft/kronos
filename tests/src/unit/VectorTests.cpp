@@ -1,49 +1,51 @@
-#define CATCH_CONFIG_MAIN
-
+#include "KronosTest.h"
 #include "ks_vector.h"
-#undef FAIL
-#include "../../include/catch_amalgamated.hpp"
 
-TEST_CASE("Add Method Test ", "[VectorAddTest]") {
+KT_TEST(VectorAddTest) {
     kronos::Vector<int> vector;
-    vector.add(10);
-    vector.add(11);
-    CHECK(vector[0] == 10);
-    CHECK(vector[0] != 11);
-    CHECK(vector[1] == 11);
+    vector.Add(10);
+    vector.Add(11);
+    KT_ASSERT(vector[0] == 10);
+    KT_ASSERT(vector[0] != 11);
+    KT_ASSERT(vector[1] == 11);
+    return true;
 }
 
-TEST_CASE("Contain Method Test ", "[VectorContainsTest]") {
+KT_TEST(VectorContainsTest) {
     kronos::Vector<int> vector;
-    vector.add(10);
-    vector.add(11);
-    CHECK(vector.contains(10) == 0);
-    CHECK(vector.contains(12) == -1);
+    vector.Add(10);
+    vector.Add(11);
+    KT_ASSERT(vector.Find(10) == 0);
+    KT_ASSERT(vector.Find(12) == -1);
+    return true;
 }
 
-TEST_CASE("Remove Method Test ", "[VectorRemoveTest]") {
+KT_TEST(VectorRemoveTest) {
     kronos::Vector<int> vector;
-    vector.add(10);
-    vector.add(11);
-    vector.remove(10);
-    CHECK(vector.contains(10) == -1);
-    CHECK(vector.contains(11) == 0);
-    CHECK(vector[0] == 11);
-    CHECK(vector.size() == 1);
+    vector.Add(10);
+    vector.Add(11);
+    vector.Remove(10);
+    KT_ASSERT(vector.Find(10) == -1);
+    KT_ASSERT(vector.Find(11) == 0);
+    KT_ASSERT(vector[0] == 11);
+    KT_ASSERT(vector.Size() == 1);
+    return true;
 }
 
-TEST_CASE("Clear Method Test ", "[VectorClearTest]") {
+KT_TEST(VectorClearTest) {
     kronos::Vector<int> vector;
-    vector.add(10);
-    vector.add(11);
-    vector.clear();
-    CHECK(vector.size() == 0);
-    vector.add(12);
-    CHECK(vector[0] == 12);
+    vector.Add(10);
+    vector.Add(11);
+    vector.Clear();
+    KT_ASSERT(vector.Size() == 0);
+    vector.Add(12);
+    KT_ASSERT(vector[0] == 12);
+    return true;
 }
 
-TEST_CASE("Capacity Method Test ", "[VectorCapacityTest]") {
+KT_TEST(VectorCapacityTest) {
     kronos::Vector<int> vector;
-    vector.add(10);
-    CHECK(vector.capacity() == 10);
+    vector.Add(10);
+    KT_ASSERT(vector.Capacity() == 10);
+    return true;
 }

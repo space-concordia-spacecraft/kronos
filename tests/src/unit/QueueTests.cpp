@@ -1,6 +1,4 @@
 #include "ks_queue.h"
-#undef FAIL
-#include "../../include/catch_amalgamated.hpp"
 
 
 TEST_CASE("Pushing and Popping from the Queue", "[QueuePushAndPop]") {

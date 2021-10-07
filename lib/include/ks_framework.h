@@ -9,7 +9,7 @@ namespace kronos {
         Framework();
         ~Framework();
 
-        void Init();
+        static void Init();
         void Run();
 
         KsResult RegisterComponent(ComponentBase* component);

@@ -2,18 +2,18 @@
 
 namespace kronos {
 
-    ComponentCanDriver::ComponentCanDriver(const String& componentName, struct mcan_module *mcan_mod): ComponentPassive(componentName) {
-    /*
-         *  Setup rx filtering to accept messages into FIFO1 with extended format
-         *  this accepts all messages
-         */
+    ComponentCanDriver::ComponentCanDriver(const String& componentName, struct mcan_module* mcan_mod)
+            : ComponentPassive(componentName) {
+        /*
+             *  Setup rx filtering to accept messages into FIFO1 with extended format
+             *  this accepts all messages
+             */
         struct mcan_extended_message_filter_element et_filter;
         mcan_get_extended_message_filter_element_default(&et_filter);
         et_filter.F1.reg = MCAN_EXTENDED_MESSAGE_FILTER_ELEMENT_F1_EFID2(0) |
                            MCAN_EXTENDED_MESSAGE_FILTER_ELEMENT_F1_EFT_CLASSIC;
         mcan_set_rx_extended_filter(mcan_mod, &et_filter, 0);
     }
-
 
 
     KsCmdResult ComponentCanDriver::ProcessEvent(const EventMessage& message) {
@@ -27,12 +27,12 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResult ComponentCanDriver::Send(struct mcan_module* mcan_mod, uint32_t id_value, uint8_t *data, uint32_t data_length)
-    {
+    KsResult
+    ComponentCanDriver::Send(struct mcan_module* mcan_mod, uint32_t id_value, uint8_t* data, uint32_t data_length) {
         uint32_t status = mcan_tx_get_fifo_queue_status(mcan_mod);
 
         //check if fifo is full
-        if(status & MCAN_TXFQS_TFQF) {
+        if (status & MCAN_TXFQS_TFQF) {
             return false;
         }
 
@@ -57,8 +57,7 @@ namespace kronos {
     }
 
 
-    KsResult ComponentCanDriver::Read(struct mcan_module* mcan_mod, uint32_t* id_value, uint8_t* data, uint8_t* data_length)
-    {
+    KsResult ComponentCanDriver::Read(struct mcan_module* mcan_mod, uint32_t* id_value, uint8_t* data, uint8_t* data_length) {
         uint32_t status = mcan_rx_get_fifo_status(mcan_mod, CONF_MCAN0_RX_FIFO_0_NUM);
 
         uint32_t num_elements = status & MCAN_RXF1S_F1FL_Msk;
@@ -71,7 +70,7 @@ namespace kronos {
             mcan_rx_fifo_acknowledge(mcan_mod, CONF_MCAN0_RX_FIFO_0_NUM, get_index);
 
             *id_value = rx_element.R0.bit.ID;
-            if( rx_element.R1.bit.DLC < *data_length ) {
+            if (rx_element.R1.bit.DLC < *data_length) {
                 *data_length = rx_element.R1.bit.DLC;
             }
 
@@ -79,12 +78,13 @@ namespace kronos {
                 data[i] = rx_element.data[i];
             }
 
-            printf("%d",data_length);
+            printf("%d", *data_length);
 
             return true;
         }
 
         return false;
     }
+
 }
 
