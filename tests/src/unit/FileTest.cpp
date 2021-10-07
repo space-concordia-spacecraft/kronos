@@ -1,8 +1,6 @@
 #define CATCH_CONFIG_MAIN
 
 #include "ks_file.h"
-#undef FAIL
-#include "../../include/catch_amalgamated.hpp"
 
 TEST_CASE("Reading and Writing into a File in the File System", "[Read and Write Test]"){
     kronos::ComponentFileManager* fileManager = new kronos::ComponentFileManager("File Manager", "C:");
