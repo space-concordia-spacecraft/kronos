@@ -1,9 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=C:/msys64/mingw64/bin/arm-none-eabi-gcc.exe -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/arm-none-eabi-g++.exe -DCMAKE_TOOLCHAIN_FILE=C:\Users\Ruben\OneDrive\Desktop\space\kronos\lib\build\sam_gcc.cmake -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" C:\Users\Ruben\OneDrive\Desktop\space\kronos\tests
--- Creating SAM executable 'Kronos_Tests'
--- Including source: src/unit/VectorTests.cpp
--- Including source: src/KronosTest.cpp
--- Including source: src/main.cpp
-
--- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug
