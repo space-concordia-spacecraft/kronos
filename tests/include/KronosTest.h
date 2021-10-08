@@ -5,18 +5,24 @@
 
 #define KT_TEST(func) bool func()
 
-#define KT_INIT namespace ktest {\
-                TestGroup s_testGroups[] = {
+// Defines the array of test groups to execute
+#define KT_TESTS(...) \
+    namespace ktest {\
+        int s_numTestGroups = KT_NARG(__VA_ARGS__) - 1;\
+        TestGroup s_testGroups[] = {\
+            __VA_ARGS__\
+        };\
+    }
 
-#define KT_NUM_TEST_GROUPS(num) namespace ktest { int s_numTestGroups = num; }
-#define KT_TEST_GROUP_START(name) TestGroup(#name, {
-#define KT_TEST_GROUP_END }),
+// Defines one test group with a name and a set of unit tests
+#define KT_TEST_GROUP(name, ...) \
+    TestGroup(#name, (UnitTest[]){\
+        __VA_ARGS__\
+    }, KT_NARG(__VA_ARGS__) - 1),
 
-#define KT_UNIT_TEST(name, desc, func) { #name, desc, &func },
+// Defines a single unit test inside a test group
+#define KT_UNIT_TEST(name, desc, func) UnitTest({ #name, desc, &func }),
 
-#define KT_END };}
-
-#define KT_MAX_UNIT_TESTS_PER_GROUP 10
 
 namespace ktest {
 
@@ -29,13 +35,15 @@ namespace ktest {
     class TestGroup {
 
     public:
-        TestGroup(const char* name, const UnitTest (&tests)[KT_MAX_UNIT_TESTS_PER_GROUP]);
+        TestGroup(const char* name, const UnitTest* tests, const int numTests);
 
         void RunUnitTests();
+        inline const char* GetName() { return m_name; }
 
     private:
         const char* m_name;
-        const UnitTest (&m_unitTests)[KT_MAX_UNIT_TESTS_PER_GROUP];
+        const int m_numUnitTests;
+        const UnitTest* m_unitTests;
 
     };
 
@@ -45,4 +53,5 @@ namespace ktest {
     void RunTests();
 
 }
+
 
