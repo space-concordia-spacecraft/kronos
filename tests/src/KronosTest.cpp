@@ -7,9 +7,9 @@ namespace ktest {
 
     void TestGroup::RunUnitTests() {
         for (int i = 0; i < m_numUnitTests; i++) {
-            printf("\tRunning test '%s' ...\n", m_unitTests[i].name);
+            printf("    Running test '%s' ...\n", m_unitTests[i].name);
             bool result = m_unitTests[i].testFunction();
-            printf("\tTest %s\n", result ? "SUCCEEDED" : "FAILED");
+            printf("    Test %s\n", result ? "SUCCEEDED" : "FAILED");
             printf("\n");
         }
     }
