@@ -1,25 +1,28 @@
+#include "KronosTest.h"
 #include "ks_queue.h"
 
-
-TEST_CASE("Pushing and Popping from the Queue", "[QueuePushAndPop]") {
+KT_TEST(QueuePushAndPopTest) {
     kronos::Queue<int> queue;
     queue.Clear();
 
     queue.Push(10);
     queue.Push(11);
+    queue.Push(12);
 
     int *popped = nullptr;
 
     queue.Pop(popped);
-    CHECK(*popped == 10);
-    queue.Pop(popped);
-    CHECK(*popped == 11);
+    KT_ASSERT(*popped == 10);
 
-    CHECK(queue.Size() == 1);
+    queue.Pop(popped);
+    KT_ASSERT(*popped == 11);
+
+    KT_ASSERT(queue.Size() == 1);
+
+    return true;
 }
 
-
-TEST_CASE("Testing queue peek", "QueuePeekTest"){
+KT_TEST(QueuePeekTest) {
     kronos::Queue<int> queue;
     queue.Clear();
 
@@ -30,16 +33,18 @@ TEST_CASE("Testing queue peek", "QueuePeekTest"){
     int* popped = nullptr;
 
     queue.Peek(peeked);
-    CHECK(*peeked == 10);
+    KT_ASSERT(*peeked == 10);
 
     queue.Pop(popped);
     queue.Peek(peeked);
 
-    CHECK(*peeked == 11);
-    CHECK(queue.Size() == 1);
+    KT_ASSERT(*peeked == 11);
+    KT_ASSERT(queue.Size() == 1);
+
+    return true;
 }
 
-TEST_CASE("Testing clearing queue", "QueueClearTest") {
+KT_TEST(QueueClearTest) {
     kronos::Queue<int> queue;
 
     queue.Clear();
@@ -47,19 +52,23 @@ TEST_CASE("Testing clearing queue", "QueueClearTest") {
     queue.Push(11);
     queue.Clear();
 
-    CHECK(queue.Size() == 0);
+    KT_ASSERT(queue.Size() == 0);
 
     queue.Push(12);
     int* popped = nullptr;
     queue.Pop(popped);
-    CHECK(*popped == 12);
+    KT_ASSERT(*popped == 12);
+
+    return true;
 }
 
-TEST_CASE("Testing queue capacity", "QueueCapacityTest") {
+KT_TEST(QueueCapacityTest) {
     kronos::Queue<int> queue;
 
     queue.Clear();
     queue.Push(10);
 
-    CHECK(queue.Length() == 10);
+    KT_ASSERT(queue.Length() == 10);
+
+    return true;
 }

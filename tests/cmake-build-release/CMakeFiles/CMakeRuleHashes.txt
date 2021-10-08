@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+2f66211a6f7ee5ace11bf6d43367b3af CMakeFiles/Kronos_Tests.bin

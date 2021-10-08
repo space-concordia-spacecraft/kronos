@@ -1,0 +1,164 @@
+Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+Compiler: C:/msys64/mingw64/bin/arm-none-eabi-gcc.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/ld.exe: c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+Compiler: C:/msys64/mingw64/bin/arm-none-eabi-g++.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+1
+c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/ld.exe: c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+
+
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_40630/fast && C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_40630.dir\build.make CMakeFiles/cmTC_40630.dir/build
+mingw32-make[1]: Entering directory 'C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_40630.dir/CMakeCCompilerABI.c.obj
+C:\msys64\mingw64\bin\arm-none-eabi-gcc.exe   -v -std=gnu99 -o CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj -c "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\share\cmake-3.20\Modules\CMakeCCompilerABI.c"
+Using built-in specs.
+COLLECT_GCC=C:\msys64\mingw64\bin\arm-none-eabi-gcc.exe
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --prefix=/mingw64 --target=arm-none-eabi --with-native-system-header-dir=/mingw64/x86_64-w64-mingw32/include --libexecdir=/mingw64/lib --enable-languages=c,c++,ada --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --disable-libada --with-gnu-as --with-gnu-ld --with-system-zlib --with-newlib --with-headers=/mingw64/arm-none-eabi/include --with-python-dir=share/gcc-arm-none-eabi --with-gmp --with-mpfr --with-mpc --with-isl --with-libelf --enable-gnu-indirect_function --with-multilib-list=rmprofile --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-linker-plugin-flags='LDFLAGS=-static-libstdc++\ -static-libgcc\ -pipe\ -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high\ -Wl,--stack,12582912' LDFLAGS='-pipe -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high -Wl,--disable-dynamicbase'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.1.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-std=gnu99' '-o' 'CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/cc1.exe -quiet -v -iprefix c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/ -D__USES_INITFINI__ C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\share\cmake-3.20\Modules\CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=arm7tdmi -mfloat-abi=soft -marm -march=armv4t -auxbase-strip CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj -std=gnu99 -version -o C:\Users\Ruben\AppData\Local\Temp\ccgHo1tS.s
+GNU C99 (GCC) version 10.1.0 (arm-none-eabi)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.23-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/sys-include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/include-fixed"
+ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/sys-include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/include
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/include-fixed
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include
+End of search list.
+GNU C99 (GCC) version 10.1.0 (arm-none-eabi)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.23-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 0fef9071d1eef3efc1bdd3eebd9dd590
+COLLECT_GCC_OPTIONS='-v' '-std=gnu99' '-o' 'CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/as.exe -v -march=armv4t -mfloat-abi=soft -meabi=5 -o CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj C:\Users\Ruben\AppData\Local\Temp\ccgHo1tS.s
+GNU assembler version 2.35 (arm-none-eabi) using BFD version (GNU Binutils) 2.35
+COMPILER_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-std=gnu99' '-o' 'CMakeFiles\cmTC_40630.dir\CMakeCCompilerABI.c.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+Linking C executable cmTC_40630
+"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_40630.dir\link.txt --verbose=1
+C:\msys64\mingw64\bin\arm-none-eabi-gcc.exe  -v CMakeFiles/cmTC_40630.dir/CMakeCCompilerABI.c.obj -o cmTC_40630 
+Using built-in specs.
+COLLECT_GCC=C:\msys64\mingw64\bin\arm-none-eabi-gcc.exe
+COLLECT_LTO_WRAPPER=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/lto-wrapper.exe
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --prefix=/mingw64 --target=arm-none-eabi --with-native-system-header-dir=/mingw64/x86_64-w64-mingw32/include --libexecdir=/mingw64/lib --enable-languages=c,c++,ada --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --disable-libada --with-gnu-as --with-gnu-ld --with-system-zlib --with-newlib --with-headers=/mingw64/arm-none-eabi/include --with-python-dir=share/gcc-arm-none-eabi --with-gmp --with-mpfr --with-mpc --with-isl --with-libelf --enable-gnu-indirect_function --with-multilib-list=rmprofile --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-linker-plugin-flags='LDFLAGS=-static-libstdc++\ -static-libgcc\ -pipe\ -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high\ -Wl,--stack,12582912' LDFLAGS='-pipe -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high -Wl,--disable-dynamicbase'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.1.0 (GCC) 
+COMPILER_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_40630' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/collect2.exe -plugin c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/liblto_plugin-0.dll -plugin-opt=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Ruben\AppData\Local\Temp\cckd8zlf.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -X -o cmTC_40630 c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crti.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtbegin.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/crt0.o -Lc:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0 -Lc:/msys64/mingw64/bin/../lib/gcc -Lc:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib CMakeFiles/cmTC_40630.dir/CMakeCCompilerABI.c.obj --start-group -lgcc -lc --end-group c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtend.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtn.o
+c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/ld.exe: c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make[1]: *** [CMakeFiles\cmTC_40630.dir\build.make:98: cmTC_40630] Error 1
+mingw32-make[1]: Leaving directory 'C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make: *** [Makefile:126: cmTC_40630/fast] Error 2
+
+
+
+
+Detecting CXX compiler ABI info failed to compile with the following output:
+Change Dir: C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/msys64/mingw64/bin/mingw32-make.exe -f Makefile cmTC_85ff2/fast && C:/msys64/mingw64/bin/mingw32-make.exe  -f CMakeFiles\cmTC_85ff2.dir\build.make CMakeFiles/cmTC_85ff2.dir/build
+mingw32-make[1]: Entering directory 'C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_85ff2.dir/CMakeCXXCompilerABI.cpp.obj
+C:\msys64\mingw64\bin\arm-none-eabi-g++.exe   -v -std=gnu++14 -o CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj -c "C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\share\cmake-3.20\Modules\CMakeCXXCompilerABI.cpp"
+Using built-in specs.
+COLLECT_GCC=C:\msys64\mingw64\bin\arm-none-eabi-g++.exe
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --prefix=/mingw64 --target=arm-none-eabi --with-native-system-header-dir=/mingw64/x86_64-w64-mingw32/include --libexecdir=/mingw64/lib --enable-languages=c,c++,ada --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --disable-libada --with-gnu-as --with-gnu-ld --with-system-zlib --with-newlib --with-headers=/mingw64/arm-none-eabi/include --with-python-dir=share/gcc-arm-none-eabi --with-gmp --with-mpfr --with-mpc --with-isl --with-libelf --enable-gnu-indirect_function --with-multilib-list=rmprofile --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-linker-plugin-flags='LDFLAGS=-static-libstdc++\ -static-libgcc\ -pipe\ -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high\ -Wl,--stack,12582912' LDFLAGS='-pipe -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high -Wl,--disable-dynamicbase'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.1.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-std=gnu++14' '-o' 'CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/cc1plus.exe -quiet -v -iprefix c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/ -D__USES_INITFINI__ C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\share\cmake-3.20\Modules\CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=arm7tdmi -mfloat-abi=soft -marm -march=armv4t -auxbase-strip CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj -std=gnu++14 -version -o C:\Users\Ruben\AppData\Local\Temp\ccbI9loE.s
+GNU C++14 (GCC) version 10.1.0 (arm-none-eabi)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.23-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/sys-include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0/arm-none-eabi"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0/backward"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/include-fixed"
+ignoring nonexistent directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/sys-include"
+ignoring duplicate directory "C:/msys64/mingw64/lib/gcc/../../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0/arm-none-eabi
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include/c++/10.1.0/backward
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/include
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/include-fixed
+ c:\msys64\mingw64\bin\../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/include
+End of search list.
+GNU C++14 (GCC) version 10.1.0 (arm-none-eabi)
+	compiled by GNU C version 10.2.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.23-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 36ab04c129c7fda1eeb22c94b1629e2e
+COLLECT_GCC_OPTIONS='-v' '-std=gnu++14' '-o' 'CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/as.exe -v -march=armv4t -mfloat-abi=soft -meabi=5 -o CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj C:\Users\Ruben\AppData\Local\Temp\ccbI9loE.s
+GNU assembler version 2.35 (arm-none-eabi) using BFD version (GNU Binutils) 2.35
+COMPILER_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-std=gnu++14' '-o' 'CMakeFiles\cmTC_85ff2.dir\CMakeCXXCompilerABI.cpp.obj' '-c' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+Linking CXX executable cmTC_85ff2
+"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -E cmake_link_script CMakeFiles\cmTC_85ff2.dir\link.txt --verbose=1
+C:\msys64\mingw64\bin\arm-none-eabi-g++.exe  -v CMakeFiles/cmTC_85ff2.dir/CMakeCXXCompilerABI.cpp.obj -o cmTC_85ff2 
+Using built-in specs.
+COLLECT_GCC=C:\msys64\mingw64\bin\arm-none-eabi-g++.exe
+COLLECT_LTO_WRAPPER=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/lto-wrapper.exe
+Target: arm-none-eabi
+Configured with: ../configure --build=x86_64-w64-mingw32 --host=x86_64-w64-mingw32 --prefix=/mingw64 --target=arm-none-eabi --with-native-system-header-dir=/mingw64/x86_64-w64-mingw32/include --libexecdir=/mingw64/lib --enable-languages=c,c++,ada --enable-plugins --disable-decimal-float --disable-libffi --disable-libgomp --disable-libmudflap --disable-libquadmath --disable-libssp --disable-libstdcxx-pch --disable-nls --disable-shared --disable-threads --disable-tls --disable-libada --with-gnu-as --with-gnu-ld --with-system-zlib --with-newlib --with-headers=/mingw64/arm-none-eabi/include --with-python-dir=share/gcc-arm-none-eabi --with-gmp --with-mpfr --with-mpc --with-isl --with-libelf --enable-gnu-indirect_function --with-multilib-list=rmprofile --with-host-libstdcxx='-static-libgcc -Wl,-Bstatic,-lstdc++,-Bdynamic -lm' --enable-linker-plugin-flags='LDFLAGS=-static-libstdc++\ -static-libgcc\ -pipe\ -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high\ -Wl,--stack,12582912' LDFLAGS='-pipe -Wl,--dynamicbase,--high-entropy-va,--nxcompat,--default-image-base-high -Wl,--disable-dynamicbase'
+Thread model: single
+Supported LTO compression algorithms: zlib zstd
+gcc version 10.1.0 (GCC) 
+COMPILER_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/
+LIBRARY_PATH=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/;c:/msys64/mingw64/bin/../lib/gcc/;c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_85ff2' '-mcpu=arm7tdmi' '-mfloat-abi=soft' '-marm' '-march=armv4t'
+ c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/collect2.exe -plugin c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/liblto_plugin-0.dll -plugin-opt=c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/lto-wrapper.exe -plugin-opt=-fresolution=C:\Users\Ruben\AppData\Local\Temp\cc5aMYv0.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -X -o cmTC_85ff2 c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crti.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtbegin.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib/crt0.o -Lc:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0 -Lc:/msys64/mingw64/bin/../lib/gcc -Lc:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib CMakeFiles/cmTC_85ff2.dir/CMakeCXXCompilerABI.cpp.obj -lstdc++ -lm --start-group -lgcc -lc --end-group c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtend.o c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/crtn.o
+c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/bin/ld.exe: c:/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/10.1.0/../../../../arm-none-eabi/lib\libc.a(lib_a-exit.o): in function `exit':
+exit.c:(.text+0x2c): undefined reference to `_exit'
+collect2.exe: error: ld returned 1 exit status
+mingw32-make[1]: *** [CMakeFiles\cmTC_85ff2.dir\build.make:98: cmTC_85ff2] Error 1
+mingw32-make[1]: Leaving directory 'C:/Users/Ruben/OneDrive/Desktop/space/kronos/tests/cmake-build-debug/CMakeFiles/CMakeTmp'
+mingw32-make: *** [Makefile:126: cmTC_85ff2/fast] Error 2
+
+
+
+
