@@ -7,12 +7,14 @@ namespace kronos {
     class ComponentUartDriver : public ComponentPassive {
 
     public:
-        ComponentUartDriver(const String& name, uint32_t baudrate = CONF_UART_BAUDRATE, uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY, uint32_t stopBits = CONF_UART_STOP_BITS);
+        ComponentUartDriver(const String& name, Usart* usart = CONF_UART, uint32_t baudrate = CONF_UART_BAUDRATE, uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY, uint32_t stopBits = CONF_UART_STOP_BITS);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         KsResult Read();
         KsResult Write(const uint8_t *data, size_t len);
+
+        Usart* m_UsartInstance;
     };
 }
