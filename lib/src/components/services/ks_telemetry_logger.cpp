@@ -3,7 +3,7 @@
 namespace kronos {
 
     KsCmdResult ComponentTelemetryLogger::ProcessEvent(const EventMessage& message) {
-        switch(message.opcode) {
+        switch(message.eventCode) {
             case KS_EVENT_CODE_RATE_GROUP_TICK:
                 for(TelemetryRateGroup i_RateGroup : m_TelemetryRateGroups) {
                     i_RateGroup.tickCount++;

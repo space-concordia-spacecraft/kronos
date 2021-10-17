@@ -22,7 +22,7 @@ namespace kronos {
     }
 
     KsCmdResult ComponentFileManager::ProcessEvent(const EventMessage& message) {
-        switch (message.opcode) {
+        switch (message.eventCode) {
             case KS_EVENT_CODE_OPEN_FILE:
                 auto* fileOpenMsg = reinterpret_cast<FileOpenMessage*>(message.data);
                 File* file = Open(fileOpenMsg->path, fileOpenMsg->mode);

@@ -2,7 +2,7 @@
 
 namespace kronos {
     KsCmdResult ComponentCommandDispatcher::ProcessEvent(const EventMessage& message) {
-        switch (message.opcode) {
+        switch (message.eventCode) {
             case KS_EVENT_CODE_DISPATCH_COMMAND:
                 auto* commandMessage = reinterpret_cast<CommandMessage*>(message.data);
                 m_CommandMessages.Get(commandMessage->opcode)(commandMessage->parameter);

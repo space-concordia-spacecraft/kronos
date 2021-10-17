@@ -9,7 +9,7 @@ KT_TEST(QueuePushAndPopTest) {
     queue.Push(11);
     queue.Push(12);
 
-    int *popped = nullptr;
+    int * popped;
 
     queue.Pop(popped);
     KT_ASSERT(*popped == 10);

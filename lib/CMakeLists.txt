@@ -26,6 +26,39 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/MemMang/heap_4.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
 
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_bridge.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_buffer.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_conn.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_crc32.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_debug.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_endian.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_hex_dump.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_iflist.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_io.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_port.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_promisc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_qfifo.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_route.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_service_handler.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_services.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_sfp.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_clock.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_malloc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_queue.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_semaphore.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_system.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_thread.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_time.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_time.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_system.c"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_cidr.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_static.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_rdp.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_udp.c"
+
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/usart_serial.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/read.c"
@@ -88,6 +121,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
 
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
+
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_health_monitor.cpp"
@@ -148,6 +183,9 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan"
 
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/include/"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/"
+
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/include"
@@ -156,3 +194,5 @@ set(KRONOS_INCLUDE_DIRS
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
 
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
+
+target_compile_definitions(Kronos PUBLIC CSP_FREERTOS)

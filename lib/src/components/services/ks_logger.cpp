@@ -7,7 +7,7 @@ namespace kronos {
             : ComponentActive(name, KS_COMPONENT_STACK_SIZE_XLARGE), m_FilePath(filePath), m_FileBus(fileBus) {}
 
     KsCmdResult ComponentLogger::ProcessEvent(const EventMessage& message) {
-        switch (message.opcode) {
+        switch (message.eventCode) {
             case KS_EVENT_CODE_LOG_MESSAGE:
                 auto* logMsg = reinterpret_cast<LogMessage*>(message.data);
                 Log(logMsg);

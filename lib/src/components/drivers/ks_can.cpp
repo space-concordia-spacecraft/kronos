@@ -17,7 +17,7 @@ namespace kronos {
 
 
     KsCmdResult ComponentCanDriver::ProcessEvent(const EventMessage& message) {
-        switch (message.opcode) {
+        switch (message.eventCode) {
             case KS_EVENT_CODE_READ:
 
                 break;
