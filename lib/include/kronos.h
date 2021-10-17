@@ -22,7 +22,7 @@
 #include "ks_component_active.h"
 
 // Framework
-#include "ks_opcodes.h"
+#include "ks_codes.h"
 #include "ks_bus.h"
 #include "ks_framework.h"
 
@@ -32,5 +32,6 @@
 #include "ks_logger.h"
 #include "ks_rate_group.h"
 #include "ks_timer.h"
+#include "ks_uart.h"
 
 void console_init();

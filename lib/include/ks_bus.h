@@ -16,7 +16,7 @@ namespace kronos {
         String GetName();
 
     protected:
-        KsEventCode m_Opcode;
+        KsEventCode m_EventCode;
         String m_Name;
     };
 
@@ -35,7 +35,7 @@ namespace kronos {
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
             }
 
-            if (m_Opcode != message.opcode) {
+            if (m_EventCode != message.eventCode) {
                 // TODO: HANDLE ERROR OR WARNING
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
             }
@@ -51,7 +51,7 @@ namespace kronos {
             }
 
             EventMessage message;
-            message.opcode = m_Opcode;
+            message.eventCode = m_EventCode;
 
             if (data != nullptr) {
                 T* newData = new T;
@@ -85,7 +85,7 @@ namespace kronos {
             }
 
             EventMessage message;
-            message.opcode = m_Opcode;
+            message.eventCode = m_EventCode;
             message.returnBus = returnBus;
 
             if (data != nullptr) {

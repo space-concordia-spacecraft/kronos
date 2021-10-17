@@ -6,7 +6,7 @@
 // Kronos includes
 #include "ks_vector.h"
 #include "ks_string.h"
-#include "ks_opcodes.h"
+#include "ks_codes.h"
 
 #include "ks_component_base.h"
 

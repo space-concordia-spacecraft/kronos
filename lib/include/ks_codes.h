@@ -17,7 +17,7 @@ typedef uint16_t KsOpcode;
 #define KS_EVENT_CODE_OPEN_FILE                 ((KsEventCode) 6)
 #define KS_EVENT_CODE_DISPATCH_COMMAND          ((KsEventCode) 7)
 #define KS_EVENT_CODE_READ                      ((KsEventCode) 8)
-#define KS_EVENT_CODE_SEND                      ((KsEventCode) 9)
+#define KS_EVENT_CODE_WRITE                     ((KsEventCode) 9)
 
 #define KS_CMDRESULT_NORETURN               ((KsCmdResult) nullptr)
 

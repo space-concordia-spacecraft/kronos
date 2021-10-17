@@ -21,7 +21,7 @@ namespace kronos {
             case KS_EVENT_CODE_READ:
 
                 break;
-            case KS_EVENT_CODE_SEND:
+            case KS_EVENT_CODE_WRITE:
                 break;
         }
         return KS_CMDRESULT_NORETURN;

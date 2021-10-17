@@ -4,8 +4,8 @@ namespace kronos {
 
     // ==================== Base Bus ====================
 
-    BusBase::BusBase(KsEventCode opcode, const String& name)
-        : m_Opcode(opcode), m_Name(name) {}
+    BusBase::BusBase(KsEventCode eventCode, const String& name)
+        : m_EventCode(eventCode), m_Name(name) {}
 
     String BusBase::GetName() {
         return m_Name;
@@ -13,8 +13,8 @@ namespace kronos {
 
     // ==================== Synchronous Bus ====================
 
-    BusSync::BusSync(KsEventCode opcode, const String& name)
-        : BusBase(opcode, name) {}
+    BusSync::BusSync(KsEventCode eventCode, const String& name)
+        : BusBase(eventCode, name) {}
 
     void BusSync::AddReceivingComponent(ComponentBase* component) {
         if (m_ReceivingComponent != nullptr) {
@@ -30,7 +30,7 @@ namespace kronos {
             return;
         }
 
-        if (m_Opcode != message.opcode) {
+        if (m_EventCode != message.eventCode) {
             // TODO: HANDLE ERROR OR WARNING
             return;
         }
@@ -58,7 +58,7 @@ namespace kronos {
             return;
         }
 
-        if (m_Opcode != message.opcode) {
+        if (m_EventCode != message.eventCode) {
             // TODO: HANDLE ERROR OR WARNING
             return;
         }

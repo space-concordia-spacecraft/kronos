@@ -2,7 +2,7 @@
 
 #include "ks_component_active.h"
 #include "ks_string.h"
-#include "ks_opcodes.h"
+#include "ks_codes.h"
 #include "ks_file.h"
 #include "ks_bus.h"
 

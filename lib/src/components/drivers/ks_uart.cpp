@@ -1,7 +1,7 @@
 #include "ks_uart.h"
 
 namespace kronos {
-    ComponentUartDriver::ComponentUartDriver(const String& name, uint32_t baudrate = CONF_UART_BAUDRATE, uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY, uint32_t stopBits = CONF_UART_STOP_BITS):ComponentPassive(name) {
+    ComponentUartDriver::ComponentUartDriver(const String& name, uint32_t baudrate, uint32_t charLength, uint32_t parityType, uint32_t stopBits):ComponentPassive(name) {
         usart_serial_options_t usartOptions = {
                 .baudrate = baudrate,
                 .charlength = charLength,
@@ -14,10 +14,26 @@ namespace kronos {
 
     KsCmdResult ComponentUartDriver::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case KS_EVENT_CODE_LOG_MESSAGE:
+            case KS_EVENT_CODE_READ:
 
                 break;
+            case KS_EVENT_CODE_WRITE:
+                Write();
+                break;
+            case KS_EVENT_CODE_RATE_GROUP_TICK:
+                Write();
+                break;
         }
-        return ComponentPassive::ProcessEvent(message);
+        return KS_CMDRESULT_NORETURN;
+    }
+
+    KsResult ComponentUartDriver::Write() {
+        usart_serial_putchar(CONF_UART, 'h');
+        usart_serial_putchar(CONF_UART, 'e');
+        usart_serial_putchar(CONF_UART, 'l');
+        usart_serial_putchar(CONF_UART, 'l');
+        usart_serial_putchar(CONF_UART, 'o');
+
+        return KS_SUCCESS;
     }
 }

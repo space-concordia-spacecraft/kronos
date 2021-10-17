@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ks_string.h"
-#include "ks_opcodes.h"
+#include "ks_codes.h"
 
 namespace kronos {
 

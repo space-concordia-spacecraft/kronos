@@ -2,7 +2,7 @@
 
 // Kronos includes
 #include "ks_string.h"
-#include "ks_opcodes.h"
+#include "ks_codes.h"
 
 // Reliance Edge includes
 #include "redposix.h"
