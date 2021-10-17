@@ -21,7 +21,7 @@ namespace kronos {
     }
 
     KsCmdResult ComponentQueued::ReceiveEvent(const EventMessage& message) {
-        if (message.opcode == KS_EVENT_CODE_EMPTY_QUEUE) {
+        if (message.eventCode == KS_EVENT_CODE_EMPTY_QUEUE) {
             ProcessEventQueue();
             return KS_CMDRESULT_NORETURN;
         }
