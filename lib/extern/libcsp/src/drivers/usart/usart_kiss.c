@@ -55,7 +55,7 @@ int csp_usart_open_and_add_kiss_interface(const csp_usart_conf_t *conf, const ch
 	}
 
 	csp_log_info("INIT %s: device: [%s], bitrate: %d",
-			ifname, conf->device, conf->baudrate);
+			ifname, conf->device, (int)conf->baudrate);
 
 	kiss_context_t * ctx = csp_calloc(1, sizeof(*ctx));
 	if (ctx == NULL) {
