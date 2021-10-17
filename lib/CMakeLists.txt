@@ -129,6 +129,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"

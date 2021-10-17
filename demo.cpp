@@ -3,8 +3,6 @@
 #include <csp/csp.h>
 #include <csp/arch/csp_thread.h>
 #include <csp/drivers/usart.h>
-#include <csp/drivers/can_socketcan.h>
-#include <csp/interfaces/csp_if_zmqhub.h>
 
 /* Server port, the port the server listens on for incoming connections from the client. */
 #define MY_SERVER_PORT		10
@@ -130,7 +128,6 @@ int main(int argc, char * argv[]) {
 
     kronos::Framework::Init();
 
-    // csp shit
     uint8_t address = 1;
     csp_debug_level_t debug_level = CSP_INFO;
 

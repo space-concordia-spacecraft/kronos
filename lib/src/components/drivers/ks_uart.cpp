@@ -18,22 +18,16 @@ namespace kronos {
 
                 break;
             case KS_EVENT_CODE_WRITE:
-                Write();
-                break;
-            case KS_EVENT_CODE_RATE_GROUP_TICK:
-                Write();
+                uint8_t* data = reinterpret_cast<uint8_t*>(message.data);
+                Write(data, sizeof(data));
+                delete data;
                 break;
         }
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResult ComponentUartDriver::Write() {
-        usart_serial_putchar(CONF_UART, 'h');
-        usart_serial_putchar(CONF_UART, 'e');
-        usart_serial_putchar(CONF_UART, 'l');
-        usart_serial_putchar(CONF_UART, 'l');
-        usart_serial_putchar(CONF_UART, 'o');
-
+    KsResult ComponentUartDriver::Write(const uint8_t *data, size_t len) {
+        usart_serial_write_packet(CONF_UART, data, len);
         return KS_SUCCESS;
     }
 }
