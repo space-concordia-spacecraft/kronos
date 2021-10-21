@@ -15,9 +15,6 @@
 #include "ks_string.h"
 #include "ks_vector.h"
 
-// Profiler
-#include "ks_profiler.h"
-
 // Component Base Classes
 #include "ks_component_base.h"
 #include "ks_component_passive.h"
@@ -36,5 +33,8 @@
 #include "ks_rate_group.h"
 #include "ks_timer.h"
 #include "ks_uart.h"
+
+// Profiler
+#include "ks_profiler.h"
 
 void console_init();

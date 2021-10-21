@@ -1,9 +1,23 @@
 #pragma once
 
-#include "kronos.h"
+// Microchip ASF
+#include "board.h"
+#include "asf.h"
+
+// Framework
+#include "ks_codes.h"
+#include "ks_bus.h"
+#include "ks_logger.h"
+
+// Types
+#include "ks_file.h"
+#include "ks_hashmap.h"
+#include "ks_iterable.h"
+#include "ks_queue.h"
+#include "ks_string.h"
+#include "ks_vector.h"
 
 namespace kronos {
-
     class Framework {
     public:
         Framework();

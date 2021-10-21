@@ -1,5 +1,4 @@
 #include "ks_component_active.h"
-#include "ks_framework.h"
 
 namespace kronos {
     

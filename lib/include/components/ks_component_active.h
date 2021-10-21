@@ -2,6 +2,7 @@
 
 // Kronos includes
 #include "ks_component_queued.h"
+#include "ks_bus.h"
 
 // Kernel includes
 #include "FreeRTOS.h"
