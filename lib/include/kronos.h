@@ -15,6 +15,9 @@
 #include "ks_string.h"
 #include "ks_vector.h"
 
+// Profiler
+#include "ks_profiler.h"
+
 // Component Base Classes
 #include "ks_component_base.h"
 #include "ks_component_passive.h"

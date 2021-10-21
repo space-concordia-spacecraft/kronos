@@ -29,6 +29,9 @@ namespace kronos {
     }
 
     void ComponentHealthMonitor::PingComponents() {
+
+        PROFILE_SCOPE();
+
         Framework::LogDebug("Health ping");
         EventMessage message;
         message.eventCode = KS_EVENT_CODE_HEALTH_PING;

@@ -155,8 +155,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
         "${CMAKE_CURRENT_SOURCE_DIR}/include/components/drivers"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/utilities"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/drivers"
+        "${CMAKE_CURRENT_SOURCE_DIR}/include/utils"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"

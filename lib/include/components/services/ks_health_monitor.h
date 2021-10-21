@@ -5,6 +5,8 @@
 #include "ks_component_active.h"
 #include "ks_bus.h"
 
+#include "ks_profiler.h"
+
 #define KS_HEALTH_PING_RATE 3000
 
 namespace kronos {
