@@ -16,7 +16,7 @@ namespace kronos {
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
-        File* Open(String path, uint32_t mode);
+        File* Open(String & path, uint32_t mode);
 
         String m_Volume;
     };

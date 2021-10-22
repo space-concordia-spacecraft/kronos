@@ -33,7 +33,7 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    File* ComponentFileManager::Open(String path, uint32_t mode) {
+    File* ComponentFileManager::Open(String & path, uint32_t mode) {
         int32_t fileId = red_open((m_Volume + path).Ptr(), mode);
 
         if (fileId == KS_FILE_INVALID_HANDLE)
