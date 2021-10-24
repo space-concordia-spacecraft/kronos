@@ -71,14 +71,14 @@ namespace kronos {
         String m_Name;
 
         /// Path location for the function being benchmarked as well as its line number.
-        String m_Location;
+        String m_Path;
     public:
         /**
          * ProfilerTimer starts a new timer.
          * @param name - Name of the function being benchmarked.
          * @param location - Path location as well as line number for the function being benchmarked.
          */
-        ProfilerTimer(const String & name, const String & location):m_Name(name), m_Location(location) {
+        ProfilerTimer(const String & name, const String & path):m_Name(name), m_Path(path) {
             m_Start = xTaskGetTickCount() * portTICK_RATE_MS;
         }
 
@@ -87,7 +87,8 @@ namespace kronos {
          */
         ~ProfilerTimer() {
             TickType_t endTime = xTaskGetTickCount() * portTICK_RATE_MS;
-            Profiler::Get().Log(m_Name, m_Location, m_Start, endTime);
+
+            Profiler::Get().Log(m_Name, m_Path, m_Start, endTime);
         }
     };
 }
