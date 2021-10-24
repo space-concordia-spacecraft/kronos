@@ -38,7 +38,7 @@ if (NOT SAM_ARCH)
     )
 endif ()
 
-# CPU
+# MCU
 if (NOT SAM_MCU)
     set(
             SAM_MCU same70q21
