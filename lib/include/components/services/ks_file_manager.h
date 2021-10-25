@@ -11,7 +11,7 @@ namespace kronos {
     public:
         ComponentFileManager(const String & componentName, const String & volume);
 
-        void Init() override;
+        KsResult Init() override;
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 

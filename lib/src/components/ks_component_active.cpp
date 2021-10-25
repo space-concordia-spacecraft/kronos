@@ -9,7 +9,7 @@ namespace kronos {
         static_cast<ComponentActive*>(data)->Run();
     }
 
-    void ComponentActive::Init() {
+    KsResult ComponentActive::Init() {
         // Create Task
         xTaskCreate(Start,          // The function that implements the task.
                     m_Name.Ptr(),   // The text name assigned to the task - for debug only as it is not used by the kernel.
@@ -17,10 +17,14 @@ namespace kronos {
                     this,           // The parameter passed to the task - not used in this case.
                     m_Priority,     // The priority assigned to the task.
                     &m_Task);       // Resulting task handle
+
+        return KS_SUCCESS;
     }
 
-    void ComponentActive::Destroy() {
+    KsResult ComponentActive::Destroy() {
         vTaskDelete(m_Task);
+
+        return KS_SUCCESS;
     }
 
     void ComponentActive::Run() {

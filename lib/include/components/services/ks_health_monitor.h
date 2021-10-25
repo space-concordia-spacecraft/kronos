@@ -20,15 +20,15 @@ namespace kronos {
         ComponentHealthMonitor(const kronos::String& name, kronos::BusBase* healthIn, kronos::BusBase* healthOut);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
-        void RegisterActiveComponent(ComponentActive* component);
+        KsResult RegisterActiveComponent(ComponentActive* component);
 
     private:
         HashMap<ComponentActive*, ComponentInfo> m_ActiveComponentInfos;
         BusBase* m_HealthIn;
         BusBase* m_HealthOut;
 
-        void PingComponents();
-        void HandleComponentResponse(ComponentActive* component);
+        KsResult PingComponents();
+        KsResult HandleComponentResponse(ComponentActive* component);
     };
 
 }

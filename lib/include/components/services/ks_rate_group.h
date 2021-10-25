@@ -27,7 +27,7 @@ namespace kronos {
          * @param outBus output bus.
          * @param tickRate tick rate as int.
          */
-        void AddRateGroupFrequency(BusBase* outBus, uint32_t tickRate);
+        KsResult AddRateGroupFrequency(BusBase* outBus, uint32_t tickRate);
 
     private:
         Vector<RateGroupFrequency> m_Frequencies;
@@ -37,7 +37,7 @@ namespace kronos {
          * Executes the timer tick on the selected frequency.
          * @param index index of the frequency
          */
-        void ExecuteTimerTick(size_t index);
+        KsResult ExecuteTimerTick(size_t index);
     };
 
 }

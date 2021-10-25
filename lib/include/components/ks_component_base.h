@@ -32,10 +32,10 @@ namespace kronos {
         explicit ComponentBase(const String& name);
 
         /// Initializer for the component.
-        virtual void Init() = 0;
+        virtual KsResult Init() = 0;
 
         /// Destroyer for the component.
-        virtual void Destroy() = 0;
+        virtual KsResult Destroy() = 0;
 
         /**
          * Function called when an event is published into a bus. The component must be registered in the bus for this function to be called.

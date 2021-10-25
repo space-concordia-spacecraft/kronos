@@ -25,8 +25,8 @@ namespace kronos {
     public:
         explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
 
-        void Init() override;
-        void Destroy() override;
+        KsResult Init() override;
+        KsResult Destroy() override;
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 

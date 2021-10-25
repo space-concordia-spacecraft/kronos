@@ -15,13 +15,13 @@ namespace kronos {
         explicit ComponentQueued(const String& name);
 
         /// Function to clear pop all events from the queue.
-        void ProcessEventQueue();
+        KsResult ProcessEventQueue();
 
         /// @copydoc
-        void Init() override;
+        KsResult Init() override;
 
         /// @copydoc
-        void Destroy() override;
+        KsResult Destroy() override;
 
         /// @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;

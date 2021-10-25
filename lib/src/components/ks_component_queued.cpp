@@ -5,19 +5,21 @@ namespace kronos {
     ComponentQueued::ComponentQueued(const String& name)
         : ComponentPassive(name) {}
 
-    void ComponentQueued::Init() {
-        ComponentPassive::Init();
+    KsResult ComponentQueued::Init() {
+        return ComponentPassive::Init();
     }
 
-    void ComponentQueued::Destroy() {
-        ComponentPassive::Destroy();
+    KsResult ComponentQueued::Destroy() {
+        return ComponentPassive::Destroy();
     }
 
-    void ComponentQueued::ProcessEventQueue() {
+    KsResult ComponentQueued::ProcessEventQueue() {
         EventMessage message;
         while (m_Queue.Pop(&message, 0) == pdPASS) {
             ProcessEvent(message);
         }
+
+        return KS_SUCCESS;
     }
 
     KsCmdResult ComponentQueued::ReceiveEvent(const EventMessage& message) {

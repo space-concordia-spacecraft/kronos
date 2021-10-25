@@ -19,16 +19,17 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    void ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
+    KsResult ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
         ComponentInfo tempInfo;
         if (m_ActiveComponentInfos.Peek(component, &tempInfo)) {
             // TODO: HANDLE ERROR OR WARNING
-            return;
+            return KS_ERROR;
         }
         m_ActiveComponentInfos.Put(component, tempInfo);
+        return KS_SUCCESS;
     }
 
-    void ComponentHealthMonitor::PingComponents() {
+    KsResult ComponentHealthMonitor::PingComponents() {
         PROFILE_SCOPE();
         Framework::LogDebug("Health ping");
         EventMessage message;
@@ -42,11 +43,15 @@ namespace kronos {
                 // TODO: Component has not responded
             }
         }
+
+        return KS_SUCCESS;
     }
 
-    void ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
+    KsResult ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
         m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
         Framework::LogDebug("Health response from " + component->GetName());
+
+        return KS_SUCCESS;
     }
 
 }

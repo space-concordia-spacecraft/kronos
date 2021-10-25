@@ -12,7 +12,9 @@ namespace kronos {
         return ComponentActive::ProcessEvent(message);
     }
 
-    void ComponentCommandDispatcher::RegisterCommand(KsOpcode opcode, void (* pFunction)(void*)) {
+    KsResult ComponentCommandDispatcher::RegisterCommand(KsOpcode opcode, void (* pFunction)(void*)) {
         m_CommandMessages.Put(opcode, pFunction);
+
+        return KS_SUCCESS;
     }
 }

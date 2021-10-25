@@ -5,7 +5,7 @@ namespace kronos {
     ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
             componentName), m_Volume(volume) {}
 
-    void ComponentFileManager::Init() {
+    KsResult ComponentFileManager::Init() {
         ComponentPassive::Init();
 
         int32_t initResult = red_init();
@@ -18,7 +18,10 @@ namespace kronos {
 
         if (initResult != KS_SUCCESS) {
             //TODO: ERROR
+            return KS_ERROR_FILE_UNABLE_TO_INIT;
         }
+
+        return KS_SUCCESS;
     }
 
     KsCmdResult ComponentFileManager::ProcessEvent(const EventMessage& message) {

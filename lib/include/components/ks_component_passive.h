@@ -20,10 +20,10 @@ namespace kronos {
         explicit ComponentPassive(const String& name);
 
         /// @copydoc
-        void Init() override;
+        KsResult Init() override;
 
         /// @copydoc
-        void Destroy() override;
+        KsResult Destroy() override;
 
         /// @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;

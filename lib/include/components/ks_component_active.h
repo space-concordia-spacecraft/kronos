@@ -34,10 +34,10 @@ namespace kronos {
         explicit ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL, uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
         /// @copydoc
-        void Init() override;
+        KsResult Init() override;
 
         /// @copydoc
-        void Destroy() override;
+        KsResult Destroy() override;
 
         /// Function containing main loop for the event processing thread.
         [[noreturn]] void Run();

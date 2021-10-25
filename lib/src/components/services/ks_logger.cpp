@@ -17,7 +17,7 @@ namespace kronos {
         return ComponentActive::ProcessEvent(message);
     }
 
-    void ComponentLogger::Init() {
+    KsResult ComponentLogger::Init() {
         ComponentActive::Init();
 
         FileOpenMessage openMsg;
@@ -28,12 +28,14 @@ namespace kronos {
 
         if (m_File == nullptr) {
             // TODO: HANDLE ERROR
+            return KS_ERROR_FILE_UNABLE_TO_INIT;
         }
 
         // TODO: Make sure to close the File
+        return KS_SUCCESS;
     }
 
-    void ComponentLogger::ClearLogs() {
+    KsResult ComponentLogger::ClearLogs() {
         FileOpenMessage openMsg;
         m_FilePath = "/logs/log.txt"; // TODO: Store the file path somewhere
         openMsg.path = m_FilePath;
@@ -45,6 +47,8 @@ namespace kronos {
         }
 
         // TODO: Make sure to close the File
+
+        return KS_SUCCESS;
     }
 
     String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
@@ -60,7 +64,7 @@ namespace kronos {
         return buf;
     }
 
-    void ComponentLogger::Log(LogMessage* logMsg) {
+    KsResult ComponentLogger::Log(LogMessage* logMsg) {
         char buf[250];
         int buffLen = sprintf(buf, "[%s] [%s] %s\n\r", ConvertTimestamp(logMsg->timestamp).Ptr(),
                               ConvertSeverity(logMsg->severity).Ptr(), logMsg->message.Ptr());
@@ -68,6 +72,8 @@ namespace kronos {
         if (m_File != nullptr) {
             m_File->Write(buf, buffLen);
         }
+
+        return KS_SUCCESS;
     }
 
     String ComponentLogger::ConvertSeverity(uint8_t severity) {
@@ -86,10 +92,12 @@ namespace kronos {
         }
     }
 
-    void ComponentLogger::Destroy() {
+    KsResult ComponentLogger::Destroy() {
         ComponentActive::Destroy();
         m_File->Close();
         delete m_File;
+
+        return KS_SUCCESS;
     }
 
 }
