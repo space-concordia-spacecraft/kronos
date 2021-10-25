@@ -69,7 +69,7 @@ Once all the required packages are finished installing, you may configure your M
 
 5. On the right-hand side panel, under `Environment`, navigate to your MinGW home folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW toolchain.
 
-6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-gcc.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
+6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
 
 7. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the compilers, the GDB executable is located in the same `bin` folder. Ignore any warning about the debugger version, version 10 is not technically fully supported by CLion but it should work good enough.
 
@@ -149,7 +149,7 @@ Active components are used when components need to coordinate other parts of the
 
 Busses are used to connect the various components of a system together. Each bus is limited to a carrying single event type and may not switch the event type it is carrying at runtime.
 
-Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. However, there are two main types of busses (synchronous and asynchronous), each with its own restrictions.
+Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. There are two main types of busses (synchronous and asynchronous), each with its own restrictions.
 
 It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, only if it is synchronous. In _**ALL CASES**_, it is the _**RECEIVING COMPONENT's JOB**_ to delete any message data received, as it is _**ALWAYS**_ copied before being sent.
 
@@ -159,4 +159,4 @@ A synchronous bus is, as its name suggests, always invoked synchronously, meanin
 
 ### Asynchronous Busses
 
-In contrast, an asynchronous bus is generally invoked on one thread but the event sent is processed in another. Note that it is still possible that an event sent through an asynchronous bus is processed on the same thread that it is sent from. In such cases, the invocation is still processed asynchronously, as if it were sent and received on different threads. Asynchronous bus invocations do not return values and are non-blocking as they execute on a separate thread. Asynchronous busses are not restricted in terms of the number of publishing or receiving components. In addition, components attached to an asynchronous bus are not restricted in type. An asynchronous bus invocation that elicits a response may provide a return bus to which the response will be published. Similar to synchronous bus invocations, the frameworks provides a templated function which copies a specific struct to be sent as input data to an asynchronous invocation.
+In contrast, an asynchronous bus is generally invoked on one thread but the event sent is processed in another. Note that it is still possible that an event sent through an asynchronous bus is processed on the same thread that it is sent from. In such cases, the invocation is still processed asynchronously, as if it were sent and received on different threads. Asynchronous bus invocations do not return values and are non-blocking as they execute on a separate thread. Asynchronous busses are not restricted in terms of the number of publishing or receiving components. In addition, components attached to an asynchronous bus are not restricted in type. An asynchronous bus invocation that elicits a response may provide a return bus to which the response will be published. Similar to synchronous bus invocations, the framework provides a templated function which copies a specific struct to be sent as input data to an asynchronous invocation.
