@@ -1,3 +1,8 @@
+// ==================================================================================
+// \title ks_component_queued.h
+// \brief A component that implements the base for the queued component
+// ==================================================================================
+
 #pragma once
 
 // Kronos includes
@@ -6,28 +11,26 @@
 
 namespace kronos {
 
-    /// Class implementation for Queued components. These components have a queue but no thread.
-    ///
-    /// Queued components store the events being sent to it into a queue until the clear queue event message is sent to it. Once it receives the clear queue event, it processes all of the events on the thread of the calling component.
+    //! \class ComponentQueued
+    //! \brief A class that implements the base for all queued components
+    //!
+    //! This class is used as the base block for all queued components
     class ComponentQueued : public ComponentPassive {
     public:
-        /// @copydoc
+        //! \brief ComponentQueued constructor
+        //!
+        //! \param name the name of the component
         explicit ComponentQueued(const String& name);
-
-        /// Function to clear pop all events from the queue.
+        //! \brief Pops all events from the queue and processes them
         KsResult ProcessEventQueue();
-
-        /// @copydoc
+        //! @copydoc
         KsResult Init() override;
-
-        /// @copydoc
+        //! @copydoc
         KsResult Destroy() override;
-
-        /// @copydoc
+        //! @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;
-
     protected:
-        /// Queue that stores events being sent to the component.
+        //! Queue that stores events being sent to the component.
         kronos::Queue<EventMessage> m_Queue;
     };
 

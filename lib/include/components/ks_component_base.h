@@ -1,3 +1,8 @@
+// ==================================================================================
+// \title ks_component_base.h
+// \brief The base for the component classes.
+// ==================================================================================
+
 #pragma once
 
 #include "ks_string.h"
@@ -6,59 +11,54 @@
 namespace kronos {
 
     class BusBase;
-
-    /// Contains information about an event. This information includes: opcode, the data, the size of the data, and the return bus if needed.
+    //! \struct EventMessage
+    //! \brief A struct that holds information about an event message
+    //!
+    //! This struct holds information about the event message such as the code, the data, and the return bus
     struct EventMessage {
-        /// Identifier for the event. This allows the user to process the event properly.
+        //! Identifier for the event. This allows the user to process the event properly
         KsEventCode eventCode = KS_EVENT_CODE_INVALID;
-
-        /// The data being passed through the event.
+        //! The data being passed through the event
         void * data = nullptr;
-
-        /// The size of the data being passed if necessary.
+        //! The size of the data being passed if necessary
         size_t dataSize = 0;
-
-        /// The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away.
+        //! The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away
         BusBase * returnBus = nullptr;
     };
 
-    /// Base class for all components. Contains the definition of all base functions but they have no implementation.
+    //! \class ComponentBase
+    //! \brief A class that implements the base of all components
+    //!
+    //! This class is used as the basic block for all components
     class ComponentBase {
     public:
-        /**
-         * Constructor for the class. All inheriting classes must make sure to pass in the component name.
-         * @param name - Name for the component.
-         */
+        //! \brief ComponentBase constructor
+        //!
+        //! \param name the name of the component
         explicit ComponentBase(const String& name);
-
-        /// Initializer for the component.
+        //! \brief initializes the component
+        //!
+        //! \return KS_SUCCESS if there was no errors
         virtual KsResult Init() = 0;
-
-        /// Destroyer for the component.
+        //! \brief destroys the component
+        //!
+        //! \return KS_SUCCESS if there was no errors
         virtual KsResult Destroy() = 0;
-
-        /**
-         * Function called when an event is published into a bus. The component must be registered in the bus for this function to be called.
-         * @param message The event message containing all the information.
-         * @return KS_SUCCESS if there are no errors. Otherwise it returns an error.
-         */
+        //! \brief Receives the event from the publishing bus
+        //!
+        //! \param message the event message containing the information being published on the bus
+        //! \return KS_SUCCESS if there are no errors.
         virtual KsCmdResult ReceiveEvent(const EventMessage& message) = 0;
-
-        /**
-         * Function used to process an event.
-         * @param message The event message containing all the information.
-         * @return KS_SUCCESS if there are no errors. Otherwise it returns an error.
-         */
+        //! \brief Processes the event message
+        //!
+        //! \param message the event message containing the information that was published to the bus
+        //! \return KS_SUCCESS if there are no errors
         virtual KsCmdResult ProcessEvent(const EventMessage& message) = 0;
-
-        /**
-         * Getter for the name of the component.
-         * @return The name of the component.
-         */
+        //! \brief gets the name of the component
+        //! \return
         String GetName();
     protected:
-
-        /// Name of the component.
+        //! The name of the component
         const String m_Name;
     };
 

@@ -1,3 +1,8 @@
+// ==================================================================================
+// \title ks_component_passive.h
+// \brief A component that implements the base for the passive component
+// ==================================================================================
+
 #pragma once
 
 // Microchip ASF
@@ -12,11 +17,15 @@
 
 namespace kronos {
 
-    /// Class implementation for Passive components. These components don't have a thread or a queue.
+    //! \class ComponentPassive
+    //! \brief A class that implements the base for all passive components
+    //!
+    //! This class is used as the base block for all passive components
     class ComponentPassive : public ComponentBase {
     public:
-
-        /// @copydoc
+        //! \brief ComponentPassive constructor
+        //!
+        //! \param name the name of the component
         explicit ComponentPassive(const String& name);
 
         /// @copydoc
