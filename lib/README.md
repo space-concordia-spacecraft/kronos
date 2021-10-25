@@ -111,11 +111,11 @@ To check that your build environment is correctly setup, you may attempt to buil
 
 5. Apply your changes and close the dialog. You should now be able to build and run `Kronos_Demo` in debug mode to verify that your toolchain configuration works. If you see the `Kronos_Demo.bin` being built successfully and the board's LED blinking, then your setup is working as expected. Bonus points to those of you that can hit a breakpoint that you placed in the source code.
 
-#### Linux
+### Linux
 
 Coming Soon!
 
-#### Mac OS
+### Mac OS
 
 Coming Soon!
 
