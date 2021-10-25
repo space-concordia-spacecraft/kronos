@@ -47,3 +47,33 @@ KT_TEST(MapRemove) {
 
     return true;
 }
+
+KT_TEST(MapPeek) {
+    kronos::HashMap<int, int> map;
+
+    map.Put(0, 10);
+    map.Put(16, 70);
+    map.Put(1, 20);
+    map.Put(2, 13);
+    map.Put(5, 45);
+
+    KT_ASSERT(map.Get(16) == 70);
+    KT_ASSERT(map.Get(0) == 10);
+    KT_ASSERT(map.Get(5) == 45);
+    KT_ASSERT(map.Get(2) == 13);
+    KT_ASSERT(map.Get(1) == 20);
+
+    int value = 0;
+    KT_ASSERT(map.Peek(0, &value));
+    KT_ASSERT(value == 10);
+    KT_ASSERT(map.Peek(16, &value));
+    KT_ASSERT(value == 70);
+    KT_ASSERT(map.Peek(1, &value));
+    KT_ASSERT(value == 20);
+    KT_ASSERT(map.Peek(2, &value));
+    KT_ASSERT(value == 13);
+    KT_ASSERT(map.Peek(5, &value));
+    KT_ASSERT(value == 45);
+
+    return true;
+}
