@@ -44,5 +44,6 @@ KT_TESTS(
         /* Functions */
         KT_UNIT_TEST(MapPut, "Verifies that the kronos::HashMap::Put() works as expected.")
         KT_UNIT_TEST(MapRemove, "Verifies that the kronos::HashMap::Remove() works as expected.")
+        KT_UNIT_TEST(MapPeek, "Verifies that the kronos::HashMap::Peek() works as expected.")
     )
 )
