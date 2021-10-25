@@ -28,7 +28,7 @@ CLion is a cross platform C++ IDE distributed by JetBrains. It is available for 
 
 In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the [sam_gcc.cmake](../build/sam_gcc.cmake) toolchain file for more details.
 
-#### Windows
+### Windows
 
 For Windows users, all the binaries required for compilation can be installed through the MinGW64 MSYS2 port. We will use MinGW because it is the only toolchain on Windows that is supported by CLion for OpenOCD embedded development, as stated [here](https://www.jetbrains.com/help/clion/openocd-support.html). All the required packages are available for MinGW, notably the Open On-Chip Debugger (OpenOCD) which is required to upload and debug code on Atmel SAM MCUs.
 
