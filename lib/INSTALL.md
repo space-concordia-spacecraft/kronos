@@ -15,7 +15,7 @@ CLion is a cross platform C++ IDE distributed by JetBrains. It is available for 
 
 In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the [sam_gcc.cmake](../build/sam_gcc.cmake) toolchain file for more details.
 
-#### Windows
+### Windows
 
 For Windows users, all the binaries required for compilation can be installed through the MinGW64 MSYS2 port. We will use MinGW because it is the only toolchain on Windows that is supported by CLion for OpenOCD embedded development, as stated [here](https://www.jetbrains.com/help/clion/openocd-support.html). All the required packages are available for MinGW, notably the Open On-Chip Debugger (OpenOCD) which is required to upload and debug code on Atmel SAM MCUs.
 
@@ -56,7 +56,7 @@ Once all the required packages are finished installing, you may configure your M
 
 5. On the right-hand side panel, under `Environment`, navigate to your MinGW home folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW toolchain.
 
-6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-gcc.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
+6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
 
 7. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the compilers, the GDB executable is located in the same `bin` folder. Ignore any warning about the debugger version, version 10 is not technically fully supported by CLion but it should work good enough.
 
@@ -124,6 +124,7 @@ Finally, in the program arguments copy and paste the following line:
 
 Make sure that "COM3" is changed to the appropriate COM port. You can find this out by going to your Device Managers and checking the ports.
 
+Once you have completed these steps, you may run the console application to test it out. Make sure the software is running on the board.
 
 #### Adding a Run Configuration
 
@@ -139,10 +140,10 @@ To check that your build environment is correctly setup, you may attempt to buil
 
 5. Apply your changes and close the dialog. You should now be able to build and run `Kronos_Demo` in debug mode to verify that your toolchain configuration works. If you see the `Kronos_Demo.bin` being built successfully and the board's LED blinking, then your setup is working as expected. Bonus points to those of you that can hit a breakpoint that you placed in the source code.
 
-#### Linux
+### Linux
 
 Coming Soon!
 
-#### Mac OS
+### Mac OS
 
 Coming Soon!

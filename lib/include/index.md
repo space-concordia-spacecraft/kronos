@@ -5,7 +5,7 @@ This framework was originally developed by [Space Concordia](http://www.spacecon
 
 ## Overview
 
-Kronos is a component-driven framework inspired by the [Fprime](https://github.com/nasa/fprime) architecture. The framework splits up a complex system into various components. A component is defined as an isolated collection of logic created to achieve a single specific goal. Components communicate between each other through the use of busses by publishing or listening to events carried through them. Each bus may only carry one event type and is used to directionally link various components together. 
+Kronos is a component-driven framework inspired by the [Fprime](https://github.com/nasa/fprime) architecture. The framework splits up a complex system into various components. A component is defined as an isolated collection of logic created to achieve a single specific goal. Components communicate between each other through the use of busses by publishing or listening to events carried through them. Each bus may only carry one event type and is used to directionally link various components together.
 
 More detail about each part of the architecture is included in the sections below.
 
@@ -18,17 +18,17 @@ This upcoming section will be dedicated to the setup of a build environment for 
 ### Pre-requisites
 
 - [x] CLion
-- [x] Atmel SAM Microcontroller 
+- [x] Atmel SAM Microcontroller
 
 #### CLion
 
 CLion is a cross platform C++ IDE distributed by JetBrains. It is available for Windows, Mac OS, and Linux. You may get a free student license if you connect your JetBrains account to a GitHub account with the GitHub Student Pack. I strongly recommend using CLion and any of the other JetBrains IDEs as they provide tons of useful features that facilitate development. CLion's code completion and warnings seem to be much more robust than Visual Studio and it provides CMake support out of the box. You may download CLion [from here](https://www.jetbrains.com/clion/). It is possible to setup this project for other IDEs but I will only be providing instructions for CLion in this tutorial.
 
-#### Atmel SAM Microcontroller 
+#### Atmel SAM Microcontroller
 
 In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the [sam_gcc.cmake](../build/sam_gcc.cmake) toolchain file for more details.
 
-#### Windows
+### Windows
 
 For Windows users, all the binaries required for compilation can be installed through the MinGW64 MSYS2 port. We will use MinGW because it is the only toolchain on Windows that is supported by CLion for OpenOCD embedded development, as stated [here](https://www.jetbrains.com/help/clion/openocd-support.html). All the required packages are available for MinGW, notably the Open On-Chip Debugger (OpenOCD) which is required to upload and debug code on Atmel SAM MCUs.
 
@@ -50,14 +50,14 @@ The full list of packages is included below in a more readable list format.
 
 - [x] `mingw-w64-x86_64-toolchain`
 - [x] `mingw-w64-x86_64-make`
-- [x] `mingw-w64-x86_64-cmake` 
+- [x] `mingw-w64-x86_64-cmake`
 - [x] `mingw-w64-x86_64-openocd`
 - [x] `mingw-w64-x86_64-arm-none-eabi-gcc`
 - [x] `mingw-w64-x86_64-arm-none-eabi-binutils`
 
 #### CLion Configuration
 
-Once all the required packages are finished installing, you may configure your MinGW toolchain in CLion. To do so, follow these instructions: 
+Once all the required packages are finished installing, you may configure your MinGW toolchain in CLion. To do so, follow these instructions:
 
 1. Open the `kronos` folder as a CLion project.
 
@@ -69,7 +69,7 @@ Once all the required packages are finished installing, you may configure your M
 
 5. On the right-hand side panel, under `Environment`, navigate to your MinGW home folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW toolchain.
 
-6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-gcc.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
+6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
 
 7. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the compilers, the GDB executable is located in the same `bin` folder. Ignore any warning about the debugger version, version 10 is not technically fully supported by CLion but it should work good enough.
 
@@ -81,7 +81,7 @@ This leaves you with a working MinGW toolchain for CLion. However, there are a f
 
 2. On the left-hand side of the window, navigate to **Build, Execution, Deployment** => **Embedded Development**.
 
-3. On the right-hand side panel, configure the OpenOCD path to point to the `openocd.exe` executable. Same as before, the executable is located in the `bin` folder of your MinGW home directory. You may check that the OpenOCD executable is functional by clicking the `Test` button afterwards. Ignore the STM32CubeMX location, it is not needed to build the project. 
+3. On the right-hand side panel, configure the OpenOCD path to point to the `openocd.exe` executable. Same as before, the executable is located in the `bin` folder of your MinGW home directory. You may check that the OpenOCD executable is functional by clicking the `Test` button afterwards. Ignore the STM32CubeMX location, it is not needed to build the project.
 
 4. On the left-hand side of the window, navigate to **Build, Execution, Deployment** => **CMake**.
 
@@ -96,12 +96,12 @@ This leaves you with a working MinGW toolchain for CLion. However, there are a f
 ```
 
 With that, your CLion is ready to go. You may now right-click on the `CMakeLists.txt` file in the project root and select `Load CMake Project`. If all goes well, you should get a `Build files have been written to:` message in the CMake console output. You should also now see two new directories marked in red respectively name `cmake-build-debug` and `cmake-build-release`, where the library will be built.
- 
+
 #### Adding a Run Configuration
 
 To check that your build environment is correctly setup, you may attempt to build the Kronos demo app. To do so, plug in your SAM board to your PC using the debug USB port. Make sure it is already flashed once with some working Software. You may do this through Atmel Studio using an example project. When you have plugged your board in and flashed it once, follow these instructions to add a run configuration:
 
-1. Open the run configurations dialog in the top-right corner of your CLion project window, in between the build and run icons. 
+1. Open the run configurations dialog in the top-right corner of your CLion project window, in between the build and run icons.
 
 2. Remove any automatically added configurations and add a new configuration called `Kronos_Demo` by clicking the **+** button on the left-hand side of the dialog. When prompted for the configuration type, select `OpenOCD Download & Run`.
 
@@ -111,11 +111,11 @@ To check that your build environment is correctly setup, you may attempt to buil
 
 5. Apply your changes and close the dialog. You should now be able to build and run `Kronos_Demo` in debug mode to verify that your toolchain configuration works. If you see the `Kronos_Demo.bin` being built successfully and the board's LED blinking, then your setup is working as expected. Bonus points to those of you that can hit a breakpoint that you placed in the source code.
 
-#### Linux
+### Linux
 
 Coming Soon!
 
-#### Mac OS
+### Mac OS
 
 Coming Soon!
 
@@ -129,15 +129,15 @@ There are three types of components: Passive, Queued, and Active, explained in d
 
 ### Passive Components
 
-A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists of a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions. 
+A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists of a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions.
 
 Passive components are made to be invoked by active or queued components. An example of a passive component could be a _**File Manager**_ component in charge of tracking files used and providing thread-safe file operations for other components. Such operations do not need to run on the same thread and can instead be executed by the calling components.
 
 ### Queued Components
 
-A queued component implements a queue used to store incoming events which must be cleared by another active component. When its queue is cleared, all events in the queue are processed and the queue is emptied, ready to receive more events. Queued components are similar to passive components in the sense that they do not provide their own thread. However, unlike passive components, incoming events are processed asynchronously and not on the calling component's thread. Events are instead processed by another active component whose job is to intermittently clear the queued component's event queue. 
+A queued component implements a queue used to store incoming events which must be cleared by another active component. When its queue is cleared, all events in the queue are processed and the queue is emptied, ready to receive more events. Queued components are similar to passive components in the sense that they do not provide their own thread. However, unlike passive components, incoming events are processed asynchronously and not on the calling component's thread. Events are instead processed by another active component whose job is to intermittently clear the queued component's event queue.
 
-Queued components are useful in applications where specific inexpensive logic must be executed periodically but does not warrant its own thread. A good example is a scheduled component such as a health monitoring component whose job is to regularly make sure that all active threads are performing their tasks. 
+Queued components are useful in applications where specific inexpensive logic must be executed periodically but does not warrant its own thread. A good example is a scheduled component such as a health monitoring component whose job is to regularly make sure that all active threads are performing their tasks.
 
 ### Active Components
 
@@ -149,7 +149,7 @@ Active components are used when components need to coordinate other parts of the
 
 Busses are used to connect the various components of a system together. Each bus is limited to a carrying single event type and may not switch the event type it is carrying at runtime.
 
-Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. However, there are two main types of busses (synchronous and asynchronous), each with its own restrictions.
+Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-to-one, many-to-one, one-to-many, and many-to-many connection. There are two main types of busses (synchronous and asynchronous), each with its own restrictions.
 
 It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, only if it is synchronous. In _**ALL CASES**_, it is the _**RECEIVING COMPONENT's JOB**_ to delete any message data received, as it is _**ALWAYS**_ copied before being sent.
 
@@ -159,4 +159,4 @@ A synchronous bus is, as its name suggests, always invoked synchronously, meanin
 
 ### Asynchronous Busses
 
-In contrast, an asynchronous bus is generally invoked on one thread but the event sent is processed in another. Note that it is still possible that an event sent through an asynchronous bus is processed on the same thread that it is sent from. In such cases, the invocation is still processed asynchronously, as if it were sent and received on different threads. Asynchronous bus invocations do not return values and are non-blocking as they execute on a separate thread. Asynchronous busses are not restricted in terms of the number of publishing or receiving components. In addition, components attached to an asynchronous bus are not restricted in type. An asynchronous bus invocation that elicits a response may provide a return bus to which the response will be published. Similar to synchronous bus invocations, the frameworks provides a templated function which copies a specific struct to be sent as input data to an asynchronous invocation.
+In contrast, an asynchronous bus is generally invoked on one thread but the event sent is processed in another. Note that it is still possible that an event sent through an asynchronous bus is processed on the same thread that it is sent from. In such cases, the invocation is still processed asynchronously, as if it were sent and received on different threads. Asynchronous bus invocations do not return values and are non-blocking as they execute on a separate thread. Asynchronous busses are not restricted in terms of the number of publishing or receiving components. In addition, components attached to an asynchronous bus are not restricted in type. An asynchronous bus invocation that elicits a response may provide a return bus to which the response will be published. Similar to synchronous bus invocations, the framework provides a templated function which copies a specific struct to be sent as input data to an asynchronous invocation.

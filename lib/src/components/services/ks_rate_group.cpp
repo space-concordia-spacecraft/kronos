@@ -2,26 +2,37 @@
 
 namespace kronos {
 
-    ComponentRateGroup::ComponentRateGroup(const String& name, BusBase* outBus, uint32_t tickRate, KsEventCode opcode)
-        : ComponentActive(name, KS_COMPONENT_STACK_SIZE_MEDIUM), m_OutBus(outBus), m_TickRate(tickRate), m_Opcode(opcode) {}
+    ComponentRateGroup::ComponentRateGroup(const String& name, KsEventCode opcode)
+        : ComponentActive(name, KS_COMPONENT_STACK_SIZE_MEDIUM), m_Opcode(opcode) {}
 
     KsCmdResult ComponentRateGroup::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case KS_EVENT_CODE_TIMER_TICK:
-                ExecuteTimerTick();
+                for(size_t i = 0; i < m_Frequencies.Size(); i++) {
+                    ExecuteTimerTick(i);
+                }
                 break;
         }
+
         return ComponentActive::ProcessEvent(message);
     }
 
-    void ComponentRateGroup::ExecuteTimerTick() {
-        m_TickCount++;
-        if (m_TickCount >= m_TickRate) {
-            m_TickCount = 0;
+    void ComponentRateGroup::ExecuteTimerTick(size_t index) {
+        m_Frequencies[index].tickCount++;
+        if (m_Frequencies[index].tickCount >= m_Frequencies[index].tickRate) {
+            m_Frequencies[index].tickCount = 0;
             EventMessage message;
             message.eventCode = m_Opcode;
-            m_OutBus->Publish(message);
+            m_Frequencies[index].outBus->Publish(message);
         }
+    }
+
+    void ComponentRateGroup::AddRateGroupFrequency(BusBase* outBus, uint32_t tickRate) {
+        RateGroupFrequency frequency;
+        frequency.outBus = outBus;
+        frequency.tickRate = tickRate;
+        frequency.tickCount = 0;
+        m_Frequencies.Add(frequency);
     }
 
 }
