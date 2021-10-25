@@ -144,6 +144,8 @@ namespace kronos {
             return KS_SUCCESS;
         }
 
+        //TODO - Implement Remove()
+
     private:
         /// The name of the file including the extension.
         String m_Name = "";

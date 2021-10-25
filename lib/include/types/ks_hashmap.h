@@ -244,11 +244,11 @@ namespace kronos {
             }
         }
 
-        size_t Size() { return 0; }
+        size_t Size() { return 0; } //TODO
 
         V& operator[](const K& key) { return Get(key); }
 
-        HashMapIterator<K, V, F> begin() override {
+        HashMapIterator<K, V, F> begin() override { //TODO test iteration
             for (size_t i = 0; i < KS_HASHTABLE_SIZE; i++) {
                 if (m_HashTable[i] != nullptr) {
                     return HashMapIterator<K, V, F>(this, i, 0);
