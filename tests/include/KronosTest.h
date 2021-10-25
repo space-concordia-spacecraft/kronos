@@ -21,7 +21,7 @@
     }, KT_NARG(__VA_ARGS__) - 1),
 
 // Defines a single unit test inside a test group
-#define KT_UNIT_TEST(name, desc, func) UnitTest({ #name, desc, &func }),
+#define KT_UNIT_TEST(func, desc) UnitTest({ #func, desc, &func }),
 
 
 namespace ktest {

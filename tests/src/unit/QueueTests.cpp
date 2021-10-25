@@ -9,13 +9,13 @@ KT_TEST(QueuePushAndPopTest) {
     queue.Push(11);
     queue.Push(12);
 
-    int * popped;
+    int popped;
 
-    queue.Pop(popped);
-    KT_ASSERT(*popped == 10);
+    KT_ASSERT(queue.Pop(&popped));
+    KT_ASSERT(popped == 10);
 
-    queue.Pop(popped);
-    KT_ASSERT(*popped == 11);
+    KT_ASSERT(queue.Pop(&popped));
+    KT_ASSERT(popped == 11);
 
     KT_ASSERT(queue.Size() == 1);
 
@@ -29,16 +29,18 @@ KT_TEST(QueuePeekTest) {
     queue.Push(10);
     queue.Push(11);
 
-    int* peeked = nullptr;
-    int* popped = nullptr;
+    int peeked = 0;
+    int popped = 0;
 
-    queue.Peek(peeked);
-    KT_ASSERT(*peeked == 10);
+    KT_ASSERT(queue.Peek(&peeked));
+    KT_ASSERT(peeked == 10);
 
-    queue.Pop(popped);
-    queue.Peek(peeked);
+    KT_ASSERT(queue.Pop(&popped));
+    KT_ASSERT(popped == 10);
 
-    KT_ASSERT(*peeked == 11);
+    KT_ASSERT(queue.Peek(&peeked));
+    KT_ASSERT(peeked == 11);
+
     KT_ASSERT(queue.Size() == 1);
 
     return true;
@@ -55,9 +57,10 @@ KT_TEST(QueueClearTest) {
     KT_ASSERT(queue.Size() == 0);
 
     queue.Push(12);
-    int* popped = nullptr;
-    queue.Pop(popped);
-    KT_ASSERT(*popped == 12);
+
+    int popped = 0;
+    KT_ASSERT(queue.Pop(&popped));
+    KT_ASSERT(popped == 12);
 
     return true;
 }

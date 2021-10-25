@@ -1,46 +1,49 @@
+#include "KronosTest.h"
 #include "ks_hashmap.h"
 
-
-TEST_CASE("Put And Get Test", "[MapPut]") {
+KT_TEST(MapPut) {
     kronos::HashMap<int, int> map;
 
-    map.Put(0, 10);
-    map.Put(16, 70);
-    map.Put(1, 20);
-    map.Put(2, 13);
-    map.Put(5, 45);
+    map.Put(0, 0);
+    map.Put(1, 10);
+    map.Put(2, 20);
+    map.Put(3, 30);
 
-    CHECK(map.Get(16) == 70);
-    CHECK(map.Get(0) == 10);
-    CHECK(map.Get(5) == 45);
-    CHECK(map.Get(2) == 13);
-    CHECK(map.Get(1) == 20);
+    KT_ASSERT(map[0] == 0);
+    KT_ASSERT(map[1] == 10);
+    KT_ASSERT(map[2] == 20);
+    KT_ASSERT(map[3] == 30);
 
+    return true;
 }
 
-TEST_CASE("Remove Test", "[MapRemove]") {
+KT_TEST(MapRemove) {
     kronos::HashMap<int, int> map;
 
-    map.Put(0, 10);
-    map.Put(16, 70);
-    map.Put(1, 20);
-    map.Put(2, 13);
-    map.Put(5, 45);
+    int x = 0;
 
-    CHECK(map.Get(16) == 70);
-    CHECK(map.Get(0) == 10);
-    CHECK(map.Get(5) == 45);
-    CHECK(map.Get(2) == 13);
-    CHECK(map.Get(1) == 20);
+    map.Put(0, 0);
+    map.Put(1, 10);
+    map.Put(2, 20);
+
+    KT_ASSERT(map.Peek(0, &x));
+    KT_ASSERT(x == 0);
+
+    KT_ASSERT(map.Peek(1, &x));
+    KT_ASSERT(x == 10);
+
+    KT_ASSERT(map.Peek(2, &x));
+    KT_ASSERT(x == 20);
 
     map.Remove(0);
-    map.Remove(16);
-    map.Remove(1);
+    map.Remove(2);
 
-    CHECK(map.Get(16) != 70);
-    CHECK(map.Get(0) != 10);
-    CHECK(map.Get(1) != 20);
+    KT_ASSERT(!map.Peek(0, &x));
 
-    CHECK(map.Get(5) == 45);
-    CHECK(map.Get(2) == 13);
+    KT_ASSERT(map.Peek(1, &x));
+    KT_ASSERT(x == 10);
+
+    KT_ASSERT(!map.Peek(2, &x));
+
+    return true;
 }

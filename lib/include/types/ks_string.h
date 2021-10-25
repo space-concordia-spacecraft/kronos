@@ -117,8 +117,10 @@ namespace kronos {
     private:
         String(const String& from, size_t start, size_t end) {
             char* str = new char[end - start + 1];
-            memcpy(str, from.m_String + start, end - start + 1);
+            memcpy(str, from.m_String + start, end - start);
+            str[end - start] = '\0';
             m_String = str;
+            m_Length = end - start;
         }
 
         const char* m_String;

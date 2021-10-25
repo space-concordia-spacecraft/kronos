@@ -1,50 +1,76 @@
+#include "KronosTest.h"
 #include "ks_string.h"
 
-
-TEST_CASE("Size Method Test ", "[StringSizeTest]") {
+KT_TEST(StringSizeTest) {
     kronos::String str = "Kronos";
-    CHECK(str.Size() == 6);
+
+    KT_ASSERT(str.Size() == 6);
+
+    return true;
 }
 
-// str.concatenate
-TEST_CASE("Concatenate Method Test ", "[StringConcatenateTest]") {
-    kronos::String str = "Kronos";
-    kronos::String str1 = str.Concatenate(str,"Cronus");
-    CHECK(str1.Size() == 12);
-    CHECK(str1 == "KronosCronus");
-}
-
-TEST_CASE("Comparison Test ", "[StringComparisonTest]") {
-    kronos::String str = "Kronos";
-    kronos::String str1 = "Cronus";
-    CHECK(str != str1);
-}
-
-TEST_CASE("Assignment Test ", "[StringAssignmentTest]") {
+KT_TEST(StringConcatenateTest) {
     kronos::String str = "Kronos";
     kronos::String str1 = str.Concatenate(str, "Cronus");
-    CHECK(str1.Size() == 12);
+
+    KT_ASSERT(str1.Size() == 12);
+    KT_ASSERT(str1 == "KronosCronus");
+
+    return true;
 }
 
-//str +
-TEST_CASE("Addition Test ", "[StringAdditionTest]") {
+KT_TEST(StringSubstringTest) {
+    kronos::String str = "Kronos";
+    kronos::String str1 = str.Substring(0, 2);
+
+    KT_ASSERT(str1 == "Kr");
+    KT_ASSERT(str1.Size() == 2);
+
+    return true;
+}
+
+KT_TEST(StringComparisonTest) {
+    kronos::String str = "Kronos";
+    kronos::String str1 = "Cronus";
+
+    KT_ASSERT(str != str1);
+
+    return true;
+}
+
+KT_TEST(StringAssignmentTest) {
+    kronos::String str = "Kronos";
+    kronos::String str1 = str.Concatenate(str, "Cronus");
+
+    KT_ASSERT(str1.Size() == 12);
+
+    return true;
+}
+
+KT_TEST(StringAdditionTest) {
     kronos::String str = "Kronos";
     kronos::String str1 = str + "Cronus";
-    CHECK(str1 == "KronosCronus");
+
+    KT_ASSERT(str1 == "KronosCronus");
+
+    return true;
 }
 
-//str +=
-TEST_CASE("Addition Assignment Test ", "[StringAdditionAssignemntTest]") {
+KT_TEST(StringAdditionAssignmentTest) {
     kronos::String str = "Kronos";
     kronos::String str1 = "Cronus";
     str += str1;
 
-    CHECK(str == "KronosCronus");
+    KT_ASSERT(str == "KronosCronus");
+
+    return true;
 }
 
-//str []
-TEST_CASE("Index Test ", "[StringIndexTest]") {
+KT_TEST(StringIndexTest) {
     kronos::String str = "Kronos";
-    CHECK(str[0] == 'K');
-    CHECK(str[5] == 's');
+
+    KT_ASSERT(str[0] == 'K');
+    KT_ASSERT(str[5] == 's');
+
+    return true;
 }
