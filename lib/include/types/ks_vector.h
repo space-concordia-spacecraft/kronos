@@ -48,6 +48,10 @@ namespace kronos {
     };
 
     template<typename T>
+    //! \class Vector
+    //! \brief A class that implements the vector functionality
+    //!
+    //! \tparam T type of the elements in the vector
     class Vector : public Iterable<VectorIterator<T>> {
     private:
         void Expand(size_t minSize = 0) {

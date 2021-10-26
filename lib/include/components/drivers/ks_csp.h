@@ -9,7 +9,6 @@
 /* Server port, the port the server listens on for incoming connections from the client. */
 #define MY_SERVER_PORT		10
 
-
 namespace kronos {
     class ComponentCspDriver : public ComponentPassive {
     public:
@@ -18,12 +17,14 @@ namespace kronos {
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        void Init() override;
+        KsResult Init() override;
     private:
         KsResult Read();
         KsResult Write();
 
         /* Commandline options */
         uint8_t m_ServerAddress = 255;
+        csp_socket_t * m_Socket;
+        uint16_t m_ServerReceived = 0;
     };
 }

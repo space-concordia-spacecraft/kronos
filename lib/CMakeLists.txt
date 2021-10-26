@@ -128,9 +128,6 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
 
-#        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
-#        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
-
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_health_monitor.cpp"
@@ -141,6 +138,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_parameter_database.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_can.cpp"
+        #        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 
@@ -200,6 +199,9 @@ set(KRONOS_INCLUDE_DIRS
 )
 
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
+
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 
