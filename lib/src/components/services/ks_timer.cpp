@@ -12,12 +12,14 @@ namespace kronos {
                 TimerCallbackStub);                                    // Call of the function when the timer expires.
     }
 
-    void ComponentTimer::Init() {
+    KsResult ComponentTimer::Init() {
         xTimerStart(m_Timer, 0);
+        return KS_SUCCESS;
     }
 
-    void ComponentTimer::Destroy() {
+    KsResult ComponentTimer::Destroy() {
         xTimerStop(m_Timer, 0);
+        return KS_SUCCESS;
     }
 
     KsCmdResult ComponentTimer::ProcessEvent(const EventMessage& message) {

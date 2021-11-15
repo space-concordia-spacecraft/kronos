@@ -8,11 +8,11 @@
 #include "asf.h"
 
 // Types
+#include "ks_string.h"
 #include "ks_file.h"
 #include "ks_hashmap.h"
 #include "ks_iterable.h"
 #include "ks_queue.h"
-#include "ks_string.h"
 #include "ks_vector.h"
 
 // Component Base Classes
@@ -33,6 +33,7 @@
 #include "ks_rate_group.h"
 #include "ks_timer.h"
 #include "ks_uart.h"
+#include "ks_csp.h"
 
 // Profiler
 #include "ks_profiler.h"

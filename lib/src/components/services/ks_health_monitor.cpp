@@ -14,6 +14,7 @@ namespace kronos {
             case KS_EVENT_CODE_HEALTH_RESPONSE:
                 auto* component = reinterpret_cast<ComponentActive*>(message.data);
                 HandleComponentResponse(component);
+                delete component;
                 break;
         }
         return KS_CMDRESULT_NORETURN;
@@ -30,7 +31,6 @@ namespace kronos {
     }
 
     KsResult ComponentHealthMonitor::PingComponents() {
-        PROFILE_SCOPE();
         Framework::LogDebug("Health ping");
         EventMessage message;
         message.eventCode = KS_EVENT_CODE_HEALTH_PING;

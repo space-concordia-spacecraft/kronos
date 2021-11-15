@@ -9,10 +9,10 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 
 set(CMAKE_SYSTEM_VERSION 1)
 
-set(CMAKE_C_COMPILER_WORKS 1)
-set(CMAKE_CXX_COMPILER_WORKS 1)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_CXX_STANDARD 14)
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
 
 set(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> <LINK_FLAGS> -c -r -o <TARGET> <OBJECTS>")
 set(CMAKE_C_ARCHIVE_APPEND "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
@@ -68,17 +68,6 @@ if (USE_UPLOADER)
         find_program(SAM_UPLOAD_TOOL bossac)
     endif (NOT SAM_UPLOAD_TOOL)
 endif (USE_UPLOADER)
-
-
-# where is the target environment
-SET(CMAKE_FIND_ROOT_PATH "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\arm\\arm-gnu-toolchain")
-
-# search for programs in the build host directories
-SET(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-
-# for libraries and headers in the target directories
-SET(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-SET(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 # Debug/Release definition
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")

@@ -141,6 +141,8 @@ set(KRONOS_SRC
         #        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
 
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_profiler.cpp"
+
         "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"

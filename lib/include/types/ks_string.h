@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cstring"
+#include <cstring>
 #include "asf.h"
 
 namespace kronos {
