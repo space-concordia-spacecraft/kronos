@@ -33,7 +33,6 @@
 #include "ks_rate_group.h"
 #include "ks_timer.h"
 #include "ks_uart.h"
-#include "ks_csp.h"
 
 // Profiler
 #include "ks_profiler.h"
