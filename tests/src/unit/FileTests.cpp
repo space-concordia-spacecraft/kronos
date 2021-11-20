@@ -1,10 +1,12 @@
 #include "KronosTest.h"
 #include "ks_file.h"
 
-extern kronos::ComponentFileManager* fileManager;
+using namespace kronos;
+
+ComponentFileManager* fileManager;
 
 KT_TEST(FileInitTest){
-    fileManager = new kronos::ComponentFileManager("File Manager", "C:");
+    fileManager = new ComponentFileManager("File Manager", "C:");
     KsResult initResult = fileManager->Init();
 
     KT_ASSERT(initResult == KS_SUCCESS, "UNABLE TO INITIALIZE FILE MANAGER");
@@ -13,7 +15,7 @@ KT_TEST(FileInitTest){
 }
 
 KT_TEST(FileReadWriteTest){
-    kronos::File* file = fileManager->Open("/test.txt",KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE);
+    File* file = fileManager->Open("/test.txt",KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE);
     KT_ASSERT(file);
     const char str[10] = "Read test";
     char buffer[100];
@@ -34,7 +36,7 @@ KT_TEST(FileReadWriteTest){
 }
 
 KT_TEST(FileRenameTest){
-    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+    File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
 
     KT_ASSERT(file);
     KT_ASSERT(file->Rename("newtest", "/"));
@@ -45,7 +47,7 @@ KT_TEST(FileRenameTest){
 }
 
 KT_TEST(FileMoveRenameTest){
-    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+    File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
 
     KT_ASSERT(file);
     KT_ASSERT(file->Rename("newtest.txt", "/newdir/")); // TODO - Look into implementation of Rename()
@@ -56,7 +58,7 @@ KT_TEST(FileMoveRenameTest){
 }
 
 KT_TEST(FileStressTest){
-    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+    File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
     KT_ASSERT(file);
 
     file->Close();
@@ -65,7 +67,7 @@ KT_TEST(FileStressTest){
 }
 
 KT_TEST(FileRemovalTest){
-    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+    File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
     KT_ASSERT(file);
     // TODO - Call file.Remove();
     file = nullptr;

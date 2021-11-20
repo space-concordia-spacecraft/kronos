@@ -132,6 +132,13 @@ namespace kronos {
             m_Size--;
         }
 
+        void Reserve(size_t elementCount) {
+            if(elementCount <= m_Capacity)
+                return;
+            Expand(elementCount);
+        }
+
+
         int Find(T element) {
             int elementIndex = -1;
             for (size_t i = 0; i < m_Size; i++) {
@@ -161,6 +168,10 @@ namespace kronos {
 
         T& Get(size_t index) const {
             return m_Elements[index];
+        }
+
+        T* Ptr() const {
+           return m_Elements;
         }
 
     private:
