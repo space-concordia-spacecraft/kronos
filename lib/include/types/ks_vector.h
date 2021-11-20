@@ -147,11 +147,11 @@ namespace kronos {
             m_Size = 0;
         }
 
-        VectorIterator<T> begin() override {
+        VectorIterator<T> begin() const override {
             return VectorIterator<T>(this, 0);
         }
 
-        VectorIterator<T> end() override {
+        VectorIterator<T> end() const override {
             return VectorIterator<T>(this, m_Size);
         }
 

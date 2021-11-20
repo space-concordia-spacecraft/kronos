@@ -14,7 +14,6 @@ namespace kronos {
             case KS_EVENT_CODE_HEALTH_RESPONSE:
                 auto* component = reinterpret_cast<ComponentActive*>(message.data);
                 HandleComponentResponse(component);
-                delete component;
                 break;
         }
         return KS_CMDRESULT_NORETURN;
