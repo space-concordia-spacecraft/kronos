@@ -12,7 +12,6 @@ namespace kronos{
         uint32_t magicNumber = 0x00690420;
         uint32_t numberOfHeaders = headers.Size();
 
-        //
         m_File->Write(&magicNumber,sizeof(magicNumber));
         m_File->Write(&version,sizeof(version));
         m_File->Write(&numberOfHeaders,sizeof(numberOfHeaders));

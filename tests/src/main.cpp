@@ -12,5 +12,6 @@ int main() {
 }
 
 KT_TESTS(
-    KT_TEST_GROUP(ApolloTests,KT_UNIT_TEST(ExportTest,"Description of the test."))
+    KT_TEST_GROUP(ApolloTests,KT_UNIT_TEST(ExportTest,"Attempts to write to a file using the ApolloFormat."))
+    KT_TEST_GROUP(ApolloTests,KT_UNIT_TEST(ImportTest, "Attempts to read the file that was created by the export,."))
 )

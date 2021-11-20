@@ -1,23 +1,19 @@
 #include "KronosTest.h"
 #include "ks_file.h"
 
-kronos::ComponentFileManager* fileManager;
-kronos::BusSync* openFileBus;
+extern kronos::ComponentFileManager* fileManager;
 
 KT_TEST(FileInitTest){
     fileManager = new kronos::ComponentFileManager("File Manager", "C:");
-    openFileBus = new kronos::BusSync(KS_EVENT_CODE_OPEN_FILE, "openFile");
-    openFileBus->AddReceivingComponent(fileManager);
-    fileManager->Init();
+    KsResult initResult = fileManager->Init();
+
+    KT_ASSERT(initResult == KS_SUCCESS, "UNABLE TO INITIALIZE FILE MANAGER");
 
     return true;
 }
 
 KT_TEST(FileReadWriteTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE;
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    kronos::File* file = fileManager->Open("/test.txt",KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE);
     KT_ASSERT(file);
     const char str[10] = "Read test";
     char buffer[100];
@@ -26,9 +22,7 @@ KT_TEST(FileReadWriteTest){
     delete file;
     file = nullptr;
 
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_READ_ONLY;
-    file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    file = fileManager->Open("/test.txt", KS_OPEN_MODE_READ_ONLY);
     KT_ASSERT(file);
 
     KT_ASSERT(file->Read(buffer, sizeof (buffer)) == KS_SUCCESS);
@@ -40,50 +34,42 @@ KT_TEST(FileReadWriteTest){
 }
 
 KT_TEST(FileRenameTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+
     KT_ASSERT(file);
     KT_ASSERT(file->Rename("newtest", "/"));
+
     file->Close();
 
     return true;
 }
 
 KT_TEST(FileMoveRenameTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
+
     KT_ASSERT(file);
     KT_ASSERT(file->Rename("newtest.txt", "/newdir/")); // TODO - Look into implementation of Rename()
+
     file->Close();
 
     return true;
 }
 
 KT_TEST(FileStressTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
     KT_ASSERT(file);
+
     file->Close();
 
     return true;
 }
 
 KT_TEST(FileRemovalTest){
-    kronos::FileOpenMessage message;
-    message.path = "/test.txt";
-    message.mode = KS_OPEN_MODE_WRITE_READ; //change readonly
-    kronos::File* file = openFileBus->PublishSync<kronos::FileOpenMessage, kronos::File>(&message);
+    kronos::File* file = fileManager->Open("/test.txt", KS_OPEN_MODE_WRITE_READ);
     KT_ASSERT(file);
     // TODO - Call file.Remove();
     file = nullptr;
     KT_ASSERT(file == nullptr);
-
 
     return true;
 }
