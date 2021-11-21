@@ -87,7 +87,6 @@ namespace kronos {
 
     KsResult ComponentCspDriver::Write() {
         /* Send ping to server, timeout 1000 mS, ping size 100 bytes */
-        int result = csp_ping(m_ServerAddress, 1000, 100, CSP_O_NONE);
         Framework::LogInfo("Ping address: %u, result %d [mS]");
 
         /* Send reboot request to server, the server has no actual implementation of csp_sys_reboot() and fails to reboot */

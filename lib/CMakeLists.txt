@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 set(CMAKE_CXX_STANDARD 14)
 
 project(Kronos)
+#add_subdirectory(extern/HDF5)
 
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
@@ -14,7 +15,6 @@ if(USE_UPLOADER)
     message("SAM_UPLOAD_TOOL: \t${SAM_UPLOAD_TOOL}")
 endif()
 message("")
-
 # Glob source files
 set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/event_groups.c"
@@ -142,6 +142,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_profiler.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_apollo_format.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
 
@@ -198,13 +199,16 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/include"
+        #"${CMAKE_CURRENT_SOURCE_DIR}/extern/HDF5"
 )
 
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
-
-target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
+target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS} )
+#target_include_directories(Kronos PUBLIC ${HDF5_INCLUDE_DIRS} )
 
 target_compile_definitions(Kronos PUBLIC CSP_FREERTOS)
+
+#target_link_libraries(Kronos PUBLIC ${HDF5_LIBRARIES})
