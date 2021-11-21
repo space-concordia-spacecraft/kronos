@@ -28,7 +28,6 @@ jobs:
       - name: Doxygen Action
         uses: mattnotmitt/doxygen-action@v1.3.1
         with:
-          additional-packages: font-fira-code
           doxyfile-path: "./docs/Doxyfile"
 
       - name: Deploy to GH Pages
