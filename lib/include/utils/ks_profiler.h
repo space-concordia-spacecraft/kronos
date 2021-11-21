@@ -1,8 +1,6 @@
 #pragma once
 
-#include "ks_string.h"
-#include "task.h"
-#include "ks_framework.h"
+#include "kronos.h"
 
 namespace kronos {
     /// ProfilingSession object that stores the name of the session
@@ -22,17 +20,12 @@ namespace kronos {
          * BeginSession begins a profiling session.
          * @param name - Name of the profiling session.
          */
-        void BeginSession(const String& name) {
-            m_CurrentSession = new ProfilingSession({name});
-        }
+        void BeginSession(const String& name);
 
         /**
          * EndSession deletes the current session.
          */
-        void EndSession() {
-            delete m_CurrentSession;
-            m_CurrentSession = nullptr;
-        }
+        void EndSession();
 
         /**
          * Log outputs the benchmarks results onto a file.
@@ -41,23 +34,13 @@ namespace kronos {
          * @param start - Start time for the benchmark.
          * @param end - End time for the benchmark.
          */
-        void Log(const String& functionName, const String& location, TickType_t start, TickType_t end) {
-            TaskHandle_t currentTask = xTaskGetCurrentTaskHandle();
-            TaskStatus_t currentTaskDetails;
-
-            vTaskGetInfo(currentTask, &currentTaskDetails, pdFALSE, eRunning);
-
-            Framework::LogDebug(functionName + " -> " + location);
-        }
+        void Log(const String& functionName, const String& location, TickType_t start, TickType_t end);
 
         /**
          * Getter function to get the instance of Profiler.
          * @return
          */
-        static Profiler& Get() {
-            static Profiler* instance  = new Profiler();
-            return *instance;
-        }
+        static Profiler& Get();
 
     };
 
@@ -78,18 +61,12 @@ namespace kronos {
          * @param name - Name of the function being benchmarked.
          * @param location - Path location as well as line number for the function being benchmarked.
          */
-        ProfilerTimer(const String & name, const String & path):m_Name(name), m_Path(path) {
-            m_Start = xTaskGetTickCount() * portTICK_RATE_MS;
-        }
+        ProfilerTimer(const String & name, const String & path);
 
         /**
          * ProfileTimer destructor stops the timer and logs the info.
          */
-        ~ProfilerTimer() {
-            TickType_t endTime = xTaskGetTickCount() * portTICK_RATE_MS;
-
-            Profiler::Get().Log(m_Name, m_Path, m_Start, endTime);
-        }
+        ~ProfilerTimer();
     };
 }
 

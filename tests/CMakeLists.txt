@@ -5,7 +5,8 @@ set(CMAKE_CXX_STANDARD 14)
 project(Kronos_Tests)
 
 set(KRONOS_TESTS_SRC "${KRONOS_EXTRA_SRC}"
-        "src/unit/FileTest.cpp"
+        "src/unit/ApolloTests.cpp"
+        "src/unit/FileTests.cpp"
         "src/unit/HashMapTests.cpp"
         "src/unit/QueueTests.cpp"
         "src/unit/StringTests.cpp"

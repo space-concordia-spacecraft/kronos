@@ -7,9 +7,9 @@ namespace ktest {
 
     void TestGroup::RunUnitTests() {
         for (int i = 0; i < m_numUnitTests; i++) {
-            printf("    Running test '%s' ...\n", m_unitTests[i].name);
+            printf("Running test '%s' ...\n", m_unitTests[i].name);
             bool result = m_unitTests[i].testFunction();
-            printf("    Test %s\n", result ? "SUCCEEDED" : "FAILED");
+            printf("Test %s\n", result ? "SUCCEEDED" : "FAILED");
             printf("\n");
         }
     }
@@ -18,7 +18,6 @@ namespace ktest {
         for (int i = 0; i < s_numTestGroups; i++) {
             printf("======== %s ========\n\n", s_testGroups[i].GetName());
             s_testGroups[i].RunUnitTests();
-            printf("=============================\n");
         }
     }
 

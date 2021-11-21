@@ -2,6 +2,8 @@
 
 #include "ks_component_passive.h"
 
+#include "ks_framework.h"
+
 #include <csp/csp.h>
 #include <csp/arch/csp_thread.h>
 #include <csp/drivers/usart.h>
@@ -26,5 +28,7 @@ namespace kronos {
         uint8_t m_ServerAddress = 255;
         csp_socket_t * m_Socket;
         uint16_t m_ServerReceived = 0;
+        uint16_t m_Count = 0;
+        bool m_Initialized = false;
     };
 }

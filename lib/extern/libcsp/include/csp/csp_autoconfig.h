@@ -5,9 +5,9 @@
 
 #define GIT_REV "unknown"
 #define CSP_FREERTOS 1
-/* #undef CSP_POSIX */
-/* #undef CSP_WINDOWS */
-/* #undef CSP_MACOSX */
+#undef CSP_POSIX
+#undef CSP_WINDOWS
+#undef CSP_MACOSX
 #define CSP_DEBUG 1
 #define CSP_VERBOSE 1
 /* #undef CSP_USE_RDP */

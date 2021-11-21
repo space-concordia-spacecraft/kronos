@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstring>
+#include <initializer_list>
 #include "asf.h"
 
 #include "ks_iterable.h"
@@ -73,15 +74,16 @@ namespace kronos {
             Expand(capacity);
         }
 
-        Vector(T elements...)
+        Vector(std::initializer_list<T> elements)
             : m_Capacity(0), m_Size(0) {
-            Expand(m_Size);
-            T tempElements[] = { elements };
-            size_t size = sizeof(tempElements) / sizeof(T);
-            for (size_t i = 0; i < size; i++) {
-                m_Elements[i] = tempElements[i];
+            m_Size = elements.size();
+            m_Capacity = m_Size;
+            m_Elements = new T[m_Size];
+            size_t i = 0;
+            for (auto element : elements) {
+                m_Elements[i] = element;
+                i++;
             }
-            m_Size = size;
         }
 
         ~Vector() {
@@ -132,6 +134,13 @@ namespace kronos {
             m_Size--;
         }
 
+        void Reserve(size_t elementCount) {
+            if(elementCount <= m_Capacity)
+                return;
+            Expand(elementCount);
+        }
+
+
         int Find(T element) {
             int elementIndex = -1;
             for (size_t i = 0; i < m_Size; i++) {
@@ -147,11 +156,11 @@ namespace kronos {
             m_Size = 0;
         }
 
-        VectorIterator<T> begin() override {
+        VectorIterator<T> begin() const override {
             return VectorIterator<T>(this, 0);
         }
 
-        VectorIterator<T> end() override {
+        VectorIterator<T> end() const override {
             return VectorIterator<T>(this, m_Size);
         }
 
@@ -161,6 +170,10 @@ namespace kronos {
 
         T& Get(size_t index) const {
             return m_Elements[index];
+        }
+
+        T* Ptr() const {
+           return m_Elements;
         }
 
     private:

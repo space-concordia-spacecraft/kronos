@@ -5,9 +5,13 @@ namespace kronos {
     ComponentPassive::ComponentPassive(const String& name)
         : ComponentBase(name) {}
 
-    KsResult ComponentPassive::Init() {}
+    KsResult ComponentPassive::Init() {
+        return KS_SUCCESS;
+    }
 
-    KsResult ComponentPassive::Destroy() {}
+    KsResult ComponentPassive::Destroy() {
+        return KS_SUCCESS;
+    }
 
     KsCmdResult ComponentPassive::ReceiveEvent(const EventMessage& message) {
         return ProcessEvent(message);
