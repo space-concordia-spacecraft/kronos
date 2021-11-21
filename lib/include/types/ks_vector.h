@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstring>
+#include <initializer_list>
 #include "asf.h"
 
 #include "ks_iterable.h"
@@ -73,15 +74,16 @@ namespace kronos {
             Expand(capacity);
         }
 
-        Vector(T elements...)
+        Vector(std::initializer_list<T> elements)
             : m_Capacity(0), m_Size(0) {
-            Expand(m_Size);
-            T tempElements[] = { elements };
-            size_t size = sizeof(tempElements) / sizeof(T);
-            for (size_t i = 0; i < size; i++) {
-                m_Elements[i] = tempElements[i];
+            m_Size = elements.size();
+            m_Capacity = m_Size;
+            m_Elements = new T[m_Size];
+            size_t i = 0;
+            for (auto element : elements) {
+                m_Elements[i] = element;
+                i++;
             }
-            m_Size = size;
         }
 
         ~Vector() {

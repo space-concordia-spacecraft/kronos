@@ -23,7 +23,11 @@ namespace kronos {
         }
 
         ~String() {
+            if (m_String == nullptr)
+                return;
+
             delete[] m_String;
+            m_String = nullptr;
         }
 
         const char* Ptr() const { return m_String; }

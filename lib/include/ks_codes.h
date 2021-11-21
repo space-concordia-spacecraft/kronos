@@ -38,5 +38,6 @@ typedef uint16_t KsOpcode;
 #define KS_ERROR_FILE_UNABLE_TO_MOVE        ((KsResult) 12)
 #define KS_ERROR_FILE_UNABLE_TO_GET_STATUS  ((KsResult) 13)
 #define KS_ERROR_FILE_UNABLE_TO_INIT        ((KsResult) 14)
-#define KS_ERROR_APOLLO_HEADER              ((KsResult) 15)
-#define KS_ERROR_APOLLO_VERSION             ((KsResult) 16)
+#define KS_ERROR_FILE_SYNC_FAILED           ((KsResult) 15)
+#define KS_ERROR_APOLLO_HEADER              ((KsResult) 16)
+#define KS_ERROR_APOLLO_VERSION             ((KsResult) 17)
