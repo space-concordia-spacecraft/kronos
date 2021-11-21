@@ -1,0 +1,108 @@
+\hypertarget{classkronos_1_1File}{}\doxysection{kronos\+::File Class Reference}
+\label{classkronos_1_1File}\index{kronos::File@{kronos::File}}
+
+
+{\ttfamily \#include $<$ks\+\_\+file.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1File_af1c2afc4afc05a1b653542952907bfae}{Close}} ()
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1File_a51a83423d9602bb0b3a5f97d0c76df87}{Read}} (void $\ast$buffer, uint32\+\_\+t length)
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1File_a8187e89c02d90d3ece23911910bc5506}{Write}} (const void $\ast$buffer, uint32\+\_\+t length)
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1File_a288d539c6b3d5205b474ec3368aa50af}{Rename}} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&new\+Name, const \mbox{\hyperlink{classkronos_1_1String}{String}} \&new\+Path)
+\item 
+\mbox{\Hypertarget{classkronos_1_1File_aa6214ec9b34ed4624d634000e63f7924}\label{classkronos_1_1File_aa6214ec9b34ed4624d634000e63f7924}} 
+Ks\+Result {\bfseries Rename} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&new\+Name)
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1File_a21d11b93b3f7ff1cd70bf037edcda487}{Get\+Status}} (REDSTAT $\ast$file\+Info)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1File_a9b1fbdb3274e4fe6f3681248924bc70d}\label{classkronos_1_1File_a9b1fbdb3274e4fe6f3681248924bc70d}} 
+class {\bfseries Component\+File\+Manager}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{classkronos_1_1File}{File}} class uses the Reliance Edge API to implement write and read capabilities. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1File_af1c2afc4afc05a1b653542952907bfae}\label{classkronos_1_1File_af1c2afc4afc05a1b653542952907bfae}} 
+\index{kronos::File@{kronos::File}!Close@{Close}}
+\index{Close@{Close}!kronos::File@{kronos::File}}
+\doxysubsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+File\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classkronos_1_1File_af1c2afc4afc05a1b653542952907bfae}{Close()}} closes the file descriptor. \begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if the file was properly closed, otherwise it will return an error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classkronos_1_1File_a21d11b93b3f7ff1cd70bf037edcda487}\label{classkronos_1_1File_a21d11b93b3f7ff1cd70bf037edcda487}} 
+\index{kronos::File@{kronos::File}!GetStatus@{GetStatus}}
+\index{GetStatus@{GetStatus}!kronos::File@{kronos::File}}
+\doxysubsubsection{\texorpdfstring{GetStatus()}{GetStatus()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+File\+::\+Get\+Status (\begin{DoxyParamCaption}\item[{REDSTAT $\ast$}]{file\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classkronos_1_1File_a21d11b93b3f7ff1cd70bf037edcda487}{Get\+Status()}} allows the user to obtain information about the file. 
+\begin{DoxyParams}{Parameters}
+{\em file\+Info} & -\/ REDSTAT struct containing information about the file. Read Reliance Edge documentation for more info. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if it was able to fetch the information, otherwise it will throw an error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classkronos_1_1File_a51a83423d9602bb0b3a5f97d0c76df87}\label{classkronos_1_1File_a51a83423d9602bb0b3a5f97d0c76df87}} 
+\index{kronos::File@{kronos::File}!Read@{Read}}
+\index{Read@{Read}!kronos::File@{kronos::File}}
+\doxysubsubsection{\texorpdfstring{Read()}{Read()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+File\+::\+Read (\begin{DoxyParamCaption}\item[{void $\ast$}]{buffer,  }\item[{uint32\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classkronos_1_1File_a51a83423d9602bb0b3a5f97d0c76df87}{Read()}} uses the file descriptor to read from a file. 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & -\/ the buffer you want to write to. \\
+\hline
+{\em length} & -\/ the length of the buffer being used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there were no errors, otherwise it will return an error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classkronos_1_1File_a288d539c6b3d5205b474ec3368aa50af}\label{classkronos_1_1File_a288d539c6b3d5205b474ec3368aa50af}} 
+\index{kronos::File@{kronos::File}!Rename@{Rename}}
+\index{Rename@{Rename}!kronos::File@{kronos::File}}
+\doxysubsubsection{\texorpdfstring{Rename()}{Rename()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+File\+::\+Rename (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{new\+Name,  }\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{new\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classkronos_1_1File_a288d539c6b3d5205b474ec3368aa50af}{Rename()}} takes care of renaming the file. 
+\begin{DoxyParams}{Parameters}
+{\em new\+Name} & -\/ The new name of the file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if it was able to rename the file, otherwise it will return an error. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classkronos_1_1File_a8187e89c02d90d3ece23911910bc5506}\label{classkronos_1_1File_a8187e89c02d90d3ece23911910bc5506}} 
+\index{kronos::File@{kronos::File}!Write@{Write}}
+\index{Write@{Write}!kronos::File@{kronos::File}}
+\doxysubsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+File\+::\+Write (\begin{DoxyParamCaption}\item[{const void $\ast$}]{buffer,  }\item[{uint32\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classkronos_1_1File_a8187e89c02d90d3ece23911910bc5506}{Write()}} uses the file descriptor to write to a file. 
+\begin{DoxyParams}{Parameters}
+{\em buffer} & -\/ the buffer you want to write into a file. \\
+\hline
+{\em length} & -\/ the length of the buffer being used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there were no errors, otherwise it will return an error. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/types/ks\+\_\+file.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,133 @@
+\hypertarget{classkronos_1_1ComponentQueued}{}\doxysection{kronos\+::Component\+Queued Class Reference}
+\label{classkronos_1_1ComponentQueued}\index{kronos::ComponentQueued@{kronos::ComponentQueued}}
+
+
+A class that implements the base for all queued components.  
+
+
+
+
+{\ttfamily \#include $<$ks\+\_\+component\+\_\+queued.\+h$>$}
+
+
+
+Inheritance diagram for kronos\+::Component\+Queued\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkronos_1_1ComponentQueued__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Component\+Queued\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkronos_1_1ComponentQueued__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classkronos_1_1ComponentQueued_a9e4547ff3cbded174916c7e3b8c7ca9c}{Component\+Queued}} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classkronos_1_1ComponentQueued}{Component\+Queued}} constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_aa7e7d870250cfcb11e35f840bc435cf7}\label{classkronos_1_1ComponentQueued_aa7e7d870250cfcb11e35f840bc435cf7}} 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentQueued_aa7e7d870250cfcb11e35f840bc435cf7}{Process\+Event\+Queue}} ()
+\begin{DoxyCompactList}\small\item\em Pops all events from the queue and processes them. \end{DoxyCompactList}\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentQueued_a2d8ab1fde00b71b0652427fbd52583df}{Init}} () override
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentQueued_ac6389c13ed8e0d5b255a4fc797e0cb58}{Destroy}} () override
+\item 
+Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentQueued_abf2be15c654df730ff741ccdc57c38bc}{Receive\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_a7faf6f3605a14e1dbbfd4d34c8594661}\label{classkronos_1_1ComponentQueued_a7faf6f3605a14e1dbbfd4d34c8594661}} 
+\mbox{\hyperlink{classkronos_1_1Queue}{kronos\+::\+Queue}}$<$ \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} $>$ \mbox{\hyperlink{classkronos_1_1ComponentQueued_a7faf6f3605a14e1dbbfd4d34c8594661}{m\+\_\+\+Queue}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classkronos_1_1Queue}{Queue}} that stores events being sent to the component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements the base for all queued components. 
+
+This class is used as the base block for all queued components 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_a9e4547ff3cbded174916c7e3b8c7ca9c}\label{classkronos_1_1ComponentQueued_a9e4547ff3cbded174916c7e3b8c7ca9c}} 
+\index{kronos::ComponentQueued@{kronos::ComponentQueued}!ComponentQueued@{ComponentQueued}}
+\index{ComponentQueued@{ComponentQueued}!kronos::ComponentQueued@{kronos::ComponentQueued}}
+\doxysubsubsection{\texorpdfstring{ComponentQueued()}{ComponentQueued()}}
+{\footnotesize\ttfamily kronos\+::\+Component\+Queued\+::\+Component\+Queued (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\mbox{\hyperlink{classkronos_1_1ComponentQueued}{Component\+Queued}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the component \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_ac6389c13ed8e0d5b255a4fc797e0cb58}\label{classkronos_1_1ComponentQueued_ac6389c13ed8e0d5b255a4fc797e0cb58}} 
+\index{kronos::ComponentQueued@{kronos::ComponentQueued}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!kronos::ComponentQueued@{kronos::ComponentQueued}}
+\doxysubsubsection{\texorpdfstring{Destroy()}{Destroy()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+Component\+Queued\+::\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Reimplemented from \mbox{\hyperlink{classkronos_1_1ComponentPassive_a2b4bf059bb5e16256bedbc8f1fb3be47}{kronos\+::\+Component\+Passive}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classkronos_1_1ComponentLogger_a94784e3a688c1d440e3af2caad2b45dc}{kronos\+::\+Component\+Logger}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_a2d8ab1fde00b71b0652427fbd52583df}\label{classkronos_1_1ComponentQueued_a2d8ab1fde00b71b0652427fbd52583df}} 
+\index{kronos::ComponentQueued@{kronos::ComponentQueued}!Init@{Init}}
+\index{Init@{Init}!kronos::ComponentQueued@{kronos::ComponentQueued}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+Component\+Queued\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Reimplemented from \mbox{\hyperlink{classkronos_1_1ComponentPassive_a94f7d888a0e4dc20635433e28eabbaa1}{kronos\+::\+Component\+Passive}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classkronos_1_1ComponentLogger_af945ca6a83dd08c8d58e129731d3d1fa}{kronos\+::\+Component\+Logger}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentQueued_abf2be15c654df730ff741ccdc57c38bc}\label{classkronos_1_1ComponentQueued_abf2be15c654df730ff741ccdc57c38bc}} 
+\index{kronos::ComponentQueued@{kronos::ComponentQueued}!ReceiveEvent@{ReceiveEvent}}
+\index{ReceiveEvent@{ReceiveEvent}!kronos::ComponentQueued@{kronos::ComponentQueued}}
+\doxysubsubsection{\texorpdfstring{ReceiveEvent()}{ReceiveEvent()}}
+{\footnotesize\ttfamily Ks\+Cmd\+Result kronos\+::\+Component\+Queued\+::\+Receive\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Reimplemented from \mbox{\hyperlink{classkronos_1_1ComponentPassive_a3eae00a8ecb0c2ded247d8ef4a5ac327}{kronos\+::\+Component\+Passive}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/ks\+\_\+component\+\_\+queued.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/components/ks\+\_\+component\+\_\+queued.\+cpp\end{DoxyCompactItemize}

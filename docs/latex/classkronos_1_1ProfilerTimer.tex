@@ -1,0 +1,49 @@
+\hypertarget{classkronos_1_1ProfilerTimer}{}\doxysection{kronos\+::Profiler\+Timer Class Reference}
+\label{classkronos_1_1ProfilerTimer}\index{kronos::ProfilerTimer@{kronos::ProfilerTimer}}
+
+
+Class to create a timer for the benchmark.  
+
+
+
+
+{\ttfamily \#include $<$ks\+\_\+profiler.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classkronos_1_1ProfilerTimer_a79d4decae436c900611e8c4e8f1d9ef8}{Profiler\+Timer}} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name, const \mbox{\hyperlink{classkronos_1_1String}{String}} \&path)
+\item 
+\mbox{\hyperlink{classkronos_1_1ProfilerTimer_a83a87fbc33d3e143efac9af9d995932b}{$\sim$\+Profiler\+Timer}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class to create a timer for the benchmark. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classkronos_1_1ProfilerTimer_a79d4decae436c900611e8c4e8f1d9ef8}\label{classkronos_1_1ProfilerTimer_a79d4decae436c900611e8c4e8f1d9ef8}} 
+\index{kronos::ProfilerTimer@{kronos::ProfilerTimer}!ProfilerTimer@{ProfilerTimer}}
+\index{ProfilerTimer@{ProfilerTimer}!kronos::ProfilerTimer@{kronos::ProfilerTimer}}
+\doxysubsubsection{\texorpdfstring{ProfilerTimer()}{ProfilerTimer()}}
+{\footnotesize\ttfamily kronos\+::\+Profiler\+Timer\+::\+Profiler\+Timer (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{name,  }\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{path }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{classkronos_1_1ProfilerTimer}{Profiler\+Timer}} starts a new timer. 
+\begin{DoxyParams}{Parameters}
+{\em name} & -\/ Name of the function being benchmarked. \\
+\hline
+{\em location} & -\/ Path location as well as line number for the function being benchmarked. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classkronos_1_1ProfilerTimer_a83a87fbc33d3e143efac9af9d995932b}\label{classkronos_1_1ProfilerTimer_a83a87fbc33d3e143efac9af9d995932b}} 
+\index{kronos::ProfilerTimer@{kronos::ProfilerTimer}!````~ProfilerTimer@{$\sim$ProfilerTimer}}
+\index{````~ProfilerTimer@{$\sim$ProfilerTimer}!kronos::ProfilerTimer@{kronos::ProfilerTimer}}
+\doxysubsubsection{\texorpdfstring{$\sim$ProfilerTimer()}{~ProfilerTimer()}}
+{\footnotesize\ttfamily kronos\+::\+Profiler\+Timer\+::$\sim$\+Profiler\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Profile\+Timer destructor stops the timer and logs the info. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/utils/ks\+\_\+profiler.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/utils/ks\+\_\+profiler.\+cpp\end{DoxyCompactItemize}

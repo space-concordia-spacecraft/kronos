@@ -1,0 +1,175 @@
+\hypertarget{classkronos_1_1ComponentBase}{}\doxysection{kronos\+::Component\+Base Class Reference}
+\label{classkronos_1_1ComponentBase}\index{kronos::ComponentBase@{kronos::ComponentBase}}
+
+
+A class that implements the base of all components.  
+
+
+
+
+{\ttfamily \#include $<$ks\+\_\+component\+\_\+base.\+h$>$}
+
+
+
+Inheritance diagram for kronos\+::Component\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkronos_1_1ComponentBase__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Component\+Base\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classkronos_1_1ComponentBase__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classkronos_1_1ComponentBase_ada5fb9cbc814644807459be08eb34a6f}{Component\+Base}} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classkronos_1_1ComponentBase}{Component\+Base}} constructor. \end{DoxyCompactList}\item 
+virtual Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentBase_a889ced2025cf28737b1647a7149ae371}{Init}} ()=0
+\begin{DoxyCompactList}\small\item\em initializes the component \end{DoxyCompactList}\item 
+virtual Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentBase_aa785751164f6b8bad1a52a42d5c1a806}{Destroy}} ()=0
+\begin{DoxyCompactList}\small\item\em destroys the component \end{DoxyCompactList}\item 
+virtual Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentBase_afb1ba4be396b08fe261bca8313e16cef}{Receive\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message)=0
+\begin{DoxyCompactList}\small\item\em Receives the event from the publishing bus. \end{DoxyCompactList}\item 
+virtual Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentBase_a7461a9c57488246a9360c6fbdfcf5466}{Process\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message)=0
+\begin{DoxyCompactList}\small\item\em Processes the event message. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classkronos_1_1String}{String}} \mbox{\hyperlink{classkronos_1_1ComponentBase_ae18b332be39f2e2f5d865ed4252b9406}{Get\+Name}} ()
+\begin{DoxyCompactList}\small\item\em gets the name of the component \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_a3c972649d98c9b42eec8d1484c4e9f5a}\label{classkronos_1_1ComponentBase_a3c972649d98c9b42eec8d1484c4e9f5a}} 
+const \mbox{\hyperlink{classkronos_1_1String}{String}} \mbox{\hyperlink{classkronos_1_1ComponentBase_a3c972649d98c9b42eec8d1484c4e9f5a}{m\+\_\+\+Name}}
+\begin{DoxyCompactList}\small\item\em The name of the component. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class that implements the base of all components. 
+
+This class is used as the basic block for all components 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_ada5fb9cbc814644807459be08eb34a6f}\label{classkronos_1_1ComponentBase_ada5fb9cbc814644807459be08eb34a6f}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!ComponentBase@{ComponentBase}}
+\index{ComponentBase@{ComponentBase}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{ComponentBase()}{ComponentBase()}}
+{\footnotesize\ttfamily kronos\+::\+Component\+Base\+::\+Component\+Base (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\mbox{\hyperlink{classkronos_1_1ComponentBase}{Component\+Base}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the component \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_aa785751164f6b8bad1a52a42d5c1a806}\label{classkronos_1_1ComponentBase_aa785751164f6b8bad1a52a42d5c1a806}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{Destroy()}{Destroy()}}
+{\footnotesize\ttfamily virtual Ks\+Result kronos\+::\+Component\+Base\+::\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+destroys the component 
+
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there was no errors 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classkronos_1_1ComponentTimer_a1b1ad0c77e7ea0ee2cf8e020f5c36f79}{kronos\+::\+Component\+Timer}}, \mbox{\hyperlink{classkronos_1_1ComponentLogger_a94784e3a688c1d440e3af2caad2b45dc}{kronos\+::\+Component\+Logger}}, \mbox{\hyperlink{classkronos_1_1ComponentQueued_ac6389c13ed8e0d5b255a4fc797e0cb58}{kronos\+::\+Component\+Queued}}, \mbox{\hyperlink{classkronos_1_1ComponentPassive_a2b4bf059bb5e16256bedbc8f1fb3be47}{kronos\+::\+Component\+Passive}}, and \mbox{\hyperlink{classkronos_1_1ComponentActive_a31e3bf318c19a056c30ce57832993f4e}{kronos\+::\+Component\+Active}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_ae18b332be39f2e2f5d865ed4252b9406}\label{classkronos_1_1ComponentBase_ae18b332be39f2e2f5d865ed4252b9406}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!GetName@{GetName}}
+\index{GetName@{GetName}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{GetName()}{GetName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classkronos_1_1String}{String}} kronos\+::\+Component\+Base\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+gets the name of the component 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_a889ced2025cf28737b1647a7149ae371}\label{classkronos_1_1ComponentBase_a889ced2025cf28737b1647a7149ae371}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!Init@{Init}}
+\index{Init@{Init}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily virtual Ks\+Result kronos\+::\+Component\+Base\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+initializes the component 
+
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there was no errors 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classkronos_1_1ComponentTimer_ac16d3516522f5b6c33ba59dd145d0e26}{kronos\+::\+Component\+Timer}}, \mbox{\hyperlink{classkronos_1_1ComponentParameterDatabase_a783f16cc5c8f10037e780d8cfb5fb2e0}{kronos\+::\+Component\+Parameter\+Database}}, \mbox{\hyperlink{classkronos_1_1ComponentLogger_af945ca6a83dd08c8d58e129731d3d1fa}{kronos\+::\+Component\+Logger}}, \mbox{\hyperlink{classkronos_1_1ComponentFileManager_a258b22112159223e35a063013e1d4418}{kronos\+::\+Component\+File\+Manager}}, \mbox{\hyperlink{classkronos_1_1ComponentQueued_a2d8ab1fde00b71b0652427fbd52583df}{kronos\+::\+Component\+Queued}}, \mbox{\hyperlink{classkronos_1_1ComponentPassive_a94f7d888a0e4dc20635433e28eabbaa1}{kronos\+::\+Component\+Passive}}, \mbox{\hyperlink{classkronos_1_1ComponentActive_a288fac2fa0053080faf02de2dc8bc5f8}{kronos\+::\+Component\+Active}}, and \mbox{\hyperlink{classkronos_1_1ComponentCspDriver_a639a0f065bf5c6da3f0680f0407d2d98}{kronos\+::\+Component\+Csp\+Driver}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_a7461a9c57488246a9360c6fbdfcf5466}\label{classkronos_1_1ComponentBase_a7461a9c57488246a9360c6fbdfcf5466}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily virtual Ks\+Cmd\+Result kronos\+::\+Component\+Base\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Processes the event message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & the event message containing the information that was published to the bus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there are no errors 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classkronos_1_1ComponentTimer_aea2235dcf9b33258cbca228003fbf223}{kronos\+::\+Component\+Timer}}, \mbox{\hyperlink{classkronos_1_1ComponentTelemetryLogger_a7879f727f422c733217dc275dc35d4cb}{kronos\+::\+Component\+Telemetry\+Logger}}, \mbox{\hyperlink{classkronos_1_1ComponentRateGroup_ac343b7f9cc65e27aa4c09747c122c5d3}{kronos\+::\+Component\+Rate\+Group}}, \mbox{\hyperlink{classkronos_1_1ComponentParameterDatabase_aa55debfde524c391c903121576fbe733}{kronos\+::\+Component\+Parameter\+Database}}, \mbox{\hyperlink{classkronos_1_1ComponentLogger_a579fcac4d26bf92ef9a10d944e944bfe}{kronos\+::\+Component\+Logger}}, \mbox{\hyperlink{classkronos_1_1ComponentHealthMonitor_ae7137c2fd86e67c2535feb04896e2fbb}{kronos\+::\+Component\+Health\+Monitor}}, \mbox{\hyperlink{classkronos_1_1ComponentFileManager_ab9f1d3a61b0e24f6182bae90303c5e01}{kronos\+::\+Component\+File\+Manager}}, \mbox{\hyperlink{classkronos_1_1ComponentCommandDispatcher_a2e122ffa04352fcbda9d0dcfa840d094}{kronos\+::\+Component\+Command\+Dispatcher}}, \mbox{\hyperlink{classkronos_1_1ComponentActive_a2efb2c3d14e594cbdf92364313357c86}{kronos\+::\+Component\+Active}}, \mbox{\hyperlink{classkronos_1_1ComponentUartDriver_ac0c63e8ed106abda7cd66c4b3655941c}{kronos\+::\+Component\+Uart\+Driver}}, \mbox{\hyperlink{classkronos_1_1ComponentCspDriver_a12ea8884173e0e4c4bb7dc0403437c2c}{kronos\+::\+Component\+Csp\+Driver}}, and \mbox{\hyperlink{classkronos_1_1ComponentCanDriver_a905f7e9ed2599418197cef030c501b9f}{kronos\+::\+Component\+Can\+Driver}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentBase_afb1ba4be396b08fe261bca8313e16cef}\label{classkronos_1_1ComponentBase_afb1ba4be396b08fe261bca8313e16cef}} 
+\index{kronos::ComponentBase@{kronos::ComponentBase}!ReceiveEvent@{ReceiveEvent}}
+\index{ReceiveEvent@{ReceiveEvent}!kronos::ComponentBase@{kronos::ComponentBase}}
+\doxysubsubsection{\texorpdfstring{ReceiveEvent()}{ReceiveEvent()}}
+{\footnotesize\ttfamily virtual Ks\+Cmd\+Result kronos\+::\+Component\+Base\+::\+Receive\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Receives the event from the publishing bus. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & the event message containing the information being published on the bus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there are no errors. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classkronos_1_1ComponentQueued_abf2be15c654df730ff741ccdc57c38bc}{kronos\+::\+Component\+Queued}}, and \mbox{\hyperlink{classkronos_1_1ComponentPassive_a3eae00a8ecb0c2ded247d8ef4a5ac327}{kronos\+::\+Component\+Passive}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/ks\+\_\+component\+\_\+base.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/components/ks\+\_\+component\+\_\+base.\+cpp\end{DoxyCompactItemize}

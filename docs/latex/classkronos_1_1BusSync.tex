@@ -1,0 +1,46 @@
+\hypertarget{classkronos_1_1BusSync}{}\doxysection{kronos\+::Bus\+Sync Class Reference}
+\label{classkronos_1_1BusSync}\index{kronos::BusSync@{kronos::BusSync}}
+
+
+Inheritance diagram for kronos\+::Bus\+Sync\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classkronos_1_1BusSync__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Bus\+Sync\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classkronos_1_1BusSync__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1BusSync_a28a1aa8f4ad677a10b946e854a9cc1d4}\label{classkronos_1_1BusSync_a28a1aa8f4ad677a10b946e854a9cc1d4}} 
+{\bfseries Bus\+Sync} (Ks\+Event\+Code opcode, const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name)
+\item 
+\mbox{\Hypertarget{classkronos_1_1BusSync_a6eccf272550e562e54e50030ba03259e}\label{classkronos_1_1BusSync_a6eccf272550e562e54e50030ba03259e}} 
+void {\bfseries Add\+Receiving\+Component} (\mbox{\hyperlink{classkronos_1_1ComponentBase}{Component\+Base}} $\ast$component) override
+\item 
+\mbox{\Hypertarget{classkronos_1_1BusSync_a665492aede0c911988f29992544315be}\label{classkronos_1_1BusSync_a665492aede0c911988f29992544315be}} 
+void {\bfseries Publish} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message) const override
+\item 
+\mbox{\Hypertarget{classkronos_1_1BusSync_a8c3661ca9a48c50c5e549fa7d8730217}\label{classkronos_1_1BusSync_a8c3661ca9a48c50c5e549fa7d8730217}} 
+{\footnotesize template$<$typename R $>$ }\\R $\ast$ {\bfseries Publish\+Sync} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message)
+\item 
+\mbox{\Hypertarget{classkronos_1_1BusSync_ad714fadebc825bdd71cc7abbec7d4902}\label{classkronos_1_1BusSync_ad714fadebc825bdd71cc7abbec7d4902}} 
+{\footnotesize template$<$typename T , typename R $>$ }\\R $\ast$ {\bfseries Publish\+Sync} (T $\ast$data=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/ks\+\_\+bus.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/ks\+\_\+bus.\+cpp\end{DoxyCompactItemize}

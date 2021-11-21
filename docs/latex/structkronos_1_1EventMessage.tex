@@ -1,0 +1,46 @@
+\hypertarget{structkronos_1_1EventMessage}{}\doxysection{kronos\+::Event\+Message Struct Reference}
+\label{structkronos_1_1EventMessage}\index{kronos::EventMessage@{kronos::EventMessage}}
+
+
+A struct that holds information about an event message.  
+
+
+
+
+{\ttfamily \#include $<$ks\+\_\+component\+\_\+base.\+h$>$}
+
+
+
+Collaboration diagram for kronos\+::Event\+Message\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{structkronos_1_1EventMessage__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structkronos_1_1EventMessage_a6567449e03a831faabb5b49771bb5ce9}\label{structkronos_1_1EventMessage_a6567449e03a831faabb5b49771bb5ce9}} 
+Ks\+Event\+Code \mbox{\hyperlink{structkronos_1_1EventMessage_a6567449e03a831faabb5b49771bb5ce9}{event\+Code}} = KS\+\_\+\+EVENT\+\_\+\+CODE\+\_\+\+INVALID
+\begin{DoxyCompactList}\small\item\em Identifier for the event. This allows the user to process the event properly. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structkronos_1_1EventMessage_a9610167795104c07a24e22e7750b5e7e}\label{structkronos_1_1EventMessage_a9610167795104c07a24e22e7750b5e7e}} 
+void $\ast$ \mbox{\hyperlink{structkronos_1_1EventMessage_a9610167795104c07a24e22e7750b5e7e}{data}} = nullptr
+\begin{DoxyCompactList}\small\item\em The data being passed through the event. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structkronos_1_1EventMessage_a242623addfd27b85907355fcbb59c351}\label{structkronos_1_1EventMessage_a242623addfd27b85907355fcbb59c351}} 
+size\+\_\+t \mbox{\hyperlink{structkronos_1_1EventMessage_a242623addfd27b85907355fcbb59c351}{data\+Size}} = 0
+\begin{DoxyCompactList}\small\item\em The size of the data being passed if necessary. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structkronos_1_1EventMessage_ae1ab9ca578f5e3995242405cf0e731f8}\label{structkronos_1_1EventMessage_ae1ab9ca578f5e3995242405cf0e731f8}} 
+\mbox{\hyperlink{classkronos_1_1BusBase}{Bus\+Base}} $\ast$ \mbox{\hyperlink{structkronos_1_1EventMessage_ae1ab9ca578f5e3995242405cf0e731f8}{return\+Bus}} = nullptr
+\begin{DoxyCompactList}\small\item\em The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A struct that holds information about an event message. 
+
+This struct holds information about the event message such as the code, the data, and the return bus 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/ks\+\_\+component\+\_\+base.\+h\end{DoxyCompactItemize}

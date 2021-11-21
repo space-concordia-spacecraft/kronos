@@ -1,0 +1,62 @@
+\hypertarget{classkronos_1_1ComponentCanDriver}{}\doxysection{kronos\+::Component\+Can\+Driver Class Reference}
+\label{classkronos_1_1ComponentCanDriver}\index{kronos::ComponentCanDriver@{kronos::ComponentCanDriver}}
+
+
+Inheritance diagram for kronos\+::Component\+Can\+Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classkronos_1_1ComponentCanDriver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Component\+Can\+Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{classkronos_1_1ComponentCanDriver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1ComponentCanDriver_a9b5f4928183329f92978574ed17ced06}\label{classkronos_1_1ComponentCanDriver_a9b5f4928183329f92978574ed17ced06}} 
+{\bfseries Component\+Can\+Driver} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&component\+Name, struct mcan\+\_\+module $\ast$mcan\+\_\+mod)
+\item 
+Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentCanDriver_a905f7e9ed2599418197cef030c501b9f}{Process\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message) override
+\begin{DoxyCompactList}\small\item\em Processes the event message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentCanDriver_a905f7e9ed2599418197cef030c501b9f}\label{classkronos_1_1ComponentCanDriver_a905f7e9ed2599418197cef030c501b9f}} 
+\index{kronos::ComponentCanDriver@{kronos::ComponentCanDriver}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!kronos::ComponentCanDriver@{kronos::ComponentCanDriver}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily Ks\+Cmd\+Result kronos\+::\+Component\+Can\+Driver\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes the event message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & the event message containing the information that was published to the bus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there are no errors 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classkronos_1_1ComponentBase_a7461a9c57488246a9360c6fbdfcf5466}{kronos\+::\+Component\+Base}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/drivers/ks\+\_\+can.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/components/drivers/ks\+\_\+can.\+cpp\end{DoxyCompactItemize}

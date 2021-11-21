@@ -1,0 +1,129 @@
+\hypertarget{classkronos_1_1ComponentPassive}{}\doxysection{kronos\+::Component\+Passive Class Reference}
+\label{classkronos_1_1ComponentPassive}\index{kronos::ComponentPassive@{kronos::ComponentPassive}}
+
+
+A class that implements the base for all passive components.  
+
+
+
+
+{\ttfamily \#include $<$ks\+\_\+component\+\_\+passive.\+h$>$}
+
+
+
+Inheritance diagram for kronos\+::Component\+Passive\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classkronos_1_1ComponentPassive__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Component\+Passive\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{classkronos_1_1ComponentPassive__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classkronos_1_1ComponentPassive_ac9a9a959c3e6808fcc7028bcf3464023}{Component\+Passive}} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classkronos_1_1ComponentPassive}{Component\+Passive}} constructor. \end{DoxyCompactList}\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentPassive_a94f7d888a0e4dc20635433e28eabbaa1}{Init}} () override
+\item 
+Ks\+Result \mbox{\hyperlink{classkronos_1_1ComponentPassive_a2b4bf059bb5e16256bedbc8f1fb3be47}{Destroy}} () override
+\item 
+Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentPassive_a3eae00a8ecb0c2ded247d8ef4a5ac327}{Receive\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A class that implements the base for all passive components. 
+
+This class is used as the base block for all passive components 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentPassive_ac9a9a959c3e6808fcc7028bcf3464023}\label{classkronos_1_1ComponentPassive_ac9a9a959c3e6808fcc7028bcf3464023}} 
+\index{kronos::ComponentPassive@{kronos::ComponentPassive}!ComponentPassive@{ComponentPassive}}
+\index{ComponentPassive@{ComponentPassive}!kronos::ComponentPassive@{kronos::ComponentPassive}}
+\doxysubsubsection{\texorpdfstring{ComponentPassive()}{ComponentPassive()}}
+{\footnotesize\ttfamily kronos\+::\+Component\+Passive\+::\+Component\+Passive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classkronos_1_1String}{String}} \&}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\mbox{\hyperlink{classkronos_1_1ComponentPassive}{Component\+Passive}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the component \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentPassive_a2b4bf059bb5e16256bedbc8f1fb3be47}\label{classkronos_1_1ComponentPassive_a2b4bf059bb5e16256bedbc8f1fb3be47}} 
+\index{kronos::ComponentPassive@{kronos::ComponentPassive}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!kronos::ComponentPassive@{kronos::ComponentPassive}}
+\doxysubsubsection{\texorpdfstring{Destroy()}{Destroy()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+Component\+Passive\+::\+Destroy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Implements \mbox{\hyperlink{classkronos_1_1ComponentBase_aa785751164f6b8bad1a52a42d5c1a806}{kronos\+::\+Component\+Base}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classkronos_1_1ComponentTimer_a1b1ad0c77e7ea0ee2cf8e020f5c36f79}{kronos\+::\+Component\+Timer}}, \mbox{\hyperlink{classkronos_1_1ComponentLogger_a94784e3a688c1d440e3af2caad2b45dc}{kronos\+::\+Component\+Logger}}, and \mbox{\hyperlink{classkronos_1_1ComponentQueued_ac6389c13ed8e0d5b255a4fc797e0cb58}{kronos\+::\+Component\+Queued}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentPassive_a94f7d888a0e4dc20635433e28eabbaa1}\label{classkronos_1_1ComponentPassive_a94f7d888a0e4dc20635433e28eabbaa1}} 
+\index{kronos::ComponentPassive@{kronos::ComponentPassive}!Init@{Init}}
+\index{Init@{Init}!kronos::ComponentPassive@{kronos::ComponentPassive}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily Ks\+Result kronos\+::\+Component\+Passive\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Implements \mbox{\hyperlink{classkronos_1_1ComponentBase_a889ced2025cf28737b1647a7149ae371}{kronos\+::\+Component\+Base}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classkronos_1_1ComponentTimer_ac16d3516522f5b6c33ba59dd145d0e26}{kronos\+::\+Component\+Timer}}, \mbox{\hyperlink{classkronos_1_1ComponentParameterDatabase_a783f16cc5c8f10037e780d8cfb5fb2e0}{kronos\+::\+Component\+Parameter\+Database}}, \mbox{\hyperlink{classkronos_1_1ComponentLogger_af945ca6a83dd08c8d58e129731d3d1fa}{kronos\+::\+Component\+Logger}}, \mbox{\hyperlink{classkronos_1_1ComponentFileManager_a258b22112159223e35a063013e1d4418}{kronos\+::\+Component\+File\+Manager}}, and \mbox{\hyperlink{classkronos_1_1ComponentQueued_a2d8ab1fde00b71b0652427fbd52583df}{kronos\+::\+Component\+Queued}}.
+
+\mbox{\Hypertarget{classkronos_1_1ComponentPassive_a3eae00a8ecb0c2ded247d8ef4a5ac327}\label{classkronos_1_1ComponentPassive_a3eae00a8ecb0c2ded247d8ef4a5ac327}} 
+\index{kronos::ComponentPassive@{kronos::ComponentPassive}!ReceiveEvent@{ReceiveEvent}}
+\index{ReceiveEvent@{ReceiveEvent}!kronos::ComponentPassive@{kronos::ComponentPassive}}
+\doxysubsubsection{\texorpdfstring{ReceiveEvent()}{ReceiveEvent()}}
+{\footnotesize\ttfamily Ks\+Cmd\+Result kronos\+::\+Component\+Passive\+::\+Receive\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+
+
+
+
+Implements \mbox{\hyperlink{classkronos_1_1ComponentBase_afb1ba4be396b08fe261bca8313e16cef}{kronos\+::\+Component\+Base}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classkronos_1_1ComponentQueued_abf2be15c654df730ff741ccdc57c38bc}{kronos\+::\+Component\+Queued}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/ks\+\_\+component\+\_\+passive.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/components/ks\+\_\+component\+\_\+passive.\+cpp\end{DoxyCompactItemize}

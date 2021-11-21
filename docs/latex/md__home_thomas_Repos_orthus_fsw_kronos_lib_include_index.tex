@@ -1,0 +1,112 @@
+This framework was originally developed by \href{http://www.spaceconcordia.ca/en/}{\texttt{ Space Concordia}} members to be used in \href{http://www.spaceconcordia.ca/en/division/spacecraft/}{\texttt{ SC-\/\+ODIN}}.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md0}{}\doxysection{Overview}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md0}
+Kronos is a component-\/driven framework inspired by the \href{https://github.com/nasa/fprime}{\texttt{ Fprime}} architecture. The framework splits up a complex system into various components. A component is defined as an isolated collection of logic created to achieve a single specific goal. Components communicate between each other through the use of busses by publishing or listening to events carried through them. Each bus may only carry one event type and is used to directionally link various components together.
+
+More detail about each part of the architecture is included in the sections below.
+
+The framework is currently built around Free\+RTOS and Reliance Edge but, as a future endeavour, it will be modulated to allow for support of other operating systems and file systems.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md1}{}\doxysection{Installation}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md1}
+This upcoming section will be dedicated to the setup of a build environment for Kronos on Windows, Linux and Mac OS.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md2}{}\doxysubsection{Pre-\/requisites}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md2}
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} CLion
+\item \mbox{[}x\mbox{]} Atmel SAM Microcontroller
+\end{DoxyItemize}\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md3}{}\doxysubsubsection{CLion}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md3}
+CLion is a cross platform C++ IDE distributed by Jet\+Brains. It is available for Windows, Mac OS, and Linux. You may get a free student license if you connect your Jet\+Brains account to a Git\+Hub account with the Git\+Hub Student Pack. I strongly recommend using CLion and any of the other Jet\+Brains IDEs as they provide tons of useful features that facilitate development. CLion\textquotesingle{}s code completion and warnings seem to be much more robust than Visual Studio and it provides CMake support out of the box. You may download CLion \href{https://www.jetbrains.com/clion/}{\texttt{ from here}}. It is possible to setup this project for other IDEs but I will only be providing instructions for CLion in this tutorial.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md4}{}\doxysubsubsection{Atmel SAM Microcontroller}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md4}
+In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the \href{../build/sam_gcc.cmake}{\texttt{ sam\+\_\+gcc.\+cmake}} toolchain file for more details.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md5}{}\doxysubsection{Windows}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md5}
+For Windows users, all the binaries required for compilation can be installed through the Min\+GW64 MSYS2 port. We will use Min\+GW because it is the only toolchain on Windows that is supported by CLion for Open\+OCD embedded development, as stated \href{https://www.jetbrains.com/help/clion/openocd-support.html}{\texttt{ here}}. All the required packages are available for Min\+GW, notably the Open On-\/\+Chip Debugger (Open\+OCD) which is required to upload and debug code on Atmel SAM MCUs.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md6}{}\doxysubsubsection{MSYS2}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md6}
+MSYS2 provides an easy-\/to-\/use building environment for Windows. We will be using Min\+GW64 packages as they are the only supported ones by CLion. Download and install MSYS2 from \href{https://www.msys2.org/}{\texttt{ here}}. Once installed, open the MSYS2 shell and update the package repository with the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pacman -\/Syu}
+
+\end{DoxyCode}
+
+
+You may need to execute the command multiple times until you see a $\ast$$\ast${\ttfamily there is nothing to do}$\ast$$\ast$ prompt. Once ready, you may proceed to installing all the needed packages. Simply run the following command and the system will automatically fetch the required binaries for you.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pacman -\/Syu mingw-\/w64-\/x86\_64-\/toolchain mingw-\/w64-\/x86\_64-\/make mingw-\/w64-\/x86\_64-\/cmake mingw-\/w64-\/x86\_64-\/openocd mingw-\/w64-\/x86\_64-\/arm-\/none-\/eabi-\/gcc mingw-\/w64-\/x86\_64-\/arm-\/none-\/eabi-\/binutils}
+
+\end{DoxyCode}
+
+
+The full list of packages is included below in a more readable list format.
+
+
+\begin{DoxyItemize}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/toolchain}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/make}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/cmake}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/openocd}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/arm-\/none-\/eabi-\/gcc}
+\item \mbox{[}x\mbox{]} {\ttfamily mingw-\/w64-\/x86\+\_\+64-\/arm-\/none-\/eabi-\/binutils}
+\end{DoxyItemize}\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md7}{}\doxysubsubsection{CLion Configuration}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md7}
+Once all the required packages are finished installing, you may configure your Min\+GW toolchain in CLion. To do so, follow these instructions\+:
+
+
+\begin{DoxyEnumerate}
+\item Open the {\ttfamily kronos} folder as a CLion project.
+\item In CLion, open the {\bfseries{File}} =$>$ {\bfseries{Settings}} menu from the toolbar.
+\item On the left-\/hand side of the window, navigate to {\bfseries{Build, Execution, Deployment}} =$>$ {\bfseries{Toolchains}}.
+\item Create a new toolchain by click on the {\bfseries{+}} button and selecting {\ttfamily Min\+GW}.
+\item On the right-\/hand side panel, under {\ttfamily Environment}, navigate to your Min\+GW home folder. This folder should be in the MSYS installation directory and is called {\ttfamily mingw64}. The default path if you do not change the MSYS installation directory is {\ttfamily C\+:\textbackslash{}msys64\textbackslash{}mingw64}. Make sure that CLion recognizes the Min\+GW toolchain.
+\item In the same panel, change both the C and C++ compilers to point to the {\ttfamily arm-\/none-\/eabi-\/gcc.\+exe} and {\ttfamily arm-\/none-\/eabi-\/g++.exe} executables respectively. These executables are located in the {\ttfamily bin} folder of the Min\+GW home directory.
+\item Still in the same dialog, change the debugger path to point to the {\ttfamily gdb-\/multiarch.\+exe} executable. Just like the compilers, the GDB executable is located in the same {\ttfamily bin} folder. Ignore any warning about the debugger version, version 10 is not technically fully supported by CLion but it should work good enough.
+\item Set the toolchain to the be your default toolchain. You can do this but putting on the top of the list by promoting it with the upward caret ({\ttfamily $^\wedge$}) button on the left-\/hand side.
+\end{DoxyEnumerate}
+
+This leaves you with a working Min\+GW toolchain for CLion. However, there are a few more steps to get Open\+OCD to work and build the CMake project. The following steps will help you configure your Open\+OCD path and CMake targets.
+
+
+\begin{DoxyEnumerate}
+\item In CLion, open the {\bfseries{File}} =$>$ {\bfseries{Settings}} menu from the toolbar.
+\item On the left-\/hand side of the window, navigate to {\bfseries{Build, Execution, Deployment}} =$>$ {\bfseries{Embedded Development}}.
+\item On the right-\/hand side panel, configure the Open\+OCD path to point to the {\ttfamily openocd.\+exe} executable. Same as before, the executable is located in the {\ttfamily bin} folder of your Min\+GW home directory. You may check that the Open\+OCD executable is functional by clicking the {\ttfamily Test} button afterwards. Ignore the STM32\+Cube\+MX location, it is not needed to build the project.
+\item On the left-\/hand side of the window, navigate to {\bfseries{Build, Execution, Deployment}} =$>$ {\bfseries{CMake}}.
+\item Create two new CMake profiles and name them {\ttfamily Debug} and {\ttfamily Release}. This is done through the {\bfseries{+}} button on the right-\/hand side panel.
+\item Set the build types for each of the two new profiles you created appropriately by selecting in the dropdown on the right.
+\item In the {\ttfamily CMake Options} text field, copy-\/paste the following text and change {\ttfamily $<$SAM GCC Toolchain File$>$} to point to the {\ttfamily sam\+\_\+gcc.\+cmake} file located in the {\ttfamily lib/build} folder of the project. Use an absolute path when pointing to the toolchain file. Make sure to put this definition in both CMake profiles (Debug and Release).
+\end{DoxyEnumerate}
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{-\/DCMAKE\_TOOLCHAIN\_FILE="{}<SAM GCC Toolchain File>"{}}
+
+\end{DoxyCode}
+
+
+With that, your CLion is ready to go. You may now right-\/click on the {\ttfamily CMake\+Lists.\+txt} file in the project root and select {\ttfamily Load CMake Project}. If all goes well, you should get a {\ttfamily Build files have been written to\+:} message in the CMake console output. You should also now see two new directories marked in red respectively name {\ttfamily cmake-\/build-\/debug} and {\ttfamily cmake-\/build-\/release}, where the library will be built.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md8}{}\doxysubsubsection{Adding a Run Configuration}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md8}
+To check that your build environment is correctly setup, you may attempt to build the Kronos demo app. To do so, plug in your SAM board to your PC using the debug USB port. Make sure it is already flashed once with some working Software. You may do this through Atmel Studio using an example project. When you have plugged your board in and flashed it once, follow these instructions to add a run configuration\+:
+
+
+\begin{DoxyEnumerate}
+\item Open the run configurations dialog in the top-\/right corner of your CLion project window, in between the build and run icons.
+\item Remove any automatically added configurations and add a new configuration called {\ttfamily Kronos\+\_\+\+Demo} by clicking the {\bfseries{+}} button on the left-\/hand side of the dialog. When prompted for the configuration type, select {\ttfamily Open\+OCD Download \& Run}.
+\item On the right-\/hand side of the dialog, select {\ttfamily Kronos\+\_\+\+Demo.\+bin} and {\ttfamily Kronos\+\_\+\+Demo} respectively from the dropdowns of the {\ttfamily Target} and {\ttfamily Executable} fields.
+\item Set the board configuration file to the file matching the board you are using the run the software. In my case, this is {\ttfamily atmel\+\_\+same70\+\_\+xplained.\+cfg} as I am using the SAM E70 Xplained evaluation kit. Use the {\ttfamily Assist} button to the right of the field to find the correct file.
+\item Apply your changes and close the dialog. You should now be able to build and run {\ttfamily Kronos\+\_\+\+Demo} in debug mode to verify that your toolchain configuration works. If you see the {\ttfamily Kronos\+\_\+\+Demo.\+bin} being built successfully and the board\textquotesingle{}s LED blinking, then your setup is working as expected. Bonus points to those of you that can hit a breakpoint that you placed in the source code.
+\end{DoxyEnumerate}\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md9}{}\doxysubsection{Linux}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md9}
+Coming Soon!\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md10}{}\doxysubsection{Mac OS}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md10}
+Coming Soon!\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md11}{}\doxysection{Components}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md11}
+As mentioned above, a component is a collection of logic used to achieve a targeted goal. For instance, if logging is a requirement of your system, you may want to create a {\itshape {\bfseries{Logger}}} component which serves to handle logging to a standard output and/or file, and possibly includes various log levels to easily filter incoming data.
+
+It is important to note that components are self-\/contained, meaning that they are not aware of the source of the events they are processing. This allows for modularity, as it is possible to add or remove certain components without affecting the rest of the system.
+
+There are three types of components\+: Passive, Queued, and Active, explained in detail below.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md12}{}\doxysubsection{Passive Components}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md12}
+A passive component is the simplest type of component. It does not provide its own thread or queue. A passive component consists of a collection of functions that will always be synchronously invoked on the calling thread/component. It essentially serves as a static library of functions.
+
+Passive components are made to be invoked by active or queued components. An example of a passive component could be a {\itshape {\bfseries{File Manager}}} component in charge of tracking files used and providing thread-\/safe file operations for other components. Such operations do not need to run on the same thread and can instead be executed by the calling components.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md13}{}\doxysubsection{Queued Components}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md13}
+A queued component implements a queue used to store incoming events which must be cleared by another active component. When its queue is cleared, all events in the queue are processed and the queue is emptied, ready to receive more events. Queued components are similar to passive components in the sense that they do not provide their own thread. However, unlike passive components, incoming events are processed asynchronously and not on the calling component\textquotesingle{}s thread. Events are instead processed by another active component whose job is to intermittently clear the queued component\textquotesingle{}s event queue.
+
+Queued components are useful in applications where specific inexpensive logic must be executed periodically but does not warrant its own thread. A good example is a scheduled component such as a health monitoring component whose job is to regularly make sure that all active threads are performing their tasks.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md14}{}\doxysubsection{Active Components}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md14}
+In addition to having a queue, active components also provide an execution thread. Active components process events in a similar asynchronous manner to how queued components work. The difference is that instead of having their queue cleared by another component, they process events in their queue one-\/by-\/one in their own execution thread. The implications are the same as in the case of queued components, were the logic is not executed on the calling thread but is instead executed on the component\textquotesingle{}s own thread.
+
+Active components are used when components need to coordinate other parts of the system and execute costly logic. These components are the critical components of the system that must remain responsive and timely. In general, there will usually be few active components in a system as maintaining more threads becomes more expensive for the OS\textquotesingle{} task scheduler. A good example of an active component might be a component that would be in charge of running attitude determination and control logic for the spacecraft. Such a component will need to call upon various other components and is mission critical, warranting a separate execution thread.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md15}{}\doxysection{Busses}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md15}
+Busses are used to connect the various components of a system together. Each bus is limited to a carrying single event type and may not switch the event type it is carrying at runtime.
+
+Busses are designed to cover all possible connection cases between components. This means that a bus can be used as a one-\/to-\/one, many-\/to-\/one, one-\/to-\/many, and many-\/to-\/many connection. There are two main types of busses (synchronous and asynchronous), each with its own restrictions.
+
+It is important to note that busses are used through bus invocations. A bus invocation may be synchronous or asynchronous and is determined by the type of the bus that is being invoked. A bus invocation may need an input message struct depending on the type of message being sent. A bus invocation may also have a return type, only if it is synchronous. In {\itshape {\bfseries{ALL CASES}}}, it is the {\itshape {\bfseries{RECEIVING COMPONENT\textquotesingle{}s JOB}}} to delete any message data received, as it is {\itshape {\bfseries{ALWAYS}}} copied before being sent.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md16}{}\doxysubsection{Synchronous Busses}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md16}
+A synchronous bus is, as its name suggests, always invoked synchronously, meaning on the calling thread. This allows it to provide a return value but also imposes some restrictions on the type of connections it can be used to create. Most prominently, synchronous busses may {\itshape {\bfseries{ONLY HAVE AT MOST ONE RECEIVING COMPONENT}}} and that component {\itshape {\bfseries{MUST BE A PASSIVE COMPONENT}}}. This is with good reason as only passive components allow for execution on the calling thread, and the invocation can therefore be treated just like a regular function call. A synchronous bus invocation will always return a void pointer. The framework provides templated functions to automatically cast the result to the needed type. This also means that to invoke a synchronous bus, a user {\itshape {\bfseries{MUST KNOW THE RETURN TYPE}}} of the operation they are requesting. A synchronous bus may have {\itshape {\bfseries{MULTIPLE PUBLISHING COMPONENTS}}}. It is also important to note that the operation of emptying the queue of a queued component is itself a specific synchronous bus invocation.\hypertarget{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md17}{}\doxysubsection{Asynchronous Busses}\label{md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index_autotoc_md17}
+In contrast, an asynchronous bus is generally invoked on one thread but the event sent is processed in another. Note that it is still possible that an event sent through an asynchronous bus is processed on the same thread that it is sent from. In such cases, the invocation is still processed asynchronously, as if it were sent and received on different threads. Asynchronous bus invocations do not return values and are non-\/blocking as they execute on a separate thread. Asynchronous busses are not restricted in terms of the number of publishing or receiving components. In addition, components attached to an asynchronous bus are not restricted in type. An asynchronous bus invocation that elicits a response may provide a return bus to which the response will be published. Similar to synchronous bus invocations, the framework provides a templated function which copies a specific struct to be sent as input data to an asynchronous invocation. 

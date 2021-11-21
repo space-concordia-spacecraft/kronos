@@ -1,0 +1,62 @@
+\hypertarget{classkronos_1_1ComponentUartDriver}{}\doxysection{kronos\+::Component\+Uart\+Driver Class Reference}
+\label{classkronos_1_1ComponentUartDriver}\index{kronos::ComponentUartDriver@{kronos::ComponentUartDriver}}
+
+
+Inheritance diagram for kronos\+::Component\+Uart\+Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{classkronos_1_1ComponentUartDriver__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for kronos\+::Component\+Uart\+Driver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{classkronos_1_1ComponentUartDriver__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classkronos_1_1ComponentUartDriver_a2a4e26278a53f405ef13f9570eb0178a}\label{classkronos_1_1ComponentUartDriver_a2a4e26278a53f405ef13f9570eb0178a}} 
+{\bfseries Component\+Uart\+Driver} (const \mbox{\hyperlink{classkronos_1_1String}{String}} \&name, Usart $\ast$usart=CONF\+\_\+\+UART, uint32\+\_\+t baudrate=CONF\+\_\+\+UART\+\_\+\+BAUDRATE, uint32\+\_\+t char\+Length=CONF\+\_\+\+UART\+\_\+\+CHAR\+\_\+\+LENGTH, uint32\+\_\+t parity\+Type=CONF\+\_\+\+UART\+\_\+\+PARITY, uint32\+\_\+t stop\+Bits=CONF\+\_\+\+UART\+\_\+\+STOP\+\_\+\+BITS)
+\item 
+Ks\+Cmd\+Result \mbox{\hyperlink{classkronos_1_1ComponentUartDriver_ac0c63e8ed106abda7cd66c4b3655941c}{Process\+Event}} (const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&message) override
+\begin{DoxyCompactList}\small\item\em Processes the event message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classkronos_1_1ComponentUartDriver_ac0c63e8ed106abda7cd66c4b3655941c}\label{classkronos_1_1ComponentUartDriver_ac0c63e8ed106abda7cd66c4b3655941c}} 
+\index{kronos::ComponentUartDriver@{kronos::ComponentUartDriver}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!kronos::ComponentUartDriver@{kronos::ComponentUartDriver}}
+\doxysubsubsection{\texorpdfstring{ProcessEvent()}{ProcessEvent()}}
+{\footnotesize\ttfamily Ks\+Cmd\+Result kronos\+::\+Component\+Uart\+Driver\+::\+Process\+Event (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structkronos_1_1EventMessage}{Event\+Message}} \&}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Processes the event message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & the event message containing the information that was published to the bus \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+KS\+\_\+\+SUCCESS if there are no errors 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classkronos_1_1ComponentBase_a7461a9c57488246a9360c6fbdfcf5466}{kronos\+::\+Component\+Base}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/include/components/drivers/ks\+\_\+uart.\+h\item 
+/home/thomas/\+Repos/orthus-\/fsw/kronos/lib/src/components/drivers/ks\+\_\+uart.\+cpp\end{DoxyCompactItemize}
