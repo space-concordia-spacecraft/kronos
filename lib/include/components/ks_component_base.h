@@ -32,7 +32,7 @@ namespace kronos {
     //! This class is used as the basic block for all components
     class ComponentBase {
     public:
-        //! \brief ComponentBase constructor
+        //! \brief Creates a new base component
         //!
         //! \param name the name of the component
         explicit ComponentBase(const String& name);
