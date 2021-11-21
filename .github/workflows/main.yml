@@ -26,6 +26,13 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Doxygen Action
-        uses: mattnotmitt/doxygen-action@v1.1.0
+        uses: mattnotmitt/doxygen-action@v1.3.1
         with:
-          doxyfile-path: "./docs/doxygen-awesome-css/Doxyfile"
+          additional-packages: font-fira-code
+          doxyfile-path: "./docs/Doxyfile"
+
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html
