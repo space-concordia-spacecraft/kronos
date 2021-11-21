@@ -1,0 +1,5 @@
+<map id="kronos::EventMessage" name="kronos::EventMessage">
+<area shape="rect" id="node1" title="A struct that holds information about an event message." alt="" coords="5,184,175,211"/>
+<area shape="rect" id="node2" href="$classkronos_1_1BusBase.html" title=" " alt="" coords="25,95,155,121"/>
+<area shape="rect" id="node3" href="$classkronos_1_1String.html" title=" " alt="" coords="34,5,146,32"/>
+</map>
