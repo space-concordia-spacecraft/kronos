@@ -26,6 +26,10 @@ namespace kronos {
 
     class ComponentTelemetryLogger : ComponentActive {
     public:
+        ~ComponentTelemetryLogger() {
+            delete m_FileManager;
+        }
+
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         KsResult AddTelemetryGroup(const String& name, uint32_t rate, const Vector<TelemetryChannel>& channels);
