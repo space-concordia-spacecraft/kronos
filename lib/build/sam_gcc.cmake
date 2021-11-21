@@ -33,7 +33,7 @@ endif ()
 # Architecture
 if (NOT SAM_ARCH)
     set(
-            SAM_ARCH same0
+            SAM_ARCH same70
             CACHE STRING "Set the default architecture: same70"
     )
 endif ()
