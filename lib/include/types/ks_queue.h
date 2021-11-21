@@ -15,6 +15,11 @@ namespace kronos {
 
         ~Queue() { vQueueDelete(m_Queue); }
 
+        //! \brief Enqueues element into the queue.
+        //!
+        //! \param element the element object to insert into the queue
+        //! \param ticksToWait ticks to wait before throwing an error
+        //! \return true if the operation was successful
         BaseType_t Push(const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
             return xQueueSend(m_Queue, &element, ticksToWait);
         }

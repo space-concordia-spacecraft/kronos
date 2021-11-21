@@ -5,30 +5,62 @@
 
 namespace kronos {
 
+    //! \class BusBase
+    //! \brief Base implementation for buses
+    //!
+    //! This class implements all the base functions used in both Async and Sync buses.
     class BusBase {
     public:
+        //! \brief Constructor to create a new bus
+        //!
+        //! \param opcode the opcode the bus uses to publish
+        //! \param name the name of the bus
         BusBase(KsEventCode opcode, const String& name);
 
+        //! \brief Adds a new subscriber to the bus
+        //!
+        //! \param component pointer to the component that is subscribing to the bus
         virtual void AddReceivingComponent(ComponentBase* component) = 0;
 
+        //! \brief Sends an event message to all subscribed components
+        //!
+        //! \param message reference to the event message being sent to the components
         virtual void Publish(const EventMessage& message) const = 0;
 
+        //! \brief Getter for the name of the bus
+        //!
+        //! \return the name of the bus
         String GetName();
 
     protected:
+        //! Event code that gets sent to all subscribed components
         KsEventCode m_EventCode;
+
+        //! Name of the bus
         String m_Name;
     };
 
+    //! \class BusSync
+    //! \brief A class that implements synchronous buses
+    //!
+    //! This class implements synchronous buses. These are able to return values
     class BusSync : public BusBase {
     public:
+        //! @copydoc
         BusSync(KsEventCode opcode, const String& name);
 
+        //! @copydoc
         void AddReceivingComponent(ComponentBase* component) override;
 
+        //! @copydoc
         void Publish(const EventMessage& message) const override;
 
         template<typename R>
+        //! \brief Publishes the message synchronously to the subscribed components
+        //!
+        //! \tparam R type of the return
+        //! \param message reference to the event message being sent to the components
+        //! \return
         R* PublishSync(const EventMessage& message) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
@@ -44,6 +76,11 @@ namespace kronos {
         }
 
         template<typename T, typename R>
+        //! \brief
+        //! \tparam T
+        //! \tparam R
+        //! \param data
+        //! \return
         R* PublishSync(T* data = nullptr) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
@@ -64,6 +101,7 @@ namespace kronos {
         }
 
     private:
+        //!
         ComponentBase* m_ReceivingComponent = nullptr;
     };
 
