@@ -23,7 +23,7 @@ namespace kronos {
     //! This class is used as the base block for all passive components
     class ComponentPassive : public ComponentBase {
     public:
-        //! \brief ComponentPassive constructor
+        //! \brief Creates a new passive component
         //!
         //! \param name the name of the component
         explicit ComponentPassive(const String& name);

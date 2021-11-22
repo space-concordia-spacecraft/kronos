@@ -3,7 +3,9 @@
 namespace kronos {
 
     ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
-            componentName), m_Volume(volume) {}
+            componentName), m_Volume(volume) {
+
+    }
 
     KsResult ComponentFileManager::Init() {
         ComponentPassive::Init();
@@ -43,6 +45,11 @@ namespace kronos {
             return nullptr;
 
         return new File(path, fileId);
+    }
+
+    ComponentFileManager& ComponentFileManager::Get(const String& componentName, const String& volume) {
+        static ComponentFileManager fileManager(componentName, volume);
+        return fileManager;
     }
 
 }
