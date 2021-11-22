@@ -2,8 +2,18 @@
 
 namespace kronos {
 
+    ComponentFileManager* ComponentFileManager::s_Instance = nullptr;
+
     ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
-            componentName), m_Volume(volume) {}
+            componentName), m_Volume(volume) {
+        delete s_Instance;
+        s_Instance = this;
+    }
+
+    ComponentFileManager::~ComponentFileManager() {
+        if (s_Instance == this)
+            delete s_Instance;
+    }
 
     KsResult ComponentFileManager::Init() {
         ComponentPassive::Init();
