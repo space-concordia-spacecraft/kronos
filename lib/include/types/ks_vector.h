@@ -224,6 +224,10 @@ namespace kronos {
            return m_Elements;
         }
 
+        T* Ptr() const {
+           return m_Elements;
+        }
+
     private:
         //! Amount of free blocks in the Vector
         size_t m_Capacity;
