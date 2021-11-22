@@ -13,8 +13,6 @@ namespace kronos {
     public:
         ComponentFileManager(const String & componentName, const String & volume);
 
-        ~ComponentFileManager();
-
         ComponentFileManager(const ComponentFileManager&) = delete;
         void operator=(const ComponentFileManager &) = delete;
 
@@ -24,7 +22,7 @@ namespace kronos {
 
         File* Open(const String & path, uint32_t mode);
 
-        static ComponentFileManager* s_Instance;
+        static ComponentFileManager& Get(const String& componentName, const String& volume);
 
     private:
         String m_Volume;
