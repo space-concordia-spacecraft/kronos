@@ -1,71 +1,77 @@
+// ==================================================================================
+// \title ks_profiler.h
+// \brief Profiler tool to measure time spent in a function.
+// ==================================================================================
+
 #pragma once
 
+// Kronos includes
 #include "kronos.h"
 
 namespace kronos {
-    /// ProfilingSession object that stores the name of the session
+    //! \struct ProfilingSession
+    //! \brief A struct used to store the name of a profiling session
+    //!
+    //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
-        /// Name of the profiling session
+        //! Name of the profiling session
         String name;
     };
 
-    /// Profiler class to write benchmarks onto a file. It uses the Singleton design pattern.
+    //! \class Profiler
+    //! \brief A class that handles the profiling information of a function.
+    //!
+    //! This class is used to either store or print to the terminal the profiling information for a given function. It uses the Singleton design pattern.
     class Profiler {
     private:
-        /// Pointer holding the current profiling session
+        //! Pointer holding the instance of the current profiling session
         ProfilingSession* m_CurrentSession;
     public:
 
-        /**
-         * BeginSession begins a profiling session.
-         * @param name - Name of the profiling session.
-         */
+        //! \brief Begins a profiling session.
+        //!
+        //! \param name the name of the profiling session.
         void BeginSession(const String& name);
 
-        /**
-         * EndSession deletes the current session.
-         */
+        //! \brief Ends the profiling session.
         void EndSession();
 
-        /**
-         * Log outputs the benchmarks results onto a file.
-         * @param functionName - Name of the function.
-         * @param location - File path location and line number for the function that was benchmarked.
-         * @param start - Start time for the benchmark.
-         * @param end - End time for the benchmark.
-         */
+        //! \brief Logs the resulting information from the timer into the terminal.
+        //!
+        //! \param functionName The name of the function being profiled
+        //! \param location The path location of the function being profiled
+        //! \param start The start time for the profiling
+        //! \param end The end time for the profiling
         void Log(const String& functionName, const String& location, TickType_t start, TickType_t end);
 
-        /**
-         * Getter function to get the instance of Profiler.
-         * @return
-         */
+        //! Getter for the Singleton design pattern
+        //! \return Instance of the profiler
         static Profiler& Get();
 
     };
 
-    /// Class to create a timer for the benchmark.
+    //! \class ProfilerTimer
+    //! \brief A class that implements a simple timer
+    //!
+    //! This class implements a simple timer used for the profiling of scopes
     class ProfilerTimer {
     private:
-        /// Start time for the benchmark.
+        //! Start time for the timer
         TickType_t m_Start;
 
-        /// Name of the function being benchmarked.
+        //! Name of the scope being benchmarked
         String m_Name;
 
-        /// Path location for the function being benchmarked as well as its line number.
+        //! Path location for the scope being benchmarked as well as its line number
         String m_Path;
     public:
-        /**
-         * ProfilerTimer starts a new timer.
-         * @param name - Name of the function being benchmarked.
-         * @param location - Path location as well as line number for the function being benchmarked.
-         */
+        //! \brief Starts the timer
+        //!
+        //! \param name the name of the scope being benchmarked
+        //! \param path the path location for the scope being benchmarked
         ProfilerTimer(const String & name, const String & path);
 
-        /**
-         * ProfileTimer destructor stops the timer and logs the info.
-         */
+        //! \brief Ends the timer
         ~ProfilerTimer();
     };
 }

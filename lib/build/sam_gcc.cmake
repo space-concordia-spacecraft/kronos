@@ -143,7 +143,7 @@ function(add_sam_executable EXECUTABLE_NAME)
             ${EXECUTABLE_NAME}
             PROPERTIES
             COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
-            LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T ${CMAKE_TOOLCHAIN_DIR}/scripts/gcc/${SAM_MCU}_flash.ld"
+            LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T \"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc/${SAM_MCU}_flash.ld\""
     )
 
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")

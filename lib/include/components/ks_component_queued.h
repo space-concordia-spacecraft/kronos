@@ -17,7 +17,7 @@ namespace kronos {
     //! This class is used as the base block for all queued components
     class ComponentQueued : public ComponentPassive {
     public:
-        //! \brief ComponentQueued constructor
+        //! \brief Creates a new queued component
         //!
         //! \param name the name of the component
         explicit ComponentQueued(const String& name);

@@ -30,6 +30,7 @@
 #include "ks_file_manager.h"
 #include "ks_health_monitor.h"
 #include "ks_logger.h"
+#include "ks_telemetry_logger.h"
 #include "ks_rate_group.h"
 #include "ks_timer.h"
 #include "ks_uart.h"

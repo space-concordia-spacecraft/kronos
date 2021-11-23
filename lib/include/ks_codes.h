@@ -2,12 +2,16 @@
 
 #include "asf.h"
 
+//! \typedef Type that tells you the result of
 typedef uint16_t KsResult;
 typedef void* KsCmdResult;
 typedef uint16_t KsEventCode;
 typedef uint16_t KsOpcode;
 
+//! \def Event code for an invalid event
 #define KS_EVENT_CODE_INVALID                   ((KsEventCode)  0xFFFF)
+
+//! \def Event code
 #define KS_EVENT_CODE_EMPTY_QUEUE               ((KsEventCode)  0)
 #define KS_EVENT_CODE_TIMER_TICK                ((KsEventCode)  1)
 #define KS_EVENT_CODE_RATE_GROUP_TICK           ((KsEventCode)  2)
@@ -38,3 +42,6 @@ typedef uint16_t KsOpcode;
 #define KS_ERROR_FILE_UNABLE_TO_MOVE        ((KsResult) 12)
 #define KS_ERROR_FILE_UNABLE_TO_GET_STATUS  ((KsResult) 13)
 #define KS_ERROR_FILE_UNABLE_TO_INIT        ((KsResult) 14)
+#define KS_ERROR_FILE_SYNC_FAILED           ((KsResult) 15)
+#define KS_ERROR_APOLLO_HEADER              ((KsResult) 16)
+#define KS_ERROR_APOLLO_VERSION             ((KsResult) 17)
