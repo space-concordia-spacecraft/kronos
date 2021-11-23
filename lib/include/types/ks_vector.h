@@ -10,6 +10,7 @@ namespace kronos {
 
     template<typename T>
     class Vector;
+
     //! \class VectorIterator
     //! \tparam T Generic Template for VectorIterator
     template<typename T>
@@ -20,6 +21,7 @@ namespace kronos {
         //! \param index is the size of the
         VectorIterator(const Vector<T>* vector, size_t index)
                 : m_Vector(vector), m_Index(index) {}
+
         //! \brief Operator Overload for Incrementing the VectorIterator
         VectorIterator<T>& operator++() {
             //Iterates through the list and Increments the size
@@ -27,6 +29,7 @@ namespace kronos {
                 m_Index++;
             return *this;
         }
+
         //! \brief Operator Overload for Incrementing the VectorIterator
         //! \return Incremented Address of the VectorIterator
         VectorIterator<T> operator++(int) {
@@ -34,16 +37,19 @@ namespace kronos {
             ++*this;
             return temp;
         }
+
         //! \brief Deference Operator Overload
         //! \return Vector at the desired index
         T& operator*() {
             return (*m_Vector)[m_Index];
         }
+
         //! \b VectorIterator Reference (->) Operator Overload
         //! \return
         T* operator->() {
             return &(*m_Vector)[m_Index];
         }
+
         //! \brief Function to check if two Vectors are the same
         //! \tparam Ty Generic Type for VectorIterator
         //! \param left one of the VectorIterators to be checked
@@ -95,40 +101,46 @@ namespace kronos {
         //! \brief Parametrized Constructor
         //! \param capacity is the size of the new Vector
         explicit Vector(size_t capacity = 10)
-            : m_Capacity(0), m_Size(0) {
+                : m_Capacity(0), m_Size(0) {
             Expand(capacity);
         }
+
         //! \brief Copy Constructor for Vector Class
         //! \param elements is the list that needs to be copied
         Vector(std::initializer_list<T> elements)
-            : m_Capacity(0), m_Size(0) {
+                : m_Capacity(0), m_Size(0) {
             m_Size = elements.size();
             m_Capacity = m_Size;
             m_Elements = new T[m_Size];
             size_t i = 0;
             //Iterates and copies the values to the Vector class
-            for (auto element : elements) {
+            for (auto element: elements) {
                 m_Elements[i] = element;
                 i++;
             }
         }
+
         //! \brief Destructor for Vector Class
         ~Vector() {
             delete[] m_Elements;
         }
+
         //! \brief Getter Function for the Vector List Size
         //! \return Size of the Vector List
         size_t Size() const { return m_Size; }
+
         //! \brief Getter Function for the Vector List Capacity
         //! \return Capacity of empty spaces in the Vector
         size_t Capacity() const { return m_Capacity; }
+
         //! \brief Function to add the Vector
         //! \param element to be added to the Vector
-        void Add(T element) {
+        void Add(const T& element) {
             if (m_Size + 1 > m_Capacity)
                 Expand(m_Size + 1);
             m_Elements[m_Size++] = element;
         }
+
         //! \brief Function to be add a Vector
         //! \param values is the Vector list to be added to the Vector
         void AddAll(Vector<T> values) {
@@ -140,6 +152,7 @@ namespace kronos {
             }
             m_Size += values.m_Size;
         }
+
         //! \brief Function to remove an element from Vector
         //! \param element is the element to be removed
         void Remove(T element) {
@@ -159,6 +172,7 @@ namespace kronos {
                 m_Size--;
             }
         }
+
         //! \brief Function to remove an element from Vector
         //! \param index is the index to be remove the element
         void Remove(size_t index) {
@@ -171,11 +185,12 @@ namespace kronos {
             }
             m_Size--;   //Changes the element
         }
+
         //! \brief Function to Reserve an amount of blocks in Vector
         //! \param elementCount is the amount of blocks to be reserved
         void Reserve(size_t elementCount) {
             // Expands the size of the vector if the List is not sufficient
-            if(elementCount <= m_Capacity)
+            if (elementCount <= m_Capacity)
                 return;
             Expand(elementCount);
         }
@@ -194,38 +209,40 @@ namespace kronos {
             }
             return elementIndex;
         }
+
         //! \brief Function to clear to Vector
         void Clear() {
             m_Size = 0;
         }
+
         //! \brief Override function to beginning index of the Vector.
         //! \return VectorIterator Object
         VectorIterator<T> begin() const override {
             return VectorIterator<T>(this, 0);
         }
+
         //! \brief Override function to end index of the Vector.
         //! \return VectorIterator Object
         VectorIterator<T> end() const override {
             return VectorIterator<T>(this, m_Size);
         }
+
         //! \brief Function to subset Address ([]) Operator for VectorIterator
         //! \return VectorIterator Object
         T& operator[](size_t index) const {
             return Get(index);
         }
+
         //! \brief Function to get Vector List at Index
         //! \return Vector Object
         T& Get(size_t index) const {
             return m_Elements[index];
         }
+
         //! \brief Function to get Vector Pointer
         //! \return Vector Object Pointer
         T* Ptr() const {
-           return m_Elements;
-        }
-
-        T* Ptr() const {
-           return m_Elements;
+            return m_Elements;
         }
 
     private:

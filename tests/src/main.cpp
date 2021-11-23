@@ -6,6 +6,8 @@
 #include "unit/HashMapTests.h"
 #include "unit/FileTests.h"
 #include "unit/ApolloTests.h"
+#include "unit/TelemetryLoggerTests.h"
+
 int main() {
     kronos::Framework::Init();
     ktest::RunTests();
@@ -60,5 +62,10 @@ KT_TESTS(
         KT_TEST_GROUP(ApolloTests,
             KT_UNIT_TEST(ExportTest,"Attempts to write to a file using the ApolloFormat.")
             KT_UNIT_TEST(ImportTest, "Attempts to read the file that was created by the export.")
+        )
+
+        KT_TEST_GROUP(TelemetryLoggerTests,
+           KT_UNIT_TEST(TelemetryLoggerWriteTest,"Attempts to write to a file using the telemetry logger.")
+           KT_UNIT_TEST(TelemetryLoggerReadTest, "Attempts to read the file that was created by the telemetry logger.")
         )
 )
