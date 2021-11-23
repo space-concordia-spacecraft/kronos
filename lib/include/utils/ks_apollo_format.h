@@ -47,14 +47,17 @@ namespace kronos {
     //! This class uses a list of ApolloHeader objects to encode the data and then write into a File.
     class ApolloExporter {
     public:
-        //! \brief Writes the header list into a given file
-        //!
-        //! \param file File object used to write the headers into
-        //! \param headers Vector of ApolloHeaders stored into the file
+        ApolloExporter() = default;
         ApolloExporter(File* file, const Vector<ApolloHeader>& headers);
 
         //! \brief Destructor that closes the file
         ~ApolloExporter();
+
+        //! \brief Writes the header list into a given file
+        //!
+        //! \param file File object used to write the headers into
+        //! \param headers Vector of ApolloHeaders stored into the file
+        KsResult Open(File* file, const Vector<ApolloHeader>& headers);
 
         //! \brief Writes a given header list into the file stored in the ApolloExporter object
         //!

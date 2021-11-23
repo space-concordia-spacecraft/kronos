@@ -1,6 +1,7 @@
 #include "ks_telemetry_logger.h"
 
 namespace kronos {
+    ComponentTelemetryLogger::ComponentTelemetryLogger(const String& name) : ComponentActive(name) {}
 
     KsCmdResult ComponentTelemetryLogger::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
@@ -12,12 +13,13 @@ namespace kronos {
 
                         // Get the values from the telemetry into a vector.
                         Vector<uint32_t> telemetryData;
-                        for(TelemetryChannel i_Channel : i_RateGroup.channels) {
-                            telemetryData.Add(i_Channel.retrieveTelemetry());
+                        for (TelemetryChannel i_Channel: i_RateGroup.channels) {
+                            uint32_t telemetryValue = i_Channel.retrieveTelemetry();
+                            telemetryData.Add(telemetryValue);
                         }
 
                         // Write the vector to the ApolloExporter.
-                        i_RateGroup.apolloExporter->WriteRow(telemetryData);
+                        i_RateGroup.apolloExporter.WriteRow(telemetryData);
                     }
                 }
                 break;
@@ -25,31 +27,31 @@ namespace kronos {
         return ComponentActive::ProcessEvent(message);
     }
 
-    KsResult ComponentTelemetryLogger::AddTelemetryGroup(const String& name, uint32_t rate, const Vector<TelemetryChannel>& channels) {
-        if(m_FileManager == nullptr) {
-            m_FileManager = new ComponentFileManager("File Manager", "C:");
-        }
+    KsResult ComponentTelemetryLogger::AddTelemetryGroup(const String& name, uint32_t rate,
+                                                         const Vector<TelemetryChannel>& channels) {
 
-        TelemetryRateGroup newRateGroup;
-        newRateGroup.name = name;
-        newRateGroup.tickCount = 0;
-        newRateGroup.tickRate = rate;
-        newRateGroup.channels = channels;
+
 
         // Initialize the file for logging this telemetry group.
-        File* file = m_FileManager->Open("/" + name + ".txt", KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
+        File* file = ComponentFileManager::Get().Open("/" + name + ".txt",
+                                                      KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
 
+        // Generate the headers for the file.
         Vector<ApolloHeader> headers;
-        for(size_t i = 0; i < channels.Size(); i++) {
+        for (size_t i = 0; i < channels.Size(); i++) {
             headers[i].name = channels[i].name;
             headers[i].dataType = KS_APOLLO_FLOAT;
         }
 
-        newRateGroup.apolloExporter = new ApolloExporter(file, headers);
+        // Initialize rate group.
+        TelemetryRateGroup newRateGroup;
+        newRateGroup.name = name;
+        newRateGroup.tickRate = rate;
+        newRateGroup.channels = channels;
+        newRateGroup.apolloExporter.Open(file, headers);
 
         m_TelemetryRateGroups.Add(newRateGroup);
 
         return KS_SUCCESS;
     }
-
 }

@@ -4,11 +4,9 @@
 
 using namespace kronos;
 
-extern ComponentFileManager* fileManager;
-
 KT_TEST(ExportTest) {
     // Open file
-    File* file = fileManager->Open("/apollo_test.txt", KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
+    File* file = ComponentFileManager::Get().Open("/apollo_test.txt", KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
     KT_ASSERT(file, "UNABLE TO OPEN FILE");
 
     // Create exporter
@@ -25,7 +23,7 @@ KT_TEST(ExportTest) {
 
 KT_TEST(ImportTest) {
     // Open file
-    File* file = fileManager->Open("/apollo_test.txt", KS_OPEN_MODE_READ_ONLY);
+    File* file = ComponentFileManager::Get().Open("/apollo_test.txt", KS_OPEN_MODE_READ_ONLY);
     KT_ASSERT(file, "UNABLE TO OPEN FILE");
 
     // Create importer

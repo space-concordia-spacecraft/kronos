@@ -5,12 +5,18 @@
 
 namespace kronos {
 
-    ApolloExporter::ApolloExporter(File* file, const Vector<ApolloHeader>& headers) : m_File(file) {
-        WriteFileHeader(headers);
+    ApolloExporter::ApolloExporter(File* file, const Vector<ApolloHeader>& headers) {
+        Open(file, headers);
     }
+
 
     ApolloExporter::~ApolloExporter() {
         Close();
+    }
+
+    KsResult ApolloExporter::Open(File* file, const Vector<ApolloHeader>& headers) {
+        m_File = file;
+        return WriteFileHeader(headers);
     }
 
     KsResult ApolloExporter::WriteFileHeader(const Vector<ApolloHeader>& headers) {
