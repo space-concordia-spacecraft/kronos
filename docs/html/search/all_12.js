@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['vector_80',['Vector',['../classkronos_1_1Vector.html',1,'kronos']]],
-  ['vector_3c_20kronos_3a_3acomponentbase_20_2a_20_3e_81',['Vector&lt; kronos::ComponentBase * &gt;',['../classkronos_1_1Vector.html',1,'kronos']]],
-  ['vector_3c_20kronos_3a_3arategroupfrequency_20_3e_82',['Vector&lt; kronos::RateGroupFrequency &gt;',['../classkronos_1_1Vector.html',1,'kronos']]],
-  ['vector_3c_20kronos_3a_3atelemetrychannel_20_3e_83',['Vector&lt; kronos::TelemetryChannel &gt;',['../classkronos_1_1Vector.html',1,'kronos']]],
-  ['vector_3c_20kronos_3a_3atelemetryrategroup_20_3e_84',['Vector&lt; kronos::TelemetryRateGroup &gt;',['../classkronos_1_1Vector.html',1,'kronos']]],
-  ['vectoriterator_85',['VectorIterator',['../classkronos_1_1VectorIterator.html',1,'kronos']]]
+  ['telemetrychannel_133',['TelemetryChannel',['../structkronos_1_1TelemetryChannel.html',1,'kronos']]],
+  ['telemetryrategroup_134',['TelemetryRateGroup',['../structkronos_1_1TelemetryRateGroup.html',1,'kronos']]],
+  ['template_135',['Template',['../classTemplate.html',1,'']]],
+  ['tickrate_136',['tickRate',['../structkronos_1_1TelemetryRateGroup.html#aa11f1cfcc88440885c6825a9920b2fbd',1,'kronos::TelemetryRateGroup']]],
+  ['timestamp_137',['timestamp',['../structkronos_1_1LogMessage.html#abb9e6c37ef4e531b562b3d216de91231',1,'kronos::LogMessage']]]
 ];

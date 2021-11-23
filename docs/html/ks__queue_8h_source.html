@@ -96,46 +96,47 @@ $(document).ready(function(){initNavTree('ks__queue_8h_source.html',''); initRes
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>kronos {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html">   12</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classkronos_1_1Queue.html">Queue</a> {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classkronos_1_1Queue.html">Queue</a>(<span class="keywordtype">size_t</span> length = 10) : m_Length(length), m_Queue(xQueueCreate(length, <span class="keyword">sizeof</span>(T))) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        ~<a class="code" href="classkronos_1_1Queue.html">Queue</a>() { vQueueDelete(m_Queue); }</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html">   13</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classkronos_1_1Queue.html">Queue</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#aa73a4abe74896b2fbb397090bcd0fe1c">   16</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classkronos_1_1Queue.html#aa73a4abe74896b2fbb397090bcd0fe1c">Queue</a>(<span class="keywordtype">size_t</span> length = 10) : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        BaseType_t Push(<span class="keyword">const</span> T&amp; element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            <span class="keywordflow">return</span> xQueueSend(m_Queue, &amp;element, ticksToWait);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        BaseType_t Pop(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;            <span class="keywordflow">return</span> xQueueReceive(m_Queue, pElement, ticksToWait);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        BaseType_t Peek(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="keywordflow">return</span> xQueuePeek(m_Queue, pElement, ticksToWait);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        BaseType_t Clear() {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span> xQueueReset(m_Queue);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordtype">size_t</span> Length()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> m_Length;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordtype">size_t</span> Size()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">return</span> Length() - uxQueueSpacesAvailable(m_Queue);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> m_Length;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        QueueHandle_t m_Queue;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    };</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        ~<a class="code" href="classkronos_1_1Queue.html">Queue</a>() { vQueueDelete(m_Queue); }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#aae899b982b87bca3f74ee090cdb0c7c8">   25</a></span>&#160;        BaseType_t <a class="code" href="classkronos_1_1Queue.html#aae899b982b87bca3f74ee090cdb0c7c8">Push</a>(<span class="keyword">const</span> T&amp; element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">return</span> xQueueSend(m_Queue, &amp;element, ticksToWait);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#a241005e3e35e496c291b271553c3b0d2">   33</a></span>&#160;        BaseType_t <a class="code" href="classkronos_1_1Queue.html#a241005e3e35e496c291b271553c3b0d2">Pop</a>(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">return</span> xQueueReceive(m_Queue, pElement, ticksToWait);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#ab7bf68d223a8c40ca3d80dda47a983e2">   41</a></span>&#160;        BaseType_t <a class="code" href="classkronos_1_1Queue.html#ab7bf68d223a8c40ca3d80dda47a983e2">Peek</a>(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> xQueuePeek(m_Queue, pElement, ticksToWait);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#a4b5e87521fc803408ec180076e3ee31a">   47</a></span>&#160;        BaseType_t <a class="code" href="classkronos_1_1Queue.html#a4b5e87521fc803408ec180076e3ee31a">Clear</a>() {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span> xQueueReset(m_Queue);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#a17192532b9d3e4de6b82fad3e8e69829">   52</a></span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="classkronos_1_1Queue.html#a17192532b9d3e4de6b82fad3e8e69829">Length</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span> m_Length;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classkronos_1_1Queue.html#a17885c1a1883f94bdd0f2ac9204cb72d">   57</a></span>&#160;        <span class="keywordtype">size_t</span> <a class="code" href="classkronos_1_1Queue.html#a17885c1a1883f94bdd0f2ac9204cb72d">Size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classkronos_1_1Queue.html#a17192532b9d3e4de6b82fad3e8e69829">Length</a>() - uxQueueSpacesAvailable(m_Queue);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">size_t</span> m_Length;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        QueueHandle_t m_Queue;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 <div class="ttc" id="aasf_8h_html"><div class="ttname"><a href="asf_8h.html">asf.h</a></div><div class="ttdoc">Autogenerated API include file for the Atmel Software Framework (ASF)</div></div>
-<div class="ttc" id="aclasskronos_1_1Queue_html"><div class="ttname"><a href="classkronos_1_1Queue.html">kronos::Queue</a></div><div class="ttdef"><b>Definition:</b> ks_queue.h:12</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html"><div class="ttname"><a href="classkronos_1_1Queue.html">kronos::Queue</a></div><div class="ttdef"><b>Definition:</b> ks_queue.h:13</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_a17192532b9d3e4de6b82fad3e8e69829"><div class="ttname"><a href="classkronos_1_1Queue.html#a17192532b9d3e4de6b82fad3e8e69829">kronos::Queue::Length</a></div><div class="ttdeci">size_t Length() const</div><div class="ttdoc">Getter function for the length of the Queue.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:52</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_a17885c1a1883f94bdd0f2ac9204cb72d"><div class="ttname"><a href="classkronos_1_1Queue.html#a17885c1a1883f94bdd0f2ac9204cb72d">kronos::Queue::Size</a></div><div class="ttdeci">size_t Size() const</div><div class="ttdoc">Function to find the amount of spaces remaining.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:57</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_a241005e3e35e496c291b271553c3b0d2"><div class="ttname"><a href="classkronos_1_1Queue.html#a241005e3e35e496c291b271553c3b0d2">kronos::Queue::Pop</a></div><div class="ttdeci">BaseType_t Pop(T *pElement, TickType_t ticksToWait=KS_QUEUE_DEFAULT_WAIT_TIME)</div><div class="ttdoc">Dequeues element from the queue.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:33</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_a4b5e87521fc803408ec180076e3ee31a"><div class="ttname"><a href="classkronos_1_1Queue.html#a4b5e87521fc803408ec180076e3ee31a">kronos::Queue::Clear</a></div><div class="ttdeci">BaseType_t Clear()</div><div class="ttdoc">Function to Clear the Queue.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:47</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_aa73a4abe74896b2fbb397090bcd0fe1c"><div class="ttname"><a href="classkronos_1_1Queue.html#aa73a4abe74896b2fbb397090bcd0fe1c">kronos::Queue::Queue</a></div><div class="ttdeci">Queue(size_t length=10)</div><div class="ttdoc">Parametrized Constructor to create a Queue with size 10.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:16</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_aae899b982b87bca3f74ee090cdb0c7c8"><div class="ttname"><a href="classkronos_1_1Queue.html#aae899b982b87bca3f74ee090cdb0c7c8">kronos::Queue::Push</a></div><div class="ttdeci">BaseType_t Push(const T &amp;element, TickType_t ticksToWait=KS_QUEUE_DEFAULT_WAIT_TIME)</div><div class="ttdoc">Enqueues element into the queue.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:25</div></div>
+<div class="ttc" id="aclasskronos_1_1Queue_html_ab7bf68d223a8c40ca3d80dda47a983e2"><div class="ttname"><a href="classkronos_1_1Queue.html#ab7bf68d223a8c40ca3d80dda47a983e2">kronos::Queue::Peek</a></div><div class="ttdeci">BaseType_t Peek(T *pElement, TickType_t ticksToWait=KS_QUEUE_DEFAULT_WAIT_TIME) const</div><div class="ttdoc">Function to Check if the element exists.</div><div class="ttdef"><b>Definition:</b> ks_queue.h:41</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

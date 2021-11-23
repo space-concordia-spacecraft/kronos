@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('classkronos_1_1ProfilerTimer.html','')
 </div><!--header-->
 <div class="contents">
 
-<p>Class to create a timer for the benchmark.  
+<p>A class that implements a simple timer.  
  <a href="classkronos_1_1ProfilerTimer.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ks__profiler_8h_source.html">ks_profiler.h</a>&gt;</code></p>
@@ -99,12 +99,15 @@ $(document).ready(function(){initNavTree('classkronos_1_1ProfilerTimer.html','')
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a79d4decae436c900611e8c4e8f1d9ef8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1ProfilerTimer.html#a79d4decae436c900611e8c4e8f1d9ef8">ProfilerTimer</a> (const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;path)</td></tr>
+<tr class="memdesc:a79d4decae436c900611e8c4e8f1d9ef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the timer.  <a href="classkronos_1_1ProfilerTimer.html#a79d4decae436c900611e8c4e8f1d9ef8">More...</a><br /></td></tr>
 <tr class="separator:a79d4decae436c900611e8c4e8f1d9ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83a87fbc33d3e143efac9af9d995932b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1ProfilerTimer.html#a83a87fbc33d3e143efac9af9d995932b">~ProfilerTimer</a> ()</td></tr>
+<tr class="memdesc:a83a87fbc33d3e143efac9af9d995932b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the timer.  <a href="classkronos_1_1ProfilerTimer.html#a83a87fbc33d3e143efac9af9d995932b">More...</a><br /></td></tr>
 <tr class="separator:a83a87fbc33d3e143efac9af9d995932b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class to create a timer for the benchmark. </p>
+<div class="textblock"><p>A class that implements a simple timer. </p>
+<p>This class implements a simple timer used for the profiling of scopes </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a79d4decae436c900611e8c4e8f1d9ef8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79d4decae436c900611e8c4e8f1d9ef8">&#9670;&nbsp;</a></span>ProfilerTimer()</h2>
@@ -131,10 +134,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classkronos_1_1ProfilerTimer.html" title="Class to create a timer for the benchmark.">ProfilerTimer</a> starts a new timer. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Starts the timer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>- Name of the function being benchmarked. </td></tr>
-    <tr><td class="paramname">location</td><td>- Path location as well as line number for the function being benchmarked. </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the scope being benchmarked </td></tr>
+    <tr><td class="paramname">path</td><td>the path location for the scope being benchmarked </td></tr>
   </table>
   </dd>
 </dl>
@@ -155,6 +160,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Ends the timer. </p>
 <p>ProfileTimer destructor stops the timer and logs the info. </p>
 
 </div>

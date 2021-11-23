@@ -43,8 +43,12 @@ var annotated_dup =
       [ "String", "classkronos_1_1String.html", "classkronos_1_1String" ],
       [ "Vector", "classkronos_1_1Vector.html", "classkronos_1_1Vector" ],
       [ "VectorIterator", "classkronos_1_1VectorIterator.html", "classkronos_1_1VectorIterator" ],
+      [ "ApolloHeader", "structkronos_1_1ApolloHeader.html", "structkronos_1_1ApolloHeader" ],
+      [ "ApolloExporter", "classkronos_1_1ApolloExporter.html", "classkronos_1_1ApolloExporter" ],
+      [ "ApolloImporter", "classkronos_1_1ApolloImporter.html", "classkronos_1_1ApolloImporter" ],
       [ "ProfilingSession", "structkronos_1_1ProfilingSession.html", "structkronos_1_1ProfilingSession" ],
       [ "Profiler", "classkronos_1_1Profiler.html", "classkronos_1_1Profiler" ],
       [ "ProfilerTimer", "classkronos_1_1ProfilerTimer.html", "classkronos_1_1ProfilerTimer" ]
-    ] ]
+    ] ],
+    [ "Template", "classTemplate.html", null ]
 ];
