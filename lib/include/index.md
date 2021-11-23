@@ -1,4 +1,4 @@
-Spacecraft Framework
+Spacecraft Framework {#mainpage}
 ============
 
 This framework was originally developed by [Space Concordia](http://www.spaceconcordia.ca/en/) members to be used in [SC-ODIN](http://www.spaceconcordia.ca/en/division/spacecraft/).
