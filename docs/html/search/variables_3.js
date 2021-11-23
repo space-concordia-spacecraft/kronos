@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_179',['name',['../structkronos_1_1ProfilingSession.html#aed29da9984b04450e05523d22d833035',1,'kronos::ProfilingSession']]]
+  ['eventcode_314',['eventCode',['../structkronos_1_1EventMessage.html#a6567449e03a831faabb5b49771bb5ce9',1,'kronos::EventMessage']]]
 ];

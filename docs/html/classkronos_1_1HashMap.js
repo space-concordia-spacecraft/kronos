@@ -2,8 +2,8 @@ var classkronos_1_1HashMap =
 [
     [ "HashMap", "classkronos_1_1HashMap.html#a8f3e10f6bc413b9ed4612eb778070a21", null ],
     [ "~HashMap", "classkronos_1_1HashMap.html#a239fb10ffd95d8d873ace4c9345fbb7d", null ],
-    [ "begin", "classkronos_1_1HashMap.html#ab582b3351cc8d0bcae08a33e4b5805a9", null ],
-    [ "end", "classkronos_1_1HashMap.html#ac9f70bcb58ff078e20b0f31141e7089e", null ],
+    [ "begin", "classkronos_1_1HashMap.html#a1517e877b85083ec83db2887597b4882", null ],
+    [ "end", "classkronos_1_1HashMap.html#a23f554422b48aef268502d60391c44a6", null ],
     [ "Get", "classkronos_1_1HashMap.html#af188def206d8de7d709f8375a0458208", null ],
     [ "operator[]", "classkronos_1_1HashMap.html#a51febe1a152434fbf950e54ba6cea159", null ],
     [ "Peek", "classkronos_1_1HashMap.html#a841dce07419d562b917f90c49c094a6a", null ],

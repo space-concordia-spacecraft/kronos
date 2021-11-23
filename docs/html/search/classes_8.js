@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['queue_135',['Queue',['../classkronos_1_1Queue.html',1,'kronos']]],
-  ['queue_3c_20kronos_3a_3aeventmessage_20_3e_136',['Queue&lt; kronos::EventMessage &gt;',['../classkronos_1_1Queue.html',1,'kronos']]]
+  ['profiler_202',['Profiler',['../classkronos_1_1Profiler.html',1,'kronos']]],
+  ['profilertimer_203',['ProfilerTimer',['../classkronos_1_1ProfilerTimer.html',1,'kronos']]],
+  ['profilingsession_204',['ProfilingSession',['../structkronos_1_1ProfilingSession.html',1,'kronos']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['string_138',['String',['../classkronos_1_1String.html',1,'kronos']]]
+  ['rategroupfrequency_207',['RateGroupFrequency',['../structkronos_1_1RateGroupFrequency.html',1,'kronos']]]
 ];

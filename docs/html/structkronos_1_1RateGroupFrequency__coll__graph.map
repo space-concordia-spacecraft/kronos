@@ -1,5 +1,5 @@
 <map id="kronos::RateGroupFrequency" name="kronos::RateGroupFrequency">
 <area shape="rect" id="node1" title=" " alt="" coords="5,184,216,211"/>
-<area shape="rect" id="node2" href="$classkronos_1_1BusBase.html" title=" " alt="" coords="45,95,176,121"/>
+<area shape="rect" id="node2" href="$classkronos_1_1BusBase.html" title="Base implementation for buses." alt="" coords="45,95,176,121"/>
 <area shape="rect" id="node3" href="$classkronos_1_1String.html" title=" " alt="" coords="55,5,167,32"/>
 </map>
