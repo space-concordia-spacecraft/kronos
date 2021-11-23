@@ -35,7 +35,7 @@ namespace kronos {
     //! This class is used as the basic block for all active components
     class ComponentActive : public ComponentQueued {
     public:
-        //! ComponentActive constructor
+        //! \brief Creates a new activate component
         //!
         //! \param name the name of the component
         //! \param stackSize The number of words (not bytes!) to allocate for use as the task's stack

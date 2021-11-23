@@ -66,6 +66,13 @@ namespace kronos {
 
     public:
         /**
+         * Public destructor for the file object. Calls Close() to close the file object when destroyed.
+         */
+        ~File() {
+            Close();
+        }
+
+        /**
          * Close() closes the file descriptor.
          * @return KS_SUCCESS if the file was properly closed, otherwise it will return an error
          */
@@ -127,6 +134,17 @@ namespace kronos {
 
         KsResult Rename(const String& newName) {
             return Rename(newName, m_Path);
+        }
+
+        /**
+         * Commits any changes made to the file to permanent storage.
+         * @return KS_SUCCESS the file was synced successfully, KS_FILE_ERROR otherwise.
+         */
+        KsResult Sync() {
+            if (red_fsync(m_FileId) == KS_FILE_ERROR)
+                return KS_ERROR_FILE_SYNC_FAILED;
+
+            return KS_SUCCESS;
         }
 
         /**
