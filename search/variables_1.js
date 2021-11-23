@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eventcode_174',['eventCode',['../structkronos_1_1EventMessage.html#a6567449e03a831faabb5b49771bb5ce9',1,'kronos::EventMessage']]]
+  ['channels_310',['channels',['../structkronos_1_1TelemetryRateGroup.html#ae3456d19bfb82367c4a1b044960d8ad2',1,'kronos::TelemetryRateGroup']]]
 ];

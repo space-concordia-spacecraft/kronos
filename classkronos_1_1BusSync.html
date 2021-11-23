@@ -90,13 +90,18 @@ $(document).ready(function(){initNavTree('classkronos_1_1BusSync.html',''); init
 <div class="title">kronos::BusSync Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class that implements synchronous buses.  
+ <a href="classkronos_1_1BusSync.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ks__bus_8h_source.html">ks_bus.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for kronos::BusSync:</div>
 <div class="dyncontent">
 <div class="center"><img src="classkronos_1_1BusSync__inherit__graph.png" border="0" usemap="#akronos_1_1BusSync_inherit__map" alt="Inheritance graph"/></div>
 <map name="akronos_1_1BusSync_inherit__map" id="akronos_1_1BusSync_inherit__map">
-<area shape="rect" title=" " alt="" coords="6,80,135,107"/>
-<area shape="rect" href="classkronos_1_1BusBase.html" title=" " alt="" coords="5,5,136,32"/>
+<area shape="rect" title="A class that implements synchronous buses." alt="" coords="6,80,135,107"/>
+<area shape="rect" href="classkronos_1_1BusBase.html" title="Base implementation for buses." alt="" coords="5,5,136,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -104,49 +109,227 @@ Collaboration diagram for kronos::BusSync:</div>
 <div class="dyncontent">
 <div class="center"><img src="classkronos_1_1BusSync__coll__graph.png" border="0" usemap="#akronos_1_1BusSync_coll__map" alt="Collaboration graph"/></div>
 <map name="akronos_1_1BusSync_coll__map" id="akronos_1_1BusSync_coll__map">
-<area shape="rect" title=" " alt="" coords="6,171,135,197"/>
-<area shape="rect" href="classkronos_1_1BusBase.html" title=" " alt="" coords="5,95,136,121"/>
+<area shape="rect" title="A class that implements synchronous buses." alt="" coords="6,171,135,197"/>
+<area shape="rect" href="classkronos_1_1BusBase.html" title="Base implementation for buses." alt="" coords="5,95,136,121"/>
 <area shape="rect" href="classkronos_1_1String.html" title=" " alt="" coords="15,5,127,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a28a1aa8f4ad677a10b946e854a9cc1d4"><td class="memItemLeft" align="right" valign="top"><a id="a28a1aa8f4ad677a10b946e854a9cc1d4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BusSync</b> (KsEventCode opcode, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name)</td></tr>
+<tr class="memitem:a28a1aa8f4ad677a10b946e854a9cc1d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusSync.html#a28a1aa8f4ad677a10b946e854a9cc1d4">BusSync</a> (KsEventCode opcode, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name)</td></tr>
 <tr class="separator:a28a1aa8f4ad677a10b946e854a9cc1d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6eccf272550e562e54e50030ba03259e"><td class="memItemLeft" align="right" valign="top"><a id="a6eccf272550e562e54e50030ba03259e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddReceivingComponent</b> (<a class="el" href="classkronos_1_1ComponentBase.html">ComponentBase</a> *component) override</td></tr>
+<tr class="memitem:a6eccf272550e562e54e50030ba03259e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusSync.html#a6eccf272550e562e54e50030ba03259e">AddReceivingComponent</a> (<a class="el" href="classkronos_1_1ComponentBase.html">ComponentBase</a> *component) override</td></tr>
 <tr class="separator:a6eccf272550e562e54e50030ba03259e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a665492aede0c911988f29992544315be"><td class="memItemLeft" align="right" valign="top"><a id="a665492aede0c911988f29992544315be"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Publish</b> (const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;message) const override</td></tr>
+<tr class="memitem:a665492aede0c911988f29992544315be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusSync.html#a665492aede0c911988f29992544315be">Publish</a> (const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;message) const override</td></tr>
 <tr class="separator:a665492aede0c911988f29992544315be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c3661ca9a48c50c5e549fa7d8730217"><td class="memTemplParams" colspan="2"><a id="a8c3661ca9a48c50c5e549fa7d8730217"></a>
-template&lt;typename R &gt; </td></tr>
-<tr class="memitem:a8c3661ca9a48c50c5e549fa7d8730217"><td class="memTemplItemLeft" align="right" valign="top">R *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PublishSync</b> (const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;message)</td></tr>
+<tr class="memitem:a8c3661ca9a48c50c5e549fa7d8730217"><td class="memTemplParams" colspan="2">template&lt;typename R &gt; </td></tr>
+<tr class="memitem:a8c3661ca9a48c50c5e549fa7d8730217"><td class="memTemplItemLeft" align="right" valign="top">R *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusSync.html#a8c3661ca9a48c50c5e549fa7d8730217">PublishSync</a> (const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;message)</td></tr>
+<tr class="memdesc:a8c3661ca9a48c50c5e549fa7d8730217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publishes the message synchronously to the subscribed components.  <a href="classkronos_1_1BusSync.html#a8c3661ca9a48c50c5e549fa7d8730217">More...</a><br /></td></tr>
 <tr class="separator:a8c3661ca9a48c50c5e549fa7d8730217"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad714fadebc825bdd71cc7abbec7d4902"><td class="memTemplParams" colspan="2"><a id="ad714fadebc825bdd71cc7abbec7d4902"></a>
-template&lt;typename T , typename R &gt; </td></tr>
-<tr class="memitem:ad714fadebc825bdd71cc7abbec7d4902"><td class="memTemplItemLeft" align="right" valign="top">R *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>PublishSync</b> (T *data=nullptr)</td></tr>
+<tr class="memitem:ad714fadebc825bdd71cc7abbec7d4902"><td class="memTemplParams" colspan="2">template&lt;typename T , typename R &gt; </td></tr>
+<tr class="memitem:ad714fadebc825bdd71cc7abbec7d4902"><td class="memTemplItemLeft" align="right" valign="top">R *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusSync.html#ad714fadebc825bdd71cc7abbec7d4902">PublishSync</a> (T *data=nullptr)</td></tr>
 <tr class="separator:ad714fadebc825bdd71cc7abbec7d4902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classkronos_1_1BusBase"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classkronos_1_1BusBase')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classkronos_1_1BusBase.html">kronos::BusBase</a></td></tr>
-<tr class="memitem:aef6a8e213dd782de8f586c4346b1a418 inherit pub_methods_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top"><a id="aef6a8e213dd782de8f586c4346b1a418"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>BusBase</b> (KsEventCode opcode, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name)</td></tr>
+<tr class="memitem:aef6a8e213dd782de8f586c4346b1a418 inherit pub_methods_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusBase.html#aef6a8e213dd782de8f586c4346b1a418">BusBase</a> (KsEventCode opcode, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name)</td></tr>
+<tr class="memdesc:aef6a8e213dd782de8f586c4346b1a418 inherit pub_methods_classkronos_1_1BusBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to create a new bus.  <a href="classkronos_1_1BusBase.html#aef6a8e213dd782de8f586c4346b1a418">More...</a><br /></td></tr>
 <tr class="separator:aef6a8e213dd782de8f586c4346b1a418 inherit pub_methods_classkronos_1_1BusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a684bdf4f9afcfd93526fd910bfcd2b28 inherit pub_methods_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top"><a id="a684bdf4f9afcfd93526fd910bfcd2b28"></a>
-<a class="el" href="classkronos_1_1String.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetName</b> ()</td></tr>
+<tr class="memitem:a684bdf4f9afcfd93526fd910bfcd2b28 inherit pub_methods_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkronos_1_1String.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusBase.html#a684bdf4f9afcfd93526fd910bfcd2b28">GetName</a> ()</td></tr>
+<tr class="memdesc:a684bdf4f9afcfd93526fd910bfcd2b28 inherit pub_methods_classkronos_1_1BusBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Getter for the name of the bus.  <a href="classkronos_1_1BusBase.html#a684bdf4f9afcfd93526fd910bfcd2b28">More...</a><br /></td></tr>
 <tr class="separator:a684bdf4f9afcfd93526fd910bfcd2b28 inherit pub_methods_classkronos_1_1BusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classkronos_1_1BusBase"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classkronos_1_1BusBase')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classkronos_1_1BusBase.html">kronos::BusBase</a></td></tr>
 <tr class="memitem:a4232f1e15efaba7723f0701584b332d9 inherit pro_attribs_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top"><a id="a4232f1e15efaba7723f0701584b332d9"></a>
-KsEventCode&#160;</td><td class="memItemRight" valign="bottom"><b>m_EventCode</b></td></tr>
+KsEventCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusBase.html#a4232f1e15efaba7723f0701584b332d9">m_EventCode</a></td></tr>
+<tr class="memdesc:a4232f1e15efaba7723f0701584b332d9 inherit pro_attribs_classkronos_1_1BusBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event code that gets sent to all subscribed components. <br /></td></tr>
 <tr class="separator:a4232f1e15efaba7723f0701584b332d9 inherit pro_attribs_classkronos_1_1BusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c2d1da98f381c123432db090334f5a2 inherit pro_attribs_classkronos_1_1BusBase"><td class="memItemLeft" align="right" valign="top"><a id="a1c2d1da98f381c123432db090334f5a2"></a>
-<a class="el" href="classkronos_1_1String.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_Name</b></td></tr>
+<a class="el" href="classkronos_1_1String.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1BusBase.html#a1c2d1da98f381c123432db090334f5a2">m_Name</a></td></tr>
+<tr class="memdesc:a1c2d1da98f381c123432db090334f5a2 inherit pro_attribs_classkronos_1_1BusBase"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of the bus. <br /></td></tr>
 <tr class="separator:a1c2d1da98f381c123432db090334f5a2 inherit pro_attribs_classkronos_1_1BusBase"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class that implements synchronous buses. </p>
+<p>This class implements synchronous buses. These are able to return values </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a28a1aa8f4ad677a10b946e854a9cc1d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a1aa8f4ad677a10b946e854a9cc1d4">&#9670;&nbsp;</a></span>BusSync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">kronos::BusSync::BusSync </td>
+          <td>(</td>
+          <td class="paramtype">KsEventCode&#160;</td>
+          <td class="paramname"><em>opcode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classkronos_1_1String.html">String</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p></p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6eccf272550e562e54e50030ba03259e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eccf272550e562e54e50030ba03259e">&#9670;&nbsp;</a></span>AddReceivingComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kronos::BusSync::AddReceivingComponent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkronos_1_1ComponentBase.html">ComponentBase</a> *&#160;</td>
+          <td class="paramname"><em>component</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+<p>Implements <a class="el" href="classkronos_1_1BusBase.html#ad937f098048c9bdd2c2cbd8167fc3ec1">kronos::BusBase</a>.</p>
+
+</div>
+</div>
+<a id="a665492aede0c911988f29992544315be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a665492aede0c911988f29992544315be">&#9670;&nbsp;</a></span>Publish()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kronos::BusSync::Publish </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p></p>
+
+<p>Implements <a class="el" href="classkronos_1_1BusBase.html#a31d28016abb2971aef7483f4a4f9ac49">kronos::BusBase</a>.</p>
+
+</div>
+</div>
+<a id="a8c3661ca9a48c50c5e549fa7d8730217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c3661ca9a48c50c5e549fa7d8730217">&#9670;&nbsp;</a></span>PublishSync() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename R &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">R* kronos::BusSync::PublishSync </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structkronos_1_1EventMessage.html">EventMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Publishes the message synchronously to the subscribed components. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">R</td><td>type of the return </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>reference to the event message being sent to the components </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
+<a id="ad714fadebc825bdd71cc7abbec7d4902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad714fadebc825bdd71cc7abbec7d4902">&#9670;&nbsp;</a></span>PublishSync() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename R &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">R* kronos::BusSync::PublishSync </td>
+          <td>(</td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>data</em> = <code>nullptr</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td></td></tr>
+    <tr><td class="paramname">R</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/thomas/Repos/orthus-fsw/kronos/lib/include/<a class="el" href="ks__bus_8h_source.html">ks_bus.h</a></li>
 <li>/home/thomas/Repos/orthus-fsw/kronos/lib/src/ks_bus.cpp</li>

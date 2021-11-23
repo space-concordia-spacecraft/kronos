@@ -26,7 +26,7 @@ var NAVTREE =
 [
   [ "Kronos", "index.html", [
     [ "License", "License.html", null ],
-    [ "{#mainpage} Spacecraft Framework", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html", [
+    [ "Spacecraft Framework", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html", [
       [ "Overview", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md0", null ],
       [ "Installation", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md1", [
         [ "Pre-requisites", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md2", [
@@ -58,7 +58,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -70,7 +71,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "License.html",
-"md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md8"
+"ks__parameter__database_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

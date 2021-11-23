@@ -127,85 +127,100 @@ $(document).ready(function(){initNavTree('ks__file_8h_source.html',''); initResi
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="classkronos_1_1File.html">File</a>(<span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_FileId(fileId) {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            <span class="comment">// Separate path variable into the name and path of the file.</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="comment">// TODO: Switch for a FindLast.</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">size_t</span> index = path.Find(<span class="stringliteral">&quot;/&quot;</span>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">size_t</span> index = path.<a class="code" href="classkronos_1_1String.html#aafa176097320b7602e8461d6e5662c65">Find</a>(<span class="stringliteral">&quot;/&quot;</span>);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            m_Name = path.Substring(index);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            m_Path = path.Substring(0, index);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            m_Name = path.<a class="code" href="classkronos_1_1String.html#a60d4c0408c46249be6b6344152495447">Substring</a>(index);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            m_Path = path.<a class="code" href="classkronos_1_1String.html#a60d4c0408c46249be6b6344152495447">Substring</a>(0, index);</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">   72</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">Close</a>() {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            <span class="keywordflow">if</span> (red_close(m_FileId) == KS_FILE_ERROR)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_CLOSE;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            m_FileId = KS_FILE_INVALID_HANDLE;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">   90</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">Read</a>(<span class="keywordtype">void</span>* buffer, uint32_t length) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordflow">if</span> (red_read(m_FileId, buffer, length) == KS_FILE_ERROR)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_READ;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">  106</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">Write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, uint32_t length) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <span class="keywordflow">if</span> (red_write(m_FileId, buffer, length) == KS_FILE_ERROR)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_WRITE;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">  121</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(<span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newName, <span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newPath) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            <span class="keywordflow">if</span> (red_rename((m_Path + m_Name).Ptr(), (newPath + newName).Ptr()) == KS_FILE_ERROR)</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_RENAME;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(<span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newName) {</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(newName, m_Path);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        }</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a4d08691140ec027987b4d21a31c546bd">   71</a></span>&#160;        <a class="code" href="classkronos_1_1File.html#a4d08691140ec027987b4d21a31c546bd">~File</a>() {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            <a class="code" href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">Close</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        }</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">   79</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">Close</a>() {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">if</span> (red_close(m_FileId) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_CLOSE;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            m_FileId = KS_FILE_INVALID_HANDLE;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">   97</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">Read</a>(<span class="keywordtype">void</span>* buffer, uint32_t length) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keywordflow">if</span> (red_read(m_FileId, buffer, length) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_READ;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">  113</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">Write</a>(<span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, uint32_t length) {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> (red_write(m_FileId, buffer, length) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_WRITE;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">  128</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(<span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newName, <span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newPath) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordflow">if</span> (red_rename((m_Path + m_Name).Ptr(), (newPath + newName).Ptr()) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_RENAME;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">  137</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">GetStatus</a>(REDSTAT* fileInfo) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;            <span class="keywordflow">if</span> (red_fstat(m_FileId, fileInfo) == KS_FILE_ERROR)</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_GET_STATUS;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(<span class="keyword">const</span> <a class="code" href="classkronos_1_1String.html">String</a>&amp; newName) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">Rename</a>(newName, m_Path);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#abf5359522cb76d253d03f6cf0103c6ea">  143</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#abf5359522cb76d253d03f6cf0103c6ea">Sync</a>() {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;            <span class="keywordflow">if</span> (red_fsync(m_FileId) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_SYNC_FAILED;</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="comment">//TODO - Implement Remove()</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <a class="code" href="classkronos_1_1String.html">String</a> m_Name = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <a class="code" href="classkronos_1_1String.html">String</a> m_Path = <span class="stringliteral">&quot;&quot;</span>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        int32_t m_FileId;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    };</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;}</div>
-<div class="ttc" id="aclasskronos_1_1ComponentFileManager_html"><div class="ttname"><a href="classkronos_1_1ComponentFileManager.html">kronos::ComponentFileManager</a></div><div class="ttdef"><b>Definition:</b> ks_file_manager.h:10</div></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">  155</a></span>&#160;        KsResult <a class="code" href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">GetStatus</a>(REDSTAT* fileInfo) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="keywordflow">if</span> (m_FileId == KS_FILE_INVALID_HANDLE)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_NOT_OPEN;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            <span class="keywordflow">if</span> (red_fstat(m_FileId, fileInfo) == KS_FILE_ERROR)</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;                <span class="keywordflow">return</span> KS_ERROR_FILE_UNABLE_TO_GET_STATUS;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordflow">return</span> KS_SUCCESS;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="comment">//TODO - Implement Remove()</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <a class="code" href="classkronos_1_1String.html">String</a> m_Name = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <a class="code" href="classkronos_1_1String.html">String</a> m_Path = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        int32_t m_FileId;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    };</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<div class="ttc" id="aclasskronos_1_1ComponentFileManager_html"><div class="ttname"><a href="classkronos_1_1ComponentFileManager.html">kronos::ComponentFileManager</a></div><div class="ttdef"><b>Definition:</b> ks_file_manager.h:12</div></div>
 <div class="ttc" id="aclasskronos_1_1File_html"><div class="ttname"><a href="classkronos_1_1File.html">kronos::File</a></div><div class="ttdef"><b>Definition:</b> ks_file.h:49</div></div>
-<div class="ttc" id="aclasskronos_1_1File_html_a21d11b93b3f7ff1cd70bf037edcda487"><div class="ttname"><a href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">kronos::File::GetStatus</a></div><div class="ttdeci">KsResult GetStatus(REDSTAT *fileInfo)</div><div class="ttdef"><b>Definition:</b> ks_file.h:137</div></div>
-<div class="ttc" id="aclasskronos_1_1File_html_a288d539c6b3d5205b474ec3368aa50af"><div class="ttname"><a href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">kronos::File::Rename</a></div><div class="ttdeci">KsResult Rename(const String &amp;newName, const String &amp;newPath)</div><div class="ttdef"><b>Definition:</b> ks_file.h:121</div></div>
-<div class="ttc" id="aclasskronos_1_1File_html_a51a83423d9602bb0b3a5f97d0c76df87"><div class="ttname"><a href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">kronos::File::Read</a></div><div class="ttdeci">KsResult Read(void *buffer, uint32_t length)</div><div class="ttdef"><b>Definition:</b> ks_file.h:90</div></div>
-<div class="ttc" id="aclasskronos_1_1File_html_a8187e89c02d90d3ece23911910bc5506"><div class="ttname"><a href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">kronos::File::Write</a></div><div class="ttdeci">KsResult Write(const void *buffer, uint32_t length)</div><div class="ttdef"><b>Definition:</b> ks_file.h:106</div></div>
-<div class="ttc" id="aclasskronos_1_1File_html_af1c2afc4afc05a1b653542952907bfae"><div class="ttname"><a href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">kronos::File::Close</a></div><div class="ttdeci">KsResult Close()</div><div class="ttdef"><b>Definition:</b> ks_file.h:72</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_a21d11b93b3f7ff1cd70bf037edcda487"><div class="ttname"><a href="classkronos_1_1File.html#a21d11b93b3f7ff1cd70bf037edcda487">kronos::File::GetStatus</a></div><div class="ttdeci">KsResult GetStatus(REDSTAT *fileInfo)</div><div class="ttdef"><b>Definition:</b> ks_file.h:155</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_a288d539c6b3d5205b474ec3368aa50af"><div class="ttname"><a href="classkronos_1_1File.html#a288d539c6b3d5205b474ec3368aa50af">kronos::File::Rename</a></div><div class="ttdeci">KsResult Rename(const String &amp;newName, const String &amp;newPath)</div><div class="ttdef"><b>Definition:</b> ks_file.h:128</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_a4d08691140ec027987b4d21a31c546bd"><div class="ttname"><a href="classkronos_1_1File.html#a4d08691140ec027987b4d21a31c546bd">kronos::File::~File</a></div><div class="ttdeci">~File()</div><div class="ttdef"><b>Definition:</b> ks_file.h:71</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_a51a83423d9602bb0b3a5f97d0c76df87"><div class="ttname"><a href="classkronos_1_1File.html#a51a83423d9602bb0b3a5f97d0c76df87">kronos::File::Read</a></div><div class="ttdeci">KsResult Read(void *buffer, uint32_t length)</div><div class="ttdef"><b>Definition:</b> ks_file.h:97</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_a8187e89c02d90d3ece23911910bc5506"><div class="ttname"><a href="classkronos_1_1File.html#a8187e89c02d90d3ece23911910bc5506">kronos::File::Write</a></div><div class="ttdeci">KsResult Write(const void *buffer, uint32_t length)</div><div class="ttdef"><b>Definition:</b> ks_file.h:113</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_abf5359522cb76d253d03f6cf0103c6ea"><div class="ttname"><a href="classkronos_1_1File.html#abf5359522cb76d253d03f6cf0103c6ea">kronos::File::Sync</a></div><div class="ttdeci">KsResult Sync()</div><div class="ttdef"><b>Definition:</b> ks_file.h:143</div></div>
+<div class="ttc" id="aclasskronos_1_1File_html_af1c2afc4afc05a1b653542952907bfae"><div class="ttname"><a href="classkronos_1_1File.html#af1c2afc4afc05a1b653542952907bfae">kronos::File::Close</a></div><div class="ttdeci">KsResult Close()</div><div class="ttdef"><b>Definition:</b> ks_file.h:79</div></div>
 <div class="ttc" id="aclasskronos_1_1String_html"><div class="ttname"><a href="classkronos_1_1String.html">kronos::String</a></div><div class="ttdef"><b>Definition:</b> ks_string.h:8</div></div>
+<div class="ttc" id="aclasskronos_1_1String_html_a60d4c0408c46249be6b6344152495447"><div class="ttname"><a href="classkronos_1_1String.html#a60d4c0408c46249be6b6344152495447">kronos::String::Substring</a></div><div class="ttdeci">String Substring(size_t start) const</div><div class="ttdoc">Function to create a Substring from an index till the end.</div><div class="ttdef"><b>Definition:</b> ks_string.h:74</div></div>
+<div class="ttc" id="aclasskronos_1_1String_html_aafa176097320b7602e8461d6e5662c65"><div class="ttname"><a href="classkronos_1_1String.html#aafa176097320b7602e8461d6e5662c65">kronos::String::Find</a></div><div class="ttdeci">size_t Find(const char *str) const</div><div class="ttdoc">Function to find the address of a String.</div><div class="ttdef"><b>Definition:</b> ks_string.h:63</div></div>
 <div class="ttc" id="astructkronos_1_1FileOpenMessage_html"><div class="ttname"><a href="structkronos_1_1FileOpenMessage.html">kronos::FileOpenMessage</a></div><div class="ttdoc">FileOpenMessage is a struct that contains all the variables needed to Open a file.</div><div class="ttdef"><b>Definition:</b> ks_file.h:27</div></div>
 <div class="ttc" id="astructkronos_1_1FileOpenMessage_html_a242a87aeca7b9484a628e16e5c98e571"><div class="ttname"><a href="structkronos_1_1FileOpenMessage.html#a242a87aeca7b9484a628e16e5c98e571">kronos::FileOpenMessage::mode</a></div><div class="ttdeci">uint32_t mode</div><div class="ttdef"><b>Definition:</b> ks_file.h:41</div></div>
 <div class="ttc" id="astructkronos_1_1FileOpenMessage_html_a4de54e276cce94c11f7c89589ba83238"><div class="ttname"><a href="structkronos_1_1FileOpenMessage.html#a4de54e276cce94c11f7c89589ba83238">kronos::FileOpenMessage::path</a></div><div class="ttdeci">String path</div><div class="ttdoc">The path used to open the file. This should start with a / and should include the name and extension ...</div><div class="ttdef"><b>Definition:</b> ks_file.h:29</div></div>

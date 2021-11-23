@@ -1,5 +1,5 @@
 <map id="kronos::BusBase" name="kronos::BusBase">
-<area shape="rect" id="node1" title=" " alt="" coords="87,5,218,32"/>
+<area shape="rect" id="node1" title="Base implementation for buses." alt="" coords="87,5,218,32"/>
 <area shape="rect" id="node2" href="$classkronos_1_1BusAsync.html" title=" " alt="" coords="5,80,143,107"/>
-<area shape="rect" id="node3" href="$classkronos_1_1BusSync.html" title=" " alt="" coords="167,80,296,107"/>
+<area shape="rect" id="node3" href="$classkronos_1_1BusSync.html" title="A class that implements synchronous buses." alt="" coords="167,80,296,107"/>
 </map>

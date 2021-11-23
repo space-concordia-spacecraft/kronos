@@ -1,5 +1,7 @@
 <map id="kronos::TelemetryRateGroup" name="kronos::TelemetryRateGroup">
-<area shape="rect" id="node1" title=" " alt="" coords="20,200,228,227"/>
-<area shape="rect" id="node2" href="$classkronos_1_1Vector.html" title=" " alt="" coords="37,96,211,137"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,5,243,47"/>
+<area shape="rect" id="node1" title="Struct that holds a telemetry group. Telemetry channels are grouped into their respective tick rate." alt="" coords="152,200,360,227"/>
+<area shape="rect" id="node2" href="$classkronos_1_1ApolloExporter.html" title="A class the implements the exporter for the apollo format." alt="" coords="5,103,176,130"/>
+<area shape="rect" id="node3" href="$classkronos_1_1String.html" title=" " alt="" coords="200,103,312,130"/>
+<area shape="rect" id="node4" href="$classkronos_1_1Vector.html" title=" " alt="" coords="337,96,511,137"/>
+<area shape="rect" id="node5" title=" " alt="" coords="305,5,543,47"/>
 </map>

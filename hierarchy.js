@@ -1,5 +1,8 @@
 var hierarchy =
 [
+    [ "kronos::ApolloExporter", "classkronos_1_1ApolloExporter.html", null ],
+    [ "kronos::ApolloHeader", "structkronos_1_1ApolloHeader.html", null ],
+    [ "kronos::ApolloImporter", "classkronos_1_1ApolloImporter.html", null ],
     [ "kronos::BusBase", "classkronos_1_1BusBase.html", [
       [ "kronos::BusAsync", "classkronos_1_1BusAsync.html", null ],
       [ "kronos::BusSync", "classkronos_1_1BusSync.html", null ]
@@ -43,6 +46,7 @@ var hierarchy =
       [ "kronos::HashMap< kronos::String, kronos::BusAsync * >", "classkronos_1_1HashMap.html", null ],
       [ "kronos::HashMap< kronos::String, kronos::ComponentBase * >", "classkronos_1_1HashMap.html", null ],
       [ "kronos::HashMap< KsOpcode, void(*)(void *)>", "classkronos_1_1HashMap.html", null ],
+      [ "kronos::Vector< kronos::ApolloHeader >", "classkronos_1_1Vector.html", null ],
       [ "kronos::Vector< kronos::ComponentBase * >", "classkronos_1_1Vector.html", null ],
       [ "kronos::Vector< kronos::TelemetryRateGroup >", "classkronos_1_1Vector.html", null ],
       [ "kronos::Vector< kronos::RateGroupFrequency >", "classkronos_1_1Vector.html", null ],
@@ -65,6 +69,7 @@ var hierarchy =
     [ "kronos::String", "classkronos_1_1String.html", null ],
     [ "kronos::TelemetryChannel", "structkronos_1_1TelemetryChannel.html", null ],
     [ "kronos::TelemetryRateGroup", "structkronos_1_1TelemetryRateGroup.html", null ],
+    [ "Template", "classTemplate.html", null ],
     [ "std::true_type", null, [
       [ "kronos::has_hash< T, decltype((void) &T::Hash, void())>", "structkronos_1_1has__hash_3_01T_00_01decltype_07_07void_08_01_6T_1_1Hash_00_01void_07_08_08_4.html", null ]
     ] ],
