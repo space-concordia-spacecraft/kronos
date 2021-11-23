@@ -22,7 +22,7 @@ namespace kronos {
 
         File* Open(const String & path, uint32_t mode);
 
-        static ComponentFileManager& Get(const String& componentName, const String& volume);
+        static ComponentFileManager& Get();
 
     private:
         String m_Volume;
