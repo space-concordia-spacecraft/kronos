@@ -47,8 +47,8 @@ namespace kronos {
         return new File(path, fileId);
     }
 
-    ComponentFileManager& ComponentFileManager::Get(const String& componentName, const String& volume) {
-        static ComponentFileManager fileManager(componentName, volume);
+    ComponentFileManager& ComponentFileManager::Get() {
+        static ComponentFileManager fileManager("File Manager", "C:");
         return fileManager;
     }
 
