@@ -1,8 +1,8 @@
 #include "ks_profiler.h"
 
 namespace kronos {
-    void Profiler::BeginSession(const String& name) {
-        m_CurrentSession = new ProfilingSession({ name });
+    void Profiler::BeginSession(const String& name, TickType_t interval) {
+        m_CurrentSession = new ProfilingSession(name, interval);
     }
 
     void Profiler::EndSession() {
@@ -12,11 +12,22 @@ namespace kronos {
 
     void Profiler::Log(const String& functionName, const String& location, TickType_t start, TickType_t end) {
         TaskHandle_t currentTask = xTaskGetCurrentTaskHandle();
-        TaskStatus_t currentTaskDetails;
+        TickType_t currentTime = xTaskGetTickCount() * portTICK_RATE_MS;
 
-        vTaskGetInfo(currentTask, &currentTaskDetails, pdFALSE, eRunning);
+        // TBD, should we use FreeRTOS timers instead?
+        if(m_CurrentSession->longestProfiles.Get(functionName) < start - end)
+            m_CurrentSession->longestProfiles.Put(functionName, start - end);
 
-        Framework::LogDebug(functionName + " -> " + location);
+        if(m_CurrentSession->profileLogInterval <= currentTime - m_CurrentSession->startLog) {
+            m_CurrentSession->startLog = xTaskGetTickCount() * portTICK_RATE_MS;
+
+            TaskStatus_t currentTaskDetails;
+            vTaskGetInfo(currentTask, &currentTaskDetails, pdFALSE, eRunning);
+
+            Framework::LogDebug(functionName + " in " + location);
+            // TODO: Store in a file. (currentTaskDetails, longestProfile)
+        }
+
     }
 
     Profiler& Profiler::Get() {
@@ -28,9 +39,6 @@ namespace kronos {
         m_Start = xTaskGetTickCount() * portTICK_RATE_MS;
     }
 
-    /**
-     * ProfileTimer destructor stops the timer and logs the info.
-     */
     ProfilerTimer::~ProfilerTimer() {
         TickType_t endTime = xTaskGetTickCount() * portTICK_RATE_MS;
 
