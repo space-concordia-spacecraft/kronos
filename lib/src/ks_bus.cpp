@@ -5,7 +5,7 @@ namespace kronos {
     // ==================== Base Bus ====================
 
     BusBase::BusBase(KsEventCode eventCode, const String& name)
-        : m_EventCode(eventCode), m_Name(name) {}
+            : m_EventCode(eventCode), m_Name(name) {}
 
     String BusBase::GetName() {
         return m_Name;
@@ -14,7 +14,7 @@ namespace kronos {
     // ==================== Synchronous Bus ====================
 
     BusSync::BusSync(KsEventCode eventCode, const String& name)
-        : BusBase(eventCode, name) {}
+            : BusBase(eventCode, name) {}
 
     void BusSync::AddReceivingComponent(ComponentBase* component) {
         if (m_ReceivingComponent != nullptr) {
@@ -42,7 +42,7 @@ namespace kronos {
     // ==================== Asynchronous Bus ====================
 
     BusAsync::BusAsync(KsEventCode opcode, const String& name)
-        : BusBase(opcode, name) {}
+            : BusBase(opcode, name) {}
 
     void BusAsync::AddReceivingComponent(ComponentBase* component) {
         if (m_ReceivingComponents.Find(component) >= 0) {
@@ -63,7 +63,7 @@ namespace kronos {
             return;
         }
 
-        for (size_t i = 0; i < m_ReceivingComponents.Size(); i ++) {
+        for (size_t i = 0; i < m_ReceivingComponents.Size(); i++) {
             ComponentBase* component = m_ReceivingComponents[i];
             component->ReceiveEvent(message);
         }

@@ -16,7 +16,8 @@ namespace kronos {
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         KsResult RegisterCommand(KsOpcode opcode, void (* pFunction)(void*));
+
     private:
-        HashMap<KsOpcode , void (*)(void*)> m_CommandMessages;
+        HashMap<KsOpcode, void (*)(void*)> m_CommandMessages;
     };
 }

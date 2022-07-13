@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('classkronos_1_1Profiler.html',''); ini
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="classkronos_1_1Profiler.html" title="Profiler class to write benchmarks onto a file. It uses the Singleton design pattern.">Profiler</a> class to write benchmarks onto a file. It uses the Singleton design pattern.  
+<p>A class that handles the profiling information of a function.  
  <a href="classkronos_1_1Profiler.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="ks__profiler_8h_source.html">ks_profiler.h</a>&gt;</code></p>
@@ -100,10 +100,14 @@ $(document).ready(function(){initNavTree('classkronos_1_1Profiler.html',''); ini
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a00b1039248c9687730f47cea627cca31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1Profiler.html#a00b1039248c9687730f47cea627cca31">BeginSession</a> (const <a class="el" href="classkronos_1_1String.html">String</a> &amp;name)</td></tr>
+<tr class="memdesc:a00b1039248c9687730f47cea627cca31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins a profiling session.  <a href="classkronos_1_1Profiler.html#a00b1039248c9687730f47cea627cca31">More...</a><br /></td></tr>
 <tr class="separator:a00b1039248c9687730f47cea627cca31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbac6e67d708fbfedf7622a190306b67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1Profiler.html#acbac6e67d708fbfedf7622a190306b67">EndSession</a> ()</td></tr>
+<tr class="memitem:acbac6e67d708fbfedf7622a190306b67"><td class="memItemLeft" align="right" valign="top"><a id="acbac6e67d708fbfedf7622a190306b67"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1Profiler.html#acbac6e67d708fbfedf7622a190306b67">EndSession</a> ()</td></tr>
+<tr class="memdesc:acbac6e67d708fbfedf7622a190306b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends the profiling session. <br /></td></tr>
 <tr class="separator:acbac6e67d708fbfedf7622a190306b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97e122cf14212faeebd8c96058d8456d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkronos_1_1Profiler.html#a97e122cf14212faeebd8c96058d8456d">Log</a> (const <a class="el" href="classkronos_1_1String.html">String</a> &amp;functionName, const <a class="el" href="classkronos_1_1String.html">String</a> &amp;location, TickType_t start, TickType_t end)</td></tr>
+<tr class="memdesc:a97e122cf14212faeebd8c96058d8456d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logs the resulting information from the timer into the terminal.  <a href="classkronos_1_1Profiler.html#a97e122cf14212faeebd8c96058d8456d">More...</a><br /></td></tr>
 <tr class="separator:a97e122cf14212faeebd8c96058d8456d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -112,7 +116,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a65a2b94971844f0cfc6e82098c0cf041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classkronos_1_1Profiler.html" title="Profiler class to write benchmarks onto a file. It uses the Singleton design pattern.">Profiler</a> class to write benchmarks onto a file. It uses the Singleton design pattern. </p>
+<div class="textblock"><p>A class that handles the profiling information of a function. </p>
+<p>This class is used to either store or print to the terminal the profiling information for a given function. It uses the Singleton design pattern. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a00b1039248c9687730f47cea627cca31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00b1039248c9687730f47cea627cca31">&#9670;&nbsp;</a></span>BeginSession()</h2>
@@ -129,30 +134,14 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>BeginSession begins a profiling session. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Begins a profiling session. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>- Name of the profiling session. </td></tr>
+    <tr><td class="paramname">name</td><td>the name of the profiling session. </td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="acbac6e67d708fbfedf7622a190306b67"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbac6e67d708fbfedf7622a190306b67">&#9670;&nbsp;</a></span>EndSession()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void kronos::Profiler::EndSession </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>EndSession deletes the current session. </p>
 
 </div>
 </div>
@@ -178,7 +167,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Getter function to get the instance of <a class="el" href="classkronos_1_1Profiler.html" title="Profiler class to write benchmarks onto a file. It uses the Singleton design pattern.">Profiler</a>. </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p>Getter for the Singleton design pattern </p><dl class="section return"><dt>Returns</dt><dd>Instance of the profiler </dd></dl>
 
 </div>
 </div>
@@ -219,12 +208,14 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Log outputs the benchmarks results onto a file. </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>Logs the resulting information from the timer into the terminal. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">functionName</td><td>- Name of the function. </td></tr>
-    <tr><td class="paramname">location</td><td>- <a class="el" href="classkronos_1_1File.html">File</a> path location and line number for the function that was benchmarked. </td></tr>
-    <tr><td class="paramname">start</td><td>- Start time for the benchmark. </td></tr>
-    <tr><td class="paramname">end</td><td>- End time for the benchmark. </td></tr>
+    <tr><td class="paramname">functionName</td><td>The name of the function being profiled </td></tr>
+    <tr><td class="paramname">location</td><td>The path location of the function being profiled </td></tr>
+    <tr><td class="paramname">start</td><td>The start time for the profiling </td></tr>
+    <tr><td class="paramname">end</td><td>The end time for the profiling </td></tr>
   </table>
   </dd>
 </dl>

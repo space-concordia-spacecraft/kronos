@@ -14,13 +14,16 @@
 namespace kronos {
 
     template<typename T, typename = void>
-    struct has_hash : std::false_type {};
+    struct has_hash : std::false_type {
+    };
 
     template<class T>
-    struct has_hash<T, decltype((void) &T::Hash, void())> : std::true_type {};
+    struct has_hash<T, decltype((void) &T::Hash, void())> : std::true_type {
+    };
 
     template<int T, typename K>
-    struct KeyHash {};
+    struct KeyHash {
+    };
 
     // Default hash function class
     template<typename K>
@@ -33,14 +36,14 @@ namespace kronos {
     template<typename K>
     struct KeyHash<KS_HASH_CLASS, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t) (&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t)(&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
     template<typename K>
     struct KeyHash<KS_HASH_TYPE, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t) (key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t)(key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
@@ -56,20 +59,25 @@ namespace kronos {
         //! \param key for the HashNode
         //! \param value for the HashNode
         HashNode(const K& key, const V& value) : m_Key(key), m_Value(value), m_Next(nullptr) {}
+
         //! \brief Getter for HashNode Key
         //! \return Key for the HashNode
         K& GetKey() { return m_Key; }
+
         //! \brief Getter for the HashNode Value
         //! \return Value for the HashNode
         V& GetValue() { return m_Value; }
+
         //! \brief Getter for Next HashNode
         //!
         //! \return Address to the next HashNode
         HashNode* GetNext() const { return m_Next; }
+
         //! \brief Setter for the HashNode Value
         //!
         //! \param value for the HasNode
         void SetValue(V value) { m_Value = value; }
+
         void SetNext(HashNode* next) { m_Next = next; }
 
     private:
@@ -86,6 +94,7 @@ namespace kronos {
 
     template<typename K, typename V, typename F>
     class HashMap;
+
     //! \class HashMapIterator Class
     //! \tparam K is the Key of the HashNode
     //! \tparam V is the Value of the HashNode
@@ -100,6 +109,7 @@ namespace kronos {
         //! \param keyIndex for HashMapIterator
         HashMapIterator(const HashMap<K, V, F>* hashMap, size_t hashIndex, size_t keyIndex)
                 : m_HashMap(hashMap), m_HashIndex(hashIndex), m_KeyIndex(keyIndex) {}
+
         //! \brief HashMapIterator ++ Unary Operator Overload
         HashMapIterator<K, V, F>& operator++() {
             // Checks if the HashMap is Hashable
@@ -134,6 +144,7 @@ namespace kronos {
 
             return *this;
         }
+
         //! \brief HaspMapIterator ++ Binary Operator Overload
         HashMapIterator<K, V, F> operator++(int) {
             //Stores the Pointer Address of the HashMapIterator
@@ -143,6 +154,7 @@ namespace kronos {
             //Returns the Original Address
             return temp;
         }
+
         //! HashMapIterator Dereference Operator Overload
         HashNode<K, V>& operator*() {
             // Creates a HashNode from the HashMap
@@ -153,10 +165,12 @@ namespace kronos {
             //Returns the Last Node
             return *node;
         }
+
         //! HashMapIterator Reference (->) Operator Overload
         HashNode<K, V>* operator->() {
             return &(**this);
         }
+
         //! \brief Equals Operator for the HashMapIterator
         //! \tparam K_ is the Key
         //! \tparam V_ is the Value
@@ -166,6 +180,7 @@ namespace kronos {
         //! \return Boolean Expression showing if two HashMaps are equal
         template<typename K_, typename V_, typename F_>
         friend bool operator==(const HashMapIterator<K_, V_, F_>& left, const HashMapIterator<K_, V_, F_>& right);
+
         //!
         //! \tparam K_ is the Key
         //! \tparam V_ is the Value
@@ -198,10 +213,11 @@ namespace kronos {
     public:
         //! \brief HashMap  Default constructor
         HashMap() : m_HashTable(), m_HashFunction() {}
+
         //! \brief HashMap Destructor
         ~HashMap() {
             // Destroys all buckets one after another
-            for (auto& i : m_HashTable) {
+            for (auto& i: m_HashTable) {
                 HashNode<K, V>* entry = i;
 
                 while (entry != nullptr) {
@@ -213,6 +229,7 @@ namespace kronos {
                 i = nullptr;
             }
         }
+
         //! \brief Getter for the HashMap Value
         //! \param key is the bucket key
         //! \return HashNode
@@ -231,6 +248,7 @@ namespace kronos {
             Put(key, V());
             return Get(key);
         }
+
         //! \brief Function to check if the Key,Value pair exists
         //!
         //! \param key the key for the HashNode
@@ -255,6 +273,7 @@ namespace kronos {
             //Returns False since the Node does not exist
             return false;
         }
+
         //! \brief Function to Insert a <Key,Value> pair in the HashMap
         //! \param key is the Key that is to be inserted
         //! \param value is the Value that is to be inserted
@@ -278,7 +297,7 @@ namespace kronos {
                 if (prev == nullptr) {
                     // insert as first bucket
                     m_HashTable[hashValue] = entry;
-                // Adds the new HashNode Reference to the List
+                    // Adds the new HashNode Reference to the List
                 } else {
                     prev->SetNext(entry);
                 }
@@ -288,6 +307,7 @@ namespace kronos {
                 entry->SetValue(value);
             }
         }
+
         //! \brief Function that removes the HashNode with the Key
         //! \param key is the key of the HashNode
         void Remove(const K& key) {
@@ -320,6 +340,7 @@ namespace kronos {
                 delete entry;
             }
         }
+
         //! \brief Function which returns the size of the HashMap
         size_t Size() { return 0; } //TODO
         //! Function to access the buckets of the HashMap
@@ -340,6 +361,7 @@ namespace kronos {
             // Returns the beginning bucket of the HashMap
             return HashMapIterator<K, V, F>(this, KS_HASHTABLE_SIZE - 1, 0);
         }
+
         //! \brief Function which returns the HashMapIterator from the end
         //! \return end of the HashMap
         HashMapIterator<K, V, F> end() const override {
@@ -363,6 +385,7 @@ namespace kronos {
         //! Hashing Function
         F m_HashFunction;
     };
+
     //!
     //! \tparam K_ is the Key
     //! \tparam V_ is the Value
@@ -372,10 +395,11 @@ namespace kronos {
     //! \return  Logical Expression if two HashMaps are the same
     template<typename K_, typename V_, typename F_>
     bool operator==(const HashMapIterator<K_, V_, F_>& left, const HashMapIterator<K_, V_, F_>& right) {
-        return  left.m_HashMap == right.m_HashMap &&
-                left.m_HashIndex == right.m_HashIndex &&
-                left.m_KeyIndex == right.m_KeyIndex;
+        return left.m_HashMap == right.m_HashMap &&
+               left.m_HashIndex == right.m_HashIndex &&
+               left.m_KeyIndex == right.m_KeyIndex;
     }
+
     //!
     //! \tparam K_ is the Key
     //! \tparam V_ is the Value

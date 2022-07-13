@@ -25,6 +25,7 @@ namespace kronos {
         BaseType_t Push(const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
             return xQueueSend(m_Queue, &element, ticksToWait);
         }
+
         //! \brief Dequeues element from the queue.
         //!
         //! \param pElement pointer to the element
@@ -33,6 +34,7 @@ namespace kronos {
         BaseType_t Pop(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
             return xQueueReceive(m_Queue, pElement, ticksToWait);
         }
+
         //! \brief Function to Check if the element exists
         //!
         //! \param pElement pointer to the element
@@ -41,17 +43,20 @@ namespace kronos {
         BaseType_t Peek(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) const {
             return xQueuePeek(m_Queue, pElement, ticksToWait);
         }
+
         //! \brief Function to Clear the Queue
         //!
         //! \return pdPASS to show teh queue is cleared
         BaseType_t Clear() {
             return xQueueReset(m_Queue);
         }
+
         //! \brief Getter function for the length of the Queue
         //! \return size of the Queue
         size_t Length() const {
             return m_Length;
         }
+
         //! \brief Function to find the amount of spaces remaining.
         //! \return Amount of free blocks remaining in the Queue.
         size_t Size() const {

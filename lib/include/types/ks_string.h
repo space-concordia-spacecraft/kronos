@@ -21,6 +21,7 @@ namespace kronos {
             // Stores the new string value.
             m_String = newStr;
         }
+
         //! \brief Copy Constructor for String class
         //! \param from is the string to be copied
         String(const String& from) : m_Length(from.m_Length) {
@@ -31,6 +32,7 @@ namespace kronos {
             // Store the value of the new string.
             m_String = str;
         }
+
         //! \brief Default Destructor for String class
         ~String() {
             //Checks if the String is Empty
@@ -41,12 +43,15 @@ namespace kronos {
             //Removes the reference to the memory address
             m_String = nullptr;
         }
+
         //! \brief Function to return String as Character array
         //! \return character array of the String
         const char* Ptr() const { return m_String; }
+
         //! \brief Getter Function for the Length of the String
         //! \return
         size_t Size() const { return m_Length; }
+
         //! \brief Function to Hash the String
         //! \return Returns the Hash Value of the String.
         size_t Hash() const {
@@ -57,23 +62,26 @@ namespace kronos {
                 hash = hash * 33 + m_String[i];
             return hash;
         }
+
         //! \brief Function to find the address of a String
         //! \param str is the string who's address need to be found
         //! \return Start of the Address
-        size_t Find(const char *str) const {
+        size_t Find(const char* str) const {
             //
-            char * ptr = strstr(m_String, str);
-            if(ptr == nullptr)
+            char* ptr = strstr(m_String, str);
+            if (ptr == nullptr)
                 return UINT32_MAX;
 
             return ptr - m_String;
         }
+
         //! \brief Function to create a Substring from an index till the end
         //! \param start is the index to begin the subset
         //! \return Returns the Substring of the string
         String Substring(size_t start) const {
             return Substring(start, m_Length);
         }
+
         //! \brief Function to create a Substring
         //! \param start is the index to begin the subset
         //! \param end is the index to end the subset
@@ -85,6 +93,7 @@ namespace kronos {
             // Returns the subset
             return String(*this, start, end);
         }
+
         //! \brief Fucntion to concatenate two strings
         //! \param first is one of the strings to be concatenated
         //! \param second is one of the strings to be concatenated
@@ -105,6 +114,7 @@ namespace kronos {
             //Returns the new String
             return result;
         }
+
         //! \brief Function to Concatenate strings by using the '+' Operator
         //! \param left is the first string to be concatenated
         //! \param right is the second string to be concatenated
@@ -113,6 +123,7 @@ namespace kronos {
             //Calls the Concatenate Function
             return String::Concatenate(left, right);
         }
+
         //! \brief Function to concatenate a second string with the first one
         //! \param right String to be concatenated to the existing string
         //! \return
@@ -120,6 +131,7 @@ namespace kronos {
             *this = Concatenate(*this, right);
             return *this;
         }
+
         //! \brief Assignment Operator Overload
         //! \param other is the string which is going to be assigned
         //! \return The new string after the assignment
@@ -138,6 +150,7 @@ namespace kronos {
 
             return *this;
         }
+
         //! \brief Friend Function to check if two strings are equal
         //! \param lhs is one of the strings to be checked
         //! \param rhs is one of the strings to be checked
@@ -157,6 +170,7 @@ namespace kronos {
             //Strings are equal
             return true;
         }
+
         //! \brief Function to check if both strings are not the same
         //! \param lhs is one of the strings to be checked
         //! \param rhs is one of the strings to be checked
@@ -164,6 +178,7 @@ namespace kronos {
         friend bool operator!=(const String& lhs, const String& rhs) {
             return !(lhs == rhs);
         }
+
         //! \brief Function to find the character in a particular index
         //! \param idx is the index of the character
         //! \return Character in a particular index
@@ -183,6 +198,7 @@ namespace kronos {
             m_String = str;
             m_Length = end - start;
         }
+
         //! Character Pointer for the String
         const char* m_String;
         //! Size of the String

@@ -11,8 +11,9 @@ namespace kronos {
     //! \class ComponentParameterDatabase Class
     class ComponentParameterDatabase : public ComponentPassive {
     public:
-        ComponentParameterDatabase(const String & componentName);
-        ComponentParameterDatabase(const String & componentName, const String & pathName);
+        ComponentParameterDatabase(const String& componentName);
+
+        ComponentParameterDatabase(const String& componentName, const String& pathName);
 
         KsResult Init() override;
 

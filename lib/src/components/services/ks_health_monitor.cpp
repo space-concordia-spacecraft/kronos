@@ -31,12 +31,13 @@ namespace kronos {
 
     KsResult ComponentHealthMonitor::PingComponents() {
         Framework::LogDebug("Health ping");
+        PROFILE_SCOPE();
         EventMessage message;
         message.eventCode = KS_EVENT_CODE_HEALTH_PING;
         message.returnBus = m_HealthIn;
         m_HealthOut->Publish(message);
 
-        for (auto entry : m_ActiveComponentInfos) {
+        for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
             if (time - entry.GetValue().lastResponse >= KS_HEALTH_PING_RATE) {
                 // TODO: Component has not responded

@@ -9,6 +9,7 @@ namespace kronos {
     class ComponentCanDriver : public ComponentPassive {
     public:
         ComponentCanDriver(const String& componentName, struct mcan_module* mcan_mod);
+
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
@@ -24,7 +25,7 @@ namespace kronos {
          *
          * \return True if successfully queued (space available), false otherwise
          */
-        KsResult Send(struct mcan_module* mcan_mod, uint32_t id_value, uint8_t *data, uint32_t data_length);
+        KsResult Send(struct mcan_module* mcan_mod, uint32_t id_value, uint8_t* data, uint32_t data_length);
 
         /**
          * \brief Get a packet from the software reception buffer
@@ -37,7 +38,6 @@ namespace kronos {
          * \return True if packet retrieved, false if no packet available
          */
         KsResult Read(struct mcan_module* mcan_mod, uint32_t* id_value, uint8_t* data, uint8_t* data_length);
-
 
 
     };

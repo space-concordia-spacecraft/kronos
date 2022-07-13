@@ -1,9 +1,9 @@
 #include "ks_component_active.h"
 
 namespace kronos {
-    
+
     ComponentActive::ComponentActive(const String& name, size_t stackSize, uint16_t priority)
-        : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
+            : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
 
     void ComponentActive::Start(void* data) {
         static_cast<ComponentActive*>(data)->Run();

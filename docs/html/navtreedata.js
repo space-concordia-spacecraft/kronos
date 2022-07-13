@@ -25,32 +25,32 @@
 var NAVTREE =
 [
   [ "Kronos", "index.html", [
-    [ "License", "License.html", null ],
-    [ "{#mainpage} Spacecraft Framework", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html", [
-      [ "Overview", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md0", null ],
-      [ "Installation", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md1", [
-        [ "Pre-requisites", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md2", [
-          [ "CLion", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md3", null ],
-          [ "Atmel SAM Microcontroller", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md4", null ]
+    [ "Spacecraft Framework", "index.html", [
+      [ "Overview", "index.html#autotoc_md0", null ],
+      [ "Installation", "index.html#autotoc_md1", [
+        [ "Pre-requisites", "index.html#autotoc_md2", [
+          [ "CLion", "index.html#autotoc_md3", null ],
+          [ "Atmel SAM Microcontroller", "index.html#autotoc_md4", null ]
         ] ],
-        [ "Windows", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md5", [
-          [ "MSYS2", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md6", null ],
-          [ "CLion Configuration", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md7", null ],
-          [ "Adding a Run Configuration", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md8", null ]
+        [ "Windows", "index.html#autotoc_md5", [
+          [ "MSYS2", "index.html#autotoc_md6", null ],
+          [ "CLion Configuration", "index.html#autotoc_md7", null ],
+          [ "Adding a Run Configuration", "index.html#autotoc_md8", null ]
         ] ],
-        [ "Linux", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md9", null ],
-        [ "Mac OS", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md10", null ]
+        [ "Linux", "index.html#autotoc_md9", null ],
+        [ "Mac OS", "index.html#autotoc_md10", null ]
       ] ],
-      [ "Components", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md11", [
-        [ "Passive Components", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md12", null ],
-        [ "Queued Components", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md13", null ],
-        [ "Active Components", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md14", null ]
+      [ "Components", "index.html#autotoc_md11", [
+        [ "Passive Components", "index.html#autotoc_md12", null ],
+        [ "Queued Components", "index.html#autotoc_md13", null ],
+        [ "Active Components", "index.html#autotoc_md14", null ]
       ] ],
-      [ "Busses", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md15", [
-        [ "Synchronous Busses", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md16", null ],
-        [ "Asynchronous Busses", "md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md17", null ]
+      [ "Busses", "index.html#autotoc_md15", [
+        [ "Synchronous Busses", "index.html#autotoc_md16", null ],
+        [ "Asynchronous Busses", "index.html#autotoc_md17", null ]
       ] ]
     ] ],
+    [ "License", "License.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -58,7 +58,8 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -70,7 +71,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "License.html",
-"md__home_thomas_Repos_orthus_fsw_kronos_lib_include_index.html#autotoc_md8"
+"kronos_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

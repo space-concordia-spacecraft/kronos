@@ -47,7 +47,7 @@ namespace kronos {
      * The File class uses the Reliance Edge API to implement write and read capabilities.
      */
     class File {
-    friend class ComponentFileManager;
+        friend class ComponentFileManager;
 
     private:
         /**

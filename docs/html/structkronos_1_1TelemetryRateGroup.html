@@ -90,30 +90,49 @@ $(document).ready(function(){initNavTree('structkronos_1_1TelemetryRateGroup.htm
 <div class="title">kronos::TelemetryRateGroup Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Struct that holds a telemetry group. Telemetry channels are grouped into their respective tick rate.  
+ <a href="structkronos_1_1TelemetryRateGroup.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="ks__telemetry__logger_8h_source.html">ks_telemetry_logger.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for kronos::TelemetryRateGroup:</div>
 <div class="dyncontent">
 <div class="center"><img src="structkronos_1_1TelemetryRateGroup__coll__graph.png" border="0" usemap="#akronos_1_1TelemetryRateGroup_coll__map" alt="Collaboration graph"/></div>
 <map name="akronos_1_1TelemetryRateGroup_coll__map" id="akronos_1_1TelemetryRateGroup_coll__map">
-<area shape="rect" title=" " alt="" coords="20,200,228,227"/>
-<area shape="rect" href="classkronos_1_1Vector.html" title=" " alt="" coords="37,96,211,137"/>
-<area shape="rect" title=" " alt="" coords="5,5,243,47"/>
+<area shape="rect" title="Struct that holds a telemetry group. Telemetry channels are grouped into their respective tick rate." alt="" coords="152,200,360,227"/>
+<area shape="rect" href="classkronos_1_1ApolloExporter.html" title="A class the implements the exporter for the apollo format." alt="" coords="5,103,176,130"/>
+<area shape="rect" href="classkronos_1_1String.html" title=" " alt="" coords="200,103,312,130"/>
+<area shape="rect" href="classkronos_1_1Vector.html" title=" " alt="" coords="337,96,511,137"/>
+<area shape="rect" title=" " alt="" coords="305,5,543,47"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a2bc6fa211a782038e5b899b4c04c8bf3"><td class="memItemLeft" align="right" valign="top"><a id="a2bc6fa211a782038e5b899b4c04c8bf3"></a>
+<a class="el" href="classkronos_1_1String.html">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkronos_1_1TelemetryRateGroup.html#a2bc6fa211a782038e5b899b4c04c8bf3">name</a> = &quot;&quot;</td></tr>
+<tr class="memdesc:a2bc6fa211a782038e5b899b4c04c8bf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current tick count used to time the telemetry group properly. <br /></td></tr>
+<tr class="separator:a2bc6fa211a782038e5b899b4c04c8bf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab72508b8383d97cff77098d37a3ab9c0"><td class="memItemLeft" align="right" valign="top"><a id="ab72508b8383d97cff77098d37a3ab9c0"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>tickCount</b> = 0</td></tr>
 <tr class="separator:ab72508b8383d97cff77098d37a3ab9c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa11f1cfcc88440885c6825a9920b2fbd"><td class="memItemLeft" align="right" valign="top"><a id="aa11f1cfcc88440885c6825a9920b2fbd"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>tickRate</b></td></tr>
+uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkronos_1_1TelemetryRateGroup.html#aa11f1cfcc88440885c6825a9920b2fbd">tickRate</a></td></tr>
+<tr class="memdesc:aa11f1cfcc88440885c6825a9920b2fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tick rate used to know how often to store telemetry data. <br /></td></tr>
 <tr class="separator:aa11f1cfcc88440885c6825a9920b2fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3456d19bfb82367c4a1b044960d8ad2"><td class="memItemLeft" align="right" valign="top"><a id="ae3456d19bfb82367c4a1b044960d8ad2"></a>
-<a class="el" href="classkronos_1_1Vector.html">Vector</a>&lt; <a class="el" href="structkronos_1_1TelemetryChannel.html">TelemetryChannel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>channels</b></td></tr>
+<a class="el" href="classkronos_1_1Vector.html">Vector</a>&lt; <a class="el" href="structkronos_1_1TelemetryChannel.html">TelemetryChannel</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkronos_1_1TelemetryRateGroup.html#ae3456d19bfb82367c4a1b044960d8ad2">channels</a></td></tr>
+<tr class="memdesc:ae3456d19bfb82367c4a1b044960d8ad2"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of TelemetryChannels that gets logged at a given tick rate. <br /></td></tr>
 <tr class="separator:ae3456d19bfb82367c4a1b044960d8ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f87422ba36adc5a0dd59cc191075b78"><td class="memItemLeft" align="right" valign="top"><a id="a6f87422ba36adc5a0dd59cc191075b78"></a>
+<a class="el" href="classkronos_1_1ApolloExporter.html">ApolloExporter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkronos_1_1TelemetryRateGroup.html#a6f87422ba36adc5a0dd59cc191075b78">apolloExporter</a></td></tr>
+<tr class="memdesc:a6f87422ba36adc5a0dd59cc191075b78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports data to the log file. <br /></td></tr>
+<tr class="separator:a6f87422ba36adc5a0dd59cc191075b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Struct that holds a telemetry group. Telemetry channels are grouped into their respective tick rate. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>/home/thomas/Repos/orthus-fsw/kronos/lib/include/components/services/<a class="el" href="ks__telemetry__logger_8h_source.html">ks_telemetry_logger.h</a></li>
 </ul>
 </div><!-- contents -->

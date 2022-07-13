@@ -71,8 +71,11 @@ namespace kronos {
         static void Log(const String& msg, uint8_t severity = KS_LOG_INFO);
 
         static void LogDebug(const String& msg);
+
         static void LogInfo(const String& msg);
+
         static void LogWarn(const String& msg);
+
         static void LogError(const String& msg);
 
         static Framework* s_Instance;

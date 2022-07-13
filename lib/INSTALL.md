@@ -4,6 +4,7 @@ This upcoming section will be dedicated to the setup of a build environment for 
 
 ### Pre-requisites
 
+- [x] MSYS2
 - [x] CLion
 - [x] Atmel SAM Microcontroller
 
@@ -13,7 +14,7 @@ CLion is a cross platform C++ IDE distributed by JetBrains. It is available for 
 
 #### Atmel SAM Microcontroller
 
-In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the [sam_gcc.cmake](../build/sam_gcc.cmake) toolchain file for more details.
+In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at the [sam_gcc.cmake](./build/sam_gcc.cmake) toolchain file for more details.
 
 ### Windows
 

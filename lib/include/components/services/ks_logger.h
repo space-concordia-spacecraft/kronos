@@ -50,10 +50,12 @@ namespace kronos {
          * @return
          */
         KsCmdResult ProcessEvent(const EventMessage& message) override;
+
         /**
          * Init creates a FileOpenMessage struct and assigns values to its members.
          */
         KsResult Init() override;
+
         /**
          * Destructor, closes file
          */
@@ -65,17 +67,20 @@ namespace kronos {
         File* m_File = nullptr;
 
         KsResult ClearLogs();
+
         /**
          * Converts timestamp to a null-terminated string using base 10 (decimal)
          * @param timestamp
          * @return
          */
         static String ConvertTimestamp(uint32_t timestamp);
+
         /**
          * Log() takes the values from the struct LogMessage and places them in a char buffer. Writes buffer to file.
          * @param logMsg - Struct containing information of the log
          */
         KsResult Log(LogMessage* logMsg);
+
         /**
          * ConvertSeverity() converts the integer severity value into a string for the log.
          * @param severity - KS_LOG_DEBUG, KS_LOG_INFO, KS_LOG_WARN, KS_LOG_ERROR

@@ -1,7 +1,8 @@
 #include "ks_csp.h"
 
 namespace kronos {
-    ComponentCspDriver::ComponentCspDriver(const String& name, uint32_t baudrate, uint32_t charLength, uint32_t parityType, uint32_t stopBits):ComponentPassive(name){
+    ComponentCspDriver::ComponentCspDriver(const String& name, uint32_t baudrate, uint32_t charLength,
+                                           uint32_t parityType, uint32_t stopBits) : ComponentPassive(name) {
 
     }
 
@@ -53,7 +54,7 @@ namespace kronos {
     KsResult ComponentCspDriver::Read() {
         /* Wait for a new connection, 10000 mS timeout */
 
-        csp_conn_t *conn;
+        csp_conn_t* conn;
         if ((conn = csp_accept(m_Socket, 1000)) == NULL) {
             /* timeout */
             // TODO: in the example this continues the loop. Meaning it does nothing.
@@ -62,12 +63,12 @@ namespace kronos {
         }
 
         /* Read packets on connection, timout is 100 mS */
-        csp_packet_t *packet;
+        csp_packet_t* packet;
         while ((packet = csp_read(conn, 50)) != NULL) {
             switch (csp_conn_dport(conn)) {
                 case MY_SERVER_PORT:
                     /* Process packet here */
-                Framework::LogInfo((char *) packet->data);
+                    Framework::LogInfo((char*) packet->data);
                     csp_buffer_free(packet);
                     ++m_ServerReceived;
                     break;
@@ -96,7 +97,7 @@ namespace kronos {
         /* Send data packet (string) to server */
 
         /* 1. Connect to host on 'server_address', port MY_SERVER_PORT with regular UDP-like protocol and 1000 ms timeout */
-        csp_conn_t * conn = csp_connect(CSP_PRIO_NORM, m_ServerAddress, MY_SERVER_PORT, 1000, CSP_O_NONE);
+        csp_conn_t* conn = csp_connect(CSP_PRIO_NORM, m_ServerAddress, MY_SERVER_PORT, 1000, CSP_O_NONE);
         if (conn == NULL) {
             /* Connect failed */
             Framework::LogInfo("Failed to connect");
@@ -104,7 +105,7 @@ namespace kronos {
         }
 
         /* 2. Get packet buffer for message/data */
-        csp_packet_t * packet = static_cast<csp_packet_t*>(csp_buffer_get(100));
+        csp_packet_t* packet = static_cast<csp_packet_t*>(csp_buffer_get(100));
         if (packet == NULL) {
             /* Could not get buffer element */
             Framework::LogInfo("Failed to get CSP buffer");
@@ -112,10 +113,10 @@ namespace kronos {
         }
 
         /* 3. Copy data to packet */
-        snprintf((char *) packet->data, csp_buffer_data_size(), "Hello World (%u)", ++m_Count);
+        snprintf((char*) packet->data, csp_buffer_data_size(), "Hello World (%u)", ++m_Count);
 
         /* 4. Set packet length */
-        packet->length = (strlen((char *) packet->data) + 1); /* include the 0 termination */
+        packet->length = (strlen((char*) packet->data) + 1); /* include the 0 termination */
 
         /* 5. Send packet */
         if (!csp_send(conn, packet, 1000)) {

@@ -12,8 +12,9 @@ namespace kronos {
     struct TelemetryChannel {
         //! Name of the telemetry channel
         const char* name = "";
+
         //! Function pointer to get data for that telemetry channel
-        uint32_t (*retrieveTelemetry)() = nullptr;
+        uint32_t (* retrieveTelemetry)() = nullptr;
     };
 
     //! \struct TelemetryRateGroup
@@ -26,7 +27,7 @@ namespace kronos {
         //! Tick rate used to know how often to store telemetry data
         uint32_t tickRate;
         //! List of TelemetryChannels that gets logged at a given tick rate
-        Vector<TelemetryChannel> channels;
+        Vector <TelemetryChannel> channels;
         //! Exports data to the log file
         ApolloExporter apolloExporter;
     };
@@ -40,10 +41,11 @@ namespace kronos {
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         //! \brief Adds a telemetry group
-        KsResult AddTelemetryGroup(const String& name, uint32_t rate, const Vector<TelemetryChannel>& channels);
+        KsResult AddTelemetryGroup(const String& name, uint32_t rate, const Vector <TelemetryChannel>& channels);
+
     private:
         //! Vector of TelemetryRateGroups used to store the telemetry channels
-        Vector<TelemetryRateGroup> m_TelemetryRateGroups;
+        Vector <TelemetryRateGroup> m_TelemetryRateGroups;
     };
 
 }

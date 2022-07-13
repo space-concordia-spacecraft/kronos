@@ -21,7 +21,7 @@ namespace kronos {
     }
 
     void Framework::Run() {
-        for (auto& m_Component : m_Components)
+        for (auto& m_Component: m_Components)
             m_Component.GetValue()->Init();
         vTaskStartScheduler();
     }

@@ -21,14 +21,19 @@ namespace kronos {
         //!
         //! \param name the name of the component
         explicit ComponentQueued(const String& name);
+
         //! \brief Pops all events from the queue and processes them
         KsResult ProcessEventQueue();
+
         //! @copydoc
         KsResult Init() override;
+
         //! @copydoc
         KsResult Destroy() override;
+
         //! @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;
+
     protected:
         //! Queue that stores events being sent to the component.
         kronos::Queue<EventMessage> m_Queue;

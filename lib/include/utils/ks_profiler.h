@@ -5,6 +5,9 @@
 
 #pragma once
 
+#define INITIALIZATION_INTERVAL 10000
+#define RUNNING_INTERVAL 30000
+
 // Kronos includes
 #include "kronos.h"
 
@@ -14,8 +17,21 @@ namespace kronos {
     //!
     //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
+        ProfilingSession(const String& name, TickType_t interval) : name(name), profileLogInterval(interval) {
+            startLog = xTaskGetTickCount() * portTICK_RATE_MS;
+        }
+
         //! Name of the profiling session
         String name;
+
+        //! Time interval at which the function profiles get logged
+        TickType_t profileLogInterval;
+
+        //! Start logging interval
+        TickType_t startLog;
+
+        //! HashMap that maps a function being profiled to the longest time it took to run in a given interval
+        HashMap <String, TickType_t> longestProfiles;
     };
 
     //! \class Profiler
@@ -31,7 +47,7 @@ namespace kronos {
         //! \brief Begins a profiling session.
         //!
         //! \param name the name of the profiling session.
-        void BeginSession(const String& name);
+        void BeginSession(const String& name, TickType_t interval);
 
         //! \brief Ends the profiling session.
         void EndSession();
@@ -69,7 +85,7 @@ namespace kronos {
         //!
         //! \param name the name of the scope being benchmarked
         //! \param path the path location for the scope being benchmarked
-        ProfilerTimer(const String & name, const String & path);
+        ProfilerTimer(const String& name, const String& path);
 
         //! \brief Ends the timer
         ~ProfilerTimer();
