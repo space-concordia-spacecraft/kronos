@@ -31,6 +31,7 @@ namespace kronos {
 
     KsResult ComponentHealthMonitor::PingComponents() {
         Framework::LogDebug("Health ping");
+        PROFILE_SCOPE();
         EventMessage message;
         message.eventCode = KS_EVENT_CODE_HEALTH_PING;
         message.returnBus = m_HealthIn;

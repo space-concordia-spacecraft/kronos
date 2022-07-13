@@ -1,7 +1,7 @@
 #include "kronos.h"
 
 int main() {
-    kronos::Profiler::Get().BeginSession("lol");
+    kronos::Profiler::Get().BeginSession("Initialization", INITIALIZATION_INTERVAL);
 
     // Init Framework
     kronos::Framework::Init();
@@ -83,6 +83,9 @@ int main() {
 
     // Set logging bus
     framework->SetLoggerBus("logger");
+
+    kronos::Profiler::Get().EndSession();
+    kronos::Profiler::Get().BeginSession("Running", RUNNING_INTERVAL);
 
     // Run Framework
     framework->Run();
