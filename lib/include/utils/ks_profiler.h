@@ -17,9 +17,10 @@ namespace kronos {
     //!
     //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
-        ProfilingSession(const String& name, TickType_t interval):name(name),profileLogInterval(interval) {
+        ProfilingSession(const String& name, TickType_t interval) : name(name), profileLogInterval(interval) {
             startLog = xTaskGetTickCount() * portTICK_RATE_MS;
         }
+
         //! Name of the profiling session
         String name;
 
@@ -30,7 +31,7 @@ namespace kronos {
         TickType_t startLog;
 
         //! HashMap that maps a function being profiled to the longest time it took to run in a given interval
-        HashMap<String, TickType_t> longestProfiles;
+        HashMap <String, TickType_t> longestProfiles;
     };
 
     //! \class Profiler
@@ -84,7 +85,7 @@ namespace kronos {
         //!
         //! \param name the name of the scope being benchmarked
         //! \param path the path location for the scope being benchmarked
-        ProfilerTimer(const String & name, const String & path);
+        ProfilerTimer(const String& name, const String& path);
 
         //! \brief Ends the timer
         ~ProfilerTimer();

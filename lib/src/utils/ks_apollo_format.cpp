@@ -5,7 +5,7 @@
 
 namespace kronos {
 
-    ApolloExporter::ApolloExporter(File* file, const Vector<ApolloHeader>& headers) {
+    ApolloExporter::ApolloExporter(File* file, const Vector <ApolloHeader>& headers) {
         Open(file, headers);
     }
 
@@ -14,12 +14,12 @@ namespace kronos {
         Close();
     }
 
-    KsResult ApolloExporter::Open(File* file, const Vector<ApolloHeader>& headers) {
+    KsResult ApolloExporter::Open(File* file, const Vector <ApolloHeader>& headers) {
         m_File = file;
         return WriteFileHeader(headers);
     }
 
-    KsResult ApolloExporter::WriteFileHeader(const Vector<ApolloHeader>& headers) {
+    KsResult ApolloExporter::WriteFileHeader(const Vector <ApolloHeader>& headers) {
         uint32_t magicNumber = KS_APOLLO_MAGIC;
         uint32_t version = KS_APOLLO_VERSION_1;
         uint32_t headerCount = headers.Size();
@@ -43,7 +43,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult ApolloExporter::WriteRow(const Vector<uint32_t>& data) {
+    KsResult ApolloExporter::WriteRow(const Vector <uint32_t>& data) {
         // Write entire row
         FILE_OPERATION(m_File->Write(data.Ptr(), data.Size() * sizeof(uint32_t)));
 
@@ -111,7 +111,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult ApolloImporter::ReadRow(Vector<uint32_t>& data) {
+    KsResult ApolloImporter::ReadRow(Vector <uint32_t>& data) {
         // Clear vector
         data.Clear();
         data.Reserve(m_Headers.Size());

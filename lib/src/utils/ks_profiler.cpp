@@ -15,10 +15,10 @@ namespace kronos {
         TickType_t currentTime = xTaskGetTickCount() * portTICK_RATE_MS;
 
         // TBD, should we use FreeRTOS timers instead?
-        if(m_CurrentSession->longestProfiles.Get(functionName) < start - end)
+        if (m_CurrentSession->longestProfiles.Get(functionName) < start - end)
             m_CurrentSession->longestProfiles.Put(functionName, start - end);
 
-        if(m_CurrentSession->profileLogInterval <= currentTime - m_CurrentSession->startLog) {
+        if (m_CurrentSession->profileLogInterval <= currentTime - m_CurrentSession->startLog) {
             m_CurrentSession->startLog = xTaskGetTickCount() * portTICK_RATE_MS;
 
             TaskStatus_t currentTaskDetails;

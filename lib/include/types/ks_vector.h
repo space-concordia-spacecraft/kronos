@@ -57,6 +57,7 @@ namespace kronos {
         //! \return True if the Vectors are the same
         template<typename Ty>
         friend bool operator==(const VectorIterator<Ty>& left, const VectorIterator<Ty>& right);
+
         //! \brief Function to check if two Vectors are not the same
         //! \tparam Ty Generic Type for VectorIterator
         //! \param left one of the VectorIterators to be checked
@@ -107,7 +108,7 @@ namespace kronos {
 
         //! \brief Copy Constructor for Vector Class
         //! \param elements is the list that needs to be copied
-        Vector(std::initializer_list<T> elements)
+        Vector(std::initializer_list <T> elements)
                 : m_Capacity(0), m_Size(0) {
             m_Size = elements.size();
             m_Capacity = m_Size;

@@ -1,7 +1,8 @@
 #include "ks_uart.h"
 
 namespace kronos {
-    ComponentUartDriver::ComponentUartDriver(const String& name, Usart* uart, uint32_t baudrate, uint32_t charLength, uint32_t parityType, uint32_t stopBits):ComponentPassive(name) {
+    ComponentUartDriver::ComponentUartDriver(const String& name, Usart* uart, uint32_t baudrate, uint32_t charLength,
+                                             uint32_t parityType, uint32_t stopBits) : ComponentPassive(name) {
         usart_serial_options_t usartOptions = {
                 .baudrate = baudrate,
                 .charlength = charLength,
@@ -29,7 +30,7 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResult ComponentUartDriver::Write(const uint8_t *data, size_t len) {
+    KsResult ComponentUartDriver::Write(const uint8_t* data, size_t len) {
         usart_serial_write_packet(m_UsartInstance, data, len);
         return KS_SUCCESS;
     }

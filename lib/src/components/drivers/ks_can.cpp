@@ -57,7 +57,8 @@ namespace kronos {
     }
 
 
-    KsResult ComponentCanDriver::Read(struct mcan_module* mcan_mod, uint32_t* id_value, uint8_t* data, uint8_t* data_length) {
+    KsResult
+    ComponentCanDriver::Read(struct mcan_module* mcan_mod, uint32_t* id_value, uint8_t* data, uint8_t* data_length) {
         uint32_t status = mcan_rx_get_fifo_status(mcan_mod, CONF_MCAN0_RX_FIFO_0_NUM);
 
         uint32_t num_elements = status & MCAN_RXF1S_F1FL_Msk;

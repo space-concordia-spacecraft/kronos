@@ -3,12 +3,12 @@
 namespace kronos {
 
     ComponentRateGroup::ComponentRateGroup(const String& name, KsEventCode opcode)
-        : ComponentActive(name, KS_COMPONENT_STACK_SIZE_MEDIUM), m_Opcode(opcode) {}
+            : ComponentActive(name, KS_COMPONENT_STACK_SIZE_MEDIUM), m_Opcode(opcode) {}
 
     KsCmdResult ComponentRateGroup::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case KS_EVENT_CODE_TIMER_TICK:
-                for(size_t i = 0; i < m_Frequencies.Size(); i++) {
+                for (size_t i = 0; i < m_Frequencies.Size(); i++) {
                     ExecuteTimerTick(i);
                 }
                 break;

@@ -35,20 +35,25 @@ namespace kronos {
         //! \param outBus the bus that gets published to by the timer component
         //! \param intervalMs the interval the timer uses
         //! \param autoReload if autoReload = true then the timer will expire repeatedly with the frequency given
-        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL, BaseType_t autoReload = pdTRUE);
+        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL,
+                                BaseType_t autoReload = pdTRUE);
+
         //! \brief initializes the timer component
         //!
         //! \return KS_SUCCESS if there was no errors
         KsResult Init() override;
+
         //! \brief destroys the timer component
         //!
         //! \return KS_SUCCESS if there was no errors
         KsResult Destroy() override;
+
         //! @copydoc
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
     private:
         static void TimerCallbackStub(TimerHandle_t timerHandle);
+
         void TimerCallback();
 
         BusBase* m_OutBus;

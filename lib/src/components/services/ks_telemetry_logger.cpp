@@ -12,7 +12,7 @@ namespace kronos {
                         i_RateGroup.tickCount = 0;
 
                         // Get the values from the telemetry into a vector.
-                        Vector<uint32_t> telemetryData;
+                        Vector <uint32_t> telemetryData;
                         for (TelemetryChannel i_Channel: i_RateGroup.channels) {
                             uint32_t telemetryValue = i_Channel.retrieveTelemetry();
                             telemetryData.Add(telemetryValue);
@@ -28,7 +28,7 @@ namespace kronos {
     }
 
     KsResult ComponentTelemetryLogger::AddTelemetryGroup(const String& name, uint32_t rate,
-                                                         const Vector<TelemetryChannel>& channels) {
+                                                         const Vector <TelemetryChannel>& channels) {
 
 
 
@@ -37,7 +37,7 @@ namespace kronos {
                                                       KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
 
         // Generate the headers for the file.
-        Vector<ApolloHeader> headers;
+        Vector <ApolloHeader> headers;
         for (size_t i = 0; i < channels.Size(); i++) {
             headers[i].name = channels[i].name;
             headers[i].dataType = KS_APOLLO_FLOAT;
