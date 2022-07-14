@@ -108,7 +108,7 @@ namespace kronos {
 
         //! \brief Copy Constructor for Vector Class
         //! \param elements is the list that needs to be copied
-        Vector(std::initializer_list <T> elements)
+        Vector(std::initializer_list<T> elements)
                 : m_Capacity(0), m_Size(0) {
             m_Size = elements.size();
             m_Capacity = m_Size;

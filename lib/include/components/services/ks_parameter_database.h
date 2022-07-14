@@ -11,15 +11,13 @@ namespace kronos {
     //! \class ComponentParameterDatabase Class
     class ComponentParameterDatabase : public ComponentPassive {
     public:
-        ComponentParameterDatabase(const String& componentName);
-
         ComponentParameterDatabase(const String& componentName, const String& pathName);
 
         KsResult Init() override;
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        KsResult SetParam(const String& key,uint32_t newValue);
+        KsResult SetParam(const String& key, uint32_t newValue);
 
         KsResult SaveParams();
 

@@ -30,7 +30,7 @@ namespace kronos {
         void AddRateGroupFrequency(BusBase* outBus, uint32_t tickRate);
 
     private:
-        Vector <RateGroupFrequency> m_Frequencies;
+        Vector<RateGroupFrequency> m_Frequencies;
         KsEventCode m_Opcode;
 
         /***

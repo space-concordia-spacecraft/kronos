@@ -36,14 +36,14 @@ namespace kronos {
     template<typename K>
     struct KeyHash<KS_HASH_CLASS, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t)(&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t) (&key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
     template<typename K>
     struct KeyHash<KS_HASH_TYPE, K> {
         uint32_t operator()(const K& key) const {
-            return (uint32_t)(key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
+            return (uint32_t) (key) & static_cast<uint32_t>(KS_HASHTABLE_SIZE - 1);
         }
     };
 
