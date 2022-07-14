@@ -31,7 +31,7 @@ namespace kronos {
         TickType_t startLog;
 
         //! HashMap that maps a function being profiled to the longest time it took to run in a given interval
-        HashMap <String, TickType_t> longestProfiles;
+        HashMap<String, TickType_t> longestProfiles;
     };
 
     //! \class Profiler

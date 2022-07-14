@@ -7,6 +7,17 @@ namespace kronos {
     //! \class String Class
     class String {
     public:
+        //! \brief Empty Constructor for String Class
+        String() {
+            m_Length = 0;
+            // Creates a new string with the same length as str
+            char* newStr = new char[m_Length + 1];
+            // Creates a string of length 0 with a null character
+            memset(newStr, '\0', m_Length + 1);
+            // Stores the new string value.
+            m_String = newStr;
+        }
+
         //! \brief Copy Constructor for String Class
         //! \param str is the string to be copied
         String(const char* str) {

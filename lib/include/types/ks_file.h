@@ -55,7 +55,7 @@ namespace kronos {
          * @param path - Path of the file the user wants to open. It should include the name and extension of the file.
          * @param fileId - Identifier for the file.
          */
-        File(const String& path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_FileId(fileId) {
+        explicit File(const String& path, uint32_t fileId = KS_FILE_INVALID_HANDLE) : m_FileId(fileId) {
             // Separate path variable into the name and path of the file.
             // TODO: Switch for a FindLast.
             size_t index = path.Find("/");
@@ -94,7 +94,7 @@ namespace kronos {
          * @param length - the length of the buffer being used.
          * @return KS_SUCCESS if there were no errors, otherwise it will return an error.
          */
-        KsResult Read(void* buffer, uint32_t length) {
+        KsResult Read(void* buffer, uint32_t length) const {
             if (m_FileId == KS_FILE_INVALID_HANDLE)
                 return KS_ERROR_FILE_NOT_OPEN;
 
@@ -110,7 +110,7 @@ namespace kronos {
          * @param length - the length of the buffer being used.
          * @return KS_SUCCESS if there were no errors, otherwise it will return an error.
          */
-        KsResult Write(const void* buffer, uint32_t length) {
+        KsResult Write(const void* buffer, uint32_t length) const {
             if (m_FileId == KS_FILE_INVALID_HANDLE)
                 return KS_ERROR_FILE_NOT_OPEN;
 
@@ -140,7 +140,7 @@ namespace kronos {
          * Commits any changes made to the file to permanent storage.
          * @return KS_SUCCESS the file was synced successfully, KS_FILE_ERROR otherwise.
          */
-        KsResult Sync() {
+        KsResult Sync() const {
             if (red_fsync(m_FileId) == KS_FILE_ERROR)
                 return KS_ERROR_FILE_SYNC_FAILED;
 
@@ -152,7 +152,7 @@ namespace kronos {
          * @param fileInfo - REDSTAT struct containing information about the file. Read Reliance Edge documentation for more info.
          * @return KS_SUCCESS if it was able to fetch the information, otherwise it will throw an error.
          */
-        KsResult GetStatus(REDSTAT* fileInfo) {
+        KsResult GetStatus(REDSTAT* fileInfo) const {
             if (m_FileId == KS_FILE_INVALID_HANDLE)
                 return KS_ERROR_FILE_NOT_OPEN;
 
