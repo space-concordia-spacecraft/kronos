@@ -93,11 +93,11 @@ KT_TEST(TelemetryLoggerReadTest) {
     Vector<uint32_t> data2Tick;
     apolloImporter1Tick.ReadRow(data2Tick);
 
-    for (int i = 0; i < 420; i++) {
+    for (uint32_t i = 0; i < 420; i++) {
         KT_ASSERT(data1Tick[i] == i, "DATA DOESN'T MATCH");
     }
 
-    for (int i = 0; i < 210; i++) {
+    for (uint32_t i = 0; i < 210; i++) {
         KT_ASSERT(data2Tick[i] == i, "DATA DOESN'T MATCH");
     }
 
