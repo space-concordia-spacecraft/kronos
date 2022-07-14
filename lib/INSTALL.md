@@ -55,7 +55,7 @@ Once all the required packages are finished installing, you may configure your M
 
 4. Create a new toolchain by click on the **+** button and selecting `MinGW`.
 
-5. On the right-hand side panel, under `Environment`, navigate to your MinGW home folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW toolchain.
+5. On the right-hand side panel, under `Toolset`, select `Custom MinGW installation` and navigate to your MinGW home folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW toolchain.
 
 6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe` and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder of the MinGW home directory.
 
