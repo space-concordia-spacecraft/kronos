@@ -40,7 +40,9 @@ namespace kronos {
     class ApolloExporter {
     public:
         ApolloExporter(File* file, const std::vector<ApolloHeader>& headers);
+
         ~ApolloExporter() {}
+
         //! \brief Writes the header list into a given file
         //!
         //! \param file File object used to write the headers into
@@ -80,6 +82,7 @@ namespace kronos {
         //!
         //! \param file File object that contains data in the Apollo format
         ApolloImporter(File* file);
+
         ~ApolloImporter() {}
 
         //! \brief Reads the headers from the file stored in the ApolloImporter

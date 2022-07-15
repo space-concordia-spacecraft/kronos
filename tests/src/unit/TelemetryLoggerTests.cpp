@@ -14,16 +14,16 @@ uint32_t GetValue2Tick() {
 
 KT_TEST(TelemetryLoggerWriteTest) {
     std::vector<TelemetryChannel> channels1Tick;
-    channels1Tick.push_back({"temperature", &GetValue1Tick });
-    channels1Tick.push_back({"batteryLevel", &GetValue1Tick });
-    channels1Tick.push_back({"radiation", &GetValue1Tick });
-    channels1Tick.push_back({"attitude", &GetValue1Tick });
+    channels1Tick.push_back({ "temperature", &GetValue1Tick });
+    channels1Tick.push_back({ "batteryLevel", &GetValue1Tick });
+    channels1Tick.push_back({ "radiation", &GetValue1Tick });
+    channels1Tick.push_back({ "attitude", &GetValue1Tick });
 
     std::vector<TelemetryChannel> channels2Tick;
-    channels2Tick.push_back({"temperature", &GetValue2Tick });
-    channels2Tick.push_back({"batteryLevel", &GetValue2Tick });
-    channels2Tick.push_back({"radiation", &GetValue2Tick });
-    channels2Tick.push_back({"attitude", &GetValue2Tick });
+    channels2Tick.push_back({ "temperature", &GetValue2Tick });
+    channels2Tick.push_back({ "batteryLevel", &GetValue2Tick });
+    channels2Tick.push_back({ "radiation", &GetValue2Tick });
+    channels2Tick.push_back({ "attitude", &GetValue2Tick });
 
     ComponentTelemetryLogger logger("telemetryLogger");
     logger.AddTelemetryGroup("telemetryLoggerTest1Tick", 1, channels1Tick);

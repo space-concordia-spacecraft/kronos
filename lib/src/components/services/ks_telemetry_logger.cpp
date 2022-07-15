@@ -35,10 +35,9 @@ namespace kronos {
     }
 
     KsResult ComponentTelemetryLogger::AddTelemetryGroup(
-            const std::string& name,
-            uint32_t rate,
-            const std::vector<TelemetryChannel>& channels
-    ) {
+        const std::string& name,
+        uint32_t rate,
+        const std::vector<TelemetryChannel>& channels) {
         // Initialize the file for logging this telemetry group.
         File* file = ComponentFileManager::Get().Open("/" + name + ".txt",
                                                       KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);

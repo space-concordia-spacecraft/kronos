@@ -66,7 +66,7 @@ namespace kronos {
             return;
         }
 
-        for (auto component : m_ReceivingComponents) {
+        for (auto component: m_ReceivingComponents) {
             component->ReceiveEvent(message);
         }
     }

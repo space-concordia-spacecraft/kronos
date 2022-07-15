@@ -29,7 +29,7 @@ namespace ktest {
     struct UnitTest {
         const char* name = nullptr;
         const char* description = nullptr;
-        bool (*testFunction)() = nullptr;
+        bool (* testFunction)() = nullptr;
     };
 
     class TestGroup {
@@ -38,6 +38,7 @@ namespace ktest {
         TestGroup(const char* name, const UnitTest* tests, const int numTests);
 
         void RunUnitTests();
+
         inline const char* GetName() { return m_name; }
 
     private:
