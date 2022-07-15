@@ -22,69 +22,68 @@ namespace kronos {
 
     void Framework::Run() {
         for (auto& m_Component: m_Components)
-            m_Component.GetValue()->Init();
+            m_Component.second->Init();
         vTaskStartScheduler();
     }
 
     KsResult Framework::RegisterComponent(ComponentBase* component) {
-        ComponentBase* tempComponent;
-        if (m_Components.Peek(component->GetName(), &tempComponent))
+        if (m_Components.count(component->GetName()))
             return KS_ERROR_DUPLICATE_COMPONENT;
 
-        m_Components.Put(component->GetName(), component);
+        m_Components[component->GetName()] = component;
         return KS_SUCCESS;
     }
 
-    KsResult Framework::GetComponent(const String& name, ComponentBase** component) {
-        if (!s_Instance->m_Components.Peek(name, component))
+    KsResult Framework::GetComponent(const std::string& name, ComponentBase** component) {
+        if (!s_Instance->m_Components.count(name))
             return KS_ERROR_MISSING_COMPONENT;
 
+        *component = s_Instance->m_Components[name];
         return KS_SUCCESS;
     }
 
     KsResult Framework::RegisterBus(BusSync* bus) {
-        BusSync* tempBus;
-        if (m_SyncBuses.Peek(bus->GetName().Ptr(), &tempBus))
+        if (m_SyncBuses.count(bus->GetName()))
             return KS_ERROR_DUPLICATE_BUS;
 
-        m_SyncBuses.Put(bus->GetName().Ptr(), bus);
+        m_SyncBuses[bus->GetName()] = bus;
         return KS_SUCCESS;
     }
 
     KsResult Framework::RegisterBus(BusAsync* bus) {
-        BusAsync* tempBus;
-        if (m_AsyncBuses.Peek(bus->GetName().Ptr(), &tempBus))
+        if (m_AsyncBuses.count(bus->GetName()))
             return KS_ERROR_DUPLICATE_BUS;
 
-        m_AsyncBuses.Put(bus->GetName().Ptr(), bus);
+        m_AsyncBuses[bus->GetName()] = bus;
         return KS_SUCCESS;
     }
 
-    KsResult Framework::SetLoggerBus(const String& busName) {
-        BusAsync* asyncBus;
-        if (m_AsyncBuses.Peek(busName, &asyncBus)) {
-            m_LoggerBus = asyncBus;
+    KsResult Framework::SetLoggerBus(const std::string& busName) {
+        if (m_AsyncBuses.count(busName)) {
+            m_LoggerBus = m_AsyncBuses[busName];
             return KS_SUCCESS;
         }
 
         return KS_ERROR_MISSING_BUS;
     }
 
-    KsResult Framework::GetSyncBus(const String& name, BusSync** bus) {
-        if (!s_Instance->m_SyncBuses.Peek(name, bus))
+    KsResult Framework::GetSyncBus(const std::string& name, BusSync** bus) {
+        if (!s_Instance->m_SyncBuses.count(name))
             return KS_ERROR_MISSING_BUS;
 
+        *bus = s_Instance->m_SyncBuses[name];
         return KS_SUCCESS;
     }
 
-    KsResult Framework::GetAsyncBus(const String& name, BusAsync** bus) {
-        if (!s_Instance->m_AsyncBuses.Peek(name, bus))
+    KsResult Framework::GetAsyncBus(const std::string& name, BusAsync** bus) {
+        if (!s_Instance->m_AsyncBuses.count(name))
             return KS_ERROR_MISSING_BUS;
 
+        *bus = s_Instance->m_AsyncBuses[name];
         return KS_SUCCESS;
     }
 
-    void Framework::Log(const String& msg, uint8_t severity) {
+    void Framework::Log(const std::string& msg, uint8_t severity) {
         if (s_Instance->m_LoggerBus == nullptr)
             return;
 
@@ -95,19 +94,19 @@ namespace kronos {
         s_Instance->m_LoggerBus->PublishAsync(&message);
     }
 
-    void Framework::LogDebug(const String& msg) {
+    void Framework::LogDebug(const std::string& msg) {
         Log(msg, KS_LOG_DEBUG);
     }
 
-    void Framework::LogInfo(const String& msg) {
+    void Framework::LogInfo(const std::string& msg) {
         Log(msg, KS_LOG_INFO);
     }
 
-    void Framework::LogWarn(const String& msg) {
+    void Framework::LogWarn(const std::string& msg) {
         Log(msg, KS_LOG_WARN);
     }
 
-    void Framework::LogError(const String& msg) {
+    void Framework::LogError(const std::string& msg) {
         Log(msg, KS_LOG_ERROR);
     }
 

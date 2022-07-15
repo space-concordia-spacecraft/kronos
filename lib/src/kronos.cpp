@@ -1,5 +1,13 @@
 #include "kronos.h"
 
+#include <stdarg.h>
+#include <stdio.h>
+
+#include <fcntl.h>
+#include <errno.h>
+
+#include <vector>
+
 extern "C" {
 
 void vApplicationMallocFailedHook(void) {
@@ -13,6 +21,18 @@ void vApplicationStackOverflowHook(TaskHandle_t pxTask, char* pcTaskName) {
 void vApplicationIdleHook(void) {}
 
 void vApplicationTickHook(void) {}
+
+int printf(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    return vprintf(fmt, args);
+}
+
+int scanf(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    return vscanf(fmt, args);
+}
 
 }
 

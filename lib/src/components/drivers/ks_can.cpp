@@ -2,7 +2,7 @@
 
 namespace kronos {
 
-    ComponentCanDriver::ComponentCanDriver(const String& componentName, struct mcan_module* mcan_mod)
+    ComponentCanDriver::ComponentCanDriver(const std::string& componentName, struct mcan_module* mcan_mod)
             : ComponentPassive(componentName) {
         /*
              *  Setup rx filtering to accept messages into FIFO1 with extended format

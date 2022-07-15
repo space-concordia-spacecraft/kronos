@@ -3,7 +3,7 @@
 
 namespace kronos {
 
-    ComponentHealthMonitor::ComponentHealthMonitor(const String& name, BusBase* healthIn, BusBase* healthOut)
+    ComponentHealthMonitor::ComponentHealthMonitor(const std::string& name, BusBase* healthIn, BusBase* healthOut)
             : ComponentQueued(name), m_HealthIn(healthIn), m_HealthOut(healthOut) {}
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
@@ -20,12 +20,12 @@ namespace kronos {
     }
 
     KsResult ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
-        ComponentInfo tempInfo;
-        if (m_ActiveComponentInfos.Peek(component, &tempInfo)) {
+        if (m_ActiveComponentInfos.count(component)) {
             // TODO: HANDLE ERROR OR WARNING
             return KS_ERROR;
         }
-        m_ActiveComponentInfos.Put(component, tempInfo);
+        ComponentInfo tempInfo;
+        m_ActiveComponentInfos[component] = tempInfo;
         return KS_SUCCESS;
     }
 
@@ -39,7 +39,7 @@ namespace kronos {
 
         for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
-            if (time - entry.GetValue().lastResponse >= KS_HEALTH_PING_RATE) {
+            if (time - entry.second.lastResponse >= KS_HEALTH_PING_RATE) {
                 // TODO: Component has not responded
             }
         }

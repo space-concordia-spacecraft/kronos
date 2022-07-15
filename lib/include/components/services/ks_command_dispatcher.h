@@ -2,7 +2,7 @@
 
 #include "ks_component_active.h"
 
-#include "ks_hashmap.h"
+#include <unordered_map>
 
 namespace kronos {
 
@@ -18,6 +18,6 @@ namespace kronos {
         KsResult RegisterCommand(KsOpcode opcode, void (* pFunction)(void*));
 
     private:
-        HashMap<KsOpcode, void (*)(void*)> m_CommandMessages;
+        std::unordered_map<KsOpcode, void (*)(void*)> m_CommandMessages;
     };
 }

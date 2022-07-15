@@ -15,7 +15,7 @@ namespace kronos {
     class ComponentCspDriver : public ComponentPassive {
     public:
 
-        ComponentCspDriver(const String& name, uint32_t baudrate = CONF_UART_BAUDRATE,
+        ComponentCspDriver(const std::string& name, uint32_t baudrate = CONF_UART_BAUDRATE,
                            uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY,
                            uint32_t stopBits = CONF_UART_STOP_BITS);
 

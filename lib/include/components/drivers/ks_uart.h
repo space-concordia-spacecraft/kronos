@@ -7,7 +7,7 @@ namespace kronos {
     class ComponentUartDriver : public ComponentPassive {
 
     public:
-        ComponentUartDriver(const String& name, Usart* usart = CONF_UART, uint32_t baudrate = CONF_UART_BAUDRATE,
+        ComponentUartDriver(const std::string& name, Usart* usart = CONF_UART, uint32_t baudrate = CONF_UART_BAUDRATE,
                             uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY,
                             uint32_t stopBits = CONF_UART_STOP_BITS);
 

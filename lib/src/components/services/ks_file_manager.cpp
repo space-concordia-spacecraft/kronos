@@ -2,10 +2,9 @@
 
 namespace kronos {
 
-    ComponentFileManager::ComponentFileManager(const String& componentName, const String& volume) : ComponentPassive(
-            componentName), m_Volume(volume) {
-
-    }
+    ComponentFileManager::ComponentFileManager(const std::string& componentName, const std::string& volume)
+            : ComponentPassive(
+            componentName), m_Volume(volume) {}
 
     KsResult ComponentFileManager::Init() {
         ComponentPassive::Init();
@@ -13,10 +12,10 @@ namespace kronos {
         int32_t initResult = red_init();
 
         if (initResult == KS_SUCCESS)
-            initResult = red_format(m_Volume.Ptr());
+            initResult = red_format(m_Volume.data());
 
         if (initResult == KS_SUCCESS)
-            initResult = red_mount(m_Volume.Ptr());
+            initResult = red_mount(m_Volume.data());
 
         if (initResult != KS_SUCCESS) {
             //TODO: ERROR
@@ -38,8 +37,9 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    File* ComponentFileManager::Open(const String& path, uint32_t mode) {
-        int32_t fileId = red_open((m_Volume + path).Ptr(), mode);
+    File* ComponentFileManager::Open(const std::string& path, uint32_t mode) {
+        std::string fullPath = m_Volume + path;
+        int32_t fileId = red_open(fullPath.data(), mode);
 
         if (fileId == KS_FILE_INVALID_HANDLE)
             return nullptr;

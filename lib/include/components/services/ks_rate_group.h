@@ -2,7 +2,6 @@
 
 #include "ks_component_active.h"
 #include "ks_bus.h"
-#include "ks_vector.h"
 
 namespace kronos {
 
@@ -17,7 +16,7 @@ namespace kronos {
 
     class ComponentRateGroup : public ComponentActive {
     public:
-        explicit ComponentRateGroup(const String& name,
+        explicit ComponentRateGroup(const std::string& name,
                                     KsEventCode opcode = KS_EVENT_CODE_RATE_GROUP_TICK);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
@@ -30,7 +29,7 @@ namespace kronos {
         void AddRateGroupFrequency(BusBase* outBus, uint32_t tickRate);
 
     private:
-        Vector<RateGroupFrequency> m_Frequencies;
+        std::vector<RateGroupFrequency> m_Frequencies;
         KsEventCode m_Opcode;
 
         /***

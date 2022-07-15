@@ -20,7 +20,7 @@ namespace kronos {
         //! \brief Creates a new queued component
         //!
         //! \param name the name of the component
-        explicit ComponentQueued(const String& name);
+        explicit ComponentQueued(const std::string& name);
 
         //! \brief Pops all events from the queue and processes them
         KsResult ProcessEventQueue();

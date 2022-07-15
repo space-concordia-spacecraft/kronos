@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ks_hashmap.h"
-
 #include "ks_component_active.h"
 #include "ks_bus.h"
 
 #include "ks_profiler.h"
+
+#include <unordered_map>
 
 #define KS_HEALTH_PING_RATE 3000
 
@@ -17,14 +17,14 @@ namespace kronos {
 
     class ComponentHealthMonitor : public ComponentQueued {
     public:
-        ComponentHealthMonitor(const kronos::String& name, kronos::BusBase* healthIn, kronos::BusBase* healthOut);
+        ComponentHealthMonitor(const std::string& name, kronos::BusBase* healthIn, kronos::BusBase* healthOut);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
         KsResult RegisterActiveComponent(ComponentActive* component);
 
     private:
-        HashMap<ComponentActive*, ComponentInfo> m_ActiveComponentInfos;
+        std::unordered_map<ComponentActive*, ComponentInfo> m_ActiveComponentInfos;
         BusBase* m_HealthIn;
         BusBase* m_HealthOut;
 

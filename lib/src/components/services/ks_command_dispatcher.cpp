@@ -5,7 +5,7 @@ namespace kronos {
         switch (message.eventCode) {
             case KS_EVENT_CODE_DISPATCH_COMMAND:
                 auto* commandMessage = reinterpret_cast<CommandMessage*>(message.data);
-                m_CommandMessages.Get(commandMessage->opcode)(commandMessage->parameter);
+                m_CommandMessages[commandMessage->opcode](commandMessage->parameter);
                 delete commandMessage;
                 break;
         }
@@ -13,8 +13,7 @@ namespace kronos {
     }
 
     KsResult ComponentCommandDispatcher::RegisterCommand(KsOpcode opcode, void (* pFunction)(void*)) {
-        m_CommandMessages.Put(opcode, pFunction);
-
+        m_CommandMessages[opcode] = pFunction;
         return KS_SUCCESS;
     }
 }

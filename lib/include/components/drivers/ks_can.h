@@ -8,7 +8,7 @@ namespace kronos {
 
     class ComponentCanDriver : public ComponentPassive {
     public:
-        ComponentCanDriver(const String& componentName, struct mcan_module* mcan_mod);
+        ComponentCanDriver(const std::string& componentName, struct mcan_module* mcan_mod);
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 

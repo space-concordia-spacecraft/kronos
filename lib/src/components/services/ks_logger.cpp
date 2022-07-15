@@ -3,7 +3,7 @@
 
 namespace kronos {
 
-    ComponentLogger::ComponentLogger(const String& name, const String& filePath, BusSync* fileBus)
+    ComponentLogger::ComponentLogger(const std::string& name, const std::string& filePath, BusSync* fileBus)
             : ComponentActive(name, KS_COMPONENT_STACK_SIZE_XLARGE), m_FilePath(filePath), m_FileBus(fileBus) {}
 
     KsCmdResult ComponentLogger::ProcessEvent(const EventMessage& message) {
@@ -51,7 +51,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    String ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
+    std::string ComponentLogger::ConvertTimestamp(uint32_t timestamp) {
         char buf[80];
         itoa(timestamp, buf, 10);
 
@@ -66,8 +66,10 @@ namespace kronos {
 
     KsResult ComponentLogger::Log(LogMessage* logMsg) {
         char buf[250];
-        int buffLen = sprintf(buf, "[%s] [%s] %s\n\r", ConvertTimestamp(logMsg->timestamp).Ptr(),
-                              ConvertSeverity(logMsg->severity).Ptr(), logMsg->message.Ptr());
+        int buffLen = sprintf(buf, "[%s] [%s] %s\n\r",
+                              ConvertTimestamp(logMsg->timestamp).data(),
+                              ConvertSeverity(logMsg->severity).data(),
+                              logMsg->message.data());
         printf("%s", buf);
         if (m_File != nullptr) {
             m_File->Write(buf, buffLen);
@@ -76,7 +78,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    String ComponentLogger::ConvertSeverity(uint8_t severity) {
+    std::string ComponentLogger::ConvertSeverity(uint8_t severity) {
         switch (severity) {
             case KS_LOG_DEBUG:
                 return "DEBUG";

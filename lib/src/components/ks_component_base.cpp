@@ -2,10 +2,10 @@
 
 namespace kronos {
 
-    ComponentBase::ComponentBase(const String& name)
+    ComponentBase::ComponentBase(const std::string& name)
             : m_Name(name) {}
 
-    String ComponentBase::GetName() {
+    std::string ComponentBase::GetName() {
         return m_Name;
     }
 

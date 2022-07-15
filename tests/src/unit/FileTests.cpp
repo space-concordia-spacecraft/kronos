@@ -18,13 +18,13 @@ KT_TEST(FileReadWriteTest) {
     // Write to file
     const char str[10] = "Read test";
     char buffer[100];
-    KT_ASSERT(file->Write(str, sizeof(str)) == KS_SUCCESS);
+    KT_ASSERT(file->Write(str, sizeof(str)) == 10);
     delete file;
 
     // Re-open and read from file
     file = ComponentFileManager::Get().Open("/test.txt", KS_OPEN_MODE_READ_ONLY);
     KT_ASSERT(file);
-    KT_ASSERT(file->Read(buffer, sizeof(buffer)) == KS_SUCCESS);
+    KT_ASSERT(file->Read(buffer, sizeof(buffer)) == 10);
     KT_ASSERT(strncmp(buffer, "Read test", 10) == 0);
     file->Close();
 

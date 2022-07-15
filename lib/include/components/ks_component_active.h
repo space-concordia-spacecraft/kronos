@@ -13,9 +13,6 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-// Microchip ASF
-#include "asf.h"
-
 // Task Priorities
 #define KS_COMPONENT_PRIORITY_HIGH      ( tskIDLE_PRIORITY + 3 )
 #define KS_COMPONENT_PRIORITY_MEDIUM    ( tskIDLE_PRIORITY + 2 )
@@ -40,7 +37,7 @@ namespace kronos {
         //! \param name the name of the component
         //! \param stackSize The number of words (not bytes!) to allocate for use as the task's stack
         //! \param priority the priority at which the created task will execute
-        explicit ComponentActive(const String& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL,
+        explicit ComponentActive(const std::string& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL,
                                  uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
         //! @copydoc

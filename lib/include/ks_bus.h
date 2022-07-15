@@ -1,7 +1,9 @@
 #pragma once
 
-#include "ks_vector.h"
 #include "ks_component_base.h"
+
+#include <algorithm>
+#include <vector>
 
 namespace kronos {
 
@@ -15,7 +17,7 @@ namespace kronos {
         //!
         //! \param opcode the opcode the bus uses to publish
         //! \param name the name of the bus
-        BusBase(KsEventCode opcode, const String& name);
+        BusBase(KsEventCode opcode, const std::string& name);
 
         //! \brief Adds a new subscriber to the bus
         //!
@@ -30,14 +32,14 @@ namespace kronos {
         //! \brief Getter for the name of the bus
         //!
         //! \return the name of the bus
-        String GetName();
+        std::string GetName();
 
     protected:
         //! Event code that gets sent to all subscribed components
         KsEventCode m_EventCode;
 
         //! Name of the bus
-        String m_Name;
+        std::string m_Name;
     };
 
     //! \class BusSync
@@ -47,7 +49,7 @@ namespace kronos {
     class BusSync : public BusBase {
     public:
         //! @copydoc
-        BusSync(KsEventCode opcode, const String& name);
+        BusSync(KsEventCode opcode, const std::string& name);
 
         //! @copydoc
         void AddReceivingComponent(ComponentBase* component) override;
@@ -107,7 +109,7 @@ namespace kronos {
 
     class BusAsync : public BusBase {
     public:
-        BusAsync(KsEventCode opcode, const String& name);
+        BusAsync(KsEventCode opcode, const std::string& name);
 
         void AddReceivingComponent(ComponentBase* component) override;
 
@@ -117,7 +119,7 @@ namespace kronos {
 
         template<typename T>
         void PublishAsync(T* data, BusBase* returnBus = nullptr) {
-            if (m_ReceivingComponents.Size() == 0) {
+            if (m_ReceivingComponents.size() == 0) {
                 // TODO: HANDLE ERROR OR WARNING
                 return;
             }
@@ -137,7 +139,7 @@ namespace kronos {
         }
 
     private:
-        Vector<ComponentBase*> m_ReceivingComponents;
+        std::vector<ComponentBase*> m_ReceivingComponents;
     };
 
 }

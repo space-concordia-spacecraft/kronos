@@ -5,7 +5,9 @@
 
 #pragma once
 
-#include "ks_string.h"
+#include "std_stub.h"
+#include <string>
+
 #include "ks_codes.h"
 
 namespace kronos {
@@ -36,7 +38,7 @@ namespace kronos {
         //! \brief Creates a new base component
         //!
         //! \param name the name of the component
-        explicit ComponentBase(const String& name);
+        explicit ComponentBase(const std::string& name);
 
         //! \brief initializes the component
         //!
@@ -62,11 +64,11 @@ namespace kronos {
 
         //! \brief gets the name of the component
         //! \return
-        String GetName();
+        std::string GetName();
 
     protected:
         //! The name of the component
-        const String m_Name;
+        const std::string m_Name;
     };
 
 }

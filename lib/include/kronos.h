@@ -1,3 +1,6 @@
+// Stub printf and scanf
+#include "std_stub.h"
+
 // FreeRTOS
 #include "FreeRTOS.h"
 #include "task.h"
@@ -8,12 +11,8 @@
 #include "asf.h"
 
 // Types
-#include "ks_string.h"
 #include "ks_file.h"
-#include "ks_hashmap.h"
-#include "ks_iterable.h"
 #include "ks_queue.h"
-#include "ks_vector.h"
 
 // Component Base Classes
 #include "ks_component_base.h"
@@ -37,5 +36,10 @@
 
 // Profiler
 #include "ks_profiler.h"
+
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
 
 void console_init();

@@ -29,14 +29,14 @@ KT_TEST(ImportTest) {
     // Create importer
     ApolloImporter apolloImporter(file);
     auto headers = apolloImporter.GetHeaders();
-    KT_ASSERT(headers.Size() == 2, "HEADER SIZE DOESN'T MATCH");
+    KT_ASSERT(headers.size() == 2, "HEADER SIZE DOESN'T MATCH");
     KT_ASSERT(headers[0].name == "Test 1", "HEADER DATA MISMATCH");
     KT_ASSERT(headers[0].dataType == KS_APOLLO_INT, "HEADER DATA MISMATCH");
     KT_ASSERT(headers[1].name == "Test 2", "HEADER DATA MISMATCH");
     KT_ASSERT(headers[1].dataType == KS_APOLLO_INT, "HEADER NAMES DON'T MATCH");
 
     // Read data
-    Vector<uint32_t> data;
+    std::vector<uint32_t> data;
     apolloImporter.ReadRow(data);
     KT_ASSERT(data[0] == 69, "DATA DOESN'T MATCH");
     KT_ASSERT(data[1] == 420, "DATA DOESN'T MATCH");

@@ -1,9 +1,11 @@
 #include "ks_parameter_database.h"
 
 namespace kronos {
-    ComponentParameterDatabase::ComponentParameterDatabase(const String& componentName, const String& pathName)
-            : ComponentPassive(componentName), m_Path(pathName) {
-    }
+
+    ComponentParameterDatabase::ComponentParameterDatabase(
+            const std::string& componentName,
+            const std::string& pathName
+    ) : ComponentPassive(componentName), m_Path(pathName) {}
 
     KsCmdResult ComponentParameterDatabase::ProcessEvent(const EventMessage& message) {
         // TODO: event message processing
@@ -21,12 +23,12 @@ namespace kronos {
         auto headers = apolloImporter.GetHeaders();
 
         // Read Values
-        Vector<uint32_t> data;
+        std::vector<uint32_t> data;
         apolloImporter.ReadRow(data);
 
         // Iterate and Add to HashMap
-        for (size_t index = 0; index < headers.Size(); index++) {
-            m_Parameters.Put(headers[index].name, data[index]);
+        for (size_t index = 0; index < headers.size(); index++) {
+            m_Parameters[headers[index].name] = data[index];
         }
 
         return KS_SUCCESS;
@@ -36,9 +38,8 @@ namespace kronos {
     //! \param key is the Key to be added
     //! \param newValue is the value to be added
     //! \return KS_SUCCESS if true else otherwise
-    KsResult ComponentParameterDatabase::SetParam(const String& key, uint32_t newValue) {
-        //Sets Parameter
-        m_Parameters.Put(key, newValue);
+    KsResult ComponentParameterDatabase::SetParam(const std::string& key, uint32_t newValue) {
+        m_Parameters[key] = newValue;
         return KS_SUCCESS;
     }
 
@@ -48,13 +49,13 @@ namespace kronos {
     KsResult ComponentParameterDatabase::SaveParams() {
         // Open file
         File* file = ComponentFileManager::Get().Open(m_Path, KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
-        Vector<ApolloHeader> headers;
-        Vector<uint32_t> data;
+        std::vector<ApolloHeader> headers;
+        std::vector<uint32_t> data;
 
         // Put all data and headers into appropriate vectors
-        for (auto hashNode: m_Parameters) {
-            headers.Add({hashNode.GetKey(), KS_APOLLO_INT});
-            data.Add(hashNode.GetValue());
+        for (auto param: m_Parameters) {
+            headers.push_back({ param.first, KS_APOLLO_INT });
+            data.push_back(param.second);
         }
 
         // Create Apollo Exporter using appropriate headers
@@ -64,5 +65,6 @@ namespace kronos {
         apolloExporter.WriteRow(data);
         return KS_SUCCESS;
     }
+
 }
 

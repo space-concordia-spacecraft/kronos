@@ -7,8 +7,6 @@
 
 // Kronos includes
 #include "ks_component_passive.h"
-#include "ks_hashmap.h"
-#include "ks_vector.h"
 #include "ks_bus.h"
 
 // Kernel includes
@@ -35,7 +33,9 @@ namespace kronos {
         //! \param outBus the bus that gets published to by the timer component
         //! \param intervalMs the interval the timer uses
         //! \param autoReload if autoReload = true then the timer will expire repeatedly with the frequency given
-        explicit ComponentTimer(const String& name, BusBase* outBus, TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL,
+        explicit ComponentTimer(const std::string& name,
+                                BusBase* outBus,
+                                TickType_t intervalMs = KS_DEFAULT_TIMER_INTERVAL,
                                 BaseType_t autoReload = pdTRUE);
 
         //! \brief initializes the timer component

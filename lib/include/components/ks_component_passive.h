@@ -5,14 +5,11 @@
 
 #pragma once
 
-// Microchip ASF
-#include "asf.h"
+#include "std_stub.h"
+#include <string>
 
 // Kronos includes
-#include "ks_vector.h"
-#include "ks_string.h"
 #include "ks_codes.h"
-
 #include "ks_component_base.h"
 
 namespace kronos {
@@ -26,7 +23,7 @@ namespace kronos {
         //! \brief Creates a new passive component
         //!
         //! \param name the name of the component
-        explicit ComponentPassive(const String& name);
+        explicit ComponentPassive(const std::string& name);
 
         /// @copydoc
         KsResult Init() override;

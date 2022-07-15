@@ -30,7 +30,7 @@ namespace kronos {
         //! \param name The name of the component
         //! \param component ComponentBase pointer used to store the component found
         //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetComponent(const String& name, ComponentBase** component);
+        static KsResult GetComponent(const std::string& name, ComponentBase** component);
 
         //! \brief Registers a synchronous bus to the framework
         //!
@@ -48,42 +48,42 @@ namespace kronos {
         //!
         //! \param busName The name of the logger bus
         //! \return KS_SUCCESS if the operation was successful
-        KsResult SetLoggerBus(const String& busName);
+        KsResult SetLoggerBus(const std::string& busName);
 
         //! \brief Getter for synchronous buses
         //!
         //! \param name The name of the bus that needs to get retrieved
         //! \param bus BusSync pointer to store the bus found in the list
         //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetSyncBus(const String& name, BusSync** bus);
+        static KsResult GetSyncBus(const std::string& name, BusSync** bus);
 
         //! \brief Getter for asynchronous buses
         //!
         //! \param name The name of the bus that needs to get retrieved
         //! \param bus BusAsync pointer to store the bus found in the list
         //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetAsyncBus(const String& name, BusAsync** bus);
+        static KsResult GetAsyncBus(const std::string& name, BusAsync** bus);
 
         //! \brief Logs a msg
         //!
         //! \param msg String containing the message to log
         //! \param severity
-        static void Log(const String& msg, uint8_t severity = KS_LOG_INFO);
+        static void Log(const std::string& msg, uint8_t severity = KS_LOG_INFO);
 
-        static void LogDebug(const String& msg);
+        static void LogDebug(const std::string& msg);
 
-        static void LogInfo(const String& msg);
+        static void LogInfo(const std::string& msg);
 
-        static void LogWarn(const String& msg);
+        static void LogWarn(const std::string& msg);
 
-        static void LogError(const String& msg);
+        static void LogError(const std::string& msg);
 
         static Framework* s_Instance;
 
     private:
-        HashMap<String, BusSync*> m_SyncBuses;
-        HashMap<String, BusAsync*> m_AsyncBuses;
-        HashMap<String, ComponentBase*> m_Components;
+        std::unordered_map<std::string, BusSync*> m_SyncBuses;
+        std::unordered_map<std::string, BusAsync*> m_AsyncBuses;
+        std::unordered_map<std::string, ComponentBase*> m_Components;
         BusAsync* m_LoggerBus = nullptr;
     };
 

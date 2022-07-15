@@ -1,7 +1,7 @@
 #include "ks_csp.h"
 
 namespace kronos {
-    ComponentCspDriver::ComponentCspDriver(const String& name, uint32_t baudrate, uint32_t charLength,
+    ComponentCspDriver::ComponentCspDriver(const std::string& name, uint32_t baudrate, uint32_t charLength,
                                            uint32_t parityType, uint32_t stopBits) : ComponentPassive(name) {
 
     }
@@ -12,7 +12,7 @@ namespace kronos {
 
         /* enable/disable debug levels */
         for (int i = 0; i <= CSP_LOCK; ++i) {
-            csp_debug_set_level(static_cast<csp_debug_level_t>(i), (i <= debug_level) ? true : false);
+            csp_debug_set_level(static_cast<csp_debug_level_t>(i), i <= debug_level);
         }
 
         Framework::LogInfo("Initialising CSP");

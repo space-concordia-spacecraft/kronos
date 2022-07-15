@@ -13,30 +13,17 @@ uint32_t GetValue2Tick() {
 }
 
 KT_TEST(TelemetryLoggerWriteTest) {
-    Vector<TelemetryChannel> channels1Tick;
-    TelemetryChannel channel;
-    channel.name = "temperature";
-    channel.retrieveTelemetry = &GetValue1Tick;
-    channels1Tick.Add(channel);
-    /*
-    channels1Tick.Add({"temperature", &GetValue1Tick });
-    channels1Tick.Add({"batteryLevel", &GetValue1Tick });
-    channels1Tick.Add({"radiation", &GetValue1Tick });
-    channels1Tick.Add({"attitude", &GetValue1Tick });
-     */
+    std::vector<TelemetryChannel> channels1Tick;
+    channels1Tick.push_back({"temperature", &GetValue1Tick });
+    channels1Tick.push_back({"batteryLevel", &GetValue1Tick });
+    channels1Tick.push_back({"radiation", &GetValue1Tick });
+    channels1Tick.push_back({"attitude", &GetValue1Tick });
 
-
-    Vector<TelemetryChannel> channels2Tick;
-    TelemetryChannel channel2;
-    channel2.name = "temperature";
-    channel2.retrieveTelemetry = &GetValue2Tick;
-    channels2Tick.Add(channel2);
-    /*
-    channels2Tick.Add({"temperature", &GetValue2Tick });
-    channels2Tick.Add({"batteryLevel", &GetValue2Tick });
-    channels2Tick.Add({"radiation", &GetValue2Tick });
-    channels2Tick.Add({"attitude", &GetValue2Tick });
-     */
+    std::vector<TelemetryChannel> channels2Tick;
+    channels2Tick.push_back({"temperature", &GetValue2Tick });
+    channels2Tick.push_back({"batteryLevel", &GetValue2Tick });
+    channels2Tick.push_back({"radiation", &GetValue2Tick });
+    channels2Tick.push_back({"attitude", &GetValue2Tick });
 
     ComponentTelemetryLogger logger("telemetryLogger");
     logger.AddTelemetryGroup("telemetryLoggerTest1Tick", 1, channels1Tick);
@@ -45,7 +32,7 @@ KT_TEST(TelemetryLoggerWriteTest) {
     EventMessage msg;
     msg.eventCode = KS_EVENT_CODE_RATE_GROUP_TICK;
 
-    for (int i = 0; i < 420; i++) {
+    for (int i = 0; i < 5; i++) {
         logger.ProcessEvent(msg);
     }
 
@@ -63,10 +50,10 @@ KT_TEST(TelemetryLoggerReadTest) {
     // Create importer
     ApolloImporter apolloImporter1Tick(file1Tick);
     auto headers1Tick = apolloImporter1Tick.GetHeaders();
-    KT_ASSERT(headers1Tick.Size() == 4, "HEADER SIZE DOESN'T MATCH");
+    KT_ASSERT(headers1Tick.size() == 4, "HEADER SIZE DOESN'T MATCH");
     KT_ASSERT(headers1Tick[0].name == "temperature", "HEADER DATA MISMATCH");
     KT_ASSERT(headers1Tick[0].dataType == KS_APOLLO_FLOAT, "HEADER DATA MISMATCH");
-    KT_ASSERT(headers1Tick[1].name == "battery_level", "HEADER DATA MISMATCH");
+    KT_ASSERT(headers1Tick[1].name == "batteryLevel", "HEADER DATA MISMATCH");
     KT_ASSERT(headers1Tick[1].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
     KT_ASSERT(headers1Tick[2].name == "radiation", "HEADER DATA MISMATCH");
     KT_ASSERT(headers1Tick[2].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
@@ -74,12 +61,12 @@ KT_TEST(TelemetryLoggerReadTest) {
     KT_ASSERT(headers1Tick[3].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
 
     // Create importer
-    ApolloImporter apolloImporter2Tick(file1Tick);
+    ApolloImporter apolloImporter2Tick(file2Tick);
     auto headers2Tick = apolloImporter2Tick.GetHeaders();
-    KT_ASSERT(headers2Tick.Size() == 4, "HEADER SIZE DOESN'T MATCH");
+    KT_ASSERT(headers2Tick.size() == 4, "HEADER SIZE DOESN'T MATCH");
     KT_ASSERT(headers2Tick[0].name == "temperature", "HEADER DATA MISMATCH");
     KT_ASSERT(headers2Tick[0].dataType == KS_APOLLO_FLOAT, "HEADER DATA MISMATCH");
-    KT_ASSERT(headers2Tick[1].name == "battery_level", "HEADER DATA MISMATCH");
+    KT_ASSERT(headers2Tick[1].name == "batteryLevel", "HEADER DATA MISMATCH");
     KT_ASSERT(headers2Tick[1].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
     KT_ASSERT(headers2Tick[2].name == "radiation", "HEADER DATA MISMATCH");
     KT_ASSERT(headers2Tick[2].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
@@ -87,18 +74,37 @@ KT_TEST(TelemetryLoggerReadTest) {
     KT_ASSERT(headers2Tick[3].dataType == KS_APOLLO_FLOAT, "HEADER NAMES DON'T MATCH");
 
     // Read data
-    Vector<uint32_t> data1Tick;
-    apolloImporter1Tick.ReadRow(data1Tick);
-
-    Vector<uint32_t> data2Tick;
-    apolloImporter1Tick.ReadRow(data2Tick);
-
-    for (uint32_t i = 0; i < 420; i++) {
-        KT_ASSERT(data1Tick[i] == i, "DATA DOESN'T MATCH");
+    std::vector<std::vector<uint32_t>> data;
+    std::vector<uint32_t> row;
+    while (true) {
+        row.clear();
+        if (apolloImporter1Tick.ReadRow(row) != KS_SUCCESS)
+            break;
+        data.push_back(row);
     }
 
-    for (uint32_t i = 0; i < 210; i++) {
-        KT_ASSERT(data2Tick[i] == i, "DATA DOESN'T MATCH");
+    uint32_t i = 0;
+    for (auto& dataRow: data) {
+        KT_ASSERT(row.size() == 4);
+        for (auto value: dataRow) {
+            KT_ASSERT(value == i++);
+        }
+    }
+
+    data.clear();
+    while (true) {
+        row.clear();
+        if (apolloImporter2Tick.ReadRow(row) != KS_SUCCESS)
+            break;
+        data.push_back(row);
+    }
+
+    i = 0;
+    for (auto& dataRow: data) {
+        KT_ASSERT(row.size() == 4);
+        for (auto value: dataRow) {
+            KT_ASSERT(value == i++);
+        }
     }
 
     apolloImporter1Tick.Close();

@@ -3,15 +3,13 @@
 #include "ks_component_passive.h"
 #include "ks_file.h"
 
-#include "redposix.h"
-
 namespace kronos {
 
     //! \class ComponentFileManager
     //! \brief
     class ComponentFileManager : public ComponentPassive {
     public:
-        ComponentFileManager(const String& componentName, const String& volume);
+        ComponentFileManager(const std::string& componentName, const std::string& volume);
 
         ComponentFileManager(const ComponentFileManager&) = delete;
 
@@ -21,12 +19,12 @@ namespace kronos {
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        File* Open(const String& path, uint32_t mode);
+        File* Open(const std::string& path, uint32_t mode);
 
         static ComponentFileManager& Get();
 
     private:
-        String m_Volume;
+        std::string m_Volume;
     };
 
 }

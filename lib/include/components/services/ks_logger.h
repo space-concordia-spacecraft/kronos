@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ks_component_active.h"
-#include "ks_string.h"
 #include "ks_codes.h"
 #include "ks_file.h"
 #include "ks_bus.h"
@@ -28,7 +27,7 @@ namespace kronos {
          */
         uint8_t severity;
         /// The message after the timestamp and severity is stored in a string.
-        String message = "";
+        std::string message = "";
     };
 
     /**
@@ -42,7 +41,7 @@ namespace kronos {
          * @param filepath - Path of the file where logs should be stored. It should include the name and extension of the file.
          * @param fileBus
          */
-        ComponentLogger(const String& name, const String& filepath, BusSync* fileBus);
+        ComponentLogger(const std::string& name, const std::string& filepath, BusSync* fileBus);
 
         /**
          *
@@ -62,7 +61,7 @@ namespace kronos {
         KsResult Destroy() override;
 
     private:
-        String m_FilePath;
+        std::string m_FilePath;
         BusSync* m_FileBus;
         File* m_File = nullptr;
 
@@ -73,7 +72,7 @@ namespace kronos {
          * @param timestamp
          * @return
          */
-        static String ConvertTimestamp(uint32_t timestamp);
+        static std::string ConvertTimestamp(uint32_t timestamp);
 
         /**
          * Log() takes the values from the struct LogMessage and places them in a char buffer. Writes buffer to file.
@@ -86,7 +85,7 @@ namespace kronos {
          * @param severity - KS_LOG_DEBUG, KS_LOG_INFO, KS_LOG_WARN, KS_LOG_ERROR
          * @return Returns severities (string): DEBUG, INFO, WARNING or ERROR
          */
-        static String ConvertSeverity(uint8_t severity);
+        static std::string ConvertSeverity(uint8_t severity);
     };
 
 }

@@ -146,7 +146,7 @@ function(add_sam_executable EXECUTABLE_NAME)
             LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T \"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc/${SAM_MCU}_flash.ld\""
     )
 
-    target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
+    target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "ARM_MATH_CM7=true")
 
     ##
     #	Create binary from ELF.
@@ -213,6 +213,6 @@ function(add_sam_library LIBRARY_NAME)
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     )
 
-    target_compile_definitions(${LIBRARY_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "scanf=iscanf" "ARM_MATH_CM7=true" "printf=iprintf")
+    target_compile_definitions(${LIBRARY_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "ARM_MATH_CM7=true")
 
 endfunction(add_sam_library)
