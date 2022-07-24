@@ -1,12 +1,12 @@
-#include "ks_csp.h"
+#include "ks_communications.h"
 
 namespace kronos {
-    ComponentCspDriver::ComponentCspDriver(const std::string& name, uint32_t baudrate, uint32_t charLength,
+    ComponentCommunications::ComponentCommunications(const std::string& name, uint32_t baudrate, uint32_t charLength,
                                            uint32_t parityType, uint32_t stopBits) : ComponentPassive(name) {
 
     }
 
-    KsResult ComponentCspDriver::Init() {
+    KsResult ComponentCommunications::Init() {
         uint8_t address = 1;
         csp_debug_level_t debug_level = CSP_INFO;
 
@@ -32,47 +32,48 @@ namespace kronos {
 
         m_ServerAddress = 1;
 
-//        m_Socket = csp_socket(CSP_SO_NONE);
-//        csp_bind(m_Socket, CSP_ANY);
-//        csp_listen(m_Socket, 10);
+        m_Socket = csp_socket(CSP_SO_NONE);
+        csp_bind(m_Socket, CSP_ANY);
+        csp_listen(m_Socket, 10);
 
         return KS_SUCCESS;
     }
 
-    KsCmdResult ComponentCspDriver::ProcessEvent(const EventMessage& message) {
+    KsCmdResult ComponentCommunications::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case KS_EVENT_CODE_WRITE:
+            case KS_EVENT_CODE_RATE_GROUP_TICK:
                 Read();
                 break;
-            case KS_EVENT_CODE_RATE_GROUP_TICK:
+            case KS_EVENT_CODE_WRITE:
                 Write();
                 break;
         }
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResult ComponentCspDriver::Read() {
+    KsResult ComponentCommunications::Read() {
         /* Wait for a new connection, 10000 mS timeout */
 
         csp_conn_t* conn;
-        if ((conn = csp_accept(m_Socket, 1000)) == NULL) {
+        if ((conn = csp_accept(m_Socket, 1000)) == nullptr) {
             /* timeout */
             // TODO: in the example this continues the loop. Meaning it does nothing.
             Framework::LogInfo("Not Connected");
-            return KS_SUCCESS;
+            return KS_ERROR;
         }
 
         /* Read packets on connection, timout is 100 mS */
         csp_packet_t* packet;
-        while ((packet = csp_read(conn, 50)) != NULL) {
+        while ((packet = csp_read(conn, 50)) != nullptr) {
             switch (csp_conn_dport(conn)) {
                 case MY_SERVER_PORT:
-                    /* Process packet here */
+                    // TODO packet->data must get processed
                     Framework::LogInfo((char*) packet->data);
+
                     csp_buffer_free(packet);
                     ++m_ServerReceived;
+                    Framework::LogInfo(&"Packets: " [ m_ServerReceived]);
                     break;
-
                 default:
                     /* Call the default CSP service handler, handle pings, buffer use, etc. */
                     csp_service_handler(conn, packet);
@@ -86,7 +87,7 @@ namespace kronos {
         return KS_SUCCESS;
     }
 
-    KsResult ComponentCspDriver::Write() {
+    KsResult ComponentCommunications::Write() {
         /* Send ping to server, timeout 1000 mS, ping size 100 bytes */
         Framework::LogInfo("Ping address: %u, result %d [mS]");
 
@@ -105,8 +106,8 @@ namespace kronos {
         }
 
         /* 2. Get packet buffer for message/data */
-        csp_packet_t* packet = static_cast<csp_packet_t*>(csp_buffer_get(100));
-        if (packet == NULL) {
+        auto* packet = static_cast<csp_packet_t*>(csp_buffer_get(100));
+        if (packet == nullptr) {
             /* Could not get buffer element */
             Framework::LogInfo("Failed to get CSP buffer");
             return KS_ERROR;

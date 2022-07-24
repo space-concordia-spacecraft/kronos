@@ -1,7 +1,7 @@
 #include "kronos.h"
 
 int main() {
-    kronos::Profiler::Get().BeginSession("Initialization", INITIALIZATION_INTERVAL);
+//    kronos::Profiler::Get().BeginSession("Initialization", INITIALIZATION_INTERVAL);
 
     // Init Framework
     kronos::Framework::Init();
@@ -36,6 +36,9 @@ int main() {
     auto* healthMonitor = new kronos::ComponentHealthMonitor("health", healthInBus, healthOutBus);
     auto* logger = new kronos::ComponentLogger("logger", "", openFileBus);
 
+    auto* cspComponent = new kronos::ComponentCspDriver("csp");
+
+
     timerBus->AddReceivingComponent(rateGroup20Hz);
     timerBus->AddReceivingComponent(rateGroup5Hz);
     timerBus->AddReceivingComponent(rateGroup5s);
@@ -59,6 +62,8 @@ int main() {
 
     loggerBus->AddReceivingComponent(logger);
 
+    blinkerSchedBus->AddReceivingComponent(cspComponent);
+
     // Register Components
     framework->RegisterComponent(timer);
 
@@ -69,6 +74,8 @@ int main() {
 
     framework->RegisterComponent(healthMonitor);
     framework->RegisterComponent(logger);
+
+    framework->RegisterComponent(cspComponent);
 
     // Register Buses
     framework->RegisterBus(timerBus);

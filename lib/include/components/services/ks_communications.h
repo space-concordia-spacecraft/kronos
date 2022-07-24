@@ -4,18 +4,18 @@
 
 #include "ks_framework.h"
 
-#include <csp/csp.h>
-#include <csp/arch/csp_thread.h>
-#include <csp/drivers/usart.h>
+#include "csp/csp.h"
+#include "csp/arch/csp_thread.h"
+#include "csp/drivers/usart.h"
 
 /* Server port, the port the server listens on for incoming connections from the client. */
 #define MY_SERVER_PORT        10
 
 namespace kronos {
-    class ComponentCspDriver : public ComponentPassive {
+    class ComponentCommunications : public ComponentPassive {
     public:
 
-        ComponentCspDriver(const std::string& name, uint32_t baudrate = CONF_UART_BAUDRATE,
+        ComponentCommunications(const std::string& name, uint32_t baudrate = CONF_UART_BAUDRATE,
                            uint32_t charLength = CONF_UART_CHAR_LENGTH, uint32_t parityType = CONF_UART_PARITY,
                            uint32_t stopBits = CONF_UART_STOP_BITS);
 
@@ -25,7 +25,6 @@ namespace kronos {
 
     private:
         KsResult Read();
-
         KsResult Write();
 
         /* Commandline options */

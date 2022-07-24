@@ -139,7 +139,9 @@ set(KRONOS_SRC
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_can.cpp"
         #        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_communications.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_transfer.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_profiler.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_apollo_format.cpp"
