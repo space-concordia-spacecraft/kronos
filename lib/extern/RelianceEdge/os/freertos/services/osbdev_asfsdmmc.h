@@ -183,14 +183,15 @@ static REDSTATUS DiskRead(
     while(ulSectorIdx < ulSectorCount)
     {
         uint32_t    ulTransfer = REDMIN(ulSectorCount - ulSectorIdx, MAX_SECTOR_TRANSFER);
+        uint32_t    ulCurrentSectorIdx = ulSectorIdx;
         Ctrl_status cs;
 
-        cs = sd_mmc_mem_2_ram_multi(bVolNum, (uint32_t)(ullSectorStart + ulSectorIdx),
-                                    (uint16_t)ulTransfer, &pbBuffer[ulSectorIdx * ulSectorSize]);
-        if(cs != CTRL_GOOD)
-        {
-            ret = -RED_EIO;
-            break;
+        while(ulCurrentSectorIdx < (ulSectorIdx + ulTransfer)) {
+            cs = sd_mmc_mem_2_ram(bVolNum, (uint32_t)(ullSectorStart + ulCurrentSectorIdx), &pbBuffer[ulCurrentSectorIdx * ulSectorSize]);
+            if(cs != CTRL_GOOD)
+                return -RED_EIO;
+
+            ulCurrentSectorIdx ++;
         }
 
         ulSectorIdx += ulTransfer;
@@ -221,7 +222,6 @@ static REDSTATUS DiskWrite(
     uint32_t        ulSectorCount,
     const void     *pBuffer)
 {
-    REDSTATUS       ret = 0;
     uint32_t        ulSectorIdx = 0U;
     uint32_t        ulSectorSize = gaRedBdevInfo[bVolNum].ulSectorSize;
     const uint8_t  *pbBuffer = CAST_VOID_PTR_TO_CONST_UINT8_PTR(pBuffer);
@@ -229,20 +229,22 @@ static REDSTATUS DiskWrite(
     while(ulSectorIdx < ulSectorCount)
     {
         uint32_t    ulTransfer = REDMIN(ulSectorCount - ulSectorIdx, MAX_SECTOR_TRANSFER);
+        uint32_t    ulCurrentSectorIdx = ulSectorIdx;
         Ctrl_status cs;
 
-        cs = sd_mmc_ram_2_mem_multi(bVolNum, (uint32_t)(ullSectorStart + ulSectorIdx),
-                                    (uint16_t)ulTransfer, &pbBuffer[ulSectorIdx * ulSectorSize]);
-        if(cs != CTRL_GOOD)
-        {
-            ret = -RED_EIO;
-            break;
+
+        while(ulCurrentSectorIdx < (ulSectorIdx + ulTransfer)) {
+            cs = sd_mmc_ram_2_mem(bVolNum, (uint32_t)(ullSectorStart + ulCurrentSectorIdx), &pbBuffer[ulCurrentSectorIdx * ulSectorSize]);
+            if(cs != CTRL_GOOD)
+                return -RED_EIO;
+
+            ulCurrentSectorIdx ++;
         }
 
         ulSectorIdx += ulTransfer;
     }
 
-    return ret;
+    return 0;
 }
 
 

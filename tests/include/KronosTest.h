@@ -50,7 +50,7 @@ namespace ktest {
     extern TestGroup s_testGroups[];
     extern int s_numTestGroups;
 
-    void RunTests();
+    void RunTests(void *data);
 
 }
 

@@ -9,7 +9,7 @@ namespace kronos {
     class ComponentFileTransfer : public ComponentQueued {
     public:
         ComponentFileTransfer(const std::string& componentName);
-        ComponentFileTransfer(const ComponentFileManager&) = delete;
+        ComponentFileTransfer(const ComponentFileTransfer&) = delete;
 
         KsResult Init() override;
 

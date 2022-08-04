@@ -1,4 +1,5 @@
 #include "ks_framework.h"
+#include "sd_mmc.h"
 
 namespace kronos {
 
@@ -15,9 +16,14 @@ namespace kronos {
     }
 
     void Framework::Init() {
+//        irq_initialize_vectors();
+//        cpu_irq_enable();
+
         sysclk_init();
         board_init();
         console_init();
+
+        sd_mmc_init();
     }
 
     void Framework::Run() {

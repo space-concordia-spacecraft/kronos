@@ -32,7 +32,7 @@ namespace kronos {
     }
 
     Profiler& Profiler::Get() {
-        static Profiler* instance = new Profiler();
+        static auto* instance = new Profiler();
         return *instance;
     }
 

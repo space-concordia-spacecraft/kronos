@@ -14,7 +14,7 @@ namespace ktest {
         }
     }
 
-    void RunTests() {
+    void RunTests(void *data) {
         for (int i = 0; i < s_numTestGroups; i++) {
             printf("======== %s ========\n\n", s_testGroups[i].GetName());
             s_testGroups[i].RunUnitTests();

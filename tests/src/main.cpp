@@ -7,7 +7,10 @@
 
 int main() {
     kronos::Framework::Init();
-    ktest::RunTests();
+    TaskHandle_t handle;
+
+    xTaskCreate(ktest::RunTests, "Main Thread", KS_COMPONENT_STACK_SIZE_XLARGE, nullptr, KS_COMPONENT_PRIORITY_HIGH, &handle);
+    vTaskStartScheduler();
 }
 
 KT_TESTS(
