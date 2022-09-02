@@ -21,6 +21,7 @@ namespace kronos {
         csp_conf_t csp_conf;
         csp_conf_get_defaults(&csp_conf);
         csp_conf.address = address;
+
         int error = csp_init(&csp_conf);
         if (error != CSP_ERR_NONE) {
             Framework::LogInfo("csp_init() failed, error:");
@@ -29,6 +30,20 @@ namespace kronos {
 
         /* Start router task with 10000 bytes of stack (priority is only supported on FreeRTOS) */
         csp_route_start_task(500, 0);
+
+        csp_iface_t * default_iface = NULL;
+        csp_usart_conf_t conf = {
+                .baudrate = 115200, /* supported on all platforms */
+                .databits = 8,
+                .stopbits = 1,
+                .paritysetting = 0,
+                .checkparity = 0};
+
+        error = csp_usart_open_and_add_kiss_interface(&conf, nullptr,  &default_iface);
+        if (error != CSP_ERR_NONE) {
+            csp_log_error("failed to add KISS interface [%s], error: %d", "COM3", error);
+            exit(1);
+        }
 
         m_ServerAddress = 1;
 

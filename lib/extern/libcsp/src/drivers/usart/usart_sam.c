@@ -13,10 +13,10 @@ int csp_usart_open(const csp_usart_conf_t *conf, csp_usart_callback_t rx_callbac
             .stopbits = conf->stopbits
     };
 
-    *fd = (int)USART1;
+    *fd = (int)USART0;
 
     // initialize the usart
-    usart_serial_init(USART1, &usartOptions);
+    usart_serial_init(USART0, &usartOptions);
 
     return CSP_ERR_NONE;
 }
