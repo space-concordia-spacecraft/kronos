@@ -18,7 +18,6 @@ namespace kronos {
             initResult = red_mount(m_Volume.data());
 
         if (initResult != KS_SUCCESS) {
-            //TODO: ERROR
             return KS_ERROR_FILE_UNABLE_TO_INIT;
         }
 

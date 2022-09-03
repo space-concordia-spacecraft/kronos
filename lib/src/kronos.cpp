@@ -10,29 +10,29 @@
 
 extern "C" {
 
-void vApplicationMallocFailedHook(void) {
-    configASSERT((volatile void*) nullptr);
-}
+    void vApplicationMallocFailedHook(void) {
+        configASSERT((volatile void*) nullptr);
+    }
 
-void vApplicationStackOverflowHook(TaskHandle_t pxTask, char* pcTaskName) {
-    configASSERT((volatile void*) nullptr);
-}
+    void vApplicationStackOverflowHook(TaskHandle_t pxTask, char* pcTaskName) {
+        configASSERT((volatile void*) nullptr);
+    }
 
-void vApplicationIdleHook(void) {}
+    void vApplicationIdleHook(void) {}
 
-void vApplicationTickHook(void) {}
+    void vApplicationTickHook(void) {}
 
-int printf(const char* fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    return vprintf(fmt, args);
-}
+    int printf(const char* fmt, ...) {
+        va_list args;
+        va_start(args, fmt);
+        return vprintf(fmt, args);
+    }
 
-int scanf(const char* fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    return vscanf(fmt, args);
-}
+    int scanf(const char* fmt, ...) {
+        va_list args;
+        va_start(args, fmt);
+        return vscanf(fmt, args);
+    }
 
 }
 
@@ -45,3 +45,4 @@ void console_init() {
     };
     stdio_serial_init(CONF_UART, &usartOptions);
 }
+
