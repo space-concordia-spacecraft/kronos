@@ -119,8 +119,6 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/ks_component_active.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/drivers/ks_uart.cpp"
-
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/services/ks_telemetry_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/services/ks_file_manager.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/components/services/ks_health_monitor.cpp"
@@ -135,6 +133,8 @@ set(KRONOS_SRC
 
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/utils/ks_profiler.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/utils/ks_apollo_format.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/src/utils/ks_driver.cpp"
+
 
         "${CMAKE_CURRENT_SOURCE_DIR}/core/src/kronos.cpp"
 
@@ -189,7 +189,6 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/include/types"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/include/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/include/components/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/include/components/drivers"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/include/utils"
 )
 

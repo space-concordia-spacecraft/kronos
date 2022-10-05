@@ -1,6 +1,5 @@
 #pragma once
 
-#include "asf.h"
 
 //! \typedef Type that tells you the result of
 typedef uint16_t KsResult;

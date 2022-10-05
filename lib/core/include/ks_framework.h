@@ -84,6 +84,7 @@ namespace kronos {
         std::unordered_map<std::string, BusSync*> m_SyncBuses;
         std::unordered_map<std::string, BusAsync*> m_AsyncBuses;
         std::unordered_map<std::string, ComponentBase*> m_Components;
+
         BusAsync* m_LoggerBus = nullptr;
     };
 
