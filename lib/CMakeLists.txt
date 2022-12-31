@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
 #add_subdirectory(extern/HDF5)
@@ -17,192 +17,117 @@ endif()
 message("")
 # Glob source files
 set(KRONOS_SRC
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/event_groups.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/list.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/queue.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/tasks.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/timers.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/memcpy.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/MemMang/heap_4.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
+        # FREERTOS
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/stream_buffer.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/tasks.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_bridge.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_buffer.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_conn.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_crc32.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_debug.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_endian.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_hex_dump.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_iflist.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_io.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_port.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_promisc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_qfifo.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_route.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_service_handler.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_services.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_sfp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_clock.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_malloc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_queue.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_semaphore.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_system.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_thread.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_time.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_time.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_system.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/drivers/usart/usart_sam.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/drivers/usart/usart_kiss.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_can.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_can_pbuf.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_i2c.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_kiss.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_lo.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_zmqhub.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_cidr.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_static.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_rdp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_udp.c"
+        # ASF
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/driver_init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_start.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/usart_serial.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/read.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/write.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix/matrix.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan/mcan.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu/mpu.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio_handler.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/pmc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/sleep.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/tc/tc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart/uart.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart/usart.c"
+        # ASF HAL
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_atomic.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_delay.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_gpio.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_io.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_sleep.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_usart_sync.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/clock/${SAM_ARCH}/sysclk.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/${SAM_BOARD}/init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/system_${SAM_ARCH}.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/gcc/startup_${SAM_ARCH}.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_assert.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_event.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_list.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_ringbuffer.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/bdev/bdev.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/blockio.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/buffer.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/core.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/dir.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/format.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imap.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imapextern.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imapinline.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/inode.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/inodedata.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/volume.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/fse/fse.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osassert.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osbdev.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osclock.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osmutex.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osoutput.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/ostask.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/ostimestamp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/posix/path.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/posix/posix.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/posix/fsstress.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/atoi.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/math.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/printf.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/rand.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tools/getopt.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tools/toolcmn.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/bitmap.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/crc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/memory.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/namelen.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/sign.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/string.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/config/redconf.c"
+        # ASF HPL
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/core/hpl_core_m7_base.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/core/hpl_init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc/hpl_pmc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc/hpl_sleep.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/uart/hpl_uart.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/xdmac/hpl_xdmac.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_base.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_passive.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
+        # ASF SAME70
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/armcc/Device/Source/system_same70q21b.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/gcc/system_same70q21b.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/gcc/gcc/startup_same70q21b.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_health_monitor.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_logger.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_rate_group.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_command_dispatcher.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_parameter_database.cpp"
+        # ASF STDIO REDIRECT
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/stdio_io.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/read.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/write.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_can.cpp"
-        #        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
+        # KRONOS
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/ks_framework.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/bus/ks_bus.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_base.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_passive.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_queued.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_active.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger/ks_logger.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_profiler.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_apollo_format.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
-
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/kronos.cpp"
 )
 
 add_sam_library(Kronos ${KRONOS_SRC})
 
 set(KRONOS_INCLUDE_DIRS
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/drivers"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/utils"
+        # FREERTOS
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/include"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"
+        # ASF
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/config"
+        # ASF CONFIG
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/config"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/${SAM_BOARD}"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/include"
+        # ASF HAL
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/include"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/fpu"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/sam_uart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/gpio"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/boards"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/header_files"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/tc"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/ioport"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Lib/GCC"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/clock"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/stdio_serial"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/preprocessor"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan"
+        #ASF HPL
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/core"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pio"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/uart"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/include/"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/"
+        # ASF HRI
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hri"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/include"
-        #"${CMAKE_CURRENT_SOURCE_DIR}/extern/HDF5"
+        # ASF SAME70
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/include/component"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/include/instance"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/include/pio"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/include/pio"
+
+        # ASF STDIO REDIRECT
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect"
+
+        # KRONOS
+        "${CMAKE_CURRENT_SOURCE_DIR}/core"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/bus"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/component"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger"
+
+        "${CMAKE_CURRENT_SOURCE_DIR}/components"
+        "${CMAKE_CURRENT_SOURCE_DIR}/macros"
+        "${CMAKE_CURRENT_SOURCE_DIR}/os"
 )
 
-set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
+set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")

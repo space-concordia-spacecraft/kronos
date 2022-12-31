@@ -17,11 +17,11 @@ add_sam_executable(Kronos_Tests "${KRONOS_TESTS_SRC}")
 
 target_include_directories(Kronos_Tests PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../lib/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../lib/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../lib/include/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../lib/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/../lib/include/utilities"
+        "../lib/legacy/include"
+        "../lib/legacy/include/components"
+        "../lib/legacy/include/services"
+        "../lib/legacy/include/types"
+        "../lib/legacy/include/utilities"
 )
 
 target_link_libraries(Kronos_Tests Kronos)

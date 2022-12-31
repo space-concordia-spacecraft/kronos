@@ -1,6 +1,0 @@
-<map id="kronos::ComponentTimer" name="kronos::ComponentTimer">
-<area shape="rect" id="node1" title="A class that implements the FreeRTOS timer functionalities." alt="" coords="11,247,198,273"/>
-<area shape="rect" id="node2" href="$classkronos_1_1ComponentPassive.html" title="A class that implements the base for all passive components." alt="" coords="5,171,204,197"/>
-<area shape="rect" id="node3" href="$classkronos_1_1ComponentBase.html" title="A class that implements the base of all components." alt="" coords="14,95,195,121"/>
-<area shape="rect" id="node4" href="$classkronos_1_1String.html" title=" " alt="" coords="49,5,161,32"/>
-</map>

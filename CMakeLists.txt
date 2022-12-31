@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
 
@@ -12,11 +12,9 @@ set(DEMO_SRC "${KRONOS_EXTRA_SRC}" demo.cpp)
 add_sam_executable(Kronos_Demo "${DEMO_SRC}")
 
 target_include_directories(Kronos_Demo PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/utilities"
-)
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/core"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/component"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/logger"
+        )
 
 target_link_libraries(Kronos_Demo Kronos)
