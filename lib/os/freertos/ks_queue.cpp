@@ -6,32 +6,39 @@
 #define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
 
 namespace kronos {
+    template<typename T>
+    Queue<T>::Queue(size_t length) : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}
 
-    explicit Queue::Queue(size_t length = 10) : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}
+    template<typename T>
+    Queue<T>::~Queue() { vQueueDelete(m_Queue); }
 
-    ~Queue() { vQueueDelete(m_Queue); }
-
-    BaseType_t Push(const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
+    template<typename T>
+    BaseType_t Queue<T>::Push(const T& element, TickType_t ticksToWait) {
         return xQueueSend(m_Queue, &element, ticksToWait);
     }
 
-    BaseType_t Pop(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) {
+    template<typename T>
+    BaseType_t Queue<T>::Pop(T* pElement, TickType_t ticksToWait) {
         return xQueueReceive(m_Queue, pElement, ticksToWait);
     }
 
-    BaseType_t Peek(T* pElement, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) const {
+    template<typename T>
+    BaseType_t Queue<T>::Peek(T* pElement, TickType_t ticksToWait) const {
         return xQueuePeek(m_Queue, pElement, ticksToWait);
     }
 
-    BaseType_t Clear() {
+    template<typename T>
+    BaseType_t Queue<T>::Clear() {
         return xQueueReset(m_Queue);
     }
 
-    size_t Length() const {
+    template<typename T>
+    size_t Queue<T>::Length() const {
         return m_Length;
     }
 
-    size_t Size() const {
+    template<typename T>
+    size_t Queue<T>::Size() const {
         return Length() - uxQueueSpacesAvailable(m_Queue);
     }
 

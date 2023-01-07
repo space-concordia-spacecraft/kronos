@@ -24,51 +24,45 @@ namespace kronos {
         //! \brief Initializes all the components and starts the FreeRTOS scheduler
         void Run();
 
-        //! \brief Registers a component into the framework
+        //! \brief Creates a component into the framework
         //!
         //! \param component ComponentBase pointer to the component being registered
-        //! \return KS_SUCCESS if the operation was successful
-        KsResult RegisterComponent(ComponentBase* component);
+        //! \return the component that was created, nullptr if there was an error.
+        template<class T, typename... Args>
+        T* CreateComponent(const std::string& name, Args&& ... args) {
+            if (m_Components.count(name))
+                return nullptr;
 
-        //! \brief Gets the component with the given name
-        //!
-        //! \param name The name of the component
-        //! \param component ComponentBase pointer used to store the component found
-        //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetComponent(const std::string& name, ComponentBase** component);
+            m_Components[name] = new T(name, args...);
+            return reinterpret_cast<T*>(m_Components[name]);
+        }
 
-        //! \brief Registers a synchronous bus to the framework
         //!
-        //! \param bus BusSync object to register to the framework
-        //! \return KS_SUCCESS if the operation was successful
-        KsResult RegisterBus(BusSync* bus);
+        template<class T, typename... Args>
+        T* CreateBus(const std::string& name, Args&& ... args) {
+            if (m_Busses.count(name))
+                return nullptr;
 
-        //! \brief Registers an asynchronous bus to the framework
-        //!
-        //! \param bus BusAsync object to register to the framework
-        //! \return KS_SUCCESS if the operation was successful
-        KsResult RegisterBus(BusAsync* bus);
+            m_Busses[name] = new T(name, args...);
+            return reinterpret_cast<T*>(m_Busses[name]);
+        }
 
-        //! \brief Getter for synchronous buses
         //!
-        //! \param name The name of the bus that needs to get retrieved
-        //! \param bus BusSync pointer to store the bus found in the list
-        //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetSyncBus(const std::string& name, BusSync** bus);
+        template<class T>
+        static T* GetBus(const std::string& name) {
+            if (!s_Instance->m_Busses.count(name))
+                return nullptr;
 
-        //! \brief Getter for asynchronous buses
-        //!
-        //! \param name The name of the bus that needs to get retrieved
-        //! \param bus BusAsync pointer to store the bus found in the list
-        //! \return KS_SUCCESS if the operation was successful
-        static KsResult GetAsyncBus(const std::string& name, BusAsync** bus);
+            return reinterpret_cast<T*> (s_Instance->m_Busses[name]);
+        }
 
         static Framework* s_Instance;
 
     private:
-        std::unordered_map<std::string, BusSync*> m_SyncBuses;
-        std::unordered_map<std::string, BusAsync*> m_AsyncBuses;
+        std::unordered_map<std::string, BusBase*> m_Busses;
         std::unordered_map<std::string, ComponentBase*> m_Components;
+
+        BusAsync* m_LoggerBus = nullptr;
     };
 
 }

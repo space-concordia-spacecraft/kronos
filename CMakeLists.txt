@@ -12,6 +12,7 @@ set(DEMO_SRC "${KRONOS_EXTRA_SRC}" demo.cpp)
 add_sam_executable(Kronos_Demo "${DEMO_SRC}")
 
 target_include_directories(Kronos_Demo PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib"
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/core"
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/component"
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/logger"

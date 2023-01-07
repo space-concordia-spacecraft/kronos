@@ -2,7 +2,6 @@
 
 #include "FreeRTOS.h"
 #include "queue.h"
-#include "asf.h"
 
 #define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
 
@@ -45,11 +44,11 @@ namespace kronos {
 
         //! \brief Getter function for the length of the Queue
         //! \return size of the Queue
-        size_t Length() const;
+        [[nodiscard]] size_t Length() const;
 
         //! \brief Function to find the amount of spaces remaining.
         //! \return Amount of free blocks remaining in the Queue.
-        size_t Size() const;
+        [[nodiscard]] size_t Size() const;
 
     private:
         //! Length of the Queue.

@@ -27,6 +27,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/tasks.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_1.c"
 
         # ASF
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/driver_init.c"
@@ -65,6 +67,39 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/read.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/write.c"
 
+        # RELIANCE EDGE
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/config/redconf.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/blockio.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/buffer.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/buffercmn.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/core.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/dir.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/format.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/imap.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/imapextern.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/imapinline.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/inode.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/inodedata.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/volume.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/fse/fse.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/osassert.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/osbdev.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/osclock.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/osmutex.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/osoutput.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/ostask.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services/ostimestamp.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/posix/path.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/posix/posix.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/bitmap.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/crc.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/endian.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/heap.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/memory.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/namelen.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/sign.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/util/string.c"
+
         # KRONOS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/ks_framework.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/bus/ks_bus.cpp"
@@ -72,8 +107,14 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_passive.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_queued.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_active.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger/ks_logger.cpp"
 
+        # KRONOS MODULES
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger/ks_logger.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file/ks_file.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/apollo_format/ks_apollo_format.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/ks_file_system.cpp"
+
+        # KRONOS OS DEPENDENT TYPES
         "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/kronos.cpp"
@@ -86,6 +127,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7"
 
         # ASF
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf"
@@ -116,11 +158,25 @@ set(KRONOS_INCLUDE_DIRS
         # ASF STDIO REDIRECT
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect"
 
+        # RELIANCE EDGE
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/config"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/include"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/os/freertos/services"
+
         # KRONOS
+        "${CMAKE_CURRENT_SOURCE_DIR}"
         "${CMAKE_CURRENT_SOURCE_DIR}/core"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/bus"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component"
+
+        # KRONOS MODULES
         "${CMAKE_CURRENT_SOURCE_DIR}/core/logger"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/apollo_format"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"

@@ -18,13 +18,13 @@ namespace kronos {
                     m_Priority,     // The priority assigned to the task.
                     &m_Task);       // Resulting task handle
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     KsResult ComponentActive::Destroy() {
         vTaskDelete(m_Task);
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     void ComponentActive::Run() {
@@ -39,15 +39,17 @@ namespace kronos {
 
     KsCmdResult ComponentActive::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case KS_EVENT_CODE_HEALTH_PING:
+            case ks_event_health_ping:
                 if (message.returnBus != nullptr) {
                     EventMessage healthResponse;
-                    healthResponse.eventCode = KS_EVENT_CODE_HEALTH_RESPONSE;
+                    healthResponse.eventCode = ks_event_health_pong;
                     healthResponse.data = this;
                     healthResponse.dataSize = sizeof(uint32_t);
                     message.returnBus->Publish(healthResponse);
                 }
                 break;
+            default:
+                return KS_CMDRESULT_NORETURN
         }
         return KS_CMDRESULT_NORETURN;
     }

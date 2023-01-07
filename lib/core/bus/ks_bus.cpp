@@ -56,7 +56,7 @@ namespace kronos {
     }
 
     void BusAsync::Publish(const EventMessage& message) const {
-        if (m_ReceivingComponents.size() == 0) {
+        if (m_ReceivingComponents.empty()) {
             // TODO: HANDLE ERROR OR WARNING
             return;
         }

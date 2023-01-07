@@ -22,13 +22,13 @@ namespace kronos {
 
     std::string Logger::ConvertSeverity(uint8_t severity) {
         switch (severity) {
-            case KS_LOG_DEBUG:
+            case ks_log_debug:
                 return "DEBUG";
-            case KS_LOG_INFO:
+            case ks_log_info:
                 return "INFO";
-            case KS_LOG_WARN:
+            case ks_log_warn:
                 return "WARNING";
-            case KS_LOG_ERROR:
+            case ks_log_error:
                 return "ERROR";
 
             default:

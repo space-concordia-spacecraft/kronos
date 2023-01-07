@@ -15,6 +15,7 @@ namespace kronos {
     }
 
     void Framework::Init() {
+        // Initialize Modules
         Logger::Init();
 
         system_init();
@@ -22,56 +23,9 @@ namespace kronos {
     }
 
     void Framework::Run() {
-        for (auto& m_Component: m_Components)
-            m_Component.second->Init();
+        for (auto& component: m_Components)
+            component.second->Init();
+
         vTaskStartScheduler();
-    }
-
-    KsResult Framework::RegisterComponent(ComponentBase* component) {
-        if (m_Components.count(component->GetName()))
-            return KS_ERROR_DUPLICATE_COMPONENT;
-
-        m_Components[component->GetName()] = component;
-        return KS_SUCCESS;
-    }
-
-    KsResult Framework::GetComponent(const std::string& name, ComponentBase** component) {
-        if (!s_Instance->m_Components.count(name))
-            return KS_ERROR_MISSING_COMPONENT;
-
-        *component = s_Instance->m_Components[name];
-        return KS_SUCCESS;
-    }
-
-    KsResult Framework::RegisterBus(BusSync* bus) {
-        if (m_SyncBuses.count(bus->GetName()))
-            return KS_ERROR_DUPLICATE_BUS;
-
-        m_SyncBuses[bus->GetName()] = bus;
-        return KS_SUCCESS;
-    }
-
-    KsResult Framework::RegisterBus(BusAsync* bus) {
-        if (m_AsyncBuses.count(bus->GetName()))
-            return KS_ERROR_DUPLICATE_BUS;
-
-        m_AsyncBuses[bus->GetName()] = bus;
-        return KS_SUCCESS;
-    }
-
-    KsResult Framework::GetSyncBus(const std::string& name, BusSync** bus) {
-        if (!s_Instance->m_SyncBuses.count(name))
-            return KS_ERROR_MISSING_BUS;
-
-        *bus = s_Instance->m_SyncBuses[name];
-        return KS_SUCCESS;
-    }
-
-    KsResult Framework::GetAsyncBus(const std::string& name, BusAsync** bus) {
-        if (!s_Instance->m_AsyncBuses.count(name))
-            return KS_ERROR_MISSING_BUS;
-
-        *bus = s_Instance->m_AsyncBuses[name];
-        return KS_SUCCESS;
     }
 }

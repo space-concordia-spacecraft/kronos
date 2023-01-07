@@ -1,13 +1,13 @@
 #pragma once
 
-#include "ks_file.h"
 #include "ks_bus.h"
+#include "macros.h"
 
 enum KS_LOG_SEVERITY {
-    debug,
-    info,
-    warn,
-    error
+    ks_log_debug,
+    ks_log_info,
+    ks_log_warn,
+    ks_log_error
 };
 
 namespace kronos {
@@ -33,7 +33,7 @@ namespace kronos {
      * The Logger class is derived from the ComponentActive class implemented in Kronos
      */
     class Logger {
-        KS_SINGLETON(Logger);
+    KS_SINGLETON(Logger);
 
     public:
         Logger() = default;

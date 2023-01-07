@@ -1,5 +1,10 @@
+#include "kronos.h"
+
+int main() {
+    kronos::Framework::Init();
+    auto* framework = new kronos::Framework();
 
 
-void main() {
-
+    framework->Run();
+    return ks_success;
 }

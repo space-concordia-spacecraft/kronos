@@ -1,13 +1,15 @@
 #pragma once
 
+#include <memory>
+
 #define KS_SINGLETON(name)                      \
 private:                                        \
-static Scope<name> s_instance;                  \
+static std::unique_ptr<name> s_instance;        \
                                                 \
 public:                                         \
 static inline void Init() {                     \
     if (s_instance == nullptr)                  \
-        s_instance = CreateScope<name>();       \
+        s_instance = std::make_unique<name>();  \
 }                                               \
                                                 \
 static inline name& GetInstance() {             \
@@ -17,7 +19,7 @@ static inline name& GetInstance() {             \
 name(name& other) = delete;                     \
 void operator=(const name& other) = delete
 
-#define KS_SINGLETON_INSTANCE(name) Scope<name> name::s_instance = nullptr
+#define KS_SINGLETON_INSTANCE(name) std::unique_ptr<name> name::s_instance = nullptr
 
 #define KS_SINGLETON_EXPOSE_METHOD(instanceName, fn, ...)  \
 static inline fn {                                         \
