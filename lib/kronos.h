@@ -21,6 +21,7 @@
 
 // Core Modules
 #include "ks_logger.h"
+#include "ks_file_system.h"
 
 // Components
 

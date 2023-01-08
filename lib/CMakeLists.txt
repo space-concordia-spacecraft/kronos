@@ -111,7 +111,6 @@ set(KRONOS_SRC
         # KRONOS MODULES
         "${CMAKE_CURRENT_SOURCE_DIR}/core/logger/ks_logger.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file/ks_file.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/apollo_format/ks_apollo_format.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/ks_file_system.cpp"
 
         # KRONOS OS DEPENDENT TYPES
@@ -124,6 +123,7 @@ add_sam_library(Kronos ${KRONOS_SRC})
 
 set(KRONOS_INCLUDE_DIRS
         # FREERTOS
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/include"
@@ -134,6 +134,9 @@ set(KRONOS_INCLUDE_DIRS
 
         # ASF CONFIG
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/config"
+
+        # ASF CMSIS
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/CMSIS/Core/Include"
 
         # ASF HAL
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/include"
@@ -175,7 +178,6 @@ set(KRONOS_INCLUDE_DIRS
         # KRONOS MODULES
         "${CMAKE_CURRENT_SOURCE_DIR}/core/logger"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/apollo_format"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/components"
@@ -184,6 +186,8 @@ set(KRONOS_INCLUDE_DIRS
 )
 
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")

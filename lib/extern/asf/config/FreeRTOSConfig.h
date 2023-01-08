@@ -251,7 +251,7 @@ to exclude the API function. */
 // <q> Include the function to get current task handler
 // <id> freertos_xtaskgetcurrenttaskhandle
 #ifndef INCLUDE_xTaskGetCurrentTaskHandle
-#define INCLUDE_xTaskGetCurrentTaskHandle 0
+#define INCLUDE_xTaskGetCurrentTaskHandle 1
 #endif
 
 #define INCLUDE_uxTaskGetStackHighWaterMark 0

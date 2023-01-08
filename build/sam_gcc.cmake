@@ -21,6 +21,7 @@ set(CMAKE_CXX_ARCHIVE_APPEND "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
 
 find_program(CMAKE_OBJCOPY arm-none-eabi-objcopy)
 get_filename_component(CMAKE_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_FILE}" DIRECTORY)
+get_filename_component(CMAKE_TOOLCHAIN_DIR "${CMAKE_TOOLCHAIN_DIR}" ABSOLUTE)
 
 # CPU
 if (NOT ARM_CPU)
@@ -41,7 +42,7 @@ endif ()
 # MCU
 if (NOT SAM_MCU)
     set(
-            SAM_MCU same70q21
+            SAM_MCU same70q21b
             CACHE STRING "Set the default MCU platform: same70q21"
     )
 endif ()
@@ -143,7 +144,7 @@ function(add_sam_executable EXECUTABLE_NAME)
             ${EXECUTABLE_NAME}
             PROPERTIES
             COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
-            LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T \"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc/${SAM_MCU}_flash.ld\""
+            LINK_FLAGS "--specs=nosys.specs -mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -L\"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc\"  -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T \"${CMAKE_TOOLCHAIN_DIR}/scripts/gcc/${SAM_MCU}_flash.ld\""
     )
 
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${BUILD_TYPE} "__${SAM_MCU_UPPER}__" "BOARD=${SAM_BOARD_UPPER}" "ARM_MATH_CM7=true")

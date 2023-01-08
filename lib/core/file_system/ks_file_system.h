@@ -2,23 +2,20 @@
 
 #include "ks_error_codes.h"
 #include "macros.h"
+#include "redposix.h"
 
 namespace kronos {
     class FileSystem {
-        KS_SINGLETON(FileSystem);
-
     public:
-        FileSystem();
-        ~FileSystem();
+        explicit FileSystem();
+        ~FileSystem() = default;
 
+        KsResult Init();
     private:
         KsResult Mount();
         KsResult Format();
         KsResult Sync();
-        KsResult Remove();
-        KsResult CreateDirectory();
-        KsResult CreateFile();
 
-        char m_Volume;
+        std::string m_Volume;
     };
 }

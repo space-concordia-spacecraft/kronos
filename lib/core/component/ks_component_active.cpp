@@ -1,4 +1,5 @@
 #include "ks_component_active.h"
+#include "ks_bus.h"
 
 namespace kronos {
 
@@ -49,7 +50,7 @@ namespace kronos {
                 }
                 break;
             default:
-                return KS_CMDRESULT_NORETURN
+                return KS_CMDRESULT_NORETURN;
         }
         return KS_CMDRESULT_NORETURN;
     }

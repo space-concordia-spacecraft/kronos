@@ -41,26 +41,17 @@ namespace kronos {
 
     class File {
     public:
-        /**
-        * Private constructor to initialize a File object. It's made private so that only the friend class "ComponentFileManager" can use this constructor.
-        * @param path - Path of the file the user wants to open. It should include the name and extension of the file.
-        * @param fileId - Identifier for the file.
-        */
-        explicit File(std::string  name, uint32_t fileId = KS_FILE_INVALID_HANDLE);
+        explicit File() = default;
         ~File();
 
-        [[nodiscard]] KsResult Sync() const;
-        [[nodiscard]] KsResult Write(const void* buffer, uint32_t length) const;
-        [[nodiscard]] KsResult Read(void* buffer, uint32_t length) const;
-        [[nodiscard]] KsResult Close() const;
+        KsResult Sync() const;
+        KsResult Write(const void* buffer, uint32_t length) const;
+        KsResult Read(void* buffer, uint32_t length) const;
+        KsResult Remove(const std::string& name);
+        KsResult Open(const std::string& name);
+        KsResult Close() const;
 
     private:
-        /// The name of the file including the extension.
-        std::string m_Name;
-
-        /// The absolute path of the file, not including the volume.
-        std::string m_Path;
-
         /// The file descriptor used to interface with the Reliance Edge API.
         int32_t m_FileId{};
 

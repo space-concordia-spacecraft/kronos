@@ -1,7 +1,7 @@
 #include "ks_apollo_format.h"
 
 #define FILE_READ_WRITE(op, nBytes) if (op != (int32_t)nBytes) \
-                                return KS_ERROR
+                                return ks_error
 
 #define FILE_OPERATION(op) if ((m_Status = op) != KS_SUCCESS) \
                                 return m_Status

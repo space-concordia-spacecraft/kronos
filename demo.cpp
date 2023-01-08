@@ -6,5 +6,5 @@ int main() {
 
 
     framework->Run();
-    return ks_success;
+    return kronos::ks_success;
 }
