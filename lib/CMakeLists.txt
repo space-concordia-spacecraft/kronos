@@ -210,8 +210,4 @@ set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-function")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
-#target_include_directories(Kronos PUBLIC ${HDF5_INCLUDE_DIRS} )
-
 target_compile_definitions(Kronos PUBLIC CSP_FREERTOS)
-
-#target_link_libraries(Kronos PUBLIC ${HDF5_LIBRARIES})
