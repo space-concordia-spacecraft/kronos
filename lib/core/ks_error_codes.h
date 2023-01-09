@@ -3,8 +3,10 @@
 #include <climits>
 
 namespace kronos {
+    typedef int32_t KsResultType;
+
     enum KsResult:int32_t {
-        ks_error = INT32_MIN,
+        __ks_error_start = INT32_MIN,
 
         // Apollo Format errors,
         ks_error_apolloformat_status_uninitianalized,
@@ -26,9 +28,7 @@ namespace kronos {
         ks_error_file_open,
         ks_error_file_close,
 
-        // ADD YOUR ERROR CODES HERE
-        ks_error_component_healthmonitor_component_exists,
-
+        __ks_error_end,
 
         ks_success = 0,
     };
