@@ -189,7 +189,20 @@ follow these instructions to add a run configuration:
 
 ### Linux
 
-Coming Soon!
+#### Arch
+
+The following list of packages are required to build kronos on an Arch distribution of Linux:
+- [x] `base-devel`
+- [x] `arm-none-eabi-gcc`
+- [x] `arm-none-eabi-gdb`
+- [x] `arm-none-eabi-binutils`
+- [x] `arm-none-eabi-newlib`
+- [x] `openocd`
+- [x] `cmake`
+
+```bash
+sudo pacman -Syu base-devel arm-none-eabi-gcc arm-none-eabi-gdb arm-none-eabi-binutils arm-none-eabi-newlib openocd cmake
+```
 
 ### Mac OS
 
