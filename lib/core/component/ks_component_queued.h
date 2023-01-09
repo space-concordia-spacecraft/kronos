@@ -22,13 +22,13 @@ namespace kronos {
         explicit ComponentQueued(const std::string& name);
 
         //! \brief Pops all events from the queue and processes them
-        KsResult ProcessEventQueue();
+        KsResultType ProcessEventQueue();
 
         //! @copydoc
-        KsResult Init() override;
+        KsResultType Init() override;
 
         //! @copydoc
-        KsResult Destroy() override;
+        KsResultType Destroy() override;
 
         //! @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;

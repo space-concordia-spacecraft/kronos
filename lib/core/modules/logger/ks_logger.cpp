@@ -3,17 +3,20 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(Logger);
 
-    KsResult Logger::_LogMsg(LogMessage* logMsg) {
+    KsResultType Logger::_LogMsg(LogMessage* logMsg) {
         char buf[250];
-        int buffLen = sprintf(buf, "[%s] [%s] %s\n\r",
-                              ConvertTimestamp(logMsg->timestamp).data(),
-                              ConvertSeverity(logMsg->severity).data(),
-                              logMsg->message.data());
+        int buffLen = sprintf(
+            buf,
+            "[%s] [%s] %s\n\r",
+            ConvertTimestamp(logMsg->timestamp).data(),
+            ConvertSeverity(logMsg->severity).data(),
+            logMsg->message.data()
+        );
         printf("%s", buf);
         return ks_success;
     }
 
-    KsResult Logger::_Log(const std::string& msg, KS_LOG_SEVERITY severity) {
+    KsResultType Logger::_Log(const std::string& msg, KS_LOG_SEVERITY severity) {
         LogMessage message;
         message.timestamp = xTaskGetTickCount();
         message.severity = severity;
@@ -22,19 +25,19 @@ namespace kronos {
         return s_instance->_LogMsg(&message);
     }
 
-    KsResult Logger::_LogDebug(const std::string& msg) {
+    KsResultType Logger::_LogDebug(const std::string& msg) {
         return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
     }
 
-    KsResult Logger::_LogInfo(const std::string& msg) {
+    KsResultType Logger::_LogInfo(const std::string& msg) {
         return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
     }
 
-    KsResult Logger::_LogWarn(const std::string& msg) {
+    KsResultType Logger::_LogWarn(const std::string& msg) {
         return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
     }
 
-    KsResult Logger::_LogError(const std::string& msg) {
+    KsResultType Logger::_LogError(const std::string& msg) {
         return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
     }
 

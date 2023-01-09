@@ -1,33 +1,21 @@
 #pragma once
 
-enum KS_GPIO_DIRECTION {
-    dir_off,
-    dir_in,
-    dir_out
-};
+#import <stdint.h>
+#import <ks_error_codes.h>
 
-enum KS_GPIO_PULL_MODE {
-    pull_off,
-    pull_up,
-    pull_down
-};
+#import "hal_gpio.h"
 
 namespace kronos {
+    // MAKE SURE TO REDEFINE THE TYPES TO WHATEVER YOU'RE USING
+    typedef gpio_pull_mode KsGpioPullMode;
+    typedef gpio_direction KsGpioDirection;
+
     class Gpio {
     public:
-        Gpio(uint32_t pin, KS_GPIO_DIRECTION direction=dir_off, KS_GPIO_PULL_MODE pullMode=pull_off, bool level=false);
-
-        KS_RESULT Toggle();
-
-        KsResult SetDirection(KS_GPIO_DIRECTION direction);
-        KsResult SetPullMode(KS_GPIO_PULL_MODE pullMode);
-        KsResult SetInitialLevel(bool level);
-
-        KS_GPIO_DIRECTION GetDirection();
-        KS_GPIO_PULL_MODE GetPullMode();
-        bool GetInitialLevel();
-
-    private:
-        uint32_t m_Pin;
+        static inline void Toggle(uint8_t pin) ;
+        static inline void SetDirection(uint8_t pin, KsGpioDirection direction);
+        static inline void SetPullMode(uint8_t pin, KsGpioPullMode pullMode);
+        static inline void SetLevel(uint8_t pin, bool level);
+        static inline bool GetLevel(uint8_t pin);
     };
 }

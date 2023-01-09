@@ -4,25 +4,27 @@
 namespace kronos {
 
     ComponentActive::ComponentActive(const std::string& name, size_t stackSize, uint16_t priority)
-            : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
+        : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
 
     void ComponentActive::Start(void* data) {
         static_cast<ComponentActive*>(data)->Run();
     }
 
-    KsResult ComponentActive::Init() {
+    KsResultType ComponentActive::Init() {
         // Create Task
-        xTaskCreate(Start,          // The function that implements the task.
-                    m_Name.data(),   // The text name assigned to the task - for debug only as it is not used by the kernel.
-                    m_StackSize,    // The size of the stack to allocate to the task.
-                    this,           // The parameter passed to the task - not used in this case.
-                    m_Priority,     // The priority assigned to the task.
-                    &m_Task);       // Resulting task handle
+        xTaskCreate(
+            Start,          // The function that implements the task.
+            m_Name.data(),   // The text name assigned to the task - for debug only as it is not used by the kernel.
+            m_StackSize,    // The size of the stack to allocate to the task.
+            this,           // The parameter passed to the task - not used in this case.
+            m_Priority,     // The priority assigned to the task.
+            &m_Task
+        );       // Resulting task handle
 
         return ks_success;
     }
 
-    KsResult ComponentActive::Destroy() {
+    KsResultType ComponentActive::Destroy() {
         vTaskDelete(m_Task);
 
         return ks_success;

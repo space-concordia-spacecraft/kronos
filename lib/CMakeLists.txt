@@ -11,9 +11,9 @@ message("ARM_CPU: \t\t\t${ARM_CPU}")
 message("SAM_ARCH: \t\t\t${SAM_ARCH}")
 message("SAM_MCU: \t\t\t${SAM_MCU}")
 message("SAM_BOARD: \t\t\t${SAM_BOARD}")
-if(USE_UPLOADER)
+if (USE_UPLOADER)
     message("SAM_UPLOAD_TOOL: \t${SAM_UPLOAD_TOOL}")
-endif()
+endif ()
 message("")
 # Glob source files
 set(KRONOS_SRC
@@ -109,16 +109,21 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_active.cpp"
 
         # KRONOS MODULES
-        "core/modules/logger/ks_logger.cpp"
-        "core/modules/file_system/ks_file_system.cpp"
-        "core/modules/file_system/file/ks_file.cpp"
-        "core/modules/file_system/apollo_format/ks_apollo_format.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/logger/ks_logger.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/ks_file_system.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/file/ks_file.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format/ks_apollo_format.cpp"
 
         # KRONOS OS DEPENDENT TYPES
         "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
-
         "${CMAKE_CURRENT_SOURCE_DIR}/kronos.cpp"
-)
+
+        # KRONOS DRIVERS
+        "${CMAKE_CURRENT_SOURCE_DIR}/drivers/asf/ks_gpio.cpp"
+
+        # KRONOS COMPONENTS
+        "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker/ks_led_blinker.cpp"
+        )
 
 add_sam_library(Kronos ${KRONOS_SRC})
 
@@ -177,15 +182,21 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component"
 
         # KRONOS MODULES
-        "core/modules/logger"
-        "core/modules/file_system"
-        "core/modules/file_system/file"
-        "core/modules/file_system/apollo_format"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/logger"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/file"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"
         "${CMAKE_CURRENT_SOURCE_DIR}/os"
-)
+
+        # KRONOS DRIVERS
+        "${CMAKE_CURRENT_SOURCE_DIR}/drivers"
+
+        # KRONOS COMPONENTS
+        "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker"
+        )
 
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
 
@@ -193,7 +204,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
-target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS} )
+target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 #target_include_directories(Kronos PUBLIC ${HDF5_INCLUDE_DIRS} )
 
 target_compile_definitions(Kronos PUBLIC CSP_FREERTOS)

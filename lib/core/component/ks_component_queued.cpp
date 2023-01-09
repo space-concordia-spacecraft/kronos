@@ -3,17 +3,17 @@
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const std::string& name)
-            : ComponentPassive(name) {}
+        : ComponentPassive(name) {}
 
-    KsResult ComponentQueued::Init() {
+    KsResultType ComponentQueued::Init() {
         return ComponentPassive::Init();
     }
 
-    KsResult ComponentQueued::Destroy() {
+    KsResultType ComponentQueued::Destroy() {
         return ComponentPassive::Destroy();
     }
 
-    KsResult ComponentQueued::ProcessEventQueue() {
+    KsResultType ComponentQueued::ProcessEventQueue() {
         EventMessage message;
         while (m_Queue.Pop(&message, 0) == pdPASS) {
             ProcessEvent(message);

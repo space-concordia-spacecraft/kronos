@@ -7,7 +7,7 @@ namespace kronos {
         Close();
     };
 
-    KsResult File::Sync() const {
+    KsResultType File::Sync() const {
         if (red_fsync(m_FileId) < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_sync;
@@ -34,7 +34,7 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult File::Remove(const std::string& name) {
+    KsResultType File::Remove(const std::string& name) {
         if (red_unlink(name.c_str()) < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_remove;
@@ -42,9 +42,9 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult File::Open(const std::string& name) {
+    KsResultType File::Open(const std::string& name) {
         m_FileId = red_open(name.c_str(), KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_EXCL);
-        if(m_FileId < 0) {
+        if (m_FileId < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_open;
         }
@@ -52,7 +52,7 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult File::Close() const {
+    KsResultType File::Close() const {
         if (red_close(m_FileId) != 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_close;

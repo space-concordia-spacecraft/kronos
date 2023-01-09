@@ -44,12 +44,12 @@ namespace kronos {
         explicit File() = default;
         ~File();
 
-        KsResult Sync() const;
+        KsResultType Sync() const;
         int32_t Write(const void* buffer, uint32_t length) const;
         int32_t Read(void* buffer, uint32_t length) const;
-        KsResult Remove(const std::string& name);
-        KsResult Open(const std::string& name);
-        KsResult Close() const;
+        KsResultType Remove(const std::string& name);
+        KsResultType Open(const std::string& name);
+        KsResultType Close() const;
 
     private:
         /// The file descriptor used to interface with the Reliance Edge API.

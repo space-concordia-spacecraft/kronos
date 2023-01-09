@@ -10,11 +10,11 @@ namespace kronos {
         explicit FileSystem();
         ~FileSystem() = default;
 
-        KsResult Init();
+        KsResultType Init();
     private:
-        KsResult Mount();
-        KsResult Format();
-        KsResult Sync();
+        KsResultType Mount();
+        KsResultType Format();
+        KsResultType Sync();
 
         std::string m_Volume;
     };

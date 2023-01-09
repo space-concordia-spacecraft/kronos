@@ -44,12 +44,12 @@ namespace kronos {
         //! \brief initializes the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResult Init() = 0;
+        virtual KsResultType Init() = 0;
 
         //! \brief destroys the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResult Destroy() = 0;
+        virtual KsResultType Destroy() = 0;
 
         //! \brief Receives the event from the publishing bus
         //!

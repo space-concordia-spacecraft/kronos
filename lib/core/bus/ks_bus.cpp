@@ -5,7 +5,7 @@ namespace kronos {
     // ==================== Base Bus ====================
 
     BusBase::BusBase(KsEventCodeType eventCode, const std::string& name)
-            : m_EventCode(eventCode), m_Name(name) {}
+        : m_EventCode(eventCode), m_Name(name) {}
 
     std::string BusBase::GetName() {
         return m_Name;
@@ -13,8 +13,8 @@ namespace kronos {
 
     // ==================== Synchronous Bus ====================
 
-    BusSync::BusSync(KsEventCodeType  eventCode, const std::string& name)
-            : BusBase(eventCode, name) {}
+    BusSync::BusSync(KsEventCodeType eventCode, const std::string& name)
+        : BusBase(eventCode, name) {}
 
     void BusSync::AddReceivingComponent(ComponentBase* component) {
         if (m_ReceivingComponent != nullptr) {
@@ -42,13 +42,14 @@ namespace kronos {
     // ==================== Asynchronous Bus ====================
 
     BusAsync::BusAsync(KsEventCodeType opcode, const std::string& name)
-            : BusBase(opcode, name) {}
+        : BusBase(opcode, name) {}
 
     void BusAsync::AddReceivingComponent(ComponentBase* component) {
         if (std::find(
-                m_ReceivingComponents.begin(),
-                m_ReceivingComponents.end(),
-                component) != m_ReceivingComponents.end()) {
+            m_ReceivingComponents.begin(),
+            m_ReceivingComponents.end(),
+            component
+        ) != m_ReceivingComponents.end()) {
             // TODO: HANDLE ERROR OR WARNING
             return;
         }
@@ -66,7 +67,7 @@ namespace kronos {
             return;
         }
 
-        for (auto component : m_ReceivingComponents) {
+        for (auto component: m_ReceivingComponents) {
             component->ReceiveEvent(message);
         }
     }

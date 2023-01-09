@@ -1,5 +1,3 @@
-#pragma once
-
 #include "FreeRTOS.h"
 #include "ks_queue.h"
 

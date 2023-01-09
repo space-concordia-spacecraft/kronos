@@ -1,14 +1,17 @@
-//
-// Created by ruben on 12/31/2022.
-//
+#include "ks_component_passive.h"
+#include "ks_gpio.h"
+#include "atmel_start_pins.h"
 
-#ifndef KRONOS_KS_LED_BLINKER_H
-#define KRONOS_KS_LED_BLINKER_H
+namespace kronos {
 
+    class ComponentLedBlink : public ComponentPassive {
+    public:
+        explicit ComponentLedBlink(const std::string& name);
 
-class ks_led_blinker {
+    private:
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-};
+        void ToggleLed();
+    };
 
-
-#endif //KRONOS_KS_LED_BLINKER_H
+}

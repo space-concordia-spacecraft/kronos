@@ -44,11 +44,11 @@ namespace kronos {
         Logger() = default;
         ~Logger() = default;
 
-        KS_SINGLETON_EXPOSE_METHOD(_LogMsg,     KsResult Log(LogMessage* logMsg), logMsg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogDebug,   KsResult LogDebug(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogInfo,    KsResult LogInfo(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogWarn,    KsResult LogWarn(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogError,   KsResult LogError(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogMsg, KsResultType Log(LogMessage* logMsg), logMsg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogDebug, KsResultType LogDebug(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogInfo, KsResultType LogInfo(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogWarn, KsResultType LogWarn(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogError, KsResultType LogError(const std::string& msg), msg)
 
 
     private:
@@ -58,13 +58,13 @@ namespace kronos {
          * Log() takes the values from the struct LogMessage and places them in a char buffer. Writes buffer to file.
          * @param logMsg - Struct containing information of the log
          */
-        KsResult _LogMsg(LogMessage* logMsg);
-        KsResult _Log(const std::string& msg, KS_LOG_SEVERITY severity);
+        KsResultType _LogMsg(LogMessage* logMsg);
+        KsResultType _Log(const std::string& msg, KS_LOG_SEVERITY severity);
 
-        KsResult _LogDebug(const std::string& msg);
-        KsResult _LogInfo(const std::string& msg);
-        KsResult _LogWarn(const std::string& msg);
-        KsResult _LogError(const std::string& msg);
+        KsResultType _LogDebug(const std::string& msg);
+        KsResultType _LogInfo(const std::string& msg);
+        KsResultType _LogWarn(const std::string& msg);
+        KsResultType _LogError(const std::string& msg);
 
         /**
          * Converts timestamp to a null-terminated string using base 10 (decimal)
