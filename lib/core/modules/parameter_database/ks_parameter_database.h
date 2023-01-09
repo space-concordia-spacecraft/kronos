@@ -12,13 +12,16 @@
 namespace kronos {
     //! \class ComponentParameterDatabase Class
     class ParameterDatabase {
-        KS_SINGLETON(ParameterDatabase);
+    KS_SINGLETON(ParameterDatabase);
 
     public:
         ParameterDatabase();
         ~ParameterDatabase() = default;
 
-        KS_SINGLETON_EXPOSE_METHOD(_SetParam, KsResult SetParam(const std::string& key, uint32_t newValue), key, newValue);
+        KS_SINGLETON_EXPOSE_METHOD(_SetParam,
+                                   KsResult SetParam(const std::string& key, uint32_t newValue),
+                                   key,
+                                   newValue);
         KS_SINGLETON_EXPOSE_METHOD(_SaveParams, KsResult SaveParams());
 
     private:

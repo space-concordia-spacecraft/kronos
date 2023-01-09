@@ -44,11 +44,11 @@ namespace kronos {
         Logger() = default;
         ~Logger() = default;
 
-        KS_SINGLETON_EXPOSE_METHOD(_LogMsg,     KsResult Log(LogMessage* logMsg), logMsg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogDebug,   KsResult LogDebug(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogInfo,    KsResult LogInfo(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogWarn,    KsResult LogWarn(const std::string& msg), msg)
-        KS_SINGLETON_EXPOSE_METHOD(_LogError,   KsResult LogError(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogMsg, KsResult Log(LogMessage* logMsg), logMsg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogDebug, KsResult LogDebug(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogInfo, KsResult LogInfo(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogWarn, KsResult LogWarn(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogError, KsResult LogError(const std::string& msg), msg)
 
 
     private:

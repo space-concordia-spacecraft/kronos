@@ -21,7 +21,7 @@ namespace kronos {
     //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
         ProfilingSession(const std::string& name, TickType_t interval)
-                : name(name), profileLogInterval(interval) {
+            : name(name), profileLogInterval(interval) {
             startLog = xTaskGetTickCount() * portTICK_RATE_MS;
         }
 

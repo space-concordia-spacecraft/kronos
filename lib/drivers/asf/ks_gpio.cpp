@@ -1,6 +1,6 @@
 #include "ks_gpio.h"
 
-Gpio::Gpio(uint32_t pin, KS_GPIO_DIRECTION direction, KS_GPIO_PULL_MODE pullMode, bool level):m_Pin(pin){
+Gpio::Gpio(uint32_t pin, KS_GPIO_DIRECTION direction, KS_GPIO_PULL_MODE pullMode, bool level) : m_Pin(pin) {
     // TODO: Take care of direction and pull mode
 }
 

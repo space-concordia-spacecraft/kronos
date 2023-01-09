@@ -3,7 +3,7 @@
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const std::string& name)
-            : ComponentPassive(name) {}
+        : ComponentPassive(name) {}
 
     KsResult ComponentQueued::Init() {
         return ComponentPassive::Init();

@@ -44,7 +44,7 @@ namespace kronos {
 
     KsResult File::Open(const std::string& name) {
         m_FileId = red_open(name.c_str(), KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_EXCL);
-        if(m_FileId < 0) {
+        if (m_FileId < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_open;
         }

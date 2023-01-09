@@ -15,7 +15,12 @@ enum KS_GPIO_PULL_MODE {
 namespace kronos {
     class Gpio {
     public:
-        Gpio(uint32_t pin, KS_GPIO_DIRECTION direction=dir_off, KS_GPIO_PULL_MODE pullMode=pull_off, bool level=false);
+        Gpio(
+            uint32_t pin,
+            KS_GPIO_DIRECTION direction = dir_off,
+            KS_GPIO_PULL_MODE pullMode = pull_off,
+            bool level = false
+        );
 
         KS_RESULT Toggle();
 

@@ -5,10 +5,13 @@ namespace kronos {
 
     KsResult Logger::_LogMsg(LogMessage* logMsg) {
         char buf[250];
-        int buffLen = sprintf(buf, "[%s] [%s] %s\n\r",
-                              ConvertTimestamp(logMsg->timestamp).data(),
-                              ConvertSeverity(logMsg->severity).data(),
-                              logMsg->message.data());
+        int buffLen = sprintf(
+            buf,
+            "[%s] [%s] %s\n\r",
+            ConvertTimestamp(logMsg->timestamp).data(),
+            ConvertSeverity(logMsg->severity).data(),
+            logMsg->message.data()
+        );
         printf("%s", buf);
         return ks_success;
     }

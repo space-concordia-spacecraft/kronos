@@ -1,11 +1,12 @@
 #pragma once
+
 #include <cstdint>
 #include <climits>
 
 namespace kronos {
     typedef uint16_t KsEventCodeType;
 
-    enum KsEventCode: KsEventCodeType {
+    enum KsEventCode : KsEventCodeType {
         // Event to empty queue for all Queued Components.
         ks_event_empty_queue,
 

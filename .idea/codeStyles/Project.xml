@@ -1,10 +1,23 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <Objective-C>
+      <option name="FUNCTION_PARAMETERS_WRAP" value="5" />
+      <option name="FUNCTION_PARAMETERS_NEW_LINE_AFTER_LPAR" value="true" />
+      <option name="FUNCTION_PARAMETERS_NEW_LINE_BEFORE_RPAR" value="true" />
+      <option name="FUNCTION_CALL_ARGUMENTS_WRAP" value="5" />
+      <option name="FUNCTION_CALL_ARGUMENTS_NEW_LINE_AFTER_LPAR" value="true" />
+      <option name="FUNCTION_CALL_ARGUMENTS_NEW_LINE_BEFORE_RPAR" value="true" />
       <option name="SPACE_BEFORE_POINTER_IN_DECLARATION" value="false" />
       <option name="SPACE_AFTER_POINTER_IN_DECLARATION" value="true" />
       <option name="SPACE_BEFORE_REFERENCE_IN_DECLARATION" value="false" />
       <option name="SPACE_AFTER_REFERENCE_IN_DECLARATION" value="true" />
     </Objective-C>
+    <codeStyleSettings language="ObjectiveC">
+      <option name="BLANK_LINES_AROUND_METHOD" value="0" />
+      <option name="BLANK_LINES_AROUND_METHOD_IN_INTERFACE" value="0" />
+      <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
+      </indentOptions>
+    </codeStyleSettings>
   </code_scheme>
 </component>

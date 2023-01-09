@@ -3,7 +3,7 @@
 namespace kronos {
 
     ComponentHealthMonitor::ComponentHealthMonitor(const std::string& name, BusBase* healthIn, BusBase* healthOut)
-            : ComponentQueued(name), m_HealthIn(healthIn), m_HealthOut(healthOut) {}
+        : ComponentQueued(name), m_HealthIn(healthIn), m_HealthOut(healthOut) {}
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {

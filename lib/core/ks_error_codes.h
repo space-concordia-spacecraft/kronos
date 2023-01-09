@@ -1,9 +1,10 @@
 #pragma once
+
 #include <cstdint>
 #include <climits>
 
 namespace kronos {
-    enum KsResult:int32_t {
+    enum KsResult : int32_t {
         ks_error = INT32_MIN,
 
         // Apollo Format errors,

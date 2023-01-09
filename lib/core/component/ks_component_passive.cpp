@@ -3,7 +3,7 @@
 namespace kronos {
 
     ComponentPassive::ComponentPassive(const std::string& name)
-            : ComponentBase(name) {}
+        : ComponentBase(name) {}
 
     KsResult ComponentPassive::Init() {
         return ks_success;
