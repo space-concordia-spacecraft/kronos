@@ -1,9 +1,9 @@
 #pragma once
 
-#import <stdint.h>
-#import <ks_error_codes.h>
+#include <stdint.h>
+#include <ks_error_codes.h>
 
-#import "hal_gpio.h"
+#include "hal_gpio.h"
 
 namespace kronos {
     // MAKE SURE TO REDEFINE THE TYPES TO WHATEVER YOU'RE USING
@@ -12,7 +12,7 @@ namespace kronos {
 
     class Gpio {
     public:
-        static inline void Toggle(uint8_t pin) ;
+        static inline void Toggle(uint8_t pin);
         static inline void SetDirection(uint8_t pin, KsGpioDirection direction);
         static inline void SetPullMode(uint8_t pin, KsGpioPullMode pullMode);
         static inline void SetLevel(uint8_t pin, bool level);
