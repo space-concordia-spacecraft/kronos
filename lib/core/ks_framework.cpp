@@ -2,30 +2,22 @@
 
 namespace kronos {
 
-    Framework* Framework::s_Instance = nullptr;
+    KS_SINGLETON_INSTANCE(Framework);
 
     Framework::Framework() {
-        delete s_Instance;
-        s_Instance = this;
-    }
-
-    Framework::~Framework() {
-        if (s_Instance == this)
-            delete s_Instance;
-    }
-
-    void Framework::Init() {
-        // Initialize Modules
-        Logger::Init();
-
+        // Initialize ASF and system
         system_init();
         stdio_redirect_init();
+
+        // Initialize Modules
+        Logger::Init();
     }
 
-    void Framework::Run() {
+    void Framework::_Run() {
         for (auto& component: m_Components)
             component.second->Init();
 
         vTaskStartScheduler();
     }
+
 }

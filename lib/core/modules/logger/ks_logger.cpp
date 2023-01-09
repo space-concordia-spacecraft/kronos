@@ -5,7 +5,7 @@ namespace kronos {
 
     KsResultType Logger::_LogMsg(LogMessage* logMsg) {
         char buf[250];
-        int buffLen = sprintf(
+        sprintf(
             buf,
             "[%s] [%s] %s\n\r",
             ConvertTimestamp(logMsg->timestamp).data(),
