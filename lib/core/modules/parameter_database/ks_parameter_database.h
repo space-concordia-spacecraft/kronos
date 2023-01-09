@@ -7,7 +7,7 @@
 
 #include <unordered_map>
 
-#define KS_PARAM_DB_FILENAME "parameter"
+#define KS_PARAM_DB_FILENAME "parameters"
 
 namespace kronos {
     //! \class ComponentParameterDatabase Class
@@ -15,6 +15,9 @@ namespace kronos {
     KS_SINGLETON(ParameterDatabase);
 
     public:
+        /**
+         *  Constructor for ParameterDatabase. Attempts to read a file called "parameters" and parses the data.
+         */
         ParameterDatabase();
         ~ParameterDatabase() = default;
 

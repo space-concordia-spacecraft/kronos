@@ -4,18 +4,23 @@
 #include "macros.h"
 #include "redposix.h"
 
+#define KS_FILESYSTEM_VOLUME "/"
+
 namespace kronos {
     class FileSystem {
+    KS_SINGLETON(FileSystem);
+
     public:
-        explicit FileSystem();
+        FileSystem();
         ~FileSystem() = default;
 
-        KsResultType Init();
-    private:
-        KsResultType Mount();
-        KsResultType Format();
-        KsResultType Sync();
+        KS_SINGLETON_EXPOSE_METHOD(_Mount, KsResultType Mount());
+        KS_SINGLETON_EXPOSE_METHOD(_Format, KsResultType Format());
+        KS_SINGLETON_EXPOSE_METHOD(_Sync, KsResultType Sync());
 
-        std::string m_Volume;
+    private:
+        KsResultType _Mount();
+        KsResultType _Format();
+        KsResultType _Sync();
     };
 }

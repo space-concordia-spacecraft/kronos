@@ -1,33 +1,31 @@
 #include "ks_file_system.h"
 
 namespace kronos {
-    FileSystem::FileSystem() : m_Volume("C:") {}
-
-    KsResultType FileSystem::Init() {
+    FileSystem::FileSystem() {
         if (red_init() < 0) {
-            return ks_error_filesystem_init;
+            // TODO: LOG ERROR
         }
 
         Format();
         Mount();
-        return ks_success;
+        // TODO: LOG SUCCESS;
     }
 
-    KsResultType FileSystem::Format() {
-        if (red_format(m_Volume.c_str()) < 0) {
+    KsResultType FileSystem::_Format() {
+        if (red_format(KS_FILESYSTEM_VOLUME) < 0) {
             return ks_error_filesystem_format;
         }
         return ks_success;
     }
 
-    KsResultType FileSystem::Mount() {
-        if (red_mount(m_Volume.c_str()) < 0) {
+    KsResultType FileSystem::_Mount() {
+        if (red_mount(KS_FILESYSTEM_VOLUME) < 0) {
             return ks_error_filesystem_mount;
         }
         return ks_success;
     }
 
-    KsResultType FileSystem::Sync() {
+    KsResultType FileSystem::_Sync() {
         if (red_sync() < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_filesystem_sync;

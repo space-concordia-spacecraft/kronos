@@ -4,6 +4,8 @@
 
 namespace kronos {
     enum KsComponentResult : KsResultType {
-        ks_component_error = __ks_error_end,
+        __ks_component_error_start = __ks_error_end,
+
+        __ks_component_error_end,
     };
 }

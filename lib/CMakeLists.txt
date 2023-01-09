@@ -113,6 +113,8 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/ks_file_system.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/file/ks_file.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format/ks_apollo_format.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/parameter_database/ks_parameter_database.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/telemetry_logger/ks_telemetry_logger.cpp"
 
         # KRONOS OS DEPENDENT TYPES
         "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
@@ -186,8 +188,9 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/file"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/parameter_database"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/telemetry_logger"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"
         "${CMAKE_CURRENT_SOURCE_DIR}/os"
 
@@ -195,6 +198,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/drivers"
 
         # KRONOS COMPONENTS
+        "${CMAKE_CURRENT_SOURCE_DIR}/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker"
         )
 

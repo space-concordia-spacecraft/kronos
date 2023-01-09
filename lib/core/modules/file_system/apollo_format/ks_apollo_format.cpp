@@ -12,6 +12,10 @@ namespace kronos {
         Open(file, headers);
     }
 
+    ApolloExporter::~ApolloExporter() {
+        Close();
+    }
+
     KsResultType ApolloExporter::Open(File* file, const std::vector<ApolloHeader>& headers) {
         m_File = file;
         return WriteFileHeader(headers);
@@ -57,6 +61,9 @@ namespace kronos {
         if (m_File == nullptr)
             return;
 
+        // Make sure to close file
+        m_File->Close();
+
         // Delete and close the file object
         delete m_File;
         m_File = nullptr;
@@ -64,6 +71,10 @@ namespace kronos {
 
     ApolloImporter::ApolloImporter(File* file) : m_File(file) {
         ReadFileHeader();
+    }
+
+    ApolloImporter::~ApolloImporter() {
+        Close();
     }
 
     KsResultType ApolloImporter::ReadFileHeader() {
@@ -122,6 +133,9 @@ namespace kronos {
         // Already deleted
         if (m_File == nullptr)
             return;
+
+        // Make sure to close file
+        m_File->Close();
 
         // Delete and close the file object
         delete m_File;
