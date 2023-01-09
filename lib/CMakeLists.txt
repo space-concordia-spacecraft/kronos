@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.17)
 set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
-#add_subdirectory(extern/HDF5)
 
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
@@ -15,6 +14,7 @@ if (USE_UPLOADER)
     message("SAM_UPLOAD_TOOL: \t${SAM_UPLOAD_TOOL}")
 endif ()
 message("")
+
 # Glob source files
 set(KRONOS_SRC
         # FREERTOS
@@ -204,7 +204,8 @@ set(KRONOS_INCLUDE_DIRS
 
 set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -Wno-unused-function")
+set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-function")
 
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")

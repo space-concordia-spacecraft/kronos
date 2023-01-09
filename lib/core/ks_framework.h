@@ -11,25 +11,44 @@ namespace kronos {
     //! \class Framework
     //! \brief A class that implements the framework using the Singleton design pattern
     class Framework {
+    KS_SINGLETON(Framework);
+
+    public:
+        //! \brief Convenience method for static calls. See _CreateComponent().
+        template<class T, typename... Args>
+        static inline T* CreateComponent(const std::string& name, Args&& ... args) {
+            return s_instance->template _CreateComponent<T, Args...>(name, std::forward<Args...>(args)...);
+        }
+
+        //! \brief Convenience method for static calls. See _CreateBus().
+        template<class T, typename... Args>
+        static inline T* CreateBus(const std::string& name, Args&& ... args) {
+            return s_instance->_CreateBus<T, Args...>(name, std::forward<Args...>(args)...);
+        }
+
+        //! \brief Convenience method for static calls. See _Run().
+        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run());
+
     public:
         //! \brief Constructor that creates the instance of the Framework Singleton
         Framework();
 
         //! \brief Destructor that deletes the instance to the Framework Singleton
-        ~Framework();
+        ~Framework() = default;
 
-        //! \brief Initializes framework utilities such as the console
-        static void Init();
-
+    private:
         //! \brief Initializes all the components and starts the FreeRTOS scheduler
-        void Run();
+        void _Run();
 
-        //! \brief Creates a component into the framework
+        //! \brief Creates a new component and registers it into the framework.
         //!
-        //! \param component ComponentBase pointer to the component being registered
-        //! \return the component that was created, nullptr if there was an error.
+        //! \tparam T The component class type.
+        //! \tparam Args The types of the constructor arguments required to instantiate the component class.
+        //! \param name The name of the new component (must be different from existing components).
+        //! \param args The constructor arguments required to instantiate the component class.
+        //! \return The component that was created, nullptr if there was an error.
         template<class T, typename... Args>
-        T* CreateComponent(const std::string& name, Args&& ... args) {
+        T* _CreateComponent(const std::string& name, Args&& ... args) {
             if (m_Components.count(name))
                 return nullptr;
 
@@ -37,26 +56,21 @@ namespace kronos {
             return reinterpret_cast<T*>(m_Components[name]);
         }
 
+        //! \brief Creates a new bus and registers it into the framework.
         //!
+        //! \tparam T The bus class type.
+        //! \tparam Args The types of the constructor arguments required to instantiate the bus class.
+        //! \param name The name of the new component (must be different from existing busses).
+        //! \param args The constructor arguments required to instantiate the bus class.
+        //! \return The bus that was created, nullptr if there was an error.
         template<class T, typename... Args>
-        T* CreateBus(const std::string& name, Args&& ... args) {
+        T* _CreateBus(const std::string& name, Args&& ... args) {
             if (m_Busses.count(name))
                 return nullptr;
 
-            m_Busses[name] = new T(name, args...);
+            m_Busses[name] = new T(name, std::forward<Args...>(args)...);
             return reinterpret_cast<T*>(m_Busses[name]);
         }
-
-        //!
-        template<class T>
-        static T* GetBus(const std::string& name) {
-            if (!s_Instance->m_Busses.count(name))
-                return nullptr;
-
-            return reinterpret_cast<T*> (s_Instance->m_Busses[name]);
-        }
-
-        static Framework* s_Instance;
 
     private:
         std::unordered_map<std::string, BusBase*> m_Busses;

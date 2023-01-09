@@ -19,6 +19,9 @@ namespace kronos {
         //! \param name the name of the bus
         BusBase(KsEventCodeType opcode, const std::string& name);
 
+        //! \brief Virtual destructor to be invoked for proper destruction of child classes.
+        virtual ~BusBase() = default;
+
         //! \brief Adds a new subscriber to the bus
         //!
         //! \param component pointer to the component that is subscribing to the bus
