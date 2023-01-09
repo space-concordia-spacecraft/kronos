@@ -1,9 +1,9 @@
 #include "ks_apollo_format.h"
 
 #define FILE_READ_WRITE(op, nBytes) if (op != (int32_t)nBytes) \
-                                return ks_error
+                                return ks_error_apolloformat_readwrite_nbytes
 
-#define FILE_OPERATION(op) if ((m_Status = op) != KS_SUCCESS) \
+#define FILE_OPERATION(op) if ((m_Status = op) != ks_success) \
                                 return m_Status
 
 namespace kronos {
@@ -38,7 +38,7 @@ namespace kronos {
         // Sync file
         FILE_OPERATION(m_File->Sync());
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     KsResult ApolloExporter::WriteRow(const std::vector<uint32_t>& data) {
@@ -49,7 +49,7 @@ namespace kronos {
         // Sync file
         FILE_OPERATION(m_File->Sync());
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     void ApolloExporter::Close() {
@@ -73,12 +73,12 @@ namespace kronos {
         // Read magic number
         FILE_READ_WRITE(m_File->Read(&magicNumber, sizeof(magicNumber)), sizeof(magicNumber));
         if (magicNumber != KS_APOLLO_MAGIC)
-            return KS_ERROR_APOLLO_HEADER;
+            return ks_error_apolloformat_header;
 
         // Read version
         FILE_READ_WRITE(m_File->Read(&m_Version, sizeof(m_Version)), sizeof(m_Version));
         if (m_Version != KS_APOLLO_VERSION_1)
-            return KS_ERROR_APOLLO_VERSION;
+            return ks_error_apolloformat_version;
 
         // Read header count
         FILE_READ_WRITE(m_File->Read(&headerCount, sizeof(headerCount)), sizeof(headerCount));
@@ -103,7 +103,7 @@ namespace kronos {
             m_Headers.push_back(header);
         }
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     KsResult ApolloImporter::ReadRow(std::vector<uint32_t>& data) {
@@ -115,7 +115,7 @@ namespace kronos {
         uint32_t size = m_Headers.size() * sizeof(uint32_t);
         FILE_READ_WRITE(m_File->Read(data.data(), size), size);
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     void ApolloImporter::Close() {

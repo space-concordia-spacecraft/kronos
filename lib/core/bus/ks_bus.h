@@ -17,7 +17,7 @@ namespace kronos {
         //!
         //! \param opcode the opcode the bus uses to publish
         //! \param name the name of the bus
-        BusBase(KsEventCode opcode, const std::string& name);
+        BusBase(KsEventCodeType opcode, const std::string& name);
 
         //! \brief Adds a new subscriber to the bus
         //!
@@ -36,7 +36,7 @@ namespace kronos {
 
     protected:
         //! Event code that gets sent to all subscribed components
-        KsEventCode m_EventCode;
+        KsEventCodeType m_EventCode;
 
         //! Name of the bus
         std::string m_Name;
@@ -49,7 +49,7 @@ namespace kronos {
     class BusSync : public BusBase {
     public:
         //! @copydoc
-        BusSync(KsEventCode opcode, const std::string& name);
+        BusSync(KsEventCodeType opcode, const std::string& name);
 
         //! @copydoc
         void AddReceivingComponent(ComponentBase* component) override;
@@ -57,12 +57,12 @@ namespace kronos {
         //! @copydoc
         void Publish(const EventMessage& message) const override;
 
-        template<typename R>
         //! \brief Publishes the message synchronously to the subscribed components
         //!
         //! \tparam R type of the return
         //! \param message reference to the event message being sent to the components
         //! \return
+        template<typename R>
         R* PublishSync(const EventMessage& message) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
@@ -77,12 +77,12 @@ namespace kronos {
             return static_cast<R*>(m_ReceivingComponent->ReceiveEvent(message));
         }
 
-        template<typename T, typename R>
         //! \brief
         //! \tparam T
         //! \tparam R
         //! \param data
         //! \return
+        template<typename T, typename R>
         R* PublishSync(T* data = nullptr) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
@@ -109,7 +109,7 @@ namespace kronos {
 
     class BusAsync : public BusBase {
     public:
-        BusAsync(KsEventCode opcode, const std::string& name);
+        BusAsync(KsEventCodeType opcode, const std::string& name);
 
         void AddReceivingComponent(ComponentBase* component) override;
 

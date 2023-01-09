@@ -45,8 +45,8 @@ namespace kronos {
         ~File();
 
         KsResult Sync() const;
-        KsResult Write(const void* buffer, uint32_t length) const;
-        KsResult Read(void* buffer, uint32_t length) const;
+        int32_t Write(const void* buffer, uint32_t length) const;
+        int32_t Read(void* buffer, uint32_t length) const;
         KsResult Remove(const std::string& name);
         KsResult Open(const std::string& name);
         KsResult Close() const;

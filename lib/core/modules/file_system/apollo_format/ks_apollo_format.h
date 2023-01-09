@@ -27,7 +27,7 @@ namespace kronos {
     //! \brief Header template used for the apollo format
     struct ApolloHeader {
         //! Name of the header.
-        std::string name = "";
+        std::string name;
 
         //! Data type for the header. Used to decode the data stored in files.
         uint8_t dataType = KS_APOLLO_INT;
@@ -40,7 +40,8 @@ namespace kronos {
     class ApolloExporter {
     public:
         ApolloExporter(File* file, const std::vector<ApolloHeader>& headers);
-        ~ApolloExporter() {}
+        ~ApolloExporter() = default;
+
         //! \brief Writes the header list into a given file
         //!
         //! \param file File object used to write the headers into
@@ -67,7 +68,7 @@ namespace kronos {
         File* m_File;
 
         //! Status of the ApolloExporter
-        KsResult m_Status;
+        KsResult m_Status = ks_error_apolloformat_status_uninitianalized;
     };
 
     //! \class ApolloImporter
@@ -79,8 +80,8 @@ namespace kronos {
         //! \brief Constructor that uses a file to read the headers
         //!
         //! \param file File object that contains data in the Apollo format
-        ApolloImporter(File* file);
-        ~ApolloImporter() {}
+        explicit ApolloImporter(File* file);
+        ~ApolloImporter() = default;
 
         //! \brief Reads the headers from the file stored in the ApolloImporter
         //!
@@ -106,13 +107,13 @@ namespace kronos {
         File* m_File;
 
         //! Status of the ApolloImporter
-        KsResult m_Status;
+        KsResult m_Status = ks_error_apolloformat_status_uninitianalized;
 
         //! Vector of ApolloHeaders used to decode the data from the file
         std::vector<ApolloHeader> m_Headers;
 
         //! Version of the ApolloFormat
-        uint32_t m_Version;
+        uint32_t m_Version = ks_error_apolloformat_version_uninitianalized;
     };
 
 }

@@ -1,12 +1,22 @@
 #pragma once
 #include <cstdint>
+#include <climits>
 
-namespace kronos{
-    enum KsEventCode: uint16_t {
+namespace kronos {
+    typedef uint16_t KsEventCodeType;
+
+    enum KsEventCode: KsEventCodeType {
+        // Event to empty queue for all Queued Components.
         ks_event_empty_queue,
+
+        // Tick event for all Active Components
         ks_event_timer_tick,
+
+        // Health Monitor
         ks_event_health_ping,
         ks_event_health_pong,
-        ks_event_invalid = 0xFFFF, // TODO: Switch this to some sort of macro (probably provided by asf or something)
+
+        // Invalid Event
+        ks_event_invalid = UINT16_MAX, // TODO: Switch this to some sort of macro (probably provided by asf or something)
     };
 }

@@ -109,9 +109,10 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component/ks_component_active.cpp"
 
         # KRONOS MODULES
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger/ks_logger.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file/ks_file.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/ks_file_system.cpp"
+        "core/modules/logger/ks_logger.cpp"
+        "core/modules/file_system/ks_file_system.cpp"
+        "core/modules/file_system/file/ks_file.cpp"
+        "core/modules/file_system/apollo_format/ks_apollo_format.cpp"
 
         # KRONOS OS DEPENDENT TYPES
         "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
@@ -176,9 +177,10 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/component"
 
         # KRONOS MODULES
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/logger"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/file_system/file"
+        "core/modules/logger"
+        "core/modules/file_system"
+        "core/modules/file_system/file"
+        "core/modules/file_system/apollo_format"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/components"
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"

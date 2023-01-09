@@ -7,13 +7,18 @@ namespace kronos {
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case KS_EVENT_CODE_RATE_GROUP_TICK:
+            case ks_event_health_ping: {
                 PingComponents();
                 break;
-            case KS_EVENT_CODE_HEALTH_PONG:
+            }
+            case ks_event_health_pong: {
                 auto* component = reinterpret_cast<ComponentActive*>(message.data);
                 HandleComponentResponse(component);
                 break;
+            }
+            default: {
+                // TODO: Weird case
+            }
         }
         return KS_CMDRESULT_NORETURN;
     }
@@ -21,19 +26,18 @@ namespace kronos {
     KsResult ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
         if (m_ActiveComponentInfos.count(component)) {
             // TODO: HANDLE ERROR OR WARNING
-            return KS_ERROR;
+            return ks_error_component_healthmonitor_component_exists;
         }
 
         ComponentInfo tempInfo;
         m_ActiveComponentInfos[component] = tempInfo;
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     KsResult ComponentHealthMonitor::PingComponents() {
-        Framework::LogDebug("Health ping");
-        PROFILE_SCOPE();
+        Logger::LogDebug("Health ping");
         EventMessage message;
-        message.eventCode = KS_EVENT_CODE_HEALTH_PING;
+        message.eventCode = ks_event_health_ping;
         message.returnBus = m_HealthIn;
         m_HealthOut->Publish(message);
 
@@ -44,14 +48,14 @@ namespace kronos {
             }
         }
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
     KsResult ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
         m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
-        Framework::LogDebug("Health response from " + component->GetName());
+        Logger::LogDebug("Health response from " + component->GetName());
 
-        return KS_SUCCESS;
+        return ks_success;
     }
 
 }

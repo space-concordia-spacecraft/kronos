@@ -2,15 +2,20 @@
 
 #include "ks_bus.h"
 #include "macros.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
 
-enum KS_LOG_SEVERITY {
-    ks_log_debug,
-    ks_log_info,
-    ks_log_warn,
-    ks_log_error
-};
+#include <ctime>
 
 namespace kronos {
+
+    enum KS_LOG_SEVERITY {
+        ks_log_debug,
+        ks_log_info,
+        ks_log_warn,
+        ks_log_error
+    };
 
     /// LogMessage is a struct that contains all the variables needed to Log something.
     struct LogMessage {
@@ -37,11 +42,14 @@ namespace kronos {
 
     public:
         Logger() = default;
+        ~Logger() = default;
 
-        /**
-         * Creates a public static version of the _Log function.
-         */
-        KS_SINGLETON_EXPOSE_METHOD(_Log, KsResult Log(LogMessage* logMsg), logMsg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogMsg,     KsResult Log(LogMessage* logMsg), logMsg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogDebug,   KsResult LogDebug(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogInfo,    KsResult LogInfo(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogWarn,    KsResult LogWarn(const std::string& msg), msg)
+        KS_SINGLETON_EXPOSE_METHOD(_LogError,   KsResult LogError(const std::string& msg), msg)
+
 
     private:
         std::string m_FilePath = "test.txt";
@@ -50,7 +58,13 @@ namespace kronos {
          * Log() takes the values from the struct LogMessage and places them in a char buffer. Writes buffer to file.
          * @param logMsg - Struct containing information of the log
          */
-        KsResult _Log(LogMessage* logMsg);
+        KsResult _LogMsg(LogMessage* logMsg);
+        KsResult _Log(const std::string& msg, KS_LOG_SEVERITY severity);
+
+        KsResult _LogDebug(const std::string& msg);
+        KsResult _LogInfo(const std::string& msg);
+        KsResult _LogWarn(const std::string& msg);
+        KsResult _LogError(const std::string& msg);
 
         /**
          * Converts timestamp to a null-terminated string using base 10 (decimal)

@@ -15,7 +15,7 @@ target_include_directories(Kronos_Demo PUBLIC
         "${CMAKE_CURRENT_SOURCE_DIR}/lib"
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/core"
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/component"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/core/logger"
+        "lib/core/modules/logger"
         )
 
 target_link_libraries(Kronos_Demo Kronos)

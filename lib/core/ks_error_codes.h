@@ -1,9 +1,17 @@
 #pragma once
 #include <cstdint>
+#include <climits>
 
 namespace kronos {
-    enum KsResult:uint16_t {
-        ks_success,
+    enum KsResult:int32_t {
+        ks_error = INT32_MIN,
+
+        // Apollo Format errors,
+        ks_error_apolloformat_status_uninitianalized,
+        ks_error_apolloformat_version_uninitianalized,
+        ks_error_apolloformat_readwrite_nbytes,
+        ks_error_apolloformat_header,
+        ks_error_apolloformat_version,
 
         // File related errors
         ks_error_filesystem_sync,
@@ -16,7 +24,13 @@ namespace kronos {
         ks_error_file_write,
         ks_error_file_remove,
         ks_error_file_open,
-        ks_error_file_close
+        ks_error_file_close,
+
+        // ADD YOUR ERROR CODES HERE
+        ks_error_component_healthmonitor_component_exists,
+
+
+        ks_success = 0,
     };
 }
 

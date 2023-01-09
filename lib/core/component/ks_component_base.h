@@ -21,7 +21,7 @@ namespace kronos {
     //! This struct holds information about the event message such as the code, the data, and the return bus
     struct EventMessage {
         //! Identifier for the event. This allows the user to process the event properly
-        KsEventCode eventCode = ks_event_invalid;
+        KsEventCodeType eventCode = ks_event_invalid;
         //! The data being passed through the event
         void* data = nullptr;
         //! The size of the data being passed if necessary

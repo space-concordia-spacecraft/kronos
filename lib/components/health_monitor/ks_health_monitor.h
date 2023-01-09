@@ -2,8 +2,11 @@
 
 #include "ks_component_active.h"
 #include "ks_bus.h"
+#include "ks_logger.h"
 
 #include <unordered_map>
+
+#define KS_HEALTH_PING_RATE 3000
 
 namespace kronos {
     struct ComponentInfo {

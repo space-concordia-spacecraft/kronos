@@ -16,7 +16,7 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult File::Read(void* buffer, uint32_t length) const {
+    int32_t File::Read(void* buffer, uint32_t length) const {
         if (red_read(m_FileId, buffer, length) < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_read;
@@ -25,7 +25,7 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult File::Write(const void* buffer, uint32_t length) const {
+    int32_t File::Write(const void* buffer, uint32_t length) const {
         if (red_write(m_FileId, buffer, length) < 0) {
             // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_file_write;
