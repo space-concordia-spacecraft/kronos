@@ -1,6 +1,8 @@
 #include "ks_file_system.h"
 
 namespace kronos {
+    KS_SINGLETON_INSTANCE(FileSystem);
+
     FileSystem::FileSystem() {
         if (red_init() < 0) {
             // TODO: LOG ERROR

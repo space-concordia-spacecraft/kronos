@@ -2,8 +2,11 @@
 
 namespace kronos {
 
-    ComponentHealthMonitor::ComponentHealthMonitor(const std::string& name, BusBase* healthIn, BusBase* healthOut)
-        : ComponentQueued(name), m_HealthIn(healthIn), m_HealthOut(healthOut) {}
+    ComponentHealthMonitor::ComponentHealthMonitor(
+        const std::string& name
+    ) : ComponentQueued(name),
+        m_BusPing(ks_event_health_ping, "B_HEALTH_PING"),
+        m_BusPong(ks_event_health_pong, "B_HEALTH_PONG") {}
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
@@ -23,10 +26,10 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResult ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
+    KsResultType ComponentHealthMonitor::RegisterActiveComponent(ComponentActive* component) {
         if (m_ActiveComponentInfos.count(component)) {
             // TODO: HANDLE ERROR OR WARNING
-            return ks_error_component_healthmonitor_component_exists;
+            return ks_error_component_healthmonitor_already_registered;
         }
 
         ComponentInfo tempInfo;
@@ -34,24 +37,24 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResult ComponentHealthMonitor::PingComponents() {
+    KsResultType ComponentHealthMonitor::PingComponents() {
         Logger::LogDebug("Health ping");
         EventMessage message;
         message.eventCode = ks_event_health_ping;
-        message.returnBus = m_HealthIn;
-        m_HealthOut->Publish(message);
+        message.returnBus = &m_BusPong;
+        m_BusPing.Publish(message);
 
         for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
             if (time - entry.second.lastResponse >= KS_HEALTH_PING_RATE) {
-                // TODO: Component has not responded
+                Logger::LogError(entry.first->GetName() + " has not responded.");
             }
         }
 
         return ks_success;
     }
 
-    KsResult ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
+    KsResultType ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
         m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
         Logger::LogDebug("Health response from " + component->GetName());
 

@@ -1,6 +1,7 @@
 #include "ks_telemetry_logger.h"
 
 namespace kronos {
+    KS_SINGLETON_INSTANCE(TelemetryLogger);
 
     TelemetryLogger::~TelemetryLogger() {
         for (auto& rateGroup: m_TelemetryRateGroups) {

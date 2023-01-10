@@ -58,7 +58,6 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/xdmac/hpl_xdmac.c"
 
         # ASF SAME70
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/armcc/Device/Source/system_same70q21b.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/gcc/system_same70q21b.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/gcc/gcc/startup_same70q21b.c"
 
@@ -68,6 +67,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/write.c"
 
         # RELIANCE EDGE
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/bdev/bdev.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/config/redconf.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/blockio.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/core/driver/buffer.c"
@@ -115,6 +115,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format/ks_apollo_format.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/parameter_database/ks_parameter_database.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/telemetry_logger/ks_telemetry_logger.cpp"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/scheduler/ks_scheduler.cpp"
 
         # KRONOS OS DEPENDENT TYPES
         "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
@@ -124,6 +125,7 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/drivers/asf/ks_gpio.cpp"
 
         # KRONOS COMPONENTS
+        "${CMAKE_CURRENT_SOURCE_DIR}/components/health_monitor/ks_health_monitor.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker/ks_led_blinker.cpp"
         )
 
@@ -190,6 +192,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/file_system/apollo_format"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/parameter_database"
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/telemetry_logger"
+        "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/scheduler"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"
         "${CMAKE_CURRENT_SOURCE_DIR}/os"
@@ -199,6 +202,7 @@ set(KRONOS_INCLUDE_DIRS
 
         # KRONOS COMPONENTS
         "${CMAKE_CURRENT_SOURCE_DIR}/components"
+        "${CMAKE_CURRENT_SOURCE_DIR}/components/health_monitor"
         "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker"
         )
 

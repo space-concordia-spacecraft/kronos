@@ -7,7 +7,11 @@
 #include "driver_init.h"
 #include "stdio_start.h"
 
+#define KS_DEFAULT_TIMER_INTERVAL 100
+
 namespace kronos {
+    typedef TickType_t KsTickType;
+
     //! \class Framework
     //! \brief A class that implements the framework using the Singleton design pattern
     class Framework {
@@ -27,14 +31,14 @@ namespace kronos {
         }
 
         //! \brief Convenience method for static calls. See _Run().
-        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run());
+        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run(KsTickType intervalMs), intervalMs);
 
     public:
         //! \brief Constructor that creates the instance of the Framework Singleton
         Framework();
 
         //! \brief Destructor that deletes the instance to the Framework Singleton
-        ~Framework() = default;
+        ~Framework();
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS scheduler
@@ -53,6 +57,11 @@ namespace kronos {
                 return nullptr;
 
             m_Components[name] = new T(name, args...);
+
+            if constexpr (std::is_base_of_v<ComponentActive, T>) {
+                m_HealthMonitor.RegisterActiveComponent(reinterpret_cast<T*>(m_Components[name]));
+            }
+
             return reinterpret_cast<T*>(m_Components[name]);
         }
 
@@ -76,7 +85,9 @@ namespace kronos {
         std::unordered_map<std::string, BusBase*> m_Busses;
         std::unordered_map<std::string, ComponentBase*> m_Components;
 
-        BusAsync* m_LoggerBus = nullptr;
+        BusAsync m_BusTick;
+
+        ComponentHealthMonitor m_HealthMonitor;
     };
 
 }

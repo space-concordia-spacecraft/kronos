@@ -1,6 +1,7 @@
 #include "ks_parameter_database.h"
 
 namespace kronos {
+    KS_SINGLETON_INSTANCE(ParameterDatabase);
 
     ParameterDatabase::ParameterDatabase() {
         // Open File

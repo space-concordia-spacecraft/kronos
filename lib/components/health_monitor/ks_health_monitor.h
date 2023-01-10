@@ -3,6 +3,7 @@
 #include "ks_component_active.h"
 #include "ks_bus.h"
 #include "ks_logger.h"
+#include "ks_error_component_codes.h"
 
 #include <unordered_map>
 
@@ -15,19 +16,21 @@ namespace kronos {
 
     class ComponentHealthMonitor : public ComponentQueued {
     public:
-        ComponentHealthMonitor(const std::string& name, kronos::BusBase* healthIn, kronos::BusBase* healthOut);
+        ComponentHealthMonitor(
+            const std::string& name
+        );
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        KsResult RegisterActiveComponent(ComponentActive* component);
+        KsResultType RegisterActiveComponent(ComponentActive* component);
 
     private:
         std::unordered_map<ComponentActive*, ComponentInfo> m_ActiveComponentInfos;
-        BusBase* m_HealthIn;
-        BusBase* m_HealthOut;
+        BusAsync m_BusPing;
+        BusAsync m_BusPong;
 
-        KsResult PingComponents();
+        KsResultType PingComponents();
 
-        KsResult HandleComponentResponse(ComponentActive* component);
+        KsResultType HandleComponentResponse(ComponentActive* component);
     };
 }

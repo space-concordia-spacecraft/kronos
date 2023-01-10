@@ -22,8 +22,15 @@
 // Core Modules
 #include "ks_logger.h"
 #include "ks_file_system.h"
+#include "ks_parameter_database.h"
+#include "ks_telemetry_logger.h"
+#include "ks_scheduler.h"
+
+// Events
+#include "ks_event_codes.h"
 
 // Components
+#include "ks_health_monitor.h"
 
 // Macros
 #include "macros.h"
