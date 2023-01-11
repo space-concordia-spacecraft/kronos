@@ -1,11 +1,11 @@
 #pragma once
 
+#include "ks_types.h"
+
 #include <cstdint>
 #include <climits>
 
 namespace kronos {
-    typedef int32_t KsResultType;
-
     enum KsResult : KsResultType {
         __ks_error_start = INT32_MIN,
 
@@ -28,6 +28,10 @@ namespace kronos {
         ks_error_file_remove,
         ks_error_file_open,
         ks_error_file_close,
+
+        // Scheduler related errors
+        ks_error_scheduler_rate_exists,
+        ks_error_scheduler_rate_missing,
 
         __ks_error_end,
 

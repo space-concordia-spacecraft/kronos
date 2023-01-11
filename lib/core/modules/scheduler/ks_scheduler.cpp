@@ -3,7 +3,7 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(Scheduler);
 
-    Scheduler::Scheduler() {
+    Scheduler::Scheduler():m_BusTick("BA_SCHEDULER", ks_event_timer_tick) {
         m_Timer = xTimerCreate(
             "SCHEDULER",
             pdMS_TO_TICKS(KS_DEFAULT_TIMER_INTERVAL),
@@ -11,15 +11,26 @@ namespace kronos {
             this,
             TickStub
         );
+
+        _RegisterBus(&m_BusTick, 0);
+    }
+
+    KsResultType Scheduler::_RegisterComponent(ComponentBase* component, uint32_t rate) {
+        if (m_ScheduledBusses.count(rate) == 0)
+            return ks_error_scheduler_rate_missing;
+
+        m_ScheduledBusses[rate].bus->AddReceivingComponent(component);
+        return ks_success;
     }
 
     KsResultType Scheduler::_RegisterBus(BusAsync* bus, uint32_t rate) {
-        m_SchedulerRateBusses.push_back(
-            {
-                .bus = bus,
-                .tickRate = rate
-            }
-        );
+        if (m_ScheduledBusses.count(rate))
+            return ks_error_scheduler_rate_exists;
+
+        m_ScheduledBusses[rate] = {
+            .bus = bus
+        };
+
         return ks_success;
     }
 
@@ -32,12 +43,12 @@ namespace kronos {
         EventMessage message;
         message.eventCode = ks_event_timer_tick;
 
-        for (auto& busRate: m_SchedulerRateBusses) {
-            busRate.tickCount++;
-            if (busRate.tickCount >= busRate.tickRate) {
-                busRate.tickCount = 0;
+        for (auto& scheduledBus: m_ScheduledBusses) {
+            scheduledBus.second.tickCount++;
+            if (scheduledBus.second.tickCount >= scheduledBus.first) {
+                scheduledBus.second.tickCount = 0;
 
-                busRate.bus->Publish(message);
+                scheduledBus.second.bus->Publish(message);
             }
         }
     }

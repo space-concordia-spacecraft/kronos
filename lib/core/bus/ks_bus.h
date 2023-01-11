@@ -17,7 +17,7 @@ namespace kronos {
         //!
         //! \param opcode the opcode the bus uses to publish
         //! \param name the name of the bus
-        BusBase(KsEventCodeType opcode, const std::string& name);
+        BusBase(std::string name, KsEventCodeType opcode);
 
         //! \brief Virtual destructor to be invoked for proper destruction of child classes.
         virtual ~BusBase() = default;
@@ -52,7 +52,7 @@ namespace kronos {
     class BusSync : public BusBase {
     public:
         //! @copydoc
-        BusSync(KsEventCodeType opcode, const std::string& name);
+        BusSync(std::string name, KsEventCodeType opcode);
 
         //! @copydoc
         void AddReceivingComponent(ComponentBase* component) override;
@@ -112,17 +112,17 @@ namespace kronos {
 
     class BusAsync : public BusBase {
     public:
-        BusAsync(KsEventCodeType opcode, const std::string& name);
+        BusAsync(std::string name, KsEventCodeType opcode);
 
         void AddReceivingComponent(ComponentBase* component) override;
 
         void Publish(const EventMessage& message) const override;
 
-        void PublishAsync(const EventMessage& message);
+        void PublishAsync(const EventMessage& message) const;
 
         template<typename T>
         void PublishAsync(T* data, BusBase* returnBus = nullptr) {
-            if (m_ReceivingComponents.size() == 0) {
+            if (m_ReceivingComponents.empty()) {
                 // TODO: HANDLE ERROR OR WARNING
                 return;
             }

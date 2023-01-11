@@ -31,7 +31,7 @@ namespace kronos {
         }
 
         //! \brief Convenience method for static calls. See _Run().
-        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run(KsTickType intervalMs), intervalMs);
+        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run());
 
     public:
         //! \brief Constructor that creates the instance of the Framework Singleton

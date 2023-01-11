@@ -33,7 +33,7 @@ namespace kronos {
     void ComponentActive::Run() {
         while (true) {
             EventMessage message;
-            if (m_Queue.Pop(&message, 0) == pdPASS) {
+            if (m_Queue->Pop(&message, 0) == pdPASS) {
                 ProcessEvent(message);
             }
             taskYIELD();

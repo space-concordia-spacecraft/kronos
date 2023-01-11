@@ -4,7 +4,7 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(Framework);
 
-    Framework::Framework() : m_BusTick(ks_event_timer_tick, "B_TICK"),
+    Framework::Framework() : m_BusTick("B_TICK", ks_event_timer_tick),
                              m_HealthMonitor("CQ_HEALTH") {
         // Initialize ASF and system
         system_init();

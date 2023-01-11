@@ -5,8 +5,8 @@ namespace kronos {
     ComponentHealthMonitor::ComponentHealthMonitor(
         const std::string& name
     ) : ComponentQueued(name),
-        m_BusPing(ks_event_health_ping, "B_HEALTH_PING"),
-        m_BusPong(ks_event_health_pong, "B_HEALTH_PONG") {}
+        m_BusPing("B_HEALTH_PING", ks_event_health_ping),
+        m_BusPong("B_HEALTH_PONG", ks_event_health_pong) {}
 
     KsCmdResult ComponentHealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {

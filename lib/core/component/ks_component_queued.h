@@ -35,7 +35,7 @@ namespace kronos {
 
     protected:
         //! Queue that stores events being sent to the component.
-        Queue<EventMessage> m_Queue;
+        std::shared_ptr<Queue<EventMessage>> m_Queue;
     };
 
 }

@@ -3,7 +3,7 @@
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const std::string& name)
-        : ComponentPassive(name) {}
+        : ComponentPassive(name), m_Queue(CreateQueue<EventMessage>()) {}
 
     KsResultType ComponentQueued::Init() {
         return ComponentPassive::Init();
@@ -15,7 +15,7 @@ namespace kronos {
 
     KsResultType ComponentQueued::ProcessEventQueue() {
         EventMessage message;
-        while (m_Queue.Pop(&message, 0) == pdPASS) {
+        while (m_Queue->Pop(&message, 0) == pdPASS) {
             ProcessEvent(message);
         }
 
@@ -28,7 +28,7 @@ namespace kronos {
             return KS_CMDRESULT_NORETURN;
         }
 
-        if (m_Queue.Push(message) != pdPASS) {
+        if (m_Queue->Push(message) != pdPASS) {
             // TODO: HANDLE ERROR OR WARNING
         }
 

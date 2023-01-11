@@ -118,7 +118,6 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/scheduler/ks_scheduler.cpp"
 
         # KRONOS OS DEPENDENT TYPES
-        "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos/ks_queue.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/kronos.cpp"
 
         # KRONOS DRIVERS
@@ -195,7 +194,10 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/core/modules/scheduler"
 
         "${CMAKE_CURRENT_SOURCE_DIR}/macros"
+
+        # KRONOS OS RELATED IMPLEMENTATIONS
         "${CMAKE_CURRENT_SOURCE_DIR}/os"
+        "${CMAKE_CURRENT_SOURCE_DIR}/os/freertos"
 
         # KRONOS DRIVERS
         "${CMAKE_CURRENT_SOURCE_DIR}/drivers"
