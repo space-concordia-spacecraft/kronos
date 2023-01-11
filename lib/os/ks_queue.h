@@ -11,8 +11,6 @@
 
 #define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
 
-#define KS_QUEUE_IMPL KS_FREERTOS
-
 namespace kronos {
     //! \class Template for the Queue Class
     //! \tparam T Generic Template for Queue
@@ -57,9 +55,9 @@ namespace kronos {
     };
 }
 
-#ifdef KS_QUEUE_IMPL_FREERTOS
+#ifdef KS_FREERTOS_API_QUEUE
 #include "ks_queue_freertos.h"
-#elif defined(KS_QUEUE_IMPL_WINDOWS)
+#elif defined(KS_WINDOWS_API_QUEUE)
 #include "ks_queue_windows.h"
 #endif
 
@@ -67,10 +65,12 @@ namespace kronos {
     //! \brief
     template<typename T>
     std::shared_ptr<Queue<T>> CreateQueue(){
-#ifdef KS_QUEUE_IMPL_FREERTOS
+#ifdef KS_FREERTOS_API_QUEUE
         return std::make_shared<QueueFreeRTOS<T>>();
-#elif defined(KS_QUEUE_IMPL_WINDOWS)
+#elif defined(KS_WINDOWS_API_QUEUE)
         return std::make_shared<QueueWindows<T>>();
 #endif
+
+        return nullptr;
     }
 }
