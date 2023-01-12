@@ -55,9 +55,9 @@ namespace kronos {
     };
 }
 
-#ifdef KS_FREERTOS_API_QUEUE
+#ifdef KS_FREERTOS_API
 #include "ks_queue_freertos.h"
-#elif defined(KS_WINDOWS_API_QUEUE)
+#elif defined(KS_WINDOWS_API)
 #include "ks_queue_windows.h"
 #endif
 

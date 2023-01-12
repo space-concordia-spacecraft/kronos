@@ -13,8 +13,8 @@ namespace kronos {
         // Initialize Modules
         FileSystem::Init();
         Logger::Init();
-        ParameterDatabase::Init();
-        TelemetryLogger::Init();
+//        ParameterDatabase::Init();
+//        TelemetryLogger::Init();
         Scheduler::Init();
     }
 

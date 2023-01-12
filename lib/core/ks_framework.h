@@ -4,14 +4,13 @@
 #include "kronos.h"
 
 // ASF
+#ifdef KS_ASF_DRIVERS
 #include "driver_init.h"
 #include "stdio_start.h"
-
+#endif
 #define KS_DEFAULT_TIMER_INTERVAL 100
 
 namespace kronos {
-    typedef TickType_t KsTickType;
-
     //! \class Framework
     //! \brief A class that implements the framework using the Singleton design pattern
     class Framework {

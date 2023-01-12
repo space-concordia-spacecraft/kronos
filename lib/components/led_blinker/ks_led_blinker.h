@@ -1,6 +1,9 @@
 #include "ks_component_passive.h"
 #include "ks_gpio.h"
-#include "atmel_start_pins.h"
+
+#include "ks_logger.h"
+
+#include "driver_init.h"
 
 namespace kronos {
 

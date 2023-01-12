@@ -8,7 +8,6 @@
 
 #include "FreeRTOS.h"
 
-// FREERTOS TYPES
 typedef BaseType_t KsResultType;
 typedef TickType_t KsTickType;
 #endif
@@ -18,9 +17,12 @@ typedef TickType_t KsTickType;
 
 #include "hal_gpio.h"
 
-// MAKE SURE TO REDEFINE THE TYPES TO WHATEVER YOU'RE USING
 typedef gpio_pull_mode KsGpioPullMode;
 typedef gpio_direction KsGpioDirection;
+
+#elif defined(KS_POSIX_SIM)
+typedef bool KsGpioPullMode;
+typedef bool KsGpioDirection;
 #endif
 
 //! \typedef Type that tells you the result of

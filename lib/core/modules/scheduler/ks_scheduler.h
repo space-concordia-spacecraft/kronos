@@ -4,7 +4,7 @@
 #include "macros.h"
 #include "timers.h"
 
-#define KS_DEFAULT_TIMER_INTERVAL 100
+#define KS_DEFAULT_TIMER_INTERVAL 50
 
 namespace kronos {
     struct SchedulerRateBus {

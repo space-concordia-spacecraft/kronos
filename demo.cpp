@@ -10,8 +10,11 @@ int main() {
     // REGISTER COMPONENTS HERE
     auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");
 
+    auto* ledBus = Framework::CreateBus<BusAsync>("BA_LED", ks_event_timer_tick);
+
     // ATTACH TO MAIN LOOP
-    Scheduler::RegisterComponent(ledBlinker, 0);
+    Scheduler::RegisterBus(ledBus, 50);
+    Scheduler::RegisterComponent(ledBlinker,50);
 
     // RUN FRAMEWORK
     Framework::Run();
