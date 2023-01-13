@@ -1,11 +1,5 @@
 #include "ks_apollo_format.h"
 
-#define FILE_READ_WRITE(op, nBytes) if (op != (int32_t)nBytes) \
-                                return ks_error_apolloformat_readwrite_nbytes
-
-#define FILE_OPERATION(op) if ((m_Status = op) != ks_success) \
-                                return m_Status
-
 namespace kronos {
 
     ApolloExporter::ApolloExporter(const std::string& path, const std::vector<ApolloHeader>& headers) :
