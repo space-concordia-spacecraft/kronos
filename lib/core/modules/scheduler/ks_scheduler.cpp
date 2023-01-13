@@ -24,7 +24,6 @@ namespace kronos {
         );
 
         xTimerStart(m_Timer, 0);
-
         _RegisterBus(m_BusTick.get(), 0);
     }
 
@@ -54,8 +53,7 @@ namespace kronos {
 
     void Scheduler::TickStub(TimerHandle_t timerHandle) {
         auto* timer = static_cast<Scheduler*>(pvTimerGetTimerID(timerHandle));
-        char tick = 0;
-        timer->m_Queue->Push(tick);
+        xTaskNotify(timer->m_Task, 0, eNoAction);
     }
 
     void Scheduler::Tick() {
@@ -72,17 +70,13 @@ namespace kronos {
         }
     }
 
-    void Scheduler::Start(void* data) {
-        static_cast<Scheduler*>(data)->Run();
-    }
-
-    void Scheduler::Run() {
+    [[noreturn]] void Scheduler::NotifyWait(void* data) {
         while (true) {
-            char message;
-            if (m_Queue->Pop(&message, 0) == pdPASS) {
-                Tick();
-            }
-            taskYIELD();
+            xTaskNotifyWait(0x00,           /* Don't clear any notification bits on entry. */
+                            ULONG_MAX,      /* Reset the notification value to 0 on exit. */
+                            nullptr,
+                            portMAX_DELAY); /* Block indefinitely. */
+            s_Instance->Tick();
         }
     }
 

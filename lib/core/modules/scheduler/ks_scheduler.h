@@ -26,7 +26,6 @@ namespace kronos {
         KS_SINGLETON_EXPOSE_METHOD(_RegisterBus, KsResultType RegisterBus(BusBase* bus, uint32_t rate), bus, rate);
     private:
         TaskHandle_t m_Task = nullptr;
-        std::shared_ptr<Queue<char>> m_Queue;
 
         std::unordered_map<uint32_t, SchedulerRateBus> m_ScheduledBusses;
         TimerHandle_t m_Timer;
@@ -36,7 +35,6 @@ namespace kronos {
         KsResultType _RegisterBus(BusBase* bus, uint32_t rate);
         static void TickStub(TimerHandle_t timerHandle);
         void Tick();
-        static void Start(void* data);
-        void Run();
+        [[noreturn]] static void NotifyWait(void* data);
     };
 }
