@@ -3,11 +3,10 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(Scheduler);
 
-    Scheduler::Scheduler() : m_Queue(Queue<char>::Create()),
-                             m_BusTick(std::make_unique<BusSync>("BA_SCHEDULER", ks_event_timer_tick)) {
+    Scheduler::Scheduler() : m_BusTick(std::make_unique<BusSync>("BA_SCHEDULER", ks_event_timer_tick)) {
         // Create Task
         xTaskCreate(
-            Start,          // The function that implements the task.
+            NotifyWait,          // The function that implements the task.
             "SCHEDULER",   // The text name assigned to the task - for debug only as it is not used by the kernel.
             KS_COMPONENT_STACK_SIZE_XLARGE,    // The size of the stack to allocate to the task.
             this,           // The parameter passed to the task - not used in this case.
