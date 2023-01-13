@@ -10,7 +10,7 @@ namespace kronos {
         static_cast<ComponentActive*>(data)->Run();
     }
 
-    KsResultType ComponentActive::Initialize() {
+    KsResultType ComponentActive::Init() {
         // Create Task
         xTaskCreate(
             Start,          // The function that implements the task.

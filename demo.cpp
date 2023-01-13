@@ -6,7 +6,7 @@ using namespace kronos;
 
 int main() {
     // Initialize Framework
-    Framework::Init();
+    Framework::CreateInstance();
 
     // REGISTER COMPONENTS HERE
     auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");

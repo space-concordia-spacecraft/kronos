@@ -10,16 +10,16 @@ namespace kronos {
         atmel_start_init();
 
         // Initialize Modules
-        FileSystem::Init();
-        Logger::Init();
-        ParameterDatabase::Init();
-        TelemetryLogger::Init();
-        Scheduler::Init();
+        FileSystem::CreateInstance();
+        Logger::CreateInstance();
+        ParameterDatabase::CreateInstance();
+        TelemetryLogger::CreateInstance();
+        Scheduler::CreateInstance();
     }
 
     void Framework::_Run() {
         for (auto& component: m_Components)
-            component.second->Initialize();
+            component.second->Init();
 
         vTaskStartScheduler();
     }

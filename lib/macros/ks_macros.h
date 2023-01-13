@@ -7,7 +7,7 @@ private:                                        \
 static std::unique_ptr<name> s_Instance;        \
                                                 \
 public:                                         \
-static inline void Init() {                     \
+static inline void CreateInstance() {           \
     if (s_Instance == nullptr)                  \
         s_Instance = std::make_unique<name>();  \
 }                                               \

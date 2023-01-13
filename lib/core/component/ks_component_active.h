@@ -41,7 +41,7 @@ namespace kronos {
             uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
         //! @copydoc
-        KsResultType Initialize() override;
+        KsResultType Init() override;
 
         //! @copydoc
         KsResultType Destroy() override;
