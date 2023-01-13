@@ -7,26 +7,19 @@ namespace kronos {
     Framework::Framework() : m_BusTick("B_TICK", ks_event_timer_tick),
                              m_HealthMonitor("CQ_HEALTH") {
         // Initialize ASF and system
-        system_init();
-        stdio_redirect_init();
+        atmel_start_init();
 
         // Initialize Modules
         FileSystem::Init();
         Logger::Init();
-//        ParameterDatabase::Init();
-//        TelemetryLogger::Init();
+        ParameterDatabase::Init();
+        TelemetryLogger::Init();
         Scheduler::Init();
-    }
-
-    Framework::~Framework() {
-        Scheduler::Destroy();
     }
 
     void Framework::_Run() {
         for (auto& component: m_Components)
-            component.second->Init();
-
-        Scheduler::Start();
+            component.second->Initialize();
 
         vTaskStartScheduler();
     }

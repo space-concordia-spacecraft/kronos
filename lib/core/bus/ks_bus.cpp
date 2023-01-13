@@ -11,6 +11,10 @@ namespace kronos {
         return m_Name;
     }
 
+    KsEventCodeType  BusBase::GetEventCode() {
+        return m_EventCode;
+    }
+
     // ==================== Synchronous Bus ====================
 
     BusSync::BusSync(std::string name, KsEventCodeType eventCode)

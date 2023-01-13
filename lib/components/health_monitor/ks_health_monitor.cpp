@@ -38,7 +38,7 @@ namespace kronos {
     }
 
     KsResultType ComponentHealthMonitor::PingComponents() {
-        Logger::LogDebug("Health ping");
+        Logger::Debug("Health ping");
         EventMessage message;
         message.eventCode = ks_event_health_ping;
         message.returnBus = &m_BusPong;
@@ -47,7 +47,7 @@ namespace kronos {
         for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
             if (time - entry.second.lastResponse >= KS_HEALTH_PING_RATE) {
-                Logger::LogError(entry.first->GetName() + " has not responded.");
+                Logger::Error("%s has not responded.", entry.first->GetName().c_str());
             }
         }
 
@@ -56,7 +56,7 @@ namespace kronos {
 
     KsResultType ComponentHealthMonitor::HandleComponentResponse(ComponentActive* component) {
         m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
-        Logger::LogDebug("Health response from " + component->GetName());
+        Logger::Debug("Health response from %s", component->GetName().c_str());
 
         return ks_success;
     }

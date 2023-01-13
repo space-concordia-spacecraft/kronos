@@ -3,25 +3,30 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(FileSystem);
 
-    FileSystem::FileSystem() {
-        if (red_init() < 0) {
-            // TODO: LOG ERROR
-        }
+    FileSystem::FileSystem():m_Volume(KS_FILESYSTEM_VOLUME) {
+        auto ret = red_init();
 
-        Format();
-        Mount();
-        // TODO: LOG SUCCESS;
+        KS_ASSERT(ret == 0, "Unable to initialize Reliance Edge");
+
+        ret = Mount();
+
+        if(ret < 0) {
+            ret = Format();
+            KS_ASSERT(ret == 0, "Unable to format Reliance Edge");
+            ret = Mount();
+            KS_ASSERT(ret == 0, "Unable to mount Reliance Edge");
+        }
     }
 
-    KsResultType FileSystem::_Format() {
-        if (red_format(KS_FILESYSTEM_VOLUME) < 0) {
+    KsResultType FileSystem::Format() {
+        if (red_format(m_Volume.c_str()) < 0) {
             return ks_error_filesystem_format;
         }
         return ks_success;
     }
 
-    KsResultType FileSystem::_Mount() {
-        if (red_mount(KS_FILESYSTEM_VOLUME) < 0) {
+    KsResultType FileSystem::Mount() {
+        if (red_mount(m_Volume.c_str()) < 0) {
             return ks_error_filesystem_mount;
         }
         return ks_success;

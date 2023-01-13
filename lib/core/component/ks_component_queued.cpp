@@ -3,10 +3,10 @@
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const std::string& name)
-        : ComponentPassive(name), m_Queue(CreateQueue<EventMessage>()) {}
+        : ComponentPassive(name), m_Queue(Queue<EventMessage>::Create()) {}
 
-    KsResultType ComponentQueued::Init() {
-        return ComponentPassive::Init();
+    KsResultType ComponentQueued::Initialize() {
+        return ComponentPassive::Initialize();
     }
 
     KsResultType ComponentQueued::Destroy() {

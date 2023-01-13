@@ -24,7 +24,7 @@ middlewares:
   FREERTOS_V1000_0:
     user_label: FREERTOS_V1000_0
     configuration:
-      freertos_advanced: true
+      freertos_advanced: false
       freertos_check_for_stack_overflow: true
       freertos_etaskgetstate: true
       freertos_generate_run_time_stats: false
@@ -62,9 +62,9 @@ middlewares:
       freertos_xtaskgetcurrenttaskhandle: false
       freertos_xtaskgetidletaskhandle: false
       freertos_xtimerpendfunctioncall: false
-    definition: Atmel:RTOS1000:0.0.1::FreeRTOS_v1000_MemMang_1
+    definition: Atmel:RTOS1000:0.0.1::FreeRTOS_v1000_MemMang_4
     functionality: FreeRTOS_v10.0.0
-    api: RTOS:FreeRTOSv1000:MemMang_1
+    api: RTOS:FreeRTOSv1000:MemMang_4
     dependencies: {}
   STDIO_REDIRECT_0:
     user_label: STDIO_REDIRECT_0
@@ -74,7 +74,62 @@ middlewares:
     api: STDIO:Redirect:IO
     dependencies:
       Target IO: TARGET_IO
+  SDMMC_ACCESS_0:
+    user_label: SDMMC_ACCESS_0
+    configuration:
+      conf_mmc_support: false
+      conf_sd_mmc_0_cd_detect_en: true
+      conf_sd_mmc_0_cd_detect_value: Low
+      conf_sd_mmc_0_enable: true
+      conf_sd_mmc_0_wp_detect_en: true
+      conf_sd_mmc_0_wp_detect_value: High
+      conf_sd_mmc_os_support: false
+      conf_sdio_support: true
+    definition: Atmel:SD_MMC:0.0.1::SD_MMC
+    functionality: SD/MMC_Access
+    api: SD-MMC:Lib:API
+    dependencies:
+      IO Bus: MCI_0
+      Write Protect 0: WRITE_PROTECT_0
+      Card Detect 0: CARD_DETECT_0
 drivers:
+  MCI_0:
+    user_label: MCI_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::HSMCI::driver_config_definition::MCI::HAL:Driver:MCI.Sync
+    functionality: MCI
+    api: HAL:Driver:MCI_Sync
+    configuration: {}
+    optional_signals: []
+    variant:
+      specification: default
+      required_signals:
+      - name: HSMCI/MCCDA
+        pad: PA28
+        label: MCCDA
+      - name: HSMCI/MCCK
+        pad: PA25
+        label: MCCK
+      - name: HSMCI/MCDA/0
+        pad: PA30
+        label: MCDA/0
+      - name: HSMCI/MCDA/1
+        pad: PA31
+        label: MCDA/1
+      - name: HSMCI/MCDA/2
+        pad: PA26
+        label: MCDA/2
+      - name: HSMCI/MCDA/3
+        pad: PA27
+        label: MCDA/3
+    clocks:
+      domain_group:
+        nodes:
+        - name: HSMCI
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          hsmci_clock_source: Master Clock (MCK)
   PMC:
     user_label: PMC
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::PMC::driver_config_definition::PMC::HAL:HPL:PMC
@@ -218,29 +273,6 @@ drivers:
           external: false
           external_frequency: 0
         configuration: {}
-  TARGET_IO:
-    user_label: TARGET_IO
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::UART0::driver_config_definition::UART::HAL:Driver:USART.Sync
-    functionality: USART
-    api: HAL:Driver:USART_Sync
-    configuration:
-      uart_advanced: false
-      uart_baud_rate: 38400
-      uart_channel_mode: Normal Mode
-      uart_parity: No parity
-      uart_receive_filter_enable: false
-      uart_usclks: Peripheral clock is selected
-    optional_signals: []
-    variant: null
-    clocks:
-      domain_group:
-        nodes:
-        - name: UART
-          input: Master Clock (MCK)
-          external: false
-          external_frequency: 0
-        configuration:
-          uart_clock_source: Master Clock (MCK)
   USART_0:
     user_label: USART_0
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::UART2::driver_config_definition::UART::HAL:Driver:USART.Sync
@@ -278,6 +310,58 @@ drivers:
           external_frequency: 0
         configuration:
           uart_clock_source: Master Clock (MCK)
+  TARGET_IO:
+    user_label: TARGET_IO
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::USART1::driver_config_definition::UART::HAL:Driver:USART.Sync
+    functionality: USART
+    api: HAL:Driver:USART_Sync
+    configuration:
+      usart_9bits_enable: false
+      usart__inack: The NACK is not generated
+      usart__oversampling_mode: 16 Oversampling
+      usart_advanced: false
+      usart_arch_fractional: 0
+      usart_arch_msbf: LSB is transmitted first
+      usart_baud_rate: 115200
+      usart_channel_mode: Normal Mode
+      usart_character_size: 8 bits
+      usart_clock_output_select: The USART does not drive the SCK pin
+      usart_dsnack: NACK is sent on the ISO line as soon as a parity error occurs
+      usart_invdata: Data isn't inverted, nomal mode
+      usart_manchester_filter_enable: false
+      usart_manchester_synchronization_mode: The Manchester start bit is a 0 to 1
+        transition
+      usart_max_iteration: 0
+      usart_parity: No parity
+      usart_receive_filter_enable: false
+      usart_start_frame_delimiter: Start frame delimiter is COMMAND or DATA SYNC
+      usart_stop_bit: 1 stop bit
+      variable_sync: User defined configuration
+    optional_signals:
+    - identifier: TARGET_IO:RXD/1
+      pad: PA21
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::USART1.RXD.1
+      name: USART1/RXD/1
+      label: RXD/1
+    - identifier: TARGET_IO:TXD/1
+      pad: PB4
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::USART1.TXD.1
+      name: USART1/TXD/1
+      label: TXD/1
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: USART
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          usart_clock_source: Master Clock (MCK)
   XDMAC:
     user_label: XDMAC
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::XDMAC::driver_config_definition::DMAC::HAL:HPL:DMAC
@@ -530,6 +614,12 @@ drivers:
     clocks:
       domain_group: null
 pads:
+  PA21:
+    name: PA21
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA21
+    mode: Peripheral IO
+    user_label: PA21
+    configuration: null
   PD25:
     name: PD25
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD25
@@ -542,6 +632,24 @@ pads:
     mode: Peripheral IO
     user_label: PD26
     configuration: null
+  PA25:
+    name: PA25
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA25
+    mode: Advanced
+    user_label: PA25
+    configuration: null
+  PA26:
+    name: PA26
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA26
+    mode: Advanced
+    user_label: PA26
+    configuration: null
+  PA27:
+    name: PA27
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA27
+    mode: Advanced
+    user_label: PA27
+    configuration: null
   LED0:
     name: PC8
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC8
@@ -549,5 +657,41 @@ pads:
     user_label: LED0
     configuration:
       pad_initial_level: High
+  WRITE_PROTECT_0:
+    name: PC11
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC11
+    mode: Digital input
+    user_label: WRITE_PROTECT_0
+    configuration: {}
+  CARD_DETECT_0:
+    name: PC16
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC16
+    mode: Digital input
+    user_label: CARD_DETECT_0
+    configuration: {}
+  PB4:
+    name: PB4
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PB4
+    mode: Peripheral IO
+    user_label: PB4
+    configuration: null
+  PA28:
+    name: PA28
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA28
+    mode: Advanced
+    user_label: PA28
+    configuration: null
+  PA30:
+    name: PA30
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA30
+    mode: Advanced
+    user_label: PA30
+    configuration: null
+  PA31:
+    name: PA31
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA31
+    mode: Advanced
+    user_label: PA31
+    configuration: null
 toolchain_options: []
 static_files: []

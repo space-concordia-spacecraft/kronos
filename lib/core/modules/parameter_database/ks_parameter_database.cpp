@@ -3,12 +3,9 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(ParameterDatabase);
 
-    ParameterDatabase::ParameterDatabase() {
-        // Open File
-        File file;
-        file.Open(KS_PARAM_DB_FILENAME);
-
-        ApolloImporter apolloImporter(&file);
+    ParameterDatabase::ParameterDatabase():ComponentPassive("CP_PARAM_DB") {
+        // Create the importer
+        ApolloImporter apolloImporter(KS_PARAM_DB_FILENAME);
 
         // Assign Headers
         auto headers = apolloImporter.GetHeaders();
@@ -22,21 +19,26 @@ namespace kronos {
             m_Parameters[headers[index].name] = data[index];
         }
 
-        // Close File
+        // Not required but good practice to close. ApolloImporter will close itself when the class is destroyed.
         apolloImporter.Close();
+        Logger::Info("Loaded %ld Parameters from '%s' ", headers.size(), KS_PARAM_DB_FILENAME);
     }
 
-    KsResultType ParameterDatabase::_SetParam(const std::string& key, uint32_t newValue) {
-        m_Parameters[key] = newValue;
-        return ks_success;
+    KsCmdResult ParameterDatabase::ProcessEvent(const EventMessage& message) {
+        switch(message.eventCode) {
+            case ks_event_save_param:
+                _SaveParams();
+                break;
+        }
+        return KS_CMDRESULT_NORETURN;
     }
 
     KsResultType ParameterDatabase::_SaveParams() {
-        File file;
-        file.Open(KS_PARAM_DB_FILENAME);
-
         std::vector<ApolloHeader> headers;
         std::vector<uint32_t> data;
+
+        headers.reserve(m_Parameters.size());
+        data.reserve(m_Parameters.size());
 
         // Put all data and headers into appropriate vectors
         for (const auto& param: m_Parameters) {
@@ -45,11 +47,15 @@ namespace kronos {
         }
 
         // Create Apollo Exporter using appropriate headers
-        ApolloExporter apolloExporter(&file, headers);
+        ApolloExporter apolloExporter(KS_PARAM_DB_FILENAME, headers);
 
         // Writes row of data
         apolloExporter.WriteRow(data);
 
+        // Not necessary, but good practice. ApolloExporter automatically closes the file when it's destroyed
+        apolloExporter.Close();
+
+        Logger::Info("Saved Parameters in '%s'", KS_PARAM_DB_FILENAME);
         return ks_success;
     }
 

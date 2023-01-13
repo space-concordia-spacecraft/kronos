@@ -30,34 +30,13 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_1.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.c"
 
         # ASF
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/driver_init.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_start.c"
-
-        # ASF HAL
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_atomic.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_delay.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_gpio.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_io.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_sleep.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/src/hal_usart_sync.c"
-
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_assert.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_event.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_list.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_ringbuffer.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c"
-
-        # ASF HPL
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/core/hpl_core_m7_base.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/core/hpl_init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc/hpl_pmc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc/hpl_sleep.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/uart/hpl_uart.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/xdmac/hpl_xdmac.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/driver_init.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/sd_mmc_start.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/atmel_start.c"
 
         # ASF SAME70
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/same70b/gcc/system_same70q21b.c"
@@ -65,8 +44,9 @@ set(KRONOS_SRC
 
         # ASF STDIO REDIRECT
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/stdio_io.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/read.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/write.c"
+
+        # ASF SD/MMC
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/sd_mmc/sd_mmc.c"
 
         # RELIANCE EDGE
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/bdev/bdev.c"
@@ -130,7 +110,12 @@ set(KRONOS_SRC
         "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker/ks_led_blinker.cpp"
         )
 
-add_sam_library(Kronos ${KRONOS_SRC})
+file(GLOB_RECURSE KRONOS_SRC_DRIVERS
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/**.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hri/**.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/**.c")
+
+add_sam_library(Kronos ${KRONOS_SRC} ${KRONOS_SRC_DRIVERS})
 
 set(KRONOS_INCLUDE_DIRS
         # FREERTOS
@@ -143,11 +128,11 @@ set(KRONOS_INCLUDE_DIRS
         # ASF
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf"
 
-        # ASF CONFIG
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/config"
-
         # ASF CMSIS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/CMSIS/Core/Include"
+
+        # ASF CONFIG
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/config"
 
         # ASF HAL
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/include"
@@ -158,6 +143,7 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pio"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/pmc"
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/uart"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hpl/usart"
 
         # ASF HRI
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hri"
@@ -171,6 +157,9 @@ set(KRONOS_INCLUDE_DIRS
 
         # ASF STDIO REDIRECT
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect"
+
+        # ASF SD/MMC
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/sd_mmc"
 
         # RELIANCE EDGE
         "${CMAKE_CURRENT_SOURCE_DIR}/extern/reliance-edge/include"
@@ -210,7 +199,12 @@ set(KRONOS_INCLUDE_DIRS
         "${CMAKE_CURRENT_SOURCE_DIR}/components/led_blinker"
         )
 
-set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
+set(KRONOS_EXTRA_SRC
+        # This is done for functions that are not used in the library but that are needed later.
+        # Because they're not used they're initially yeeted.
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/hal/utils/src/utils_syscalls.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/read.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/extern/asf/stdio_redirect/gcc/write.c")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -Wno-unused-function")
 set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-function")
@@ -223,3 +217,4 @@ if (DEFINED KS_COMPILE_DEFINITIONS)
 endif ()
 
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
+target_sources(Kronos PUBLIC ${KRONOS_EXTRA_SRC})

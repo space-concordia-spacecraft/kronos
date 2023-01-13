@@ -66,7 +66,7 @@ void assert_triggered(const char *file, uint32_t line);
 // <e> Advanced
 // <id> freertos_advanced
 #ifndef FREERTOS_ADVANCED_CONFIG
-#define FREERTOS_ADVANCED_CONFIG 1
+#define FREERTOS_ADVANCED_CONFIG 0
 #endif
 
 // <q> Enable preemption
@@ -251,7 +251,7 @@ to exclude the API function. */
 // <q> Include the function to get current task handler
 // <id> freertos_xtaskgetcurrenttaskhandle
 #ifndef INCLUDE_xTaskGetCurrentTaskHandle
-#define INCLUDE_xTaskGetCurrentTaskHandle 1
+#define INCLUDE_xTaskGetCurrentTaskHandle 0
 #endif
 
 #define INCLUDE_uxTaskGetStackHighWaterMark 0

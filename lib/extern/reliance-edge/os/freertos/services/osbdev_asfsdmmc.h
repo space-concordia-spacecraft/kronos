@@ -34,8 +34,6 @@
 
 #include <conf_sd_mmc.h>
 #include <sd_mmc.h>
-#include <sd_mmc_mem.h>
-#include <ctrl_access.h>
 
 /*  sd_mmc_mem_2_ram_multi() and sd_mmc_ram_2_mem_multi() use an unsigned
     16-bit value to specify the sector count, so no transfer can be larger
@@ -63,8 +61,7 @@ static REDSTATUS DiskOpen(
 {
     REDSTATUS       ret = 0;
     uint32_t        ulTries;
-    Ctrl_status     cs;
-
+    sd_mmc_err_t    mmcRet;
     /*  Note: Assuming the volume number is the same as the SD card slot.  The
         ASF SD/MMC driver supports two SD slots.  This implementation will need
         to be modified if multiple volumes share a single SD card.
@@ -78,29 +75,14 @@ static REDSTATUS DiskOpen(
     */
     for(ulTries = 0U; ulTries < 20U; ulTries++)
     {
-        cs = sd_mmc_test_unit_ready(bVolNum);
-        if((cs != CTRL_NO_PRESENT) && (cs != CTRL_BUSY))
+        mmcRet = sd_mmc_check(bVolNum);
+        if((mmcRet != SD_MMC_INIT_ONGOING) && (mmcRet != SD_MMC_ERR_NO_CARD))
         {
             break;
         }
-
-        vTaskDelay(500U / portTICK_PERIOD_MS);
     }
 
-    if(cs == CTRL_GOOD)
-    {
-      #if REDCONF_READ_ONLY == 0
-        if(mode != BDEV_O_RDONLY)
-        {
-            if(sd_mmc_wr_protect(bVolNum))
-            {
-                ret = -RED_EROFS;
-            }
-        }
-      #endif
-    }
-    else
-    {
+    if(mmcRet != SD_MMC_OK) {
         ret = -RED_EIO;
     }
 
@@ -140,9 +122,7 @@ static REDSTATUS DiskGetGeometry(
     uint8_t     bVolNum,
     BDEVINFO   *pInfo)
 {
-    uint32_t    ulSectorLast;
-
-    (void)sd_mmc_read_capacity(bVolNum, &ulSectorLast);
+    uint32_t capacity = sd_mmc_get_capacity(bVolNum);
 
     /*  The ASF SD/MMC driver only supports 512-byte sectors.
 
@@ -151,7 +131,7 @@ static REDSTATUS DiskGetGeometry(
         where ulSectorLast == UINT32_MAX.
     */
     pInfo->ulSectorSize = 512U;
-    pInfo->ullSectorCount = (uint64_t)ulSectorLast + 1U;
+    pInfo->ullSectorCount = capacity / pInfo->ulSectorSize;
 
     return 0;
 }
@@ -176,28 +156,21 @@ static REDSTATUS DiskRead(
     uint32_t    ulSectorCount,
     void       *pBuffer)
 {
-    REDSTATUS   ret = 0;
-    uint32_t    ulSectorIdx = 0U;
-    uint32_t    ulSectorSize = gaRedBdevInfo[bVolNum].ulSectorSize;
-    uint8_t    *pbBuffer = pBuffer;
+    sd_mmc_err_t    ret;
 
-    while(ulSectorIdx < ulSectorCount)
-    {
-        uint32_t    ulTransfer = REDMIN(ulSectorCount - ulSectorIdx, MAX_SECTOR_TRANSFER);
-        Ctrl_status cs;
+    ret = sd_mmc_init_read_blocks(bVolNum, ullSectorStart, ulSectorCount);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-        cs = sd_mmc_mem_2_ram_multi(bVolNum, (uint32_t)(ullSectorStart + ulSectorIdx),
-                                    (uint16_t)ulTransfer, &pbBuffer[ulSectorIdx * ulSectorSize]);
-        if(cs != CTRL_GOOD)
-        {
-            ret = -RED_EIO;
-            break;
-        }
+    ret = sd_mmc_start_read_blocks(pBuffer, ulSectorCount);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-        ulSectorIdx += ulTransfer;
-    }
+    ret = sd_mmc_wait_end_of_read_blocks(false);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-    return ret;
+    return 0;
 }
 
 
@@ -222,28 +195,21 @@ static REDSTATUS DiskWrite(
     uint32_t        ulSectorCount,
     const void     *pBuffer)
 {
-    REDSTATUS       ret = 0;
-    uint32_t        ulSectorIdx = 0U;
-    uint32_t        ulSectorSize = gaRedBdevInfo[bVolNum].ulSectorSize;
-    const uint8_t  *pbBuffer = pBuffer;
+    sd_mmc_err_t    ret;
 
-    while(ulSectorIdx < ulSectorCount)
-    {
-        uint32_t    ulTransfer = REDMIN(ulSectorCount - ulSectorIdx, MAX_SECTOR_TRANSFER);
-        Ctrl_status cs;
+    ret = sd_mmc_init_write_blocks(bVolNum, ullSectorStart, ulSectorCount);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-        cs = sd_mmc_ram_2_mem_multi(bVolNum, (uint32_t)(ullSectorStart + ulSectorIdx),
-                                    (uint16_t)ulTransfer, &pbBuffer[ulSectorIdx * ulSectorSize]);
-        if(cs != CTRL_GOOD)
-        {
-            ret = -RED_EIO;
-            break;
-        }
+    ret = sd_mmc_start_write_blocks(pBuffer, ulSectorCount);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-        ulSectorIdx += ulTransfer;
-    }
+    ret = sd_mmc_wait_end_of_write_blocks(false);
+    if(ret != SD_MMC_OK)
+        return -RED_EIO;
 
-    return ret;
+    return 0;
 }
 
 
@@ -260,26 +226,7 @@ static REDSTATUS DiskWrite(
 static REDSTATUS DiskFlush(
     uint8_t     bVolNum)
 {
-    REDSTATUS   ret;
-    Ctrl_status cs;
-
-    /*  The ASF SD/MMC driver appears to write sectors synchronously, so it
-        should be fine to do nothing and return success.  However, Atmel's
-        implementation of the FatFs diskio.c file does the equivalent of the
-        below when the disk is flushed.  Just in case this is important for some
-        non-obvious reason, do the same.
-    */
-    cs = sd_mmc_test_unit_ready(bVolNum);
-    if(cs == CTRL_GOOD)
-    {
-        ret = 0;
-    }
-    else
-    {
-        ret = -RED_EIO;
-    }
-
-    return ret;
+    return 0;
 }
 
 #endif /* REDCONF_READ_ONLY == 0 */

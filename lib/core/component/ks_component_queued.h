@@ -25,7 +25,7 @@ namespace kronos {
         KsResultType ProcessEventQueue();
 
         //! @copydoc
-        KsResultType Init() override;
+        KsResultType Initialize() override;
 
         //! @copydoc
         KsResultType Destroy() override;

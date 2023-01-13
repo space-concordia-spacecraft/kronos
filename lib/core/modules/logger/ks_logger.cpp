@@ -3,61 +3,67 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(Logger);
 
-    KsResultType Logger::_LogMsg(LogMessage* logMsg) {
-        char buf[250];
+    Logger::Logger() : m_File(KS_LOGGING_FILE_PATH) {};
+
+    Logger::~Logger() {
+        m_File.Close();
+    }
+
+    void Logger::Log(const char* msg, KsLogSeverity severity, va_list args) {
+        static char fmt[500];
+        static char finalMsg[500];
         sprintf(
-            buf,
-            "[%s] [%s] %s\n\r",
-            ConvertTimestamp(logMsg->timestamp).data(),
-            ConvertSeverity(logMsg->severity).data(),
-            logMsg->message.data()
+            fmt,
+            TERM_TIME "[%.3f]" TERM_NORM " %s %s\n",
+            ConvertTimestamp(xTaskGetTickCount()),
+            ConvertSeverity(severity).c_str(),
+            msg
         );
-        printf("%s", buf);
-        return ks_success;
+
+        auto msgLen = vsprintf(finalMsg, fmt, args);
+
+        printf("%s", finalMsg);
+        m_File.Write(finalMsg, msgLen);
     }
 
-    KsResultType Logger::_Log(const std::string& msg, KS_LOG_SEVERITY severity) {
-        LogMessage message;
-        message.timestamp = xTaskGetTickCount();
-        message.severity = severity;
-        message.message = msg;
-
-        return s_instance->_LogMsg(&message);
+    void Logger::Debug(const char* msg, ...) {
+        va_list args;
+        va_start(args, msg);
+        return s_Instance->Log(msg, KsLogSeverity::ks_log_debug, args);
     }
 
-    KsResultType Logger::_LogDebug(const std::string& msg) {
-        return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
+    void Logger::Info(const char* msg, ...) {
+        va_list args;
+        va_start(args, msg);
+        return s_Instance->Log(msg, KsLogSeverity::ks_log_info, args);
     }
 
-    KsResultType Logger::_LogInfo(const std::string& msg) {
-        return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
+    void Logger::Warn(const char* msg, ...) {
+        va_list args;
+        va_start(args, msg);
+        return s_Instance->Log(msg, KsLogSeverity::ks_log_warn, args);
     }
 
-    KsResultType Logger::_LogWarn(const std::string& msg) {
-        return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
+    void Logger::Error(const char* msg, ...) {
+        va_list args;
+        va_start(args, msg);
+        return s_Instance->Log(msg, KsLogSeverity::ks_log_error, args);
     }
 
-    KsResultType Logger::_LogError(const std::string& msg) {
-        return _Log(msg, KS_LOG_SEVERITY::ks_log_debug);
+    float Logger::ConvertTimestamp(uint32_t timestamp) {
+        return (float)(timestamp/1000.0f);
     }
 
-    std::string Logger::ConvertTimestamp(uint32_t timestamp) {
-        char buf[80];
-        itoa(timestamp, buf, 10);
-        return buf;
-    }
-
-    std::string Logger::ConvertSeverity(uint8_t severity) {
+    std::string Logger::ConvertSeverity(KsLogSeverity severity) {
         switch (severity) {
             case ks_log_debug:
-                return "DEBUG";
+                return TERM_DEBUG "[DEBUG]" TERM_NORM;
             case ks_log_info:
-                return "INFO";
+                return TERM_INFO "[INFO]" TERM_NORM;
             case ks_log_warn:
-                return "WARNING";
+                return TERM_WARN "[WARNING]" TERM_NORM;
             case ks_log_error:
-                return "ERROR";
-
+                return TERM_ERROR "[ERROR]" TERM_NORM;
             default:
                 return "";
         }

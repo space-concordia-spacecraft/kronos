@@ -39,14 +39,8 @@ namespace kronos {
     //! This class uses a list of ApolloHeader objects to encode the data and then write into a File.
     class ApolloExporter {
     public:
-        ApolloExporter(File* file, const std::vector<ApolloHeader>& headers);
+        ApolloExporter(const std::string& path, const std::vector<ApolloHeader>& headers);
         ~ApolloExporter();
-
-        //! \brief Writes the header list into a given file
-        //!
-        //! \param file File object used to write the headers into
-        //! \param headers Vector of ApolloHeaders stored into the file
-        KsResultType Open(File* file, const std::vector<ApolloHeader>& headers);
 
         //! \brief Writes a given header list into the file stored in the ApolloExporter object
         //!
@@ -65,7 +59,7 @@ namespace kronos {
 
     private:
         //! File pointer to the file object used to store data and headers
-        File* m_File;
+        File m_File;
 
         //! Status of the ApolloExporter
         KsResultType m_Status = ks_error_apolloformat_status_uninitianalized;
@@ -80,7 +74,7 @@ namespace kronos {
         //! \brief Constructor that uses a file to read the headers
         //!
         //! \param file File object that contains data in the Apollo format
-        explicit ApolloImporter(File* file);
+        explicit ApolloImporter(const std::string& path);
         ~ApolloImporter();
 
         //! \brief Reads the headers from the file stored in the ApolloImporter
@@ -104,7 +98,7 @@ namespace kronos {
 
     private:
         //! File object used to read the data and the headers
-        File* m_File;
+        File m_File;
 
         //! Status of the ApolloImporter
         KsResultType m_Status = ks_error_apolloformat_status_uninitianalized;

@@ -31,11 +31,14 @@ endif
 SUB_DIRS +=  \
  \
 stdio_redirect \
-hal/src \
-hpl/pmc \
-thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang \
 hpl/uart \
+hpl/pmc \
+hpl/usart \
+thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7 \
+hal/src \
+hpl/hsmci \
+sd_mmc \
 stdio_redirect/gcc \
 hpl/xdmac \
 hal/utils/src \
@@ -50,16 +53,19 @@ hpl/core
 OBJS +=  \
 hal/src/hal_io.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o \
-thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_1.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o \
+thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.o \
 stdio_redirect/stdio_io.o \
 hpl/xdmac/hpl_xdmac.o \
+sd_mmc_start.o \
+hpl/usart/hpl_usart.o \
 hpl/uart/hpl_uart.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/stream_buffer.o \
 hal/utils/src/utils_syscalls.o \
 stdio_redirect/gcc/read.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.o \
+hal/src/hal_mci_sync.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.o \
 hal/src/hal_delay.o \
@@ -74,12 +80,14 @@ stdio_start.o \
 hal/src/hal_init.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.o \
 rtos_start.o \
+sd_mmc/sd_mmc.o \
 examples/driver_examples.o \
 led_flasher_main.o \
 driver_init.o \
 same70b/gcc/system_same70q21b.o \
 hal/utils/src/utils_ringbuffer.o \
 hal/src/hal_gpio.o \
+hpl/hsmci/hpl_hsmci.o \
 hal/utils/src/utils_event.o \
 hal/src/hal_sleep.o \
 hpl/pmc/hpl_sleep.o \
@@ -91,16 +99,19 @@ stdio_redirect/gcc/write.o
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o" \
-"thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_1.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o" \
+"thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.o" \
 "stdio_redirect/stdio_io.o" \
 "hpl/xdmac/hpl_xdmac.o" \
+"sd_mmc_start.o" \
+"hpl/usart/hpl_usart.o" \
 "hpl/uart/hpl_uart.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/stream_buffer.o" \
 "hal/utils/src/utils_syscalls.o" \
 "stdio_redirect/gcc/read.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.o" \
+"hal/src/hal_mci_sync.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.o" \
 "hal/src/hal_delay.o" \
@@ -115,12 +126,14 @@ OBJS_AS_ARGS +=  \
 "hal/src/hal_init.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.o" \
 "rtos_start.o" \
+"sd_mmc/sd_mmc.o" \
 "examples/driver_examples.o" \
 "led_flasher_main.o" \
 "driver_init.o" \
 "same70b/gcc/system_same70q21b.o" \
 "hal/utils/src/utils_ringbuffer.o" \
 "hal/src/hal_gpio.o" \
+"hpl/hsmci/hpl_hsmci.o" \
 "hal/utils/src/utils_event.o" \
 "hal/src/hal_sleep.o" \
 "hpl/pmc/hpl_sleep.o" \
@@ -137,9 +150,11 @@ DIR_INCLUDES +=  \
 -I"../hal/include" \
 -I"../hal/utils/include" \
 -I"../hpl/core" \
+-I"../hpl/hsmci" \
 -I"../hpl/pio" \
 -I"../hpl/pmc" \
 -I"../hpl/uart" \
+-I"../hpl/usart" \
 -I"../hpl/xdmac" \
 -I"../hri" \
 -I"../" \
@@ -153,6 +168,9 @@ DIR_INCLUDES +=  \
 -I"../config" \
 -I"../stdio_redirect" \
 -I"../" \
+-I"../config" \
+-I"../sd_mmc" \
+-I"../" \
 -I"../CMSIS/Core/Include" \
 -I"../same70b/include"
 
@@ -163,14 +181,17 @@ DEPS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.d" \
 "stdio_redirect/stdio_io.d" \
-"hal/src/hal_gpio.d" \
+"hal/utils/src/utils_event.d" \
 "hal/src/hal_io.d" \
-"thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_1.d" \
 "hpl/uart/hpl_uart.d" \
+"hpl/usart/hpl_usart.d" \
 "hal/utils/src/utils_syscalls.d" \
+"sd_mmc_start.d" \
 "hpl/xdmac/hpl_xdmac.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.d" \
+"sd_mmc/sd_mmc.d" \
+"hal/src/hal_mci_sync.d" \
 "same70b/gcc/gcc/startup_same70q21b.d" \
 "hal/utils/src/utils_list.d" \
 "stdio_redirect/gcc/write.d" \
@@ -190,10 +211,12 @@ DEPS_AS_ARGS +=  \
 "examples/driver_examples.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.d" \
+"hpl/hsmci/hpl_hsmci.d" \
 "hal/src/hal_sleep.d" \
 "hal/utils/src/utils_ringbuffer.d" \
 "same70b/gcc/system_same70q21b.d" \
-"hal/utils/src/utils_event.d" \
+"thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.d" \
+"hal/src/hal_gpio.d" \
 "atmel_start.d" \
 "hal/src/hal_atomic.d" \
 "hpl/core/hpl_core_m7_base.d" \

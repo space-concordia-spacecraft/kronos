@@ -28,6 +28,7 @@ namespace kronos {
         ks_error_file_remove,
         ks_error_file_open,
         ks_error_file_close,
+        ks_error_file_not_open,
 
         // Scheduler related errors
         ks_error_scheduler_rate_exists,

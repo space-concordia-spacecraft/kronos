@@ -1,5 +1,4 @@
 #include "FreeRTOS.h"
-#include "ks_queue.h"
 
 #define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
 

@@ -41,19 +41,27 @@ namespace kronos {
 
     class File {
     public:
-        explicit File() = default;
+        File() = default;
+        File(std::string path, uint32_t flags = KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_APPEND);
         ~File();
+
+        bool IsOpen() const;
 
         KsResultType Sync() const;
         int32_t Write(const void* buffer, uint32_t length) const;
         int32_t Read(void* buffer, uint32_t length) const;
-        KsResultType Remove(const std::string& name);
-        KsResultType Open(const std::string& name);
+        static KsResultType Remove(const std::string& name);
+        KsResultType Open(
+            const std::string& name,
+            uint32_t flags = KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_APPEND
+        );
         KsResultType Close() const;
+
+        operator bool() const;
 
     private:
         /// The file descriptor used to interface with the Reliance Edge API.
         int32_t m_FileId{};
-
+        std::string m_FilePath{};
     };
 }

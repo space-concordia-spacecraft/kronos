@@ -17,6 +17,9 @@ namespace kronos {
         ks_event_health_ping,
         ks_event_health_pong,
 
+        // Parameter DB Save
+        ks_event_save_param,
+
         // Invalid Event
         ks_event_invalid = UINT16_MAX, // TODO: Switch this to some sort of macro (probably provided by asf or something)
     };

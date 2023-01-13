@@ -1,14 +1,10 @@
 #pragma once
 
+// ASF
+#include "atmel_start.h"
+
 // Kronos
 #include "kronos.h"
-
-// ASF
-#ifdef KS_ASF_DRIVERS
-#include "driver_init.h"
-#include "stdio_start.h"
-#endif
-#define KS_DEFAULT_TIMER_INTERVAL 100
 
 namespace kronos {
     //! \class Framework
@@ -20,13 +16,13 @@ namespace kronos {
         //! \brief Convenience method for static calls. See _CreateComponent().
         template<class T, typename... Args>
         static inline T* CreateComponent(const std::string& name, Args&& ... args) {
-            return s_instance->template _CreateComponent<T, Args...>(name, std::forward<Args...>(args)...);
+            return s_Instance->template _CreateComponent<T, Args...>(name, std::forward<Args...>(args)...);
         }
 
         //! \brief Convenience method for static calls. See _CreateBus().
         template<class T, typename... Args>
         static inline T* CreateBus(const std::string& name, Args&& ... args) {
-            return s_instance->_CreateBus<T, Args...>(name, std::forward<Args...>(args)...);
+            return s_Instance->_CreateBus<T, Args...>(name, std::forward<Args...>(args)...);
         }
 
         //! \brief Convenience method for static calls. See _Run().
@@ -37,7 +33,7 @@ namespace kronos {
         Framework();
 
         //! \brief Destructor that deletes the instance to the Framework Singleton
-        ~Framework();
+        ~Framework() = default;
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS scheduler

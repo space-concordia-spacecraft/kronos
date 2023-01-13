@@ -1,14 +1,18 @@
 #pragma once
 
 #include "kronos.h"
-#include "macros.h"
+#include "ks_macros.h"
 #include "timers.h"
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
 
 #define KS_DEFAULT_TIMER_INTERVAL 50
 
 namespace kronos {
     struct SchedulerRateBus {
-        BusAsync* bus{};
+        BusBase* bus=nullptr;
         uint32_t tickCount = 0;
     };
 
@@ -16,22 +20,23 @@ namespace kronos {
     KS_SINGLETON(Scheduler);
     public:
         Scheduler();
-        ~Scheduler() = default;
+        ~Scheduler();
 
         KS_SINGLETON_EXPOSE_METHOD(_RegisterComponent, KsResultType RegisterComponent(ComponentBase* component, uint32_t rate), component, rate);
-        KS_SINGLETON_EXPOSE_METHOD(_RegisterBus, KsResultType RegisterBus(BusAsync* bus, uint32_t rate), bus, rate);
-        KS_SINGLETON_EXPOSE_METHOD(_Destroy, void Destroy());
-        KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
+        KS_SINGLETON_EXPOSE_METHOD(_RegisterBus, KsResultType RegisterBus(BusBase* bus, uint32_t rate), bus, rate);
     private:
+        TaskHandle_t m_Task = nullptr;
+        std::shared_ptr<Queue<char>> m_Queue;
+
         std::unordered_map<uint32_t, SchedulerRateBus> m_ScheduledBusses;
         TimerHandle_t m_Timer;
-        BusAsync m_BusTick;
+        std::unique_ptr<BusBase> m_BusTick;
 
         KsResultType _RegisterComponent(ComponentBase* component, uint32_t rate);
-        KsResultType _RegisterBus(BusAsync* bus, uint32_t rate);
+        KsResultType _RegisterBus(BusBase* bus, uint32_t rate);
         static void TickStub(TimerHandle_t timerHandle);
         void Tick();
-        void _Start();
-        void _Destroy();
+        static void Start(void* data);
+        void Run();
     };
 }

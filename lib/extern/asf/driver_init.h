@@ -21,25 +21,31 @@ extern "C" {
 #include <hal_io.h>
 #include <hal_sleep.h>
 
-#include <hal_usart_sync.h>
-#include <hpl_uart_base.h>
+#include <hal_mci_sync.h>
 
 #include <hal_usart_sync.h>
 #include <hpl_uart_base.h>
 
-extern struct usart_sync_descriptor TARGET_IO;
+#include <hal_usart_sync.h>
+
+extern struct mci_sync_desc MCI_0;
 
 extern struct usart_sync_descriptor USART_0;
 
-void TARGET_IO_PORT_init(void);
-void TARGET_IO_CLOCK_init(void);
-void TARGET_IO_init(void);
-void TARGET_IO_example(void);
+extern struct usart_sync_descriptor TARGET_IO;
+
+void MCI_0_PORT_init(void);
+void MCI_0_CLOCK_init(void);
+void MCI_0_init(void);
 
 void USART_0_PORT_init(void);
 void USART_0_CLOCK_init(void);
 void USART_0_init(void);
 void USART_0_example(void);
+
+void TARGET_IO_PORT_init(void);
+void TARGET_IO_CLOCK_init(void);
+void TARGET_IO_init(void);
 
 /**
  * \brief Perform system initialization, initialize pins and clocks for

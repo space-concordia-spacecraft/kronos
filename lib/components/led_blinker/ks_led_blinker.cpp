@@ -3,7 +3,10 @@
 namespace kronos {
 
     ComponentLedBlink::ComponentLedBlink(const std::string& name)
-        : ComponentPassive(name) {}
+        : ComponentPassive(name) {
+        if(!ParameterDatabase::GetParam("LED", &m_Toggles))
+            ParameterDatabase::SetParam("LED", 0);
+    }
 
     KsCmdResult ComponentLedBlink::ProcessEvent(const EventMessage& message) {
         switch(message.eventCode) {
@@ -15,7 +18,10 @@ namespace kronos {
     }
 
     void ComponentLedBlink::ToggleLed() {
+        Logger::Debug("Toggling LED %u", m_Toggles ++);
         Gpio::Toggle(LED0);
+
+        ParameterDatabase::SetParam("LED", m_Toggles);
     }
 
 }

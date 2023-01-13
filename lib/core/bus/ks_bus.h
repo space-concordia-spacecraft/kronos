@@ -37,6 +37,8 @@ namespace kronos {
         //! \return the name of the bus
         std::string GetName();
 
+        KsEventCodeType GetEventCode();
+
     protected:
         //! Event code that gets sent to all subscribed components
         KsEventCodeType m_EventCode;

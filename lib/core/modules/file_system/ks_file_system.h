@@ -1,10 +1,13 @@
 #pragma once
 
 #include "ks_error_codes.h"
-#include "macros.h"
+#include "ks_macros.h"
+#include "ks_assert.h"
 #include "redposix.h"
 
-#define KS_FILESYSTEM_VOLUME "/"
+#include "ks_logger.h"
+
+#define KS_FILESYSTEM_VOLUME ""
 
 namespace kronos {
     class FileSystem {
@@ -14,13 +17,13 @@ namespace kronos {
         FileSystem();
         ~FileSystem() = default;
 
-        KS_SINGLETON_EXPOSE_METHOD(_Mount, KsResultType Mount());
-        KS_SINGLETON_EXPOSE_METHOD(_Format, KsResultType Format());
         KS_SINGLETON_EXPOSE_METHOD(_Sync, KsResultType Sync());
 
     private:
-        KsResultType _Mount();
-        KsResultType _Format();
+        KsResultType Mount();
+        KsResultType Format();
         KsResultType _Sync();
+
+        std::string m_Volume;
     };
 }

@@ -355,11 +355,6 @@ typedef void (*FUNC_PTR)(void);
  */
 #define min(x, y) ((x) > (y) ? (y) : (x))
 
-/**
- * \brief Get the maximum of x and y
- */
-#define max(x, y) ((x) > (y) ? (x) : (y))
-
 /**@}*/
 
 #ifdef __cplusplus

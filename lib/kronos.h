@@ -33,7 +33,7 @@
 #include "ks_health_monitor.h"
 
 // Macros
-#include "macros.h"
+#include "ks_macros.h"
 
 // Standard Library
 #include <string>

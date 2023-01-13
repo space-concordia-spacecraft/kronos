@@ -44,7 +44,7 @@ namespace kronos {
         //! \brief initializes the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResultType Init() = 0;
+        virtual KsResultType Initialize() = 0;
 
         //! \brief destroys the component
         //!

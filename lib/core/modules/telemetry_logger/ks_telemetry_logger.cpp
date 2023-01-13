@@ -33,10 +33,6 @@ namespace kronos {
         uint32_t rate,
         const std::vector<TelemetryChannel>& channels
     ) {
-        // Initialize the file for logging this telemetry group.
-        File file;
-        file.Open("/" + name + ".txt");
-
         // Generate the headers for the file.
         std::vector<ApolloHeader> headers;
         for (const auto& channel: channels) {
@@ -48,13 +44,15 @@ namespace kronos {
             );
         }
 
+        auto apolloExporter = ApolloExporter("/" + name + ".txt", headers);
+
         // Initialize rate group.
         m_TelemetryRateGroups.push_back(
             {
                 .name = name,
                 .tickRate = rate,
                 .channels = channels,
-                .apolloExporter = ApolloExporter(&file, headers)
+                .apolloExporter = apolloExporter
             }
         );
 

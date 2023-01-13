@@ -2,6 +2,7 @@
 #include "ks_gpio.h"
 
 #include "ks_logger.h"
+#include "ks_parameter_database.h"
 
 #include "driver_init.h"
 
@@ -12,8 +13,9 @@ namespace kronos {
         explicit ComponentLedBlink(const std::string& name);
 
     private:
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        uint32_t m_Toggles=0;
 
+        KsCmdResult ProcessEvent(const EventMessage& message) override;
         void ToggleLed();
     };
 

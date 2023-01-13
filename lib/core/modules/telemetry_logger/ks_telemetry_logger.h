@@ -2,7 +2,7 @@
 
 #include "ks_component_active.h"
 #include "ks_apollo_format.h"
-#include "macros.h"
+#include "ks_macros.h"
 
 namespace kronos {
 

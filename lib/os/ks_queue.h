@@ -52,6 +52,8 @@ namespace kronos {
         //! \brief Function to find the amount of spaces remaining.
         //! \return Amount of free blocks remaining in the Queue.
         [[nodiscard]] virtual size_t Size() const = 0;
+
+        static std::shared_ptr<Queue<T>> Create();
     };
 }
 
@@ -64,13 +66,12 @@ namespace kronos {
 namespace kronos {
     //! \brief
     template<typename T>
-    std::shared_ptr<Queue<T>> CreateQueue(){
-#ifdef KS_FREERTOS_API_QUEUE
+    std::shared_ptr<Queue<T>> Queue<T>::Create(){
+#ifdef KS_FREERTOS_API
         return std::make_shared<QueueFreeRTOS<T>>();
-#elif defined(KS_WINDOWS_API_QUEUE)
+#elif defined(KS_WINDOWS_API)
         return std::make_shared<QueueWindows<T>>();
 #endif
-
         return nullptr;
     }
 }
