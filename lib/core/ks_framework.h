@@ -62,7 +62,7 @@ namespace kronos {
             auto ptr = new T(std::forward<Args>(args)...);
             const String& name = ptr->GetName();
 
-            if (m_Modules.contains(id)) {
+            if (_HasModule<T>()) {
                 Logger::Warn("Module '{}' already added. Ignoring subsequent addition.", name);
                 delete ptr;
                 return;
