@@ -12,12 +12,13 @@ namespace kronos {
     //!
     //! This class implements all the base functions used in both Async and Sync buses.
     class BusBase {
+
     public:
         //! \brief Constructor to create a new bus
         //!
         //! \param opcode the opcode the bus uses to publish
         //! \param name the name of the bus
-        BusBase(std::string name, KsEventCodeType opcode);
+        BusBase(String name, KsEventCodeType opcode);
 
         //! \brief Virtual destructor to be invoked for proper destruction of child classes.
         virtual ~BusBase() = default;
@@ -35,16 +36,20 @@ namespace kronos {
         //! \brief Getter for the name of the bus
         //!
         //! \return the name of the bus
-        std::string GetName();
+        const String& GetName() const;
 
-        KsEventCodeType GetEventCode();
+        //! \brief Getter for the event code of the bus
+        //!
+        //! \return the event code of the bus
+        KsEventCodeType GetEventCode() const;
 
     protected:
         //! Event code that gets sent to all subscribed components
         KsEventCodeType m_EventCode;
 
         //! Name of the bus
-        std::string m_Name;
+        String m_Name;
+
     };
 
     //! \class BusSync
@@ -52,9 +57,10 @@ namespace kronos {
     //!
     //! This class implements synchronous buses. These are able to return values
     class BusSync : public BusBase {
+
     public:
         //! @copydoc
-        BusSync(std::string name, KsEventCodeType opcode);
+        BusSync(String name, KsEventCodeType opcode);
 
         //! @copydoc
         void AddReceivingComponent(ComponentBase* component) override;
@@ -108,13 +114,14 @@ namespace kronos {
         }
 
     private:
-        //!
         ComponentBase* m_ReceivingComponent = nullptr;
+
     };
 
     class BusAsync : public BusBase {
+
     public:
-        BusAsync(std::string name, KsEventCodeType opcode);
+        BusAsync(String name, KsEventCodeType opcode);
 
         void AddReceivingComponent(ComponentBase* component) override;
 
@@ -145,6 +152,7 @@ namespace kronos {
 
     private:
         std::vector<ComponentBase*> m_ReceivingComponents;
+
     };
 
 }

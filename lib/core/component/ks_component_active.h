@@ -37,8 +37,10 @@ namespace kronos {
         //! \param stackSize The number of words (not bytes!) to allocate for use as the task's stack
         //! \param priority the priority at which the created task will execute
         explicit ComponentActive(
-            const std::string& name, size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL,
-            uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
+            const String& name,
+            size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL,
+            uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM
+        );
 
         //! @copydoc
         KsResultType Init() override;

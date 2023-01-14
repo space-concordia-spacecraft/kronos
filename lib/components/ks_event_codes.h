@@ -10,8 +10,8 @@ namespace kronos {
         // Event to empty queue for all Queued Components.
         ks_event_empty_queue,
 
-        // Tick event for all Active Components
-        ks_event_timer_tick,
+        // Tick event for scheduled components
+        ks_event_scheduler_tick,
 
         // Health Monitor
         ks_event_health_ping,

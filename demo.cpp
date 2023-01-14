@@ -1,5 +1,7 @@
 #include "kronos.h"
 
+#include "ks_sched_module.h"
+#include "ks_scheduler.h"
 #include "ks_led_blinker.h"
 
 using namespace kronos;
@@ -7,18 +9,17 @@ using namespace kronos;
 int main() {
     // Initialize Framework
     Framework::CreateInstance();
+    Framework::AddModule<HealthModule>();
+    Framework::AddModule<FsModule>();
+    Framework::AddModule<ParamsModule>();
+    Framework::AddModule<LogModule>();
+    Framework::AddModule<SchedModule>();
 
     // REGISTER COMPONENTS HERE
     auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");
-    auto* ledBus = Framework::CreateBus<BusAsync>("BA_LED", ks_event_timer_tick);
-    auto* saveParameterBus = Framework::CreateBus<BusAsync>("BA_SAVE", ks_event_save_param);
 
     // ATTACH TO MAIN LOOP
-    Scheduler::RegisterBus(ledBus, 50);
-    Scheduler::RegisterBus(saveParameterBus, 100);
-
-    Scheduler::RegisterComponent(ledBlinker,50);
-    Scheduler::RegisterComponent(&ParameterDatabase::GetInstance(), 100);
+    Scheduler::RegisterComponent(ledBlinker, 50);
 
     // RUN FRAMEWORK
     Framework::Run();

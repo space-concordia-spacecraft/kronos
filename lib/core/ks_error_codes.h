@@ -1,10 +1,5 @@
 #pragma once
 
-#include "ks_types.h"
-
-#include <cstdint>
-#include <climits>
-
 namespace kronos {
     enum KsResult : KsResultType {
         __ks_error_start = INT32_MIN,

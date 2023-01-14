@@ -1,10 +1,5 @@
-// FreeRTOS
-#include "FreeRTOS.h"
-#include "task.h"
-#include "semphr.h"
-
-// OS dependent types
-#include "ks_queue.h"
+// Base Types
+#include "ks_types.h"
 
 // Component Base Classes
 #include "ks_component_base.h"
@@ -13,30 +8,19 @@
 #include "ks_component_active.h"
 
 // Framework
-#include "ks_error_codes.h"
-#include "ks_event_codes.h"
-#include "ks_types.h"
 #include "ks_bus.h"
 #include "ks_framework.h"
 
 // Core Modules
-#include "ks_logger.h"
-#include "ks_file_system.h"
-#include "ks_parameter_database.h"
-#include "ks_telemetry_logger.h"
-#include "ks_scheduler.h"
+// TODO
+#include "ks_module.h"
+#include "ks_health_module.h"
+#include "ks_fs_module.h"
+#include "ks_log_module.h"
+#include "ks_params_module.h"
 
-// Events
-#include "ks_event_codes.h"
-
-// Components
+// Core Components
 #include "ks_health_monitor.h"
-
-// Macros
-#include "ks_macros.h"
-
-// Standard Library
-#include <string>
-#include <algorithm>
-#include <vector>
-#include <unordered_map>
+#include "ks_file_system.h"
+#include "ks_logger.h"
+#include "ks_parameter_database.h"

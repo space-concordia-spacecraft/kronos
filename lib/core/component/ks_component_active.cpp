@@ -3,7 +3,7 @@
 
 namespace kronos {
 
-    ComponentActive::ComponentActive(const std::string& name, size_t stackSize, uint16_t priority)
+    ComponentActive::ComponentActive(const String& name, size_t stackSize, uint16_t priority)
         : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
 
     void ComponentActive::Start(void* data) {

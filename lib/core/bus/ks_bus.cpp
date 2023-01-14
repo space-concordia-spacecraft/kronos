@@ -4,20 +4,20 @@ namespace kronos {
 
     // ==================== Base Bus ====================
 
-    BusBase::BusBase(std::string name, KsEventCodeType eventCode)
+    BusBase::BusBase(String name, KsEventCodeType eventCode)
         : m_EventCode(eventCode), m_Name(std::move(name)) {}
 
-    std::string BusBase::GetName() {
+    const String& BusBase::GetName() const {
         return m_Name;
     }
 
-    KsEventCodeType  BusBase::GetEventCode() {
+    KsEventCodeType BusBase::GetEventCode() const {
         return m_EventCode;
     }
 
     // ==================== Synchronous Bus ====================
 
-    BusSync::BusSync(std::string name, KsEventCodeType eventCode)
+    BusSync::BusSync(String name, KsEventCodeType eventCode)
         : BusBase(std::move(name), eventCode) {}
 
     void BusSync::AddReceivingComponent(ComponentBase* component) {
@@ -45,7 +45,7 @@ namespace kronos {
 
     // ==================== Asynchronous Bus ====================
 
-    BusAsync::BusAsync(std::string name, KsEventCodeType opcode)
+    BusAsync::BusAsync(String name, KsEventCodeType opcode)
         : BusBase(std::move(name), opcode) {}
 
     void BusAsync::AddReceivingComponent(ComponentBase* component) {

@@ -5,12 +5,6 @@
 
 #pragma once
 
-#include "ks_error_codes.h"
-#include "ks_event_codes.h"
-#include "ks_types.h"
-
-#include <string>
-
 namespace kronos {
 
     class BusBase;
@@ -39,7 +33,10 @@ namespace kronos {
         //! \brief Creates a new base component
         //!
         //! \param name the name of the component
-        explicit ComponentBase(const std::string& name);
+        explicit ComponentBase(String name);
+
+        //! \brief Virtual destructor
+        virtual ~ComponentBase() = default;
 
         //! \brief initializes the component
         //!
@@ -65,11 +62,11 @@ namespace kronos {
 
         //! \brief gets the name of the component
         //! \return
-        std::string GetName();
+        const String& GetName();
 
     protected:
         //! The name of the component
-        const std::string m_Name;
+        const String m_Name;
     };
 
 }

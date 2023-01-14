@@ -1,21 +1,54 @@
 #pragma once
 
+// Config
 #include "ks_config.h"
 
+// Standard Library
+#include <cstdint>
+#include <climits>
+
+typedef int32_t KsResultType;
+typedef uint32_t KsTickType;
+typedef size_t KsIdType;
+
+#include <memory>
+#include <algorithm>
+#include <variant>
+#include <type_traits>
+#include <numeric>
+#include <typeinfo>
+
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <array>
+#include <vector>
+#include <unordered_map>
+#include <unordered_set>
+#include <regex>
+
+#include "fmt/format.h"
+
+// KRONOS TYPES AND MACROS
+#include "ks_macros.h"
+#include "ks_error_codes.h"
+#include "ks_event_codes.h"
 
 // API TYPES
 #ifdef KS_FREERTOS_API
 
 #include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "timers.h"
 
-typedef BaseType_t KsResultType;
-typedef TickType_t KsTickType;
 #endif
 
 // DRIVER TYPES
 #ifdef KS_ASF_DRIVERS
 
 #include "hal_gpio.h"
+#include "hpl_gpio.h"
 
 typedef gpio_pull_mode KsGpioPullMode;
 typedef gpio_direction KsGpioDirection;
@@ -30,3 +63,36 @@ typedef void* KsCmdResult;
 typedef uint16_t KsOpcode;
 
 #define KS_CMDRESULT_NORETURN ((KsCmdResult) nullptr)
+
+namespace kronos {
+    // STD Pointers
+    template<typename T>
+    using Ref = std::shared_ptr<T>;
+    template<typename T>
+    using Scope = std::unique_ptr<T>;
+
+    // STD Containers
+    using String = std::string;
+    template<typename T>
+    using List = std::vector<T>;
+    template<typename K, typename V>
+    using Map = std::unordered_map<K, V>;
+    template<typename T>
+    using Function = std::function<T>;
+
+    template<typename T, typename ... Args>
+    Ref<T> CreateRef(Args&& ... args) {
+        return std::make_shared<T, Args...>(std::forward<Args>(args)...);
+    }
+
+    template<typename T, typename ... Args>
+    Scope<T> CreateScope(Args&& ... args) {
+        return std::make_unique<T, Args...>(std::forward<Args>(args)...);
+    }
+
+    template<typename T>
+    KsIdType ClassID() {
+        return typeid(T).hash_code();
+    }
+
+}

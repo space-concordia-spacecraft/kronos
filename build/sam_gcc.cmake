@@ -1,8 +1,5 @@
 include(CMakeForceCompiler)
 
-#set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-#set(CMAKE_VERBOSE_MAKEFILE ON)
-
 # ARM GCC Toolchain Configuration
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
@@ -98,10 +95,9 @@ function(set_compile_flags SRC_FILE)
 
     # Set language to C++
     if (${SRC_EXT} IN_LIST CMAKE_CXX_SOURCE_FILE_EXTENSIONS)
-        set_source_files_properties(${SRC_FILE} PROPERTIES COMPILE_FLAGS "-fno-rtti")
+        set_source_files_properties(${SRC_FILE} PROPERTIES COMPILE_FLAGS "-frtti")
         return()
     endif ()
-
 endfunction(set_compile_flags)
 
 
@@ -122,7 +118,6 @@ function(add_sam_executable EXECUTABLE_NAME)
     else ()
         foreach (src_file ${additional_source_files})
             message(STATUS "Including source: ${src_file}")
-            set_compile_flags(${src_file} SRC_LANG)
         endforeach ()
     endif ()
     message("")
@@ -143,7 +138,7 @@ function(add_sam_executable EXECUTABLE_NAME)
     set_target_properties(
             ${EXECUTABLE_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
+            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=${ARM_CPU} -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
             LINK_FLAGS "-mthumb -g3 -Wl,-Map=\"${EXECUTABLE_NAME}.map\" -Wl,--start-group -lm  -Wl,--end-group -Wl,--gc-sections -mcpu=${ARM_CPU} -Wl,--entry=Reset_Handler -Wl,--cref -T \"${CMAKE_SOURCE_DIR}/lib/extern/asf/${SAM_ARCH}/gcc/gcc/${SAM_MCU}_flash.ld\""
     )
 
@@ -197,7 +192,6 @@ function(add_sam_library LIBRARY_NAME)
     else ()
         foreach (src_file ${additional_source_files})
             message(STATUS "Including source: ${src_file}")
-            set_compile_flags(${src_file} SRC_LANG)
         endforeach ()
     endif ()
     message("")
@@ -210,7 +204,7 @@ function(add_sam_library LIBRARY_NAME)
     set_target_properties(
             ${LIBRARY_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -Wall -Wextra -Wno-expansion-to-defined -Wno-unused-parameter -mcpu=${ARM_CPU} -c --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
+            COMPILE_FLAGS "-mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -Wall -Wextra -mcpu=${ARM_CPU} -c --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     )
 

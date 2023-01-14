@@ -20,7 +20,7 @@ namespace kronos {
         //! \brief Creates a new passive component
         //!
         //! \param name the name of the component
-        explicit ComponentPassive(const std::string& name);
+        explicit ComponentPassive(const String& name);
 
         /// @copydoc
         KsResultType Init() override;
