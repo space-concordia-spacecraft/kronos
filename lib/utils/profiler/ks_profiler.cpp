@@ -25,7 +25,7 @@ namespace kronos {
             TaskStatus_t currentTaskDetails;
             vTaskGetInfo(currentTask, &currentTaskDetails, pdFALSE, eRunning);
 
-            Framework::LogDebug(functionName + " in " + location);
+            Logger::Debug(functionName + " in " + location);
             // TODO: Store in a file. (currentTaskDetails, longestProfile)
         }
 

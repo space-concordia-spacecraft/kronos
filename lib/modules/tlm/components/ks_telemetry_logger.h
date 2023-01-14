@@ -36,7 +36,7 @@ namespace kronos {
     KS_SINGLETON(TelemetryLogger);
     public:
         TelemetryLogger() = default;
-        ~TelemetryLogger();
+        ~TelemetryLogger() = default;
 
         KS_SINGLETON_EXPOSE_METHOD(_Update, void Update());
         KS_SINGLETON_EXPOSE_METHOD(_AddTelemetryGroup, KsResult AddTelemetryGroup(

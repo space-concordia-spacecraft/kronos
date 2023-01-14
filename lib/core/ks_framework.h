@@ -3,6 +3,9 @@
 // Kronos
 #include "kronos.h"
 
+// Atmel Start
+#include "atmel_start.h"
+
 namespace kronos {
 
     //! \class Framework
@@ -39,15 +42,18 @@ namespace kronos {
         //! \brief Convenience method for static calls. See _HasModule().
         template<typename T>
         static inline bool HasModule() {
-            return s_Instance->template _HasModule<T>();
+            return s_Instance->_HasModule<T>();
         }
 
-        //! \brief Convenience method for static calls. See _Run().
-        KS_SINGLETON_EXPOSE_METHOD(_Run, void Run());
+        //! \brief Convenience method for static calls. See _Start().
+        KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
+
+        //! \brief Convenience method for static calls. See _AddDefaultModules().
+        KS_SINGLETON_EXPOSE_METHOD(_AddDefaultModules, void AddDefaultModules());
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS sched
-        void _Run();
+        void _Start();
 
         //! \brief Initializes and adds a module to the framework.
         //!
@@ -58,17 +64,14 @@ namespace kronos {
         void _AddModule(Args&& ... args) {
             static_assert(std::is_base_of_v<Module, T>, "T must extend Module!");
 
-            auto id = ClassID<T>();
-            auto ptr = new T(std::forward<Args>(args)...);
-            const String& name = ptr->GetName();
-
             if (_HasModule<T>()) {
-                Logger::Warn("Module '{}' already added. Ignoring subsequent addition.", name);
-                delete ptr;
+                // Module already added
                 return;
             }
 
-            Logger::Info("Initializing module '{}'...", name);
+            // Initializing Module
+            auto id = ClassID<T>();
+            auto ptr = new T(std::forward<Args>(args)...);
             ptr->Init();
             m_Modules[id] = Scope<T>(ptr);
         }
@@ -85,7 +88,7 @@ namespace kronos {
             static_assert(std::is_base_of_v<ComponentBase, T>, "T must extend ComponentBase!");
 
             if (m_Components.contains(name)) {
-                Logger::Warn("Component '{}' already created. Ignoring subsequent creation.", name);
+                // Component already created
                 return nullptr;
             }
 
@@ -94,7 +97,7 @@ namespace kronos {
 
             if constexpr (std::is_base_of_v<ComponentActive, T>) {
                 if (_HasModule<HealthModule>()) {
-                    Logger::Info("Component '{}' detected as ACTIVE. Linking to Health Monitor.", name);
+                    // Component detected as ACTIVE
                     HealthMonitor::GetInstance().RegisterActiveComponent(ref);
                 }
             }
@@ -114,7 +117,7 @@ namespace kronos {
             static_assert(std::is_base_of_v<BusBase, T>, "T must extend BusBase!");
 
             if (m_Busses.contains(name)) {
-                Logger::Warn("Bus '{}' already created. Ignoring subsequent creation.", name);
+                // Bus already created
                 return nullptr;
             }
 
@@ -130,6 +133,8 @@ namespace kronos {
         bool _HasModule() {
             return m_Modules.contains(ClassID<T>());
         }
+
+        void _AddDefaultModules();
 
     private:
         Map <KsIdType, Scope<Module>> m_Modules;

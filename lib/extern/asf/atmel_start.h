@@ -7,8 +7,8 @@ extern "C" {
 
 #include "driver_init.h"
 #include "rtos_start.h"
-#include "stdio_start.h"
 #include "sd_mmc_start.h"
+#include "stdio_start.h"
 
 /**
  * Initializes MCU, drivers and middleware in the project

@@ -19,9 +19,7 @@ namespace kronos {
             m_Parameters[headers[index].name] = data[index];
         }
 
-        // Not required but good practice to close. ApolloImporter will close itself when the class is destroyed.
-        apolloImporter.Close();
-        Logger::Info("Loaded {} parameter(s) from file '{}'.", headers.size(), KS_PARAM_DB_FILENAME);
+        Logger::Info("Loaded %u parameter(s) from file '%s'.", headers.size(), KS_PARAM_DB_FILENAME);
     }
 
     KsCmdResult ParameterDatabase::ProcessEvent(const EventMessage& message) {
@@ -52,10 +50,7 @@ namespace kronos {
         // Writes row of data
         apolloExporter.WriteRow(data);
 
-        // Not necessary, but good practice. ApolloExporter automatically closes the file when it's destroyed
-        apolloExporter.Close();
-
-        Logger::Info("Saved {} parameter(s) in file '{}'.", m_Parameters.size(), KS_PARAM_DB_FILENAME);
+        Logger::Info("Saved %u parameter(s) in file '%s'.", m_Parameters.size(), KS_PARAM_DB_FILENAME);
         return ks_success;
     }
 

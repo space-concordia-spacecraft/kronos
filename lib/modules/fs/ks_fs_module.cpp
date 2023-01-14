@@ -21,5 +21,4 @@ namespace kronos {
             KS_ASSERT(ret == 0, "Unable to mount file system.");
         }
     }
-
 }

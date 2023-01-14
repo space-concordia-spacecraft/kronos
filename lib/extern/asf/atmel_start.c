@@ -6,6 +6,6 @@
 void atmel_start_init(void)
 {
 	system_init();
-	stdio_redirect_init();
 	sd_mmc_stack_init();
+	stdio_redirect_init();
 }

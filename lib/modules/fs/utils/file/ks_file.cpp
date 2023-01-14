@@ -18,13 +18,13 @@ namespace kronos {
 
     KsResultType File::Sync() const {
         if (!IsOpen()) {
-            Logger::Error("File '{}' is not opened. Cannot sync changes to storage device.", m_FilePath);
+            Logger::Error("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_fsync(m_FileId);
         if (ret < 0) {
-            Logger::Error("Unable to sync file '{}' ({}).", m_FilePath, ret);
+            Logger::Error("Unable to sync file '%s' (%d).", m_FilePath.c_str(), ret);
             return ks_error_file_sync;
         }
 
@@ -33,13 +33,13 @@ namespace kronos {
 
     int32_t File::Read(void* buffer, uint32_t length) const {
         if (!IsOpen()) {
-            Logger::Error("File '{}' is not opened. Cannot read requested file.", m_FilePath);
+            Logger::Error("File '%s' is not opened. Cannot read requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_read(m_FileId, buffer, length);
         if (ret < 0) {
-            Logger::Error("Unable to read from file '{}' ({}).", m_FilePath, ret);
+            Logger::Error("Unable to read from file '%s' (%d).", m_FilePath.c_str(), ret);
             return ks_error_file_read;
         }
 
@@ -48,13 +48,13 @@ namespace kronos {
 
     int32_t File::Write(const void* buffer, uint32_t length) const {
         if (!IsOpen()) {
-            Logger::Error("File '{}' is not opened. Cannot write requested file.", m_FilePath);
+            Logger::Error("File '%s' is not opened. Cannot write requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_write(m_FileId, buffer, length);
         if (ret < 0) {
-            Logger::Error("Unable to write to file '{}' ({}).", m_FilePath, ret);
+            Logger::Error("Unable to write to file '%s' (%d).", m_FilePath.c_str(), ret);
             return ks_error_file_write;
         }
 
@@ -69,7 +69,7 @@ namespace kronos {
     KsResultType File::Remove(const String& name) {
         auto ret = red_unlink(name.c_str());
         if (ret < 0) {
-            Logger::Error("Unable to remove file '{}' ({}).", name, ret);
+            Logger::Error("Unable to remove file '%s' (%d).", name.c_str(), ret);
             return ks_error_file_remove;
         }
         return ks_success;
@@ -78,25 +78,26 @@ namespace kronos {
     KsResultType File::Open(const String& name, uint32_t flags) {
         m_FileId = red_open(name.c_str(), flags);
         if (!IsOpen()) {
-            Logger::Error("Unable to open file '{}' ({}).", name, m_FileId);
+            Logger::Error("Unable to open file '%s' (%d).", name.c_str(), m_FileId);
             return ks_error_file_open;
         }
 
         return ks_success;
     }
 
-    KsResultType File::Close() const {
+    KsResultType File::Close() {
         if (!IsOpen()) {
-            Logger::Error("File '{}' is not opened. Cannot close requested file.", m_FilePath);
+            Logger::Error("File '%s' is not opened. Cannot close requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_close(m_FileId);
         if (ret != 0) {
-            Logger::Error("Unable to close file '{}' ({}).", m_FilePath, ret);
+            Logger::Error("Unable to close file '%s' (%d).", m_FilePath.c_str(), ret);
             return ks_error_file_close;
         }
 
+        m_FileId = -1;
         return ks_success;
     }
 

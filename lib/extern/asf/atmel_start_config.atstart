@@ -24,7 +24,7 @@ middlewares:
   FREERTOS_V1000_0:
     user_label: FREERTOS_V1000_0
     configuration:
-      freertos_advanced: false
+      freertos_advanced: true
       freertos_check_for_stack_overflow: true
       freertos_etaskgetstate: true
       freertos_generate_run_time_stats: false
@@ -66,14 +66,6 @@ middlewares:
     functionality: FreeRTOS_v10.0.0
     api: RTOS:FreeRTOSv1000:MemMang_4
     dependencies: {}
-  STDIO_REDIRECT_0:
-    user_label: STDIO_REDIRECT_0
-    configuration: {}
-    definition: Atmel:STDIO_redirect:0.0.1::STDIO_Redirect
-    functionality: STDIO_Redirect
-    api: STDIO:Redirect:IO
-    dependencies:
-      Target IO: TARGET_IO
   SDMMC_ACCESS_0:
     user_label: SDMMC_ACCESS_0
     configuration:
@@ -92,6 +84,14 @@ middlewares:
       IO Bus: MCI_0
       Write Protect 0: WRITE_PROTECT_0
       Card Detect 0: CARD_DETECT_0
+  STDIO_REDIRECT_0:
+    user_label: STDIO_REDIRECT_0
+    configuration: {}
+    definition: Atmel:STDIO_redirect:0.0.1::STDIO_Redirect
+    functionality: STDIO_Redirect
+    api: STDIO:Redirect:IO
+    dependencies:
+      Target IO: TARGET_IO
 drivers:
   MCI_0:
     user_label: MCI_0
@@ -273,6 +273,32 @@ drivers:
           external: false
           external_frequency: 0
         configuration: {}
+  CALENDAR_0:
+    user_label: CALENDAR_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::RTC::driver_config_definition::Calendar::HAL:Driver:Calendar
+    functionality: Calendar
+    api: HAL:Driver:Calendar
+    configuration:
+      rtc_advanced_settings: false
+      rtc_correction: 0
+      rtc_highppm: Lower range ppm correction with accurate correction.
+      rtc_negppm: Positive correction (the divider will be slightly higher than 32768).
+      rtc_out0: No waveform
+      rtc_out1: No waveform
+      rtc_thigh: 31.2ms
+      rtc_tperiod: 1s
+      rtc_waveform_enable: false
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: RTC
+          input: SLCK for Peripheral
+          external: false
+          external_frequency: 0
+        configuration:
+          rtc_clock_source: SLCK for Peripheral
   USART_0:
     user_label: USART_0
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::UART2::driver_config_definition::UART::HAL:Driver:USART.Sync

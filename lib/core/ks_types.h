@@ -6,6 +6,7 @@
 // Standard Library
 #include <cstdint>
 #include <climits>
+#include <cstdarg>
 
 typedef int32_t KsResultType;
 typedef uint32_t KsTickType;
@@ -23,11 +24,10 @@ typedef size_t KsIdType;
 #include <fstream>
 #include <array>
 #include <vector>
+#include <queue>
 #include <unordered_map>
 #include <unordered_set>
 #include <regex>
-
-#include "fmt/format.h"
 
 // KRONOS TYPES AND MACROS
 #include "ks_macros.h"
@@ -79,6 +79,8 @@ namespace kronos {
     using Map = std::unordered_map<K, V>;
     template<typename T>
     using Function = std::function<T>;
+    template<typename T>
+    using PriorityQueue = std::priority_queue<T>;
 
     template<typename T, typename ... Args>
     Ref<T> CreateRef(Args&& ... args) {

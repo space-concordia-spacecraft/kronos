@@ -8,7 +8,6 @@ project(Kronos)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined -Wno-unused-parameter -Wno-unused-function -Wno-volatile")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-expansion-to-defined -Wno-unused-parameter -Wno-unused-function")
 
-add_subdirectory(lib/extern/fmt)
 add_subdirectory(lib)
 add_subdirectory(tests)
 

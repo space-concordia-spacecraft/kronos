@@ -7,10 +7,6 @@ namespace kronos {
         WriteFileHeader(headers);
     }
 
-    ApolloExporter::~ApolloExporter() {
-        Close();
-    }
-
     KsResultType ApolloExporter::WriteFileHeader(const List <ApolloHeader>& headers) {
         uint32_t magicNumber = KS_APOLLO_MAGIC;
         uint32_t version = KS_APOLLO_VERSION_1;
@@ -52,17 +48,9 @@ namespace kronos {
         return ks_success;
     }
 
-    void ApolloExporter::Close() {
-        m_File.Close();
-    }
-
     ApolloImporter::ApolloImporter(const String& path) :
         m_File(path, KS_OPEN_MODE_READ_ONLY) {
         ReadFileHeader();
-    }
-
-    ApolloImporter::~ApolloImporter() {
-        Close();
     }
 
     KsResultType ApolloImporter::ReadFileHeader() {
@@ -115,11 +103,6 @@ namespace kronos {
         m_File.Read(data.data(), size);
 
         return ks_success;
-    }
-
-    void ApolloImporter::Close() {
-        // Make sure to close file
-        m_File.Close();
     }
 
 }

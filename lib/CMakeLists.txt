@@ -185,8 +185,11 @@ set(KRONOS_INCLUDE_DIRS
         "core/macros"
 
         # KRONOS MODULES
+        "modules/clk"
+        "modules/clk/components"
         "modules/cmd"
         "modules/cmd/components"
+        "modules/cmd/utils"
         "modules/fs"
         "modules/fs/components"
         "modules/fs/utils"
@@ -238,6 +241,3 @@ endif ()
 
 # Precompile types
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
-
-# Add fmt
-target_link_libraries(Kronos PUBLIC fmt)

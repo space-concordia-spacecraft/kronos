@@ -15,6 +15,8 @@
 
 struct mci_sync_desc MCI_0;
 
+struct calendar_descriptor CALENDAR_0;
+
 struct usart_sync_descriptor USART_0;
 
 struct usart_sync_descriptor TARGET_IO;
@@ -245,6 +247,16 @@ void MCI_0_init(void)
 	MCI_0_PORT_init();
 }
 
+void CALENDAR_0_CLOCK_init(void)
+{
+}
+
+void CALENDAR_0_init(void)
+{
+	CALENDAR_0_CLOCK_init();
+	calendar_init(&CALENDAR_0, RTC);
+}
+
 void USART_0_PORT_init(void)
 {
 
@@ -339,6 +351,8 @@ void system_init(void)
 	gpio_set_pin_function(CARD_DETECT_0, GPIO_PIN_FUNCTION_OFF);
 
 	MCI_0_init();
+
+	CALENDAR_0_init();
 
 	USART_0_init();
 

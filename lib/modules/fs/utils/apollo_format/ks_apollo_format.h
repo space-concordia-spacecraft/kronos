@@ -37,7 +37,7 @@ namespace kronos {
     class ApolloExporter {
     public:
         ApolloExporter(const String& path, const List <ApolloHeader>& headers);
-        ~ApolloExporter();
+        ~ApolloExporter() = default;
 
         //! \brief Writes a given header list into the file stored in the ApolloExporter object
         //!
@@ -50,9 +50,6 @@ namespace kronos {
         //! \param data Vector of uint32_t data to store into the file
         //! \return KS_SUCCESS if the operation was successful
         KsResultType WriteRow(const List <uint32_t>& data);
-
-        //! \brief Closes the file object provided in the constructor of ApolloExporter
-        void Close();
 
     private:
         //! File pointer to the file object used to store data and headers
@@ -72,7 +69,7 @@ namespace kronos {
         //!
         //! \param file File object that contains data in the Apollo format
         explicit ApolloImporter(const String& path);
-        ~ApolloImporter();
+        ~ApolloImporter() = default;
 
         //! \brief Reads the headers from the file stored in the ApolloImporter
         //!
@@ -84,9 +81,6 @@ namespace kronos {
         //! \param data Vector of uint32_t used to store the data read from the file
         //! \return KS_SUCCESS if the operation was successful
         KsResultType ReadRow(List <uint32_t>& data);
-
-        //! \brief Closes the file stored in the ApolloImporter
-        void Close();
 
         //! \brief Getter for the headers read from the file
         //!

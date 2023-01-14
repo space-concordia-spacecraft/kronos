@@ -11,6 +11,41 @@
 #include "utils.h"
 
 /**
+ * Example of using CALENDAR_0.
+ */
+static struct calendar_alarm alarm;
+
+static void alarm_cb(struct calendar_descriptor *const descr)
+{
+	/* alarm expired */
+}
+
+void CALENDAR_0_example(void)
+{
+	struct calendar_date date;
+	struct calendar_time time;
+
+	calendar_enable(&CALENDAR_0);
+
+	date.year  = 2000;
+	date.month = 12;
+	date.day   = 31;
+
+	time.hour = 12;
+	time.min  = 59;
+	time.sec  = 59;
+
+	calendar_set_date(&CALENDAR_0, &date);
+	calendar_set_time(&CALENDAR_0, &time);
+
+	alarm.cal_alarm.datetime.time.sec = 4;
+	alarm.cal_alarm.option            = CALENDAR_ALARM_MATCH_SEC;
+	alarm.cal_alarm.mode              = REPEAT;
+
+	calendar_set_alarm(&CALENDAR_0, &alarm, alarm_cb);
+}
+
+/**
  * Example of using USART_0 to write "Hello World" using the IO abstraction.
  */
 void USART_0_example(void)

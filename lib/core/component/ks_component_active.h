@@ -49,7 +49,7 @@ namespace kronos {
         KsResultType Destroy() override;
 
         //! Function containing main loop for the event processing thread.
-        [[noreturn]] void Run();
+        [[noreturn]] virtual void Run();
 
         //! @copydoc
         KsCmdResult ProcessEvent(const EventMessage& message) override;

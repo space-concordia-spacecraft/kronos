@@ -64,6 +64,22 @@
  */
 #define CONF_PCK6_FREQUENCY 1714285
 
+// <o> RTC Clock source
+// <0=> SLCK for Peripheral
+// <i> This defines the clock source for the RTC
+// <id> rtc_clock_source
+#ifndef CONF_RTC_SRC
+#define CONF_RTC_SRC 0
+#endif
+
+/**
+ * \def CONF_CLK_RTC_FREQUENCY
+ * \brief RTC's Clock frequency
+ */
+#ifndef CONF_CLK_RTC_FREQUENCY
+#define CONF_CLK_RTC_FREQUENCY 0
+#endif
+
 // <h> UART Clock Settings
 // <o> UART Clock source
 // <0=> Master Clock (MCK)

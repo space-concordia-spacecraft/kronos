@@ -1,6 +1,3 @@
 [submodule "docs/doxygen-awesome-css"]
 	path = docs/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
-[submodule "lib/extern/fmt"]
-	path = lib/extern/fmt
-	url = https://github.com/fmtlib/fmt

@@ -38,6 +38,7 @@ thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7 \
 hal/src \
 hpl/hsmci \
+thirdparty/RTOS/freertos/FreeRTOSV10.0.0 \
 sd_mmc \
 stdio_redirect/gcc \
 hpl/xdmac \
@@ -45,7 +46,7 @@ hal/utils/src \
 same70b/gcc/gcc \
 examples \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source \
-thirdparty/RTOS/freertos/FreeRTOSV10.0.0 \
+hpl/rtc \
 same70b/gcc \
 hpl/core
 
@@ -55,6 +56,7 @@ hal/src/hal_io.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o \
+hal/src/hal_calendar.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.o \
 stdio_redirect/stdio_io.o \
 hpl/xdmac/hpl_xdmac.o \
@@ -81,6 +83,7 @@ hal/src/hal_init.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.o \
 rtos_start.o \
 sd_mmc/sd_mmc.o \
+hpl/rtc/hpl_rtc.o \
 examples/driver_examples.o \
 led_flasher_main.o \
 driver_init.o \
@@ -101,6 +104,7 @@ OBJS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o" \
+"hal/src/hal_calendar.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.o" \
 "stdio_redirect/stdio_io.o" \
 "hpl/xdmac/hpl_xdmac.o" \
@@ -127,6 +131,7 @@ OBJS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.o" \
 "rtos_start.o" \
 "sd_mmc/sd_mmc.o" \
+"hpl/rtc/hpl_rtc.o" \
 "examples/driver_examples.o" \
 "led_flasher_main.o" \
 "driver_init.o" \
@@ -153,6 +158,7 @@ DIR_INCLUDES +=  \
 -I"../hpl/hsmci" \
 -I"../hpl/pio" \
 -I"../hpl/pmc" \
+-I"../hpl/rtc" \
 -I"../hpl/uart" \
 -I"../hpl/usart" \
 -I"../hpl/xdmac" \
@@ -166,10 +172,10 @@ DIR_INCLUDES +=  \
 -I"../thirdparty/RTOS/freertos/FreeRTOSV10.0.0/module_config" \
 -I"../" \
 -I"../config" \
--I"../stdio_redirect" \
+-I"../sd_mmc" \
 -I"../" \
 -I"../config" \
--I"../sd_mmc" \
+-I"../stdio_redirect" \
 -I"../" \
 -I"../CMSIS/Core/Include" \
 -I"../same70b/include"
@@ -180,6 +186,7 @@ DEPS := $(OBJS:%.o=%.d)
 DEPS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.d" \
+"hal/src/hal_calendar.d" \
 "stdio_redirect/stdio_io.d" \
 "hal/utils/src/utils_event.d" \
 "hal/src/hal_io.d" \
@@ -209,6 +216,7 @@ DEPS_AS_ARGS +=  \
 "stdio_redirect/gcc/read.d" \
 "rtos_start.d" \
 "examples/driver_examples.d" \
+"hpl/rtc/hpl_rtc.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.d" \
 "hpl/hsmci/hpl_hsmci.d" \

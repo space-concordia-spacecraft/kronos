@@ -29,8 +29,8 @@ namespace kronos {
     KsResultType HealthMonitor::RegisterActiveComponent(const Ref <ComponentActive>& component) {
         if (m_ActiveComponentInfos.count(component.get())) {
             Logger::Warn(
-                "Component '{}' is already registered in the Health Monitor. Subsequent registration ignored.",
-                component->GetName()
+                "Component '%s' is already registered in the Health Monitor. Subsequent registration ignored.",
+                component->GetName().c_str()
             );
             return ks_error_component_healthmonitor_already_registered;
         }
@@ -50,7 +50,7 @@ namespace kronos {
         for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
             if (time - entry.second.lastResponse >= KS_HEALTH_PING_RATE) {
-                Logger::Error("Component '{}' has not responded.", entry.first->GetName());
+                Logger::Error("Component '%s' has not responded.", entry.first->GetName().c_str());
             }
         }
 
@@ -59,7 +59,7 @@ namespace kronos {
 
     KsResultType HealthMonitor::HandleComponentResponse(ComponentActive* component) {
         m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
-        Logger::Debug("Health response from component '{}'", component->GetName());
+        Logger::Debug("Health response from component '%s'", component->GetName().c_str());
 
         return ks_success;
     }

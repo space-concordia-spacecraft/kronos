@@ -34,8 +34,8 @@ namespace kronos {
     }
 
     KsResultType Scheduler::_RegisterComponent(ComponentBase* component, uint32_t rate) {
-        if (m_ScheduledBusses.contains(rate)) {
-            Logger::Info("No bus for rate {}. Create new asynchronous bus.", rate);
+        if (!m_ScheduledBusses.contains(rate)) {
+            Logger::Info("No bus for rate %u. Create new asynchronous bus.", rate);
             m_ScheduledBusses[rate] = {
                 .bus = CreateScope<BusAsync>("BA_SCHED_" + std::to_string(rate), ks_event_scheduler_tick),
                 .tickCount = 0

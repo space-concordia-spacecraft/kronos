@@ -47,9 +47,9 @@ namespace kronos {
 
         template<typename T>
         bool _GetParam(const String& key, T* value) {
-            static_assert(sizeof(T) == sizeof(uint32_t), "gay");
+            static_assert(sizeof(T) == sizeof(uint32_t), "Type T has to be of size uint32_t.");
             if (!m_Parameters.count(key)) {
-                Logger::Warn("Non existing parameter '{}'.", key);
+                Logger::Warn("Non existing parameter '%s'.", key.c_str());
                 return false;
             }
 
@@ -63,7 +63,7 @@ namespace kronos {
         //! \return KS_SUCCESS if true else otherwise
         template<typename T>
         void _SetParam(const String& key, T newValue) {
-            static_assert(sizeof(T) == sizeof(uint32_t), "gay");
+            static_assert(sizeof(T) == sizeof(uint32_t), "Type T has to be of size uint32_t.");
 
             m_Parameters[key] = *reinterpret_cast<uint32_t*>(&newValue);
         }

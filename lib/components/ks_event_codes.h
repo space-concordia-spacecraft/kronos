@@ -6,6 +6,7 @@
 namespace kronos {
     typedef uint16_t KsEventCodeType;
 
+    // FIXME: Turn this into defines
     enum KsEventCode : KsEventCodeType {
         // Event to empty queue for all Queued Components.
         ks_event_empty_queue,
@@ -20,7 +21,10 @@ namespace kronos {
         // Parameter DB Save
         ks_event_save_param,
 
+        // Command
+        ks_event_command_dispatch,
+
         // Invalid Event
-        ks_event_invalid = UINT16_MAX, // TODO: Switch this to some sort of macro (probably provided by asf or something)
+        ks_event_invalid = UINT16_MAX
     };
 }

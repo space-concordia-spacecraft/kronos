@@ -20,7 +20,7 @@ namespace kronos {
     }
 
     void ComponentLedBlink::ToggleLed() {
-        Logger::Debug("Toggling LED {}", m_Toggles++);
+        Logger::Debug("Toggling LED %u", m_Toggles++);
         Gpio::Toggle(LED0);
 
         ParameterDatabase::SetParam("LED", m_Toggles);

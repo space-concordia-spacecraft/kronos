@@ -4,12 +4,6 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(TelemetryLogger);
 
-    TelemetryLogger::~TelemetryLogger() {
-        for (auto& rateGroup: m_TelemetryRateGroups) {
-            rateGroup.apolloExporter.Close();
-        }
-    }
-
     void TelemetryLogger::_Update() {
         for (auto& rateGroup: m_TelemetryRateGroups) {
             rateGroup.tickCount++;

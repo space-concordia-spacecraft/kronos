@@ -7,10 +7,10 @@ namespace kronos {
         uint16_t CommandId;
         uint32_t SequenceIdNum;
 
-        uint8_t Payload[40];
-        uint32_t PayloadSize;
-
         uint32_t CheckSum;
+
+        uint32_t PayloadSize;
+        uint8_t Payload[40];
     }__attribute__((packed));
 
 }

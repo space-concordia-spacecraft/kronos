@@ -30,6 +30,9 @@ namespace kronos {
 
         /// @copydoc
         KsCmdResult ReceiveEvent(const EventMessage& message) override;
+
+        //!
+        KsCmdResult ProcessEvent(const EventMessage& message) override { return KS_CMDRESULT_NORETURN; };
     };
 
 }
