@@ -30,7 +30,10 @@ namespace kronos {
         }
 
         // Sync file
-        m_File.Sync();
+        auto ret = m_File.Sync();
+        if (ret != ks_success) {
+            return ret;
+        }
 
         return ks_success;
     }
@@ -41,7 +44,10 @@ namespace kronos {
         m_File.Write(data.data(), size);
 
         // Sync file
-        m_File.Sync();
+        auto ret = m_File.Sync();
+        if (ret != ks_success) {
+            return ret;
+        }
 
         return ks_success;
     }

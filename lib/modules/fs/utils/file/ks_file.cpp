@@ -58,7 +58,11 @@ namespace kronos {
             return ks_error_file_write;
         }
 
-        Sync();
+        ret = Sync();
+        if (ret != ks_success) {
+            return ret;
+        }
+
         return ks_success;
     }
 
