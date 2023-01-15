@@ -18,9 +18,13 @@ extern "C" {
 
 void CALENDAR_0_example(void);
 
-void USART_0_example(void);
+void task_i2c_0_create();
 
-void TARGET_IO_example(void);
+void task_usart_0_create();
+
+void task_target_io_create();
+
+void CAN_0_example(void);
 
 #ifdef __cplusplus
 }

@@ -33,7 +33,7 @@ namespace kronos {
         for (auto& component: m_Components) {
             component.second->Init();
             if (HasModule<LogModule>()) {
-                Logger::Info("Initializing component '%s'...", component.second->GetName().c_str());
+                Logger::Info("Initializing component '%s' ...", component.second->GetName().c_str());
             }
         }
     }

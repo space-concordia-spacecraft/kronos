@@ -597,7 +597,7 @@
 // <i> Indicates whether PCK5 is enabled or disable
 // <id> clk_gen_pck5_arch_enable
 #ifndef CONF_CLK_PCK5_ENABLE
-#define CONF_CLK_PCK5_ENABLE 0
+#define CONF_CLK_PCK5_ENABLE 1
 #endif
 
 // </h>

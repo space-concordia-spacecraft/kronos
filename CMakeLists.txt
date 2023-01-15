@@ -9,7 +9,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined -Wno-unused-pa
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-expansion-to-defined -Wno-unused-parameter -Wno-unused-function")
 
 add_subdirectory(lib)
-add_subdirectory(tests)
 
 set(DEMO_SRC demo.cpp)
 add_sam_executable(Kronos_Demo "${DEMO_SRC}")

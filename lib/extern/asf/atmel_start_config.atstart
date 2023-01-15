@@ -183,7 +183,7 @@ drivers:
       clk_gen_pck3_oscillator: Main Clock (MAINCK)
       clk_gen_pck4_arch_enable: false
       clk_gen_pck4_oscillator: Main Clock (MAINCK)
-      clk_gen_pck5_arch_enable: false
+      clk_gen_pck5_arch_enable: true
       clk_gen_pck5_oscillator: Main Clock (MAINCK)
       clk_gen_pck6_arch_enable: false
       clk_gen_pck6_oscillator: Main Clock (MAINCK)
@@ -299,48 +299,105 @@ drivers:
           external_frequency: 0
         configuration:
           rtc_clock_source: SLCK for Peripheral
-  USART_0:
-    user_label: USART_0
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::UART2::driver_config_definition::UART::HAL:Driver:USART.Sync
-    functionality: USART
-    api: HAL:Driver:USART_Sync
+  I2C_0:
+    user_label: I2C_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::TWIHS0::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.RTOS.Beta
+    functionality: I2C
+    api: HAL:Driver:I2C_Master_RTOS_Beta
     configuration:
-      uart_advanced: false
-      uart_baud_rate: 38400
-      uart_channel_mode: Normal Mode
-      uart_parity: No parity
-      uart_receive_filter_enable: false
-      uart_usclks: Peripheral clock is selected
+      i2c_master_advanced: false
+      i2c_master_baud_rate: 100000
+      i2c_master_digital_filter_enable: false
+      i2c_master_filter_threshold: Disabled
+      i2c_master_packet_error_check: false
+      i2c_master_pad_filter_enable: false
+      i2c_master_smbus_clock_prescaler: Divide by 2
+      i2c_master_smbus_enable: false
+      i2c_master_thigh_max: 0
+      i2c_master_tlow_mext: 0
+      i2c_master_tlow_sext: 0
     optional_signals:
-    - identifier: USART_0:URXD/2
-      pad: PD25
+    - identifier: I2C_0:TWCK/0
+      pad: PA4
       mode: Enabled
       configuration: null
-      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::UART2.URXD.2
-      name: UART2/URXD/2
-      label: URXD/2
-    - identifier: USART_0:UTXD/2
-      pad: PD26
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::TWIHS0.TWCK.0
+      name: TWIHS0/TWCK/0
+      label: TWCK/0
+    - identifier: I2C_0:TWD/0
+      pad: PA3
       mode: Enabled
       configuration: null
-      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::UART2.UTXD.2
-      name: UART2/UTXD/2
-      label: UTXD/2
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::TWIHS0.TWD.0
+      name: TWIHS0/TWD/0
+      label: TWD/0
     variant: null
     clocks:
       domain_group:
         nodes:
-        - name: UART
+        - name: TWIHS
           input: Master Clock (MCK)
           external: false
           external_frequency: 0
         configuration:
-          uart_clock_source: Master Clock (MCK)
+          twihs_clock_source: Master Clock (MCK)
+  USART_0:
+    user_label: USART_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::USART0::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
+    functionality: USART
+    api: HAL:Driver:USART_RTOS_Beta
+    configuration:
+      usart_9bits_enable: false
+      usart__inack: The NACK is not generated
+      usart__oversampling_mode: 16 Oversampling
+      usart_advanced: false
+      usart_arch_fractional: 0
+      usart_arch_msbf: LSB is transmitted first
+      usart_baud_rate: 115200
+      usart_channel_mode: Normal Mode
+      usart_character_size: 8 bits
+      usart_clock_output_select: The USART does not drive the SCK pin
+      usart_dsnack: NACK is sent on the ISO line as soon as a parity error occurs
+      usart_invdata: Data isn't inverted, nomal mode
+      usart_manchester_filter_enable: false
+      usart_manchester_synchronization_mode: The Manchester start bit is a 0 to 1
+        transition
+      usart_max_iteration: 0
+      usart_parity: No parity
+      usart_receive_filter_enable: false
+      usart_start_frame_delimiter: Start frame delimiter is COMMAND or DATA SYNC
+      usart_stop_bit: 1 stop bit
+      variable_sync: User defined configuration
+    optional_signals:
+    - identifier: USART_0:RXD/0
+      pad: PB0
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::USART0.RXD.0
+      name: USART0/RXD/0
+      label: RXD/0
+    - identifier: USART_0:TXD/0
+      pad: PB1
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::USART0.TXD.0
+      name: USART0/TXD/0
+      label: TXD/0
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: USART
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          usart_clock_source: Master Clock (MCK)
   TARGET_IO:
     user_label: TARGET_IO
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::USART1::driver_config_definition::UART::HAL:Driver:USART.Sync
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::USART1::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
     functionality: USART
-    api: HAL:Driver:USART_Sync
+    api: HAL:Driver:USART_RTOS_Beta
     configuration:
       usart_9bits_enable: false
       usart__inack: The NACK is not generated
@@ -639,24 +696,99 @@ drivers:
     variant: null
     clocks:
       domain_group: null
+  CAN_0:
+    user_label: CAN_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::MCAN0::driver_config_definition::CAN::HAL:Driver:CAN.Async
+    functionality: CAN
+    api: HAL:Driver:CAN_Async
+    configuration:
+      can_cccr_niso: ISO11898_1
+      can_dbtp_dbrp: 1
+      can_dbtp_dsjw: 4
+      can_dbtp_dtseg1: 10
+      can_dbtp_dtseg2: 4
+      can_dbtp_tdc: false
+      can_gfc_anfe: Reject
+      can_gfc_anfs: Reject
+      can_gfc_rrfe: Reject all remote frames with 29-bit standard IDs
+      can_gfc_rrfs: Reject all remote frames with 11-bit standard IDs
+      can_ie_bo: false
+      can_ie_do: false
+      can_ie_ea: false
+      can_ie_ep: false
+      can_ie_ew: false
+      can_nbtp_nbrp: 3
+      can_nbtp_nsjw: 4
+      can_nbtp_ntseg1: 11
+      can_nbtp_ntseg2: 8
+      can_rxesc_f0ds: 8 byte data field.
+      can_rxf0c_f0om: overwrite mode
+      can_rxf0c_f0s: 6
+      can_rxf0c_f0wm: 0
+      can_sidfc_lss: 2
+      can_tdcr_tdcf: 11
+      can_tdcr_tdco: 11
+      can_txbc_tfqs: 6
+      can_txefc_efs: 2
+      can_txefc_efwm: 0
+      can_txesc_tbds: 8 byte data field.
+      can_xidam_eidm: 0
+      can_xidfc_lss: 2
+    optional_signals:
+    - identifier: CAN_0:CANRX/0
+      pad: PB3
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::MCAN0.CANRX.0
+      name: MCAN0/CANRX/0
+      label: CANRX/0
+    - identifier: CAN_0:CANTX/0
+      pad: PB2
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::MCAN0.CANTX.0
+      name: MCAN0/CANTX/0
+      label: CANTX/0
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: MCAN
+          input: Programmable Clock Controller 5 (PMC_PCK5)
+          external: false
+          external_frequency: 0
+        configuration:
+          mcan_clock_source: Programmable Clock Controller 5 (PMC_PCK5)
 pads:
+  PB1:
+    name: PB1
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PB1
+    mode: Peripheral IO
+    user_label: PB1
+    configuration: null
+  PB0:
+    name: PB0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PB0
+    mode: Peripheral IO
+    user_label: PB0
+    configuration: null
+  PB2:
+    name: PB2
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PB2
+    mode: Peripheral IO
+    user_label: PB2
+    configuration: null
+  PB3:
+    name: PB3
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PB3
+    mode: Peripheral IO
+    user_label: PB3
+    configuration: null
   PA21:
     name: PA21
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA21
     mode: Peripheral IO
     user_label: PA21
-    configuration: null
-  PD25:
-    name: PD25
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD25
-    mode: Peripheral IO
-    user_label: PD25
-    configuration: null
-  PD26:
-    name: PD26
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD26
-    mode: Peripheral IO
-    user_label: PD26
     configuration: null
   PA25:
     name: PA25
@@ -676,6 +808,12 @@ pads:
     mode: Advanced
     user_label: PA27
     configuration: null
+  PA4:
+    name: PA4
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA4
+    mode: Peripheral IO
+    user_label: PA4
+    configuration: null
   LED0:
     name: PC8
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC8
@@ -683,6 +821,12 @@ pads:
     user_label: LED0
     configuration:
       pad_initial_level: High
+  PA3:
+    name: PA3
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA3
+    mode: Peripheral IO
+    user_label: PA3
+    configuration: null
   WRITE_PROTECT_0:
     name: PC11
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC11

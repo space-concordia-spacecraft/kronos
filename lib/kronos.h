@@ -26,4 +26,4 @@
 #include "ks_file_system.h"
 #include "ks_logger.h"
 #include "ks_parameter_database.h"
-#include "ks_scheduler.h"
+#include "modules/sched/components/scheduler/ks_scheduler.h"

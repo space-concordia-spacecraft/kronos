@@ -12,6 +12,8 @@
 #define KS_OPEN_MODE_EXCL RED_O_EXCL                // Throws an error if the file already exists. must be combined with KS_OPEN_MODE_CREATE
 #define KS_OPEN_MODE_TRUNCATE RED_O_TRUNC           // Truncate the opened file to size zero.
 
+#define KS_MAX_ATTEMPTS 3
+
 namespace kronos {
 
     class File {
@@ -45,7 +47,7 @@ namespace kronos {
         //! <b>Error values</b>
         //! - ks_error_file_not_open: If the file is not open.
         //! - ks_error_file_not_sync: If something went wrong when synchronizing. Error thrown by thirdparty.
-        [[nodiscard]] KsResultType Sync() const;
+        [[nodiscard]] KsResultType Sync();
 
         //! \brief Function to write to a file.
         //!
@@ -56,8 +58,8 @@ namespace kronos {
         //! <b>Error values</b>
         //! - ks_error_file_not_open: If the file is not open.
         //! - ks_error_file_write: If something went wrong when writing. Error thrown by thirdparty.
-        int32_t Write(const void* buffer, uint32_t length) const;
-        int32_t Read(void* buffer, uint32_t length) const;
+        int32_t Write(const void* buffer, uint32_t length);
+        int32_t Read(void* buffer, uint32_t length);
         static KsResultType Remove(const String& name);
         KsResultType Open(
             const String& name,
@@ -65,13 +67,13 @@ namespace kronos {
         );
         KsResultType Close();
 
-        operator bool() const;
+        explicit operator bool() const;
 
     private:
         /// The file descriptor used to interface with the Reliance Edge API.
         int32_t m_FileId{};
         String m_FilePath{};
-
+        uint8_t m_OperationAttempts{};
     };
 
 }

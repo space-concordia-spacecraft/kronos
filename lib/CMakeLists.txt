@@ -4,6 +4,8 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
 
+add_subdirectory(extern/kronos-packet)
+
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
 message("ARM_CPU: \t\t\t${ARM_CPU}")
@@ -93,6 +95,7 @@ set(KRONOS_SRC_REL
 
         # KRONOS DRIVERS
         "drivers/asf/ks_gpio.cpp"
+        "drivers/asf/ks_usart.cpp"
 
         # KRONOS COMPONENTS
         "modules/health/components/health_monitor/ks_health_monitor.cpp"
@@ -145,9 +148,9 @@ set(KRONOS_INCLUDE_DIRS
 
         #ASF HPL
         "extern/asf/hpl/core"
+        "extern/asf/hpl/mcan"
         "extern/asf/hpl/pio"
         "extern/asf/hpl/pmc"
-        "extern/asf/hpl/uart"
         "extern/asf/hpl/usart"
 
         # ASF HRI
@@ -188,7 +191,9 @@ set(KRONOS_INCLUDE_DIRS
         "modules/clk"
         "modules/clk/components"
         "modules/cmd"
-        "modules/cmd/components"
+        "modules/cmd/components/command_dispatcher"
+        "modules/cmd/components/command_listener"
+        "modules/cmd/components/command_scheduler"
         "modules/cmd/utils"
         "modules/fs"
         "modules/fs/components"
@@ -204,7 +209,8 @@ set(KRONOS_INCLUDE_DIRS
         "modules/params"
         "modules/params/components"
         "modules/sched"
-        "modules/sched/components"
+        "modules/sched/components/scheduler"
+        "modules/sched/components/worker"
         "modules/tlm"
         "modules/tlm/components"
 
@@ -228,6 +234,7 @@ set(KRONOS_EXTRA_SRC
         "extern/asf/hal/utils/src/utils_syscalls.c"
         "extern/asf/stdio_redirect/gcc/read.c"
         "extern/asf/stdio_redirect/gcc/write.c")
+
 target_sources(Kronos PUBLIC ${KRONOS_EXTRA_SRC})
 
 # Debug definitions
@@ -241,3 +248,6 @@ endif ()
 
 # Precompile types
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
+
+# Links libraries
+target_link_libraries(Kronos PUBLIC KronosPacket)

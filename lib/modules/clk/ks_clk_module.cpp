@@ -7,10 +7,6 @@ namespace kronos {
 
     void ClockModule::Init() const {
         Clock::CreateInstance();
-
-        if(Framework::HasModule<SchedModule>()) {
-            Scheduler::RegisterComponent(&Clock::GetInstance(), 50);
-        }
     }
 
 }

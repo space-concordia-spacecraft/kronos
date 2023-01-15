@@ -24,10 +24,15 @@ namespace kronos {
         ks_error_file_open,
         ks_error_file_close,
         ks_error_file_not_open,
+        ks_error_file_max_attempts,
 
         // Scheduler related errors
         ks_error_scheduler_rate_exists,
         ks_error_scheduler_rate_missing,
+
+        // Comms related errors
+        ks_error_invalid_packet_header,
+        ks_error_invalid_packet,
 
         __ks_error_end,
 

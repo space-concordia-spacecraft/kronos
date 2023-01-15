@@ -13,7 +13,7 @@ namespace kronos {
         uint32_t lastResponse = 0;
     };
 
-    class HealthMonitor : public ComponentQueued {
+    class HealthMonitor : public ComponentPassive {
     KS_SINGLETON(HealthMonitor);
 
     public:

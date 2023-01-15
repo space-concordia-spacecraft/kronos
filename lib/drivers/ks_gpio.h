@@ -1,10 +1,5 @@
 #pragma once
 
-#include <stdint.h>
-#include <ks_error_codes.h>
-
-#include "ks_types.h"
-
 namespace kronos {
     class Gpio {
     public:

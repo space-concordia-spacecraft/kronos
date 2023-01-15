@@ -1,7 +1,7 @@
 #include "ks_command_scheduler.h"
 
 namespace kronos {
-    KsCmdResult ComponentCommandScheduled::ProcessEvent(const EventMessage& message) {
+    KsCmdResult CommandScheduled::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_scheduler_tick:
 
@@ -10,7 +10,7 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    void ComponentCommandScheduled::Run() {
+    void CommandScheduled::Run() {
         while (true) {
             if (!m_ScheduledCommandQueue.empty()) {
                 auto& message = m_ScheduledCommandQueue.top();

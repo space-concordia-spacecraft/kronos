@@ -18,6 +18,6 @@ void STDIO_REDIRECT_0_example(void)
 void stdio_redirect_init(void)
 {
 
-	usart_sync_enable(&TARGET_IO);
+	usart_os_enable(&TARGET_IO);
 	stdio_io_init(&TARGET_IO.io);
 }

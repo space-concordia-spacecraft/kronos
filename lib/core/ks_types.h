@@ -49,9 +49,11 @@ typedef size_t KsIdType;
 
 #include "hal_gpio.h"
 #include "hpl_gpio.h"
+#include "hal_usart_os.h"
 
 typedef gpio_pull_mode KsGpioPullMode;
 typedef gpio_direction KsGpioDirection;
+typedef usart_os_descriptor KsUsartDesc;
 
 #elif defined(KS_POSIX_SIM)
 typedef bool KsGpioPullMode;

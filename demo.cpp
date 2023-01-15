@@ -1,6 +1,6 @@
 #include "kronos.h"
 
-#include "ks_scheduler.h"
+#include "modules/sched/components/scheduler/ks_scheduler.h"
 #include "ks_led_blinker.h"
 
 using namespace kronos;
@@ -37,8 +37,11 @@ static void Start(void* data) {
     // REGISTER COMPONENTS HERE
     auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");
 
-    // ATTACH TO SCHEDULER LOOP
-    Scheduler::RegisterComponent(ledBlinker, 50);
+    // CREATE WORKERS
+    auto* workerTick = Scheduler::CreateWorker(50, ks_event_scheduler_tick);
+
+    // ATTACH COMPONENTS TO WORKERS
+    workerTick->RegisterComponent(ledBlinker);
 
     // START FRAMEWORK
     Framework::Start();

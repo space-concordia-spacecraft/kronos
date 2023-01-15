@@ -25,18 +25,30 @@ extern "C" {
 
 #include <hal_calendar.h>
 
-#include <hal_usart_sync.h>
-#include <hpl_uart_base.h>
+#include <hal_i2c_m_os.h>
 
-#include <hal_usart_sync.h>
+#include <hal_usart_os.h>
+
+#include <hal_usart_os.h>
+
+#include <hal_can_async.h>
+
+#define USART_0_BUFFER_SIZE 16
+
+#define TARGET_IO_BUFFER_SIZE 16
 
 extern struct mci_sync_desc MCI_0;
 
 extern struct calendar_descriptor CALENDAR_0;
 
-extern struct usart_sync_descriptor USART_0;
+extern struct i2c_m_os_desc I2C_0;
 
-extern struct usart_sync_descriptor TARGET_IO;
+extern struct usart_os_descriptor USART_0;
+extern uint8_t                    USART_0_buffer[];
+
+extern struct usart_os_descriptor  TARGET_IO;
+extern uint8_t                     TARGET_IO_buffer[];
+extern struct can_async_descriptor CAN_0;
 
 void MCI_0_PORT_init(void);
 void MCI_0_CLOCK_init(void);
@@ -45,14 +57,22 @@ void MCI_0_init(void);
 void CALENDAR_0_CLOCK_init(void);
 void CALENDAR_0_init(void);
 
+void I2C_0_PORT_init(void);
+void I2C_0_CLOCK_init(void);
+void I2C_0_init(void);
+
 void USART_0_PORT_init(void);
 void USART_0_CLOCK_init(void);
 void USART_0_init(void);
-void USART_0_example(void);
 
 void TARGET_IO_PORT_init(void);
 void TARGET_IO_CLOCK_init(void);
 void TARGET_IO_init(void);
+
+void CAN_0_PORT_init(void);
+void CAN_0_CLOCK_init(void);
+void CAN_0_init(void);
+void CAN_0_example(void);
 
 /**
  * \brief Perform system initialization, initialize pins and clocks for

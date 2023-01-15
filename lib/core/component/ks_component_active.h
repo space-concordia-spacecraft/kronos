@@ -59,13 +59,15 @@ namespace kronos {
         size_t m_StackSize;
         //! Priority of the task
         uint16_t m_Priority;
-        //! Task handle used to manipulate the task created by the FreeRTOS API
-        TaskHandle_t m_Task = nullptr;
 
         //! \brief Starts the thread
         //!
         //! \param data void pointer used to run the thread
         static void Start(void* data);
+
+    protected:
+        //! Task handle used to manipulate the task created by the FreeRTOS API
+        TaskHandle_t m_Task = nullptr;
     };
 
 }

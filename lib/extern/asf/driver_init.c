@@ -13,13 +13,29 @@
 #include <utils.h>
 #include <hpl_usart_base.h>
 
+#include <hpl_usart_base.h>
+
+/* The priority of the peripheral should be between the low and high interrupt priority set by chosen RTOS,
+ * Otherwise, some of the RTOS APIs may fail to work inside interrupts
+ * In case of FreeRTOS,the Lowest Interrupt priority is set by configLIBRARY_LOWEST_INTERRUPT_PRIORITY and
+ * Maximum interrupt priority by configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY, So Interrupt Priority of the peripheral
+ * should be between configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY and configLIBRARY_LOWEST_INTERRUPT_PRIORITY
+ */
+#define PERIPHERAL_INTERRUPT_PRIORITY (configLIBRARY_LOWEST_INTERRUPT_PRIORITY - 1)
+
+struct can_async_descriptor CAN_0;
+
 struct mci_sync_desc MCI_0;
 
 struct calendar_descriptor CALENDAR_0;
 
-struct usart_sync_descriptor USART_0;
+struct i2c_m_os_desc I2C_0;
 
-struct usart_sync_descriptor TARGET_IO;
+struct usart_os_descriptor USART_0;
+uint8_t                    USART_0_buffer[USART_0_BUFFER_SIZE];
+
+struct usart_os_descriptor TARGET_IO;
+uint8_t                    TARGET_IO_buffer[TARGET_IO_BUFFER_SIZE];
 
 void MCI_0_PORT_init(void)
 {
@@ -257,23 +273,48 @@ void CALENDAR_0_init(void)
 	calendar_init(&CALENDAR_0, RTC);
 }
 
+void I2C_0_PORT_init(void)
+{
+
+	gpio_set_pin_function(PA4, MUX_PA4A_TWIHS0_TWCK0);
+
+	gpio_set_pin_function(PA3, MUX_PA3A_TWIHS0_TWD0);
+}
+
+void I2C_0_CLOCK_init(void)
+{
+	_pmc_enable_periph_clock(ID_TWIHS0);
+}
+
+void I2C_0_init(void)
+{
+	I2C_0_CLOCK_init();
+
+	i2c_m_os_init(&I2C_0, TWIHS0);
+
+	NVIC_SetPriority(TWIHS0_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
+	I2C_0_PORT_init();
+}
+
 void USART_0_PORT_init(void)
 {
 
-	gpio_set_pin_function(PD25, MUX_PD25C_UART2_URXD2);
+	gpio_set_pin_function(PB0, MUX_PB0C_USART0_RXD0);
 
-	gpio_set_pin_function(PD26, MUX_PD26C_UART2_UTXD2);
+	gpio_set_pin_function(PB1, MUX_PB1C_USART0_TXD0);
 }
 
 void USART_0_CLOCK_init(void)
 {
-	_pmc_enable_periph_clock(ID_UART2);
+	_pmc_enable_periph_clock(ID_USART0);
 }
 
 void USART_0_init(void)
 {
 	USART_0_CLOCK_init();
-	usart_sync_init(&USART_0, UART2, _uart_get_usart_sync());
+	usart_os_init(&USART_0, USART0, USART_0_buffer, USART_0_BUFFER_SIZE, (void *)_usart_get_usart_async());
+	NVIC_SetPriority(USART0_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
+	usart_os_enable(&USART_0);
 	USART_0_PORT_init();
 }
 
@@ -293,8 +334,44 @@ void TARGET_IO_CLOCK_init(void)
 void TARGET_IO_init(void)
 {
 	TARGET_IO_CLOCK_init();
+	usart_os_init(&TARGET_IO, USART1, TARGET_IO_buffer, TARGET_IO_BUFFER_SIZE, (void *)_usart_get_usart_async());
+	NVIC_SetPriority(USART1_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
+	usart_os_enable(&TARGET_IO);
 	TARGET_IO_PORT_init();
-	usart_sync_init(&TARGET_IO, USART1, _usart_get_usart_sync());
+}
+
+/**
+ * \brief MCAN Clock initialization function
+ *
+ * Enables register interface and peripheral clock
+ */
+void CAN_0_CLOCK_init()
+{
+	_pmc_enable_periph_clock(ID_MCAN0);
+}
+
+/**
+ * \brief MCAN pinmux initialization function
+ *
+ * Set each required pin to MCAN functionality
+ */
+void CAN_0_PORT_init(void)
+{
+
+	gpio_set_pin_function(PB3, MUX_PB3A_MCAN0_CANRX0);
+
+	gpio_set_pin_function(PB2, MUX_PB2A_MCAN0_CANTX0);
+}
+/**
+ * \brief CAN initialization function
+ *
+ * Enables CAN peripheral, clocks and initializes CAN driver
+ */
+void CAN_0_init(void)
+{
+	CAN_0_CLOCK_init();
+	CAN_0_PORT_init();
+	can_async_init(&CAN_0, MCAN0);
 }
 
 void system_init(void)
@@ -354,7 +431,11 @@ void system_init(void)
 
 	CALENDAR_0_init();
 
+	I2C_0_init();
+
 	USART_0_init();
 
 	TARGET_IO_init();
+
+	CAN_0_init();
 }

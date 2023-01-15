@@ -5,7 +5,7 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(HealthMonitor);
 
     HealthMonitor::HealthMonitor()
-        : ComponentQueued("CQ_HEALTH"),
+        : ComponentPassive("CP_HEALTH"),
           m_BusPing("B_HEALTH_PING", ks_event_health_ping),
           m_BusPong("B_HEALTH_PONG", ks_event_health_pong) {}
 

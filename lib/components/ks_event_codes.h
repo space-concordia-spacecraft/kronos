@@ -21,8 +21,10 @@ namespace kronos {
         // Parameter DB Save
         ks_event_save_param,
 
-        // Command
-        ks_event_command_dispatch,
+        // Commans
+        ks_event_comms_listen,
+        ks_event_comms_send,
+        ks_event_comms_dispatch,
 
         // Invalid Event
         ks_event_invalid = UINT16_MAX

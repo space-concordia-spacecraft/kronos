@@ -13,10 +13,10 @@ namespace kronos {
         void* parameter;
     };
 
-    class ComponentCommandDispatcher : public ComponentActive {
+    class CommandDispatcher : public ComponentActive {
     public:
         KsCmdResult ProcessEvent(const EventMessage& message) override;
-        KsResult RegisterCommand(KsCommandId opcode, const Function<void(void*)>&);
+        KsResultType RegisterCommand(KsCommandId opcode, const Function<void(void*)>&);
 
     private:
         Map<KsCommandId, Function<void(void*)>> m_CommandMessages;

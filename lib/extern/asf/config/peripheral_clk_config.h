@@ -80,23 +80,52 @@
 #define CONF_CLK_RTC_FREQUENCY 0
 #endif
 
-// <h> UART Clock Settings
-// <o> UART Clock source
-// <0=> Master Clock (MCK)
-// <1=> Programmable Clock Controller 4 (PMC_PCK4)
-// <i> This defines the clock source for the UART
-// <id> uart_clock_source
-#ifndef CONF_UART2_CK_SRC
-#define CONF_UART2_CK_SRC 0
+// <h> TWIHS Clock Settings
+// <y> TWIHS Clock source
+// <CONF_SRC_MCK"> Master Clock (MCK)
+// <i> This defines the clock source for the TWIHS
+// <id> twihs_clock_source
+#ifndef CONF_TWIHS0_SRC
+#define CONF_TWIHS0_SRC CONF_SRC_MCK
 #endif
 // </h>
 
 /**
- * \def UART FREQUENCY
- * \brief UART's Clock frequency
+ * \def TWIHS FREQUENCY
+ * \brief TWIHS's Clock frequency
  */
-#ifndef CONF_UART2_FREQUENCY
-#define CONF_UART2_FREQUENCY 150000000
+#ifndef CONF_TWIHS0_FREQUENCY
+#define CONF_TWIHS0_FREQUENCY 150000000
+#endif
+
+// <h> USART Clock Settings
+// <o> USART Clock source
+
+// <0=> Master Clock (MCK)
+// <1=> MCK / 8 for USART
+// <2=> Programmable Clock Controller 4 (PMC_PCK4)
+// <3=> External Clock
+// <i> This defines the clock source for the USART
+// <id> usart_clock_source
+#ifndef CONF_USART0_CK_SRC
+#define CONF_USART0_CK_SRC 0
+#endif
+
+// <o> USART External Clock Input on SCK <1-4294967295>
+// <i> Inputs the external clock frequency on SCK
+// <id> usart_clock_freq
+#ifndef CONF_USART0_SCK_FREQ
+#define CONF_USART0_SCK_FREQ 10000000
+#endif
+
+// </h>
+
+/**
+ * \def USART FREQUENCY
+ * \brief USART's Clock frequency
+ */
+#ifndef CONF_USART0_FREQUENCY
+#define CONF_USART0_FREQUENCY 150000000
 #endif
 
 // <h> USART Clock Settings
@@ -127,6 +156,24 @@
  */
 #ifndef CONF_USART1_FREQUENCY
 #define CONF_USART1_FREQUENCY 150000000
+#endif
+
+// <h> MCAN Clock Settings
+// <y> MCAN Clock source
+// <CONF_SRC_PCK5"> Programmable Clock Controller 5 (PMC_PCK5)
+// <i> This defines the clock source for the MCAN
+// <id> mcan_clock_source
+#ifndef CONF_MCAN0_SRC
+#define CONF_MCAN0_SRC CONF_SRC_PCK5
+#endif
+// </h>
+
+/**
+ * \def MCAN FREQUENCY
+ * \brief MCAN's Clock frequency
+ */
+#ifndef CONF_MCAN0_FREQUENCY
+#define CONF_MCAN0_FREQUENCY 2000000
 #endif
 
 // <<< end of configuration section >>>

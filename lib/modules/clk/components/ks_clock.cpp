@@ -10,6 +10,9 @@ namespace kronos {
         calendar_date date{};
         PaddedTime pTime{};
 
+        calendar_enable(&CALENDAR_0);
+
+        // FIXME: For some reason the date doesn't get set properly when you unplug and plug the board back in.
         if (!ParameterDatabase::GetParam("KS_DATE", &date)) {
             date.year = 2023;
             date.month = 1;
@@ -66,7 +69,7 @@ namespace kronos {
     }
 
     String Clock::_GetTime() {
-        static char buf[20]; // Trying to make sure this never gets used elsewhere
+        static char buf[26]; // Trying to make sure this never gets used elsewhere
         calendar_date_time currentDateTime {};
         calendar_get_date_time(&CALENDAR_0, &currentDateTime);
 

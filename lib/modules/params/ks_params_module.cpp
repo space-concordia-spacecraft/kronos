@@ -1,7 +1,7 @@
 #include "ks_params_module.h"
 #include "ks_parameter_database.h"
 #include "ks_sched_module.h"
-#include "ks_scheduler.h"
+#include "modules/sched/components/scheduler/ks_scheduler.h"
 #include "ks_framework.h"
 
 namespace kronos {
@@ -10,9 +10,6 @@ namespace kronos {
 
     void ParamsModule::Init() const {
         ParameterDatabase::CreateInstance();
-        if (Framework::HasModule<SchedModule>()) {
-            Scheduler::RegisterComponent(&ParameterDatabase::GetInstance(), 100);
-        }
     }
 
 }

@@ -84,7 +84,7 @@ namespace kronos {
                 buf,
                 args...
             );
-
+            // TODO: replace with UART
             printf("%s", msg);
 
             if (severity > ks_log_debug)
