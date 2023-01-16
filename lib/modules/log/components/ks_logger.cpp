@@ -5,11 +5,7 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(Logger);
 
     Logger::Logger()
-        : m_File(KS_LOGGING_FILE_PATH) {};
-
-    Logger::~Logger() {
-        m_File.Close();
-    }
+        : ComponentPassive("CP_LOGGER"), m_File(KS_LOGGING_FILE_PATH) {};
 
     float Logger::ConvertTimestamp(uint32_t timestamp) {
         return (static_cast<float>(timestamp) / 1000.0f);

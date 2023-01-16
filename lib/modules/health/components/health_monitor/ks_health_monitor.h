@@ -21,14 +21,14 @@ namespace kronos {
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        KsResultType RegisterActiveComponent(const Ref <ComponentActive>& component);
+        KsResultType RegisterActiveComponent(const ComponentActive* component);
 
     private:
         KsResultType PingComponents();
         KsResultType HandleComponentResponse(ComponentActive* component);
 
     private:
-        Map<ComponentActive*, ComponentHealthInfo> m_ActiveComponentInfos;
+        Map<const ComponentActive*, ComponentHealthInfo> m_ActiveComponentInfos;
         BusAsync m_BusPing;
         BusAsync m_BusPong;
 

@@ -4,6 +4,9 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(TelemetryLogger);
 
+    TelemetryLogger::TelemetryLogger()
+        : ComponentPassive("CP_TLM_LOGGER") {}
+
     void TelemetryLogger::_Update() {
         for (auto& rateGroup: m_TelemetryRateGroups) {
             rateGroup.tickCount++;
@@ -11,7 +14,7 @@ namespace kronos {
                 rateGroup.tickCount = 0;
 
                 // Get the values from the tlm into a vector.
-                std::vector<uint32_t> telemetryData;
+                List <uint32_t> telemetryData;
                 for (const auto& i_Channel: rateGroup.channels) {
                     uint32_t telemetryValue = i_Channel.retrieveTelemetry();
                     telemetryData.push_back(telemetryValue);
@@ -24,12 +27,12 @@ namespace kronos {
     }
 
     KsResult TelemetryLogger::_AddTelemetryGroup(
-        const std::string& name,
+        const String& name,
         uint32_t rate,
-        const std::vector<TelemetryChannel>& channels
+        const List <TelemetryChannel>& channels
     ) {
         // Generate the headers for the file.
-        std::vector<ApolloHeader> headers;
+        List <ApolloHeader> headers;
         for (const auto& channel: channels) {
             headers.push_back(
                 {

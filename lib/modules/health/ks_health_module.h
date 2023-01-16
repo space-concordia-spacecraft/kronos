@@ -2,14 +2,25 @@
 
 #include "ks_module.h"
 
+#include "ks_log_module.h"
+#include "ks_health_monitor.h"
+
 namespace kronos {
 
-    class HealthModule : public Module {
+    class HealthModule : public Module<HealthModule> {
 
     public:
-        HealthModule();
+        void Init() const override {
+            HealthMonitor::CreateInstance();
+        }
 
-        void Init() const override;
+        [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final {
+            return Module::DependsOn<LogModule>();
+        }
+
+        [[nodiscard]] List <TypeInfo> GetExportedComponents() const final {
+            return Module::ExportComponents<HealthMonitor>();
+        }
 
     };
 

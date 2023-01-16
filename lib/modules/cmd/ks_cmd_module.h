@@ -4,12 +4,18 @@
 
 namespace kronos {
 
-    class CmdModule : public Module {
+    class CmdModule : public Module<CmdModule> {
 
     public:
-        CmdModule();
+        void Init() const override {}
 
-        void Init() const override;
+        [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final {
+            return Module::DependsOn<>();
+        }
+
+        [[nodiscard]] List <TypeInfo> GetExportedComponents() const final {
+            return Module::ExportComponents<>();
+        }
 
     };
 

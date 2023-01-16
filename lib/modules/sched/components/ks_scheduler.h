@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ks_bus.h"
+#include "ks_component_passive.h"
 
 #define KS_DEFAULT_TIMER_INTERVAL 50
 
@@ -11,12 +12,12 @@ namespace kronos {
         uint32_t tickCount = 0;
     };
 
-    class Scheduler {
+    class Scheduler : public ComponentPassive {
     KS_SINGLETON(Scheduler);
 
     public:
         Scheduler();
-        ~Scheduler();
+        ~Scheduler() override;
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(

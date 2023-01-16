@@ -6,7 +6,7 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(Scheduler);
 
-    Scheduler::Scheduler() {
+    Scheduler::Scheduler() : ComponentPassive("CP_SCHEDULER") {
         // Create Task
         xTaskCreate(
             NotifyWait,          // The function that implements the task.

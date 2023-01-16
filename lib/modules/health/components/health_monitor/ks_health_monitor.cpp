@@ -26,8 +26,8 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResultType HealthMonitor::RegisterActiveComponent(const Ref <ComponentActive>& component) {
-        if (m_ActiveComponentInfos.count(component.get())) {
+    KsResultType HealthMonitor::RegisterActiveComponent(const ComponentActive* component) {
+        if (m_ActiveComponentInfos.contains(component)) {
             Logger::Warn(
                 "Component '%s' is already registered in the Health Monitor. Subsequent registration ignored.",
                 component->GetName().c_str()
@@ -36,7 +36,7 @@ namespace kronos {
         }
 
         ComponentHealthInfo tempInfo;
-        m_ActiveComponentInfos[component.get()] = tempInfo;
+        m_ActiveComponentInfos[component] = tempInfo;
         return ks_success;
     }
 

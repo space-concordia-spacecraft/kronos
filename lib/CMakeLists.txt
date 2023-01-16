@@ -4,6 +4,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
 
+set(NAMEOF_OPT_BUILD_EXAMPLES OFF)
+set(NAMEOF_OPT_BUILD_TESTS OFF)
+set(NAMEOF_OPT_INSTALL OFF)
+add_subdirectory(extern/nameof)
+
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
 message("ARM_CPU: \t\t\t${ARM_CPU}")
@@ -241,3 +246,5 @@ endif ()
 
 # Precompile types
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
+
+target_link_libraries(Kronos PUBLIC nameof::nameof)
