@@ -3,9 +3,6 @@
 // Kronos
 #include "kronos.h"
 
-// Atmel Start
-#include "atmel_start.h"
-
 namespace kronos {
 
     //! \class Framework
@@ -15,7 +12,7 @@ namespace kronos {
 
     public:
         //! \brief Constructor that creates the instance of the Framework Singleton
-        Framework();
+        Framework() = default;
 
         //! \brief Destructor that deletes the instance to the Framework Singleton
         ~Framework() = default;
@@ -48,9 +45,6 @@ namespace kronos {
         //! \brief Convenience method for static calls. See _Start().
         KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
 
-        //! \brief Convenience method for static calls. See _AddDefaultModules().
-        KS_SINGLETON_EXPOSE_METHOD(_AddDefaultModules, void AddDefaultModules());
-
     private:
         //! \brief Initializes all the components and starts the FreeRTOS sched
         void _Start();
@@ -62,7 +56,7 @@ namespace kronos {
         //! \param args The constructor arguments required to instantiate the module class.
         template<typename T, typename... Args>
         void _AddModule(Args&& ... args) {
-            static_assert(std::is_base_of_v<Module, T>, "T must extend Module!");
+            static_assert(std::is_base_of_v<IModule, T>, "T must extend IModule!");
 
             if (_HasModule<T>()) {
                 // Module already added
@@ -72,7 +66,7 @@ namespace kronos {
             // Initializing Module
             auto id = ClassID<T>();
             auto ptr = new T(std::forward<Args>(args)...);
-            ptr->Init();
+//            ptr->Init();
             m_Modules[id] = Scope<T>(ptr);
         }
 
@@ -134,10 +128,14 @@ namespace kronos {
             return m_Modules.contains(ClassID<T>());
         }
 
-        void _AddDefaultModules();
+        //! \brief
+        //!
+        //! \param moduleList
+        //! \return
+        bool InitModules(List <KsIdType>& moduleList);
 
     private:
-        Map <KsIdType, Scope<Module>> m_Modules;
+        Map <KsIdType, Scope<IModule>> m_Modules;
         Map <String, Ref<ComponentBase>> m_Components;
         Map <String, Ref<BusBase>> m_Busses;
 

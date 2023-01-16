@@ -1,6 +1,6 @@
 #include "kronos.h"
 
-#include "modules/sched/components/scheduler/ks_scheduler.h"
+#include "ks_scheduler.h"
 #include "ks_led_blinker.h"
 
 using namespace kronos;

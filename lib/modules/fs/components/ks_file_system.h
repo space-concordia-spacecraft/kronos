@@ -6,12 +6,12 @@
 
 namespace kronos {
 
-    class FileSystem {
+    class FileSystem : public ComponentPassive {
     KS_SINGLETON(FileSystem);
 
     public:
         FileSystem();
-        ~FileSystem() = default;
+        ~FileSystem() override = default;
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_Mount, KsResultType Mount());
@@ -23,7 +23,9 @@ namespace kronos {
         KsResultType _Format();
         KsResultType _Sync();
 
-        std::string m_Volume;
+    private:
+        String m_Volume;
+        
     };
 
 }

@@ -2,14 +2,26 @@
 
 #include "ks_module.h"
 
+#include "ks_sched_module.h"
+#include "ks_parameter_database.h"
+
 namespace kronos {
 
-    class ParamsModule : public Module {
+    class ParamsModule : public Module<ParamsModule> {
 
     public:
-        ParamsModule();
+        void Init() const override {
+            ParameterDatabase::CreateInstance();
+//            Scheduler::RegisterComponent(&ParameterDatabase::GetInstance(), 100);
+        }
 
-        void Init() const override;
+        [[nodiscard]] List<TypeInfo> GetModuleDependencies() const final {
+            return Module::DependsOn<SchedModule>();
+        }
+
+        [[nodiscard]] List<TypeInfo> GetExportedComponents() const final {
+            return Module::ExportComponents<ParameterDatabase>();
+        }
 
     };
 

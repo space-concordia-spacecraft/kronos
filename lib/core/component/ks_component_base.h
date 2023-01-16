@@ -62,7 +62,7 @@ namespace kronos {
 
         //! \brief gets the name of the component
         //! \return
-        const String& GetName();
+        const String& GetName() const;
 
     protected:
         //! The name of the component

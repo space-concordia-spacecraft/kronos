@@ -27,6 +27,7 @@ typedef size_t KsIdType;
 #include <queue>
 #include <unordered_map>
 #include <unordered_set>
+#include <stack>
 #include <regex>
 
 // KRONOS TYPES AND MACROS
@@ -66,6 +67,9 @@ typedef uint16_t KsOpcode;
 
 #define KS_CMDRESULT_NORETURN ((KsCmdResult) nullptr)
 
+// NAMEOF MACROS
+#include "nameof.hpp"
+
 namespace kronos {
     // STD Pointers
     template<typename T>
@@ -75,6 +79,7 @@ namespace kronos {
 
     // STD Containers
     using String = std::string;
+    using StringView = std::string_view;
     template<typename T>
     using List = std::vector<T>;
     template<typename K, typename V>
@@ -83,6 +88,10 @@ namespace kronos {
     using Function = std::function<T>;
     template<typename T>
     using PriorityQueue = std::priority_queue<T>;
+    template<typename T>
+    using Stack = std::stack<T>;
+    template<typename T>
+    using Set = std::unordered_set<T>;
 
     template<typename T, typename ... Args>
     Ref<T> CreateRef(Args&& ... args) {
@@ -94,9 +103,22 @@ namespace kronos {
         return std::make_unique<T, Args...>(std::forward<Args>(args)...);
     }
 
+    struct TypeInfo {
+        KsIdType id;
+        StringView name;
+    };
+
     template<typename T>
     KsIdType ClassID() {
         return typeid(T).hash_code();
+    }
+
+    template<typename T>
+    TypeInfo GetTypeInfo() {
+        return {
+            .id = ClassID<T>(),
+            .name = NAMEOF_SHORT_TYPE(T)
+        };
     }
 
 }

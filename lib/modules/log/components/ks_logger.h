@@ -19,12 +19,12 @@ namespace kronos {
     /**
      * The Logger class is derived from the ComponentActive class implemented in Kronos
      */
-    class Logger {
+    class Logger : public ComponentPassive {
     KS_SINGLETON(Logger);
 
     public:
         Logger();
-        ~Logger();
+        ~Logger() override = default;
 
     public:
         template<typename ...Args>
@@ -61,7 +61,7 @@ namespace kronos {
             static char buf[250];
             static char msg[250];
 
-            if  (severity == ks_log_trace) {
+            if (severity == ks_log_trace) {
                 sprintf(
                     buf,
                     "%s\n",
@@ -76,8 +76,6 @@ namespace kronos {
                     fmt
                 );
             }
-
-
 
             auto msgLen = sprintf(
                 msg,

@@ -2,6 +2,7 @@
 #include "ks_component_active.h"
 
 namespace kronos {
+
     class Scheduler;
 
     class Worker : public ComponentActive {
@@ -23,4 +24,5 @@ namespace kronos {
     private:
         BusAsync m_Bus;
     };
+
 }

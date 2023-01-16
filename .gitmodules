@@ -1,6 +1,9 @@
 [submodule "docs/doxygen-awesome-css"]
 	path = docs/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css.git
+[submodule "lib/extern/nameof"]
+	path = lib/extern/nameof
+	url = https://github.com/Neargye/nameof
 [submodule "lib/extern/kronos-packet"]
 	path = lib/extern/kronos-packet
 	url = https://github.com/space-concordia-spacecraft/kronos-packet
