@@ -29,10 +29,10 @@ static void Start(void* data) {
 
     Framework::AddModule<FsModule>();
     Framework::AddModule<LogModule>();
-    Framework::AddModule<SchedModule>();
-    Framework::AddModule<HealthModule>();
     Framework::AddModule<ParamsModule>();
     Framework::AddModule<ClockModule>();
+    Framework::AddModule<SchedModule>();
+    Framework::AddModule<HealthModule>();
 
     // REGISTER COMPONENTS HERE
     auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");

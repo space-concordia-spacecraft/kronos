@@ -26,7 +26,6 @@ namespace kronos {
 
     KsResultType FileSystem::_Sync() {
         if (red_sync() < 0) {
-            // TODO: LOG RELIANCE EDGE ERROR
             return ks_error_filesystem_sync;
         }
         return ks_success;

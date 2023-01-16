@@ -19,7 +19,7 @@ namespace kronos {
             m_Parameters[headers[index].name] = data[index];
         }
 
-        Logger::Info("Loaded %u parameter(s) from file '%s'.", headers.size(), KS_PARAM_DB_FILENAME);
+        Logger::Trace("Loaded %u parameter(s) from file '%s'.", headers.size(), KS_PARAM_DB_FILENAME);
     }
 
     KsCmdResult ParameterDatabase::ProcessEvent(const EventMessage& message) {
