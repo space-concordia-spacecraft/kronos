@@ -1,16 +1,11 @@
 #include "ks_framework.h"
+#include "ks_log_module.h"
 
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(Framework);
 
     void Framework::_Start() {
-        // Initialize all modules
-        List<KsIdType> frameworkModules;
-        if (!InitModules(frameworkModules)) {
-            return;
-        }
-
         // Log active modules
         if (_HasModule<LogModule>()) {
             Logger::Trace(KS_TERM_CYAN);
@@ -24,22 +19,22 @@ namespace kronos {
             Logger::Trace(R"(\__|  \__|\__|  \__| \______/ \__|  \__| \______/  \______/)");
             Logger::Trace(KS_TERM_RESET);
 
-            Logger::Info("Initialized framework with modules: ");
-            for (const auto& module: frameworkModules) {
+            Logger::Info("Initialized framework with %u module(s): ", m_ModuleList.size());
+            for (const auto& module: m_ModuleList) {
                 Logger::Info("-- %s", m_Modules[module]->GetName().data());
             }
         }
 
         // Init Components
         for (auto& component: m_Components) {
-            component.second->Init();
             if (HasModule<LogModule>()) {
                 Logger::Info("Initializing component '%s' ...", component.second->GetName().c_str());
             }
+            component.second->Init();
         }
     }
 
-    bool Framework::InitModules(List<KsIdType>& moduleList) {
+    bool Framework::_InitModules() {
         Map <KsIdType, Set<KsIdType>> moduleParents;
         Map <KsIdType, Set<KsIdType>> moduleChildren;
 
@@ -68,7 +63,7 @@ namespace kronos {
             moduleStack.pop();
 
             // Add the module to the list
-            moduleList.push_back(module);
+            m_ModuleList.push_back(module);
 
             // Loop over each module that has a dependency on this module
             for (auto& child: moduleChildren[module]) {
@@ -92,7 +87,7 @@ namespace kronos {
         }
 
         // Initialize modules
-        for (const auto& module: moduleList) {
+        for (const auto& module: m_ModuleList) {
             m_Modules[module]->Init();
         }
 

@@ -21,7 +21,15 @@ namespace kronos {
 
         KsCmdResult ProcessEvent(const EventMessage& message) override;
 
-        KsResultType RegisterActiveComponent(const ComponentActive* component);
+    public:
+        KS_SINGLETON_EXPOSE_METHOD(
+            _RegisterActiveComponent,
+            KsResultType RegisterActiveComponent(ComponentActive* component),
+            component
+        );
+
+    private:
+        KsResultType _RegisterActiveComponent(ComponentActive* component);
 
     private:
         KsResultType PingComponents();
@@ -29,8 +37,8 @@ namespace kronos {
 
     private:
         Map<const ComponentActive*, ComponentHealthInfo> m_ActiveComponentInfos;
-        BusAsync m_BusPing;
-        BusAsync m_BusPong;
+        BusAsync* m_BusPing;
+        BusAsync* m_BusPong;
 
     };
 }

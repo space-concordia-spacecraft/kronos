@@ -19,7 +19,7 @@ namespace kronos {
         return ks_success;
     }
 
-    [[noreturn]] void Worker::Run() {
+    void Worker::Run() {
         while (true) {
             xTaskNotifyWait(
                 0x00,

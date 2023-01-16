@@ -1,4 +1,5 @@
 #include "ks_health_monitor.h"
+#include "ks_framework.h"
 
 namespace kronos {
 
@@ -6,12 +7,14 @@ namespace kronos {
 
     HealthMonitor::HealthMonitor()
         : ComponentPassive("CP_HEALTH"),
-          m_BusPing("B_HEALTH_PING", ks_event_health_ping),
-          m_BusPong("B_HEALTH_PONG", ks_event_health_pong) {}
+          m_BusPing(Framework::CreateBus<BusAsync>("BA_HEALTH_PING", ks_event_health_ping)),
+          m_BusPong(Framework::CreateBus<BusAsync>("BA_HEALTH_PONG", ks_event_health_pong)) {
+        m_BusPong->AddReceivingComponent(this);
+    }
 
     KsCmdResult HealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_health_ping: {
+            case ks_event_scheduler_tick: {
                 PingComponents();
                 break;
             }
@@ -26,7 +29,7 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResultType HealthMonitor::RegisterActiveComponent(const ComponentActive* component) {
+    KsResultType HealthMonitor::_RegisterActiveComponent(ComponentActive* component) {
         if (m_ActiveComponentInfos.contains(component)) {
             Logger::Warn(
                 "Component '%s' is already registered in the Health Monitor. Subsequent registration ignored.",
@@ -35,17 +38,17 @@ namespace kronos {
             return ks_error_component_healthmonitor_already_registered;
         }
 
-        ComponentHealthInfo tempInfo;
-        m_ActiveComponentInfos[component] = tempInfo;
+        m_BusPing->AddReceivingComponent(component);
+        m_ActiveComponentInfos[component] = {};
         return ks_success;
     }
 
     KsResultType HealthMonitor::PingComponents() {
-        Logger::Debug("Health ping.");
+        Logger::Debug("Health ping ...");
         EventMessage message;
         message.eventCode = ks_event_health_ping;
-        message.returnBus = &m_BusPong;
-        m_BusPing.Publish(message);
+        message.returnBus = m_BusPong;
+        m_BusPing->Publish(message);
 
         for (auto entry: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();

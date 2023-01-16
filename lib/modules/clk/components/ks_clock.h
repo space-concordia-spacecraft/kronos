@@ -7,8 +7,10 @@
 #include "driver_init.h"
 
 namespace kronos {
+
     class Clock : public ComponentPassive {
     KS_SINGLETON(Clock);
+
     public:
         Clock();
         ~Clock() override = default;
@@ -18,14 +20,23 @@ namespace kronos {
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_GetTime, String GetTime());
-        KS_SINGLETON_EXPOSE_METHOD(_SetTime,
-                                   void SetTime(uint16_t year, uint8_t month, uint8_t day, uint8_t hour, uint8_t min, uint8_t sec),
-                                   year,
-                                   month,
-                                   day,
-                                   hour,
-                                   min,
-                                   sec);
+        KS_SINGLETON_EXPOSE_METHOD(
+            _SetTime,
+            void SetTime(
+                uint16_t year,
+                uint8_t month,
+                uint8_t day,
+                uint8_t hour,
+                uint8_t min,
+                uint8_t sec
+            ),
+            year,
+            month,
+            day,
+            hour,
+            min,
+            sec
+        );
 
     private:
         struct PaddedTime {

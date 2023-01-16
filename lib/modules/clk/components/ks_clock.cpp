@@ -2,9 +2,10 @@
 #include "ks_parameter_database.h"
 
 namespace kronos {
+
     KS_SINGLETON_INSTANCE(Clock);
 
-    Clock::Clock(): ComponentPassive("CP_CLOCK") {}
+    Clock::Clock() : ComponentPassive("CP_CLOCK") {}
 
     KsResultType Clock::Init() {
         calendar_date date{};
@@ -40,7 +41,7 @@ namespace kronos {
     }
 
     void Clock::SaveTime() {
-        calendar_date_time currentDateTime {};
+        calendar_date_time currentDateTime{};
         PaddedTime pTime{};
 
         calendar_get_date_time(&CALENDAR_0, &currentDateTime);
@@ -56,13 +57,13 @@ namespace kronos {
 
         calendar_enable(&CALENDAR_0);
 
-        date.year  = year;
+        date.year = year;
         date.month = month;
-        date.day   = day;
+        date.day = day;
 
         time.hour = hour;
-        time.min  = min;
-        time.sec  = sec;
+        time.min = min;
+        time.sec = sec;
 
         calendar_set_date(&CALENDAR_0, &date);
         calendar_set_time(&CALENDAR_0, &time);
@@ -70,7 +71,7 @@ namespace kronos {
 
     String Clock::_GetTime() {
         static char buf[26]; // Trying to make sure this never gets used elsewhere
-        calendar_date_time currentDateTime {};
+        calendar_date_time currentDateTime{};
         calendar_get_date_time(&CALENDAR_0, &currentDateTime);
 
         sprintf(
@@ -81,8 +82,10 @@ namespace kronos {
             currentDateTime.date.day,
             currentDateTime.time.hour,
             currentDateTime.time.min,
-            currentDateTime.time.sec);
+            currentDateTime.time.sec
+        );
 
         return buf;
     }
+
 }

@@ -1,9 +1,12 @@
 #pragma once
 
-// Kronos
-#include "kronos.h"
+#include "ks_module.h"
+#include "ks_bus.h"
+#include "ks_health_monitor.h"
 
 namespace kronos {
+
+    class HealthModule;
 
     //! \class Framework
     //! \brief A class that implements the framework using the Singleton design pattern
@@ -30,6 +33,12 @@ namespace kronos {
             return s_Instance->_CreateComponent<T, Args...>(name, std::forward<Args>(args)...);
         }
 
+        //! \brief Convenience method for static calls. See _CreateSingletonComponent().
+        template<typename T>
+        static inline void CreateSingletonComponent() {
+            return s_Instance->_CreateSingletonComponent<T>();
+        }
+
         //! \brief Convenience method for static calls. See _CreateBus().
         template<typename T, typename... Args>
         static inline T* CreateBus(const std::string& name, Args&& ... args) {
@@ -44,6 +53,9 @@ namespace kronos {
 
         //! \brief Convenience method for static calls. See _Start().
         KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
+
+        //! \brief Convenience method for static calls. See _InitModules().
+        KS_SINGLETON_EXPOSE_METHOD(_InitModules, bool InitModules());
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS sched
@@ -92,11 +104,34 @@ namespace kronos {
             if constexpr (std::is_base_of_v<ComponentActive, T>) {
                 if (_HasModule<HealthModule>()) {
                     // Component detected as ACTIVE
-                    HealthMonitor::GetInstance().RegisterActiveComponent(ref);
+                    HealthMonitor::GetInstance().RegisterActiveComponent(ref.get());
                 }
             }
 
             return ref.get();
+        }
+
+        template<typename T>
+        void _CreateSingletonComponent() {
+            static_assert(std::is_base_of_v<ComponentBase, T>, "T must extend ComponentBase!");
+
+            T::CreateInstance();
+            auto ref = T::GetInstanceRef();
+            const auto& name = ref->GetName();
+
+            if (m_Components.contains(name)) {
+                // Component already created
+                return;
+            }
+
+            m_Components[name] = ref;
+
+            if constexpr (std::is_base_of_v<ComponentActive, T>) {
+                if (_HasModule<HealthModule>()) {
+                    // Component detected as ACTIVE
+                    HealthMonitor::GetInstance().RegisterActiveComponent(ref.get());
+                }
+            }
         }
 
         //! \brief Creates a new bus and registers it into the framework.
@@ -132,9 +167,10 @@ namespace kronos {
         //!
         //! \param moduleList
         //! \return
-        bool InitModules(List <KsIdType>& moduleList);
+        bool _InitModules();
 
     private:
+        List <KsIdType> m_ModuleList;
         Map <KsIdType, Scope<IModule>> m_Modules;
         Map <String, Ref<ComponentBase>> m_Components;
         Map <String, Ref<BusBase>> m_Busses;

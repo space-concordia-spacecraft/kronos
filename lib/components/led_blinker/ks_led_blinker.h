@@ -2,9 +2,11 @@
 
 namespace kronos {
 
-    class ComponentLedBlink : public ComponentPassive {
+    class LedBlinker : public ComponentPassive {
     public:
-        explicit ComponentLedBlink(const std::string& name);
+        explicit LedBlinker(const std::string& name);
+
+        KsResultType Init() override;
 
     private:
         uint32_t m_Toggles = 0;

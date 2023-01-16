@@ -2,26 +2,16 @@
 
 #include "ks_module.h"
 
-#include "ks_sched_module.h"
-#include "ks_clock.h"
-
 namespace kronos {
 
-    class ClockModule : public Module<ClockModule> {
+    class ClkModule : public Module<ClkModule> {
 
     public:
-        void Init() const override {
-            Clock::CreateInstance();
-//            Scheduler::RegisterComponent(&Clock::GetInstance(), 50);
-        }
+        void Init() const override;
 
-        [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final {
-            return Module::DependsOn<SchedModule>();
-        }
+        [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final;
 
-        [[nodiscard]] List <TypeInfo> GetExportedComponents() const final {
-            return Module::ExportComponents<>();
-        }
+        [[nodiscard]] List <TypeInfo> GetExportedComponents() const final;
 
     };
 

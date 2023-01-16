@@ -20,3 +20,12 @@
 #include "ks_params_module.h"
 #include "ks_sched_module.h"
 #include "ks_tlm_module.h"
+
+// Core Components
+#include "ks_clock.h"
+#include "ks_file_system.h"
+#include "ks_health_monitor.h"
+#include "ks_logger.h"
+#include "ks_parameter_database.h"
+#include "ks_scheduler.h"
+#include "ks_telemetry_logger.h"

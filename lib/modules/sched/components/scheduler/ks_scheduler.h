@@ -6,17 +6,20 @@
 #define KS_DEFAULT_TIMER_INTERVAL 50
 
 namespace kronos {
+
     struct ScheduledWorker {
-        List<Scope<Worker>> workers{};
+        List <Scope<Worker>> workers{};
         uint32_t tickCount = 0;
     };
 
-    class Scheduler: ComponentPassive {
+    class Scheduler : public ComponentPassive {
     KS_SINGLETON(Scheduler);
 
     public:
         Scheduler();
         ~Scheduler() override;
+
+        KsResultType Init() override;
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(
@@ -35,5 +38,7 @@ namespace kronos {
     private:
         TimerHandle_t m_Timer = nullptr;
         Map <uint32_t, ScheduledWorker> m_ScheduledWorkers;
+        
     };
+
 }

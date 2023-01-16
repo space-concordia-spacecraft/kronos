@@ -10,7 +10,7 @@
 
 typedef int32_t KsResultType;
 typedef uint32_t KsTickType;
-typedef size_t KsIdType;
+typedef uint32_t KsIdType;
 
 #include <memory>
 #include <algorithm>

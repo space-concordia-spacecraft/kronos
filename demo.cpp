@@ -1,7 +1,8 @@
 #include "kronos.h"
 
-#include "ks_scheduler.h"
 #include "ks_led_blinker.h"
+
+#include "atmel_start.h"
 
 using namespace kronos;
 
@@ -24,24 +25,34 @@ int main() {
 }
 
 static void Start(void* data) {
+    // INITIALIZE ATMEL DRIVERS
+    atmel_start_init();
+
     // INITIALIZE FRAMEWORK
     Framework::CreateInstance();
 
+    // ADD MODULES
     Framework::AddModule<FsModule>();
     Framework::AddModule<LogModule>();
     Framework::AddModule<ParamsModule>();
-    Framework::AddModule<ClockModule>();
+    Framework::AddModule<ClkModule>();
     Framework::AddModule<SchedModule>();
     Framework::AddModule<HealthModule>();
 
+    // INITIALIZE MODULES
+    Framework::InitModules();
+
     // REGISTER COMPONENTS HERE
-    auto* ledBlinker = Framework::CreateComponent<ComponentLedBlink>("P_LED_BLINKER");
+    auto* ledBlinker = Framework::CreateComponent<LedBlinker>("CP_LED_BLINKER");
 
     // CREATE WORKERS
-    auto* workerTick = Scheduler::CreateWorker(50, ks_event_scheduler_tick);
+    auto* ledWorker = Scheduler::CreateWorker(50, ks_event_scheduler_tick);
+    auto* mainWorker = Scheduler::CreateWorker(200, ks_event_scheduler_tick);
 
     // ATTACH COMPONENTS TO WORKERS
-    workerTick->RegisterComponent(ledBlinker);
+    ledWorker->RegisterComponent(ledBlinker);
+    mainWorker->RegisterComponent(&HealthMonitor::GetInstance());
+    mainWorker->RegisterComponent(&ParameterDatabase::GetInstance());
 
     // START FRAMEWORK
     Framework::Start();

@@ -2,22 +2,26 @@
 
 #define KS_SINGLETON(name)                      \
 private:                                        \
-static std::unique_ptr<name> s_Instance;        \
+static Ref<name> s_Instance;                    \
                                                 \
 public:                                         \
 static inline void CreateInstance() {           \
     if (s_Instance == nullptr)                  \
-        s_Instance = std::make_unique<name>();  \
+        s_Instance = CreateRef<name>();         \
 }                                               \
                                                 \
 static inline name& GetInstance() {             \
-    return *s_Instance.get();                   \
+    return *s_Instance;                         \
+}                                               \
+                                                \
+static inline Ref<name> GetInstanceRef() {      \
+    return s_Instance;                          \
 }                                               \
                                                 \
 name(name& other) = delete;                     \
 void operator=(const name& other) = delete
 
-#define KS_SINGLETON_INSTANCE(name) std::unique_ptr<name> name::s_Instance = nullptr
+#define KS_SINGLETON_INSTANCE(name) Ref<name> name::s_Instance = nullptr
 
 #define KS_SINGLETON_EXPOSE_METHOD(instanceName, fn, ...)  \
 static inline fn {                                         \
