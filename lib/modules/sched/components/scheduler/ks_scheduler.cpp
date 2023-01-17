@@ -6,6 +6,10 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(Scheduler);
 
+    Map <uint8_t, ScheduledWorker> m_ScheduledWorkers{
+
+    };
+
     Scheduler::Scheduler() : ComponentPassive("CP_SCHEDULER") {
         m_Timer = xTimerCreate(
             "SCHEDULER",
@@ -17,7 +21,18 @@ namespace kronos {
     }
 
     KsResultType Scheduler::Init() {
+        for(auto& workerConfig: s_WorkerList) {
+            // Initialize all workers
+            auto* worker = Framework::CreateComponent<Worker>(
+                "CA_WORKER_" + workerConfig.first
+                , workerConfig.second.eventCode
+            );
+            m_ScheduledWorkers[workerConfig.first].worker = Scope<Worker>(worker);
+            m_ScheduledWorkers[workerConfig.first].tickRate = workerConfig.second.tickRate
+        }
+
         xTimerStart(m_Timer, 0);
+
         return ks_success;
     }
 
@@ -25,15 +40,8 @@ namespace kronos {
         xTimerDelete(m_Timer, 0);
     }
 
-    Worker* Scheduler::_CreateWorker(uint32_t rate, KsEventCodeType eventCode) {
-        auto* worker = Framework::CreateComponent<Worker>(
-            "CA_WORKER_" +
-            std::to_string(rate) +
-            "_" +
-            std::to_string(m_ScheduledWorkers[rate].workers.size()), eventCode
-        );
-        m_ScheduledWorkers[rate].workers.push_back(Scope<Worker>(worker));
-        return worker;
+    Worker* Scheduler::_GetWorker(KsWorkerIdType workerId) {
+        return m_ScheduledWorkers[workerId].worker.get();
     }
 
     void Scheduler::TickStub(TimerHandle_t timerHandle) {
@@ -44,11 +52,9 @@ namespace kronos {
     void Scheduler::Tick() {
         for (auto& scheduledWorker: m_ScheduledWorkers) {
             scheduledWorker.second.tickCount++;
-            if (scheduledWorker.second.tickCount >= scheduledWorker.first) {
+            if (scheduledWorker.second.tickCount >= scheduledWorker.second.tickRate) {
                 scheduledWorker.second.tickCount = 0;
-                for (auto& worker: scheduledWorker.second.workers) {
-                    xTaskNotify(worker->m_Task, 0, eNoAction);
-                }
+                xTaskNotify(scheduledWorker.second.worker->m_Task, 0, eNoAction);
             }
         }
     }

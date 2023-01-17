@@ -11,6 +11,7 @@
 typedef int32_t KsResultType;
 typedef uint32_t KsTickType;
 typedef uint32_t KsIdType;
+typedef uint8_t KsWorkerIdType;
 
 #include <memory>
 #include <algorithm>
