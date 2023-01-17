@@ -1,64 +1,22 @@
-## Installation
+### Linux Installation [Arch]
 
-This upcoming section will be dedicated to the setup of a build environment for Kronos on Windows, Linux and Mac OS.
+The setup for Linux users is a lot simpler than on Windows. Keep in mind that this guide 
+was tested on Manjaro only.
 
-### Pre-requisites
+The following list of packages are required to build kronos on an Arch distribution of Linux:
+- [x] `base-devel`
+- [x] `arm-none-eabi-gcc`
+- [x] `arm-none-eabi-gdb`
+- [x] `arm-none-eabi-binutils`
+- [x] `arm-none-eabi-newlib`
+- [x] `openocd`
+- [x] `cmake`
 
-- [x] MSYS2
-- [x] CLion
-- [x] Atmel SAM Microcontroller
-
-#### CLion
-
-CLion is a cross-platform C++ IDE distributed by JetBrains. It is available for Windows, Mac OS, and Linux. You can get
-a free student license if you connect your JetBrains account to a GitHub account with the GitHub Student Pack. It is
-strongly recommended to use CLion and any of the other JetBrains IDEs as they provide tons of useful features that
-facilitate development. CLion's code completion and warnings seem to be much more robust than Visual Studio, and it
-provides CMake support out of the box. You may download CLion [from here](https://www.jetbrains.com/clion/). It is
-possible to set up this project for other IDEs but only CLion will be covered in this tutorial.
-
-#### Atmel SAM Microcontroller
-
-In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM
-E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other
-MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at
-the [sam_gcc.cmake](build/sam_gcc.cmake) toolchain file for more details.
-
-### Windows
-
-For Windows users, all the binaries required for compilation can be installed through the MinGW64 MSYS2 port. We will
-use MinGW because it is the only toolchain on Windows that is supported by CLion for OpenOCD embedded development, as
-stated [here](https://www.jetbrains.com/help/clion/openocd-support.html). All the required packages are available for
-MinGW, notably the Open On-Chip Debugger (OpenOCD) which is required to upload and debug code on Atmel SAM MCUs.
-
-#### MSYS2
-
-MSYS2 provides an easy-to-use building environment for Windows. We will be using MinGW64 packages as they are the only
-supported ones by CLion. Download and install MSYS2 from [here](https://www.msys2.org/). Once installed, open the MSYS2
-shell and update the package repository with the following command:
-
-```Bash
-pacman -Syu
+```bash
+sudo pacman -Syu base-devel arm-none-eabi-gcc arm-none-eabi-gdb arm-none-eabi-binutils arm-none-eabi-newlib openocd cmake
 ```
 
-You may need to execute the command multiple times until you see a `there is nothing to do` prompt. Once ready, you
-may proceed to installing all the needed packages. Simply run the following command and the system will automatically
-fetch the required binaries for you.
-
-```Bash
-pacman -Syu mingw-w64-x86_64-toolchain mingw-w64-x86_64-make mingw-w64-x86_64-cmake mingw-w64-x86_64-openocd mingw-w64-x86_64-arm-none-eabi-gcc mingw-w64-x86_64-arm-none-eabi-binutils
-```
-
-The full list of packages is included below in a more readable list format.
-
-- [x] `mingw-w64-x86_64-toolchain`
-- [x] `mingw-w64-x86_64-make`
-- [x] `mingw-w64-x86_64-cmake`
-- [x] `mingw-w64-x86_64-openocd`
-- [x] `mingw-w64-x86_64-arm-none-eabi-gcc`
-- [x] `mingw-w64-x86_64-arm-none-eabi-binutils`
-
-#### CLion Configuration
+## CLion Configuration
 
 Once all the required packages are finished installing, you may configure your MinGW toolchain in CLion. To do so,
 follow these instructions:
@@ -69,25 +27,20 @@ follow these instructions:
 
 3. On the left-hand side of the window, navigate to `Build, Execution, Deployment` &rarr; `Toolchains`.
 
-4. Create a new toolchain by click on the `+` button and selecting `MinGW`.
+4. Create a new toolchain by click on the `+` button and selecting `System`.
 
-5. On the right-hand side panel, under `Toolset`, select `Custom MinGW installation` and navigate to your MinGW home
-   folder. This folder should be in the MSYS installation directory and is called `mingw64`. The default path if you do
-   not change the MSYS installation directory is `C:\msys64\mingw64`. Make sure that CLion recognizes the MinGW
-   toolchain.
+5. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe`
+   and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder. For example
+   `bin/arm-none-eabi-g++`.
 
-6. In the same panel, change both the C and C++ compilers to point to the `arm-none-eabi-gcc.exe`
-   and `arm-none-eabi-g++.exe` executables respectively. These executables are located in the `bin` folder of the MinGW
-   home directory.
-
-7. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the
+6. Still in the same dialog, change the debugger path to point to the `gdb-multiarch.exe` executable. Just like the
    compilers, the GDB executable is located in the same `bin` folder. Ignore any warning about the debugger version,
    version 10 is not technically fully supported by CLion but it should work good enough.
 
-8. Set the toolchain as your default toolchain. You can do this but putting on the top of the list by promoting
+7. Set the toolchain as your default toolchain. You can do this but putting on the top of the list by promoting
    it with the upward caret (`^`) button on the left-hand side.
 
-This leaves you with a working MinGW toolchain for CLion. However, there are a few more steps to get OpenOCD to work and
+This leaves you with a working toolchain for CLion. However, there are a few more steps to get OpenOCD to work and
 build the CMake project. The following steps will help you configure your OpenOCD path and CMake targets.
 
 1. In CLion, open the `File` &rarr; `Settings` menu from the toolbar.
@@ -120,7 +73,7 @@ select `Load CMake Project`. If all goes well, you should get a `Build files hav
 console output. You should also now see two new directories marked in red respectively named `cmake-build-debug`
 and `cmake-build-release`, where the binaries will be built.
 
-#### Console Configuration
+## Console Configuration
 
 In order to be able to debug, logging tools are essential to retrieve outputs from the development board. To achieve
 this, we will use PuTTY to read data being transferred from the COM port that is connected to your board.
@@ -162,7 +115,7 @@ and checking the `Ports` section to find which port is active.
 Once you have completed these steps, you may run the console application to test it out. Be sure to have the software
 running on the board in order to see any output.
 
-#### Adding a Run Configuration
+## Adding a Run Configuration
 
 To check that your build environment is correctly setup, you may attempt to build the Kronos demo app. To do so, plug in
 your SAM board to your PC using the debug USB port. Make sure it is already flashed once with some working Software. You
@@ -186,24 +139,3 @@ follow these instructions to add a run configuration:
    verify that your toolchain configuration works. If you see the `Kronos_Demo.bin` being built successfully and the
    board's LED blinking, then your setup is working as expected. Bonus points to those of you that can hit a breakpoint
    that you placed in the source code.
-
-### Linux
-
-#### Arch
-
-The following list of packages are required to build kronos on an Arch distribution of Linux:
-- [x] `base-devel`
-- [x] `arm-none-eabi-gcc`
-- [x] `arm-none-eabi-gdb`
-- [x] `arm-none-eabi-binutils`
-- [x] `arm-none-eabi-newlib`
-- [x] `openocd`
-- [x] `cmake`
-
-```bash
-sudo pacman -Syu base-devel arm-none-eabi-gcc arm-none-eabi-gdb arm-none-eabi-binutils arm-none-eabi-newlib openocd cmake
-```
-
-### Mac OS
-
-Coming Soon!
