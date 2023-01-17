@@ -40,11 +40,11 @@
  */
 int32_t sem_init(sem_t *sem, uint32_t count)
 {
-	ASSERT(count <= SEMAPHORE_MAX_COUNT);
+    ASSERT(count <= SEMAPHORE_MAX_COUNT);
 
-	*sem = xSemaphoreCreateCounting((uint32_t)SEMAPHORE_MAX_COUNT, count);
+    *sem = xSemaphoreCreateCounting((uint32_t)SEMAPHORE_MAX_COUNT, count);
 
-	return *sem ? ERR_NONE : ERR_NOT_INITIALIZED;
+    return *sem ? ERR_NONE : ERR_NOT_INITIALIZED;
 }
 
 /**
@@ -52,8 +52,8 @@ int32_t sem_init(sem_t *sem, uint32_t count)
  */
 int32_t sem_up(sem_t *sem)
 {
-	return is_in_isr() ? (xSemaphoreGiveFromISR(*sem, pdFALSE) ? 0 : ERR_ABORTED)
-	                   : (xSemaphoreGive(*sem) ? ERR_NONE : ERR_ABORTED);
+    return is_in_isr() ? (xSemaphoreGiveFromISR(*sem, pdFALSE) ? 0 : ERR_ABORTED)
+                       : (xSemaphoreGive(*sem) ? ERR_NONE : ERR_ABORTED);
 }
 
 /**
@@ -61,7 +61,7 @@ int32_t sem_up(sem_t *sem)
  */
 int32_t sem_down(sem_t *sem, uint32_t timeout)
 {
-	return xSemaphoreTake(*sem, timeout) ? ERR_NONE : ERR_TIMEOUT;
+    return xSemaphoreTake(*sem, timeout) ? ERR_NONE : ERR_TIMEOUT;
 }
 
 /**
@@ -69,10 +69,10 @@ int32_t sem_down(sem_t *sem, uint32_t timeout)
  */
 int32_t sem_deinit(sem_t *sem)
 {
-	if (*sem != NULL) {
-		vSemaphoreDelete(*sem);
-		*sem = NULL;
-	}
+    if (*sem != NULL) {
+        vSemaphoreDelete(*sem);
+        *sem = NULL;
+    }
 
-	return ERR_NONE;
+    return ERR_NONE;
 }

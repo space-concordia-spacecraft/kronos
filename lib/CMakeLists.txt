@@ -18,7 +18,8 @@ set(FREERTOS_CONFIG_FILE_DIRECTORY /home/rubens/Projects/space-concordia/kronos/
 set(FREERTOS_HEAP "4" CACHE STRING "")
 # Port
 set(FREERTOS_PORT GCC_ARM_CM7 CACHE STRING "")
-add_subdirectory(extern/FreeRTOS/Source)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mthumb -O0 -fdata-sections -ffunction-sections -mlong-calls -g3 -Wall -Wextra -mcpu=cortex-m7 -c -pipe -fno-strict-aliasing --param max-inline-insns-single=500 -mfloat-abi=softfp -mfpu=fpv5-sp-d16 -MD -MP")
+add_subdirectory(extern/FreeRTOS-Kernel)
 
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
@@ -48,6 +49,9 @@ set(KRONOS_SRC_REL
 
         # ASF SD/MMC
         "extern/asf/sd_mmc/sd_mmc.c"
+
+        # ASF RTOS
+        "extern/asf/thirdparty/RTOS/rtos_port.c"
 
         # RELIANCE EDGE
         "extern/reliance-edge/bdev/bdev.c"
@@ -90,9 +94,6 @@ set(KRONOS_SRC_REL
         "core/component/ks_component_passive.cpp"
         "core/component/ks_component_queued.cpp"
         "core/component/ks_component_active.cpp"
-
-        # KRONOS OS DEPENDENT TYPES
-        "kronos.cpp"
 
         # KRONOS DRIVERS
         "drivers/asf/ks_gpio.cpp"
@@ -163,6 +164,9 @@ set(KRONOS_INCLUDE_DIRS
         # ASF SD/MMC
         "extern/asf/sd_mmc"
 
+        # ASF RTOS
+        "extern/asf/thirdparty/RTOS"
+
         # RELIANCE EDGE
         "extern/reliance-edge/include"
         "extern/reliance-edge/config"
@@ -227,7 +231,8 @@ set(KRONOS_EXTRA_SRC
         # Because they're not used they're initially yeeted.
         "extern/asf/hal/utils/src/utils_syscalls.c"
         "extern/asf/stdio_redirect/gcc/read.c"
-        "extern/asf/stdio_redirect/gcc/write.c")
+        "extern/asf/stdio_redirect/gcc/write.c"
+        "kronos.cpp")
 
 target_sources(Kronos PUBLIC ${KRONOS_EXTRA_SRC})
 
@@ -244,4 +249,4 @@ endif ()
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
 
 # Links libraries
-target_link_libraries(Kronos PUBLIC KronosPacket nameof::nameof)
+target_link_libraries(Kronos PUBLIC freertos_kernel KronosPacket nameof::nameof)

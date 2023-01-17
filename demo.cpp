@@ -51,6 +51,7 @@ static void Start(void* data) {
 
     // ATTACH COMPONENTS TO WORKERS
     ledWorker->RegisterComponent(ledBlinker);
+    mainWorker->RegisterComponent(&Clock::GetInstance());
     mainWorker->RegisterComponent(&HealthMonitor::GetInstance());
     mainWorker->RegisterComponent(&ParameterDatabase::GetInstance());
 
