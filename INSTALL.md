@@ -22,7 +22,7 @@ possible to set up this project for other IDEs but only CLion will be covered in
 In order to run the demo application, a SAM microcontroller is needed. This framework was built and tested using a SAM
 E70 Xplained evaluation board. However, this framework is made to be compatible with all SAM microcontrollers. For other
 MCUs, you will need to provide the correct architecture, CPU, board and other needed parameters. You may take a look at
-the [sam_gcc.cmake](build/sam_gcc.cmake) toolchain file for more details.
+the [sam_gcc.cmake](build/toolchain.cmake) toolchain file for more details.
 
 ### Windows
 
@@ -192,6 +192,7 @@ follow these instructions to add a run configuration:
 #### Arch
 
 The following list of packages are required to build kronos on an Arch distribution of Linux:
+
 - [x] `base-devel`
 - [x] `arm-none-eabi-gcc`
 - [x] `arm-none-eabi-gdb`
