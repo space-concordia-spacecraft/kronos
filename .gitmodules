@@ -7,6 +7,6 @@
 [submodule "lib/extern/kronos-packet"]
 	path = lib/extern/kronos-packet
 	url = https://github.com/space-concordia-spacecraft/kronos-packet
-[submodule "lib/extern/FreeRTOS-Kernel"]
-	path = lib/extern/FreeRTOS-Kernel
-	url = https://github.com/FreeRTOS/FreeRTOS-Kernel
+[submodule "lib/extern/freertos"]
+	path = lib/extern/freertos
+	url = https://github.com/space-concordia-spacecraft/FreeRTOS

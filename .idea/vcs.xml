@@ -2,7 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/lib/extern/FreeRTOS-Kernel" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/docs/doxygen-awesome-css" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/extern/freertos" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/extern/freertos/portable/ThirdParty/Community-Supported-Ports" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/extern/freertos/portable/ThirdParty/Partner-Supported-Ports" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/extern/kronos-packet" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/extern/nameof" vcs="Git" />
   </component>
