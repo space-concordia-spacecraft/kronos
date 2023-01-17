@@ -4,11 +4,21 @@ set(CMAKE_CXX_STANDARD 20)
 
 project(Kronos)
 
+# ADD SUBDIRECTORIES
 set(NAMEOF_OPT_BUILD_EXAMPLES OFF)
 set(NAMEOF_OPT_BUILD_TESTS OFF)
 set(NAMEOF_OPT_INSTALL OFF)
 add_subdirectory(extern/nameof)
+
 add_subdirectory(extern/kronos-packet)
+
+# FreeRTOS config directory
+set(FREERTOS_CONFIG_FILE_DIRECTORY /home/rubens/Projects/space-concordia/kronos/lib/extern/asf/config CACHE STRING "")
+# Heap number
+set(FREERTOS_HEAP "4" CACHE STRING "")
+# Port
+set(FREERTOS_PORT GCC_ARM_CM7 CACHE STRING "")
+add_subdirectory(extern/FreeRTOS/Source)
 
 message(STATUS "Using the following variables to include Kronos source:")
 message("")
@@ -23,19 +33,6 @@ include("../build/include/${SAM_ARCH}.cmake")
 
 # Glob source files
 set(KRONOS_SRC_REL
-        # FREERTOS
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/croutine.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/stream_buffer.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/tasks.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.c"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.c"
-
         # ASF START
         "extern/asf/stdio_start.c"
         "extern/asf/driver_init.c"
@@ -130,13 +127,6 @@ add_sam_library(Kronos ${KRONOS_SRC} ${KRONOS_DRIVERS_SRC})
 
 # Include directories
 set(KRONOS_INCLUDE_DIRS
-        # FREERTOS
-        "extern/asf/thirdparty/RTOS"
-        "extern/asf/thirdparty/RTOS/freertos"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/include"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7"
-
         # ASF
         "extern/asf"
 
