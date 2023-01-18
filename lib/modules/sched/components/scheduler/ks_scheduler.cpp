@@ -6,9 +6,7 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(Scheduler);
 
-    Map <uint8_t, ScheduledWorker> m_ScheduledWorkers{
-
-    };
+    Map <uint8_t, ScheduledWorker> m_ScheduledWorkers{};
 
     Scheduler::Scheduler() : ComponentPassive("CP_SCHEDULER") {
         m_Timer = xTimerCreate(
@@ -18,21 +16,20 @@ namespace kronos {
             this,
             TickStub
         );
+
+        for(const auto& [id, workerConfig]: s_WorkerList) {
+            // Initialize all workers
+            auto* worker = Framework::CreateComponent<Worker>(
+                "CA_WORKER_" + std::to_string(id)
+                , workerConfig.eventCode
+            );
+            m_ScheduledWorkers[id].worker = worker;
+            m_ScheduledWorkers[id].tickRate = workerConfig.tickRate;
+        }
     }
 
     KsResultType Scheduler::Init() {
-        for(auto& workerConfig: s_WorkerList) {
-            // Initialize all workers
-            auto* worker = Framework::CreateComponent<Worker>(
-                "CA_WORKER_" + workerConfig.first
-                , workerConfig.second.eventCode
-            );
-            m_ScheduledWorkers[workerConfig.first].worker = Scope<Worker>(worker);
-            m_ScheduledWorkers[workerConfig.first].tickRate = workerConfig.second.tickRate
-        }
-
         xTimerStart(m_Timer, 0);
-
         return ks_success;
     }
 
@@ -40,8 +37,8 @@ namespace kronos {
         xTimerDelete(m_Timer, 0);
     }
 
-    Worker* Scheduler::_GetWorker(KsWorkerIdType workerId) {
-        return m_ScheduledWorkers[workerId].worker.get();
+    Worker* Scheduler::_GetWorker(KsIdType workerId) {
+        return m_ScheduledWorkers[workerId].worker;
     }
 
     void Scheduler::TickStub(TimerHandle_t timerHandle) {
@@ -50,11 +47,11 @@ namespace kronos {
     }
 
     void Scheduler::Tick() {
-        for (auto& scheduledWorker: m_ScheduledWorkers) {
-            scheduledWorker.second.tickCount++;
-            if (scheduledWorker.second.tickCount >= scheduledWorker.second.tickRate) {
-                scheduledWorker.second.tickCount = 0;
-                xTaskNotify(scheduledWorker.second.worker->m_Task, 0, eNoAction);
+        for (auto& [id, scheduledWorker]: m_ScheduledWorkers) {
+            scheduledWorker.tickCount++;
+            if (scheduledWorker.tickCount >= scheduledWorker.tickRate) {
+                scheduledWorker.tickCount = 0;
+                xTaskNotify(scheduledWorker.worker->m_Task, 0, eNoAction);
             }
         }
     }

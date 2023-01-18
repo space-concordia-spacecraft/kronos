@@ -18,25 +18,6 @@ add_subdirectory(extern/nameof)
 # Kronos packet library
 add_subdirectory(extern/kronos-packet)
 
-# FreeRTOS config directory
-set(FREERTOS_CONFIG_FILE_DIRECTORY /home/rubens/Projects/space-concordia/kronos/lib/extern/asf/config CACHE STRING "")
-# Heap number
-set(FREERTOS_HEAP "4" CACHE STRING "")
-# Port
-set(FREERTOS_PORT GCC_ARM_CM7 CACHE STRING "")
-add_subdirectory(extern/FreeRTOS/Source)
-
-message(STATUS "Using the following variables to include Kronos source:")
-message("")
-message("ARM_CPU: \t\t\t${ARM_CPU}")
-message("SAM_ARCH: \t\t\t${SAM_ARCH}")
-message("SAM_MCU: \t\t\t${SAM_MCU}")
-message("SAM_BOARD: \t\t\t${SAM_BOARD}")
-message("")
-
-# Board-specific Definitions
-include("../build/include/${SAM_ARCH}.cmake")
-
 # Glob source files
 set(KRONOS_SRC_REL
         # FREERTOS
@@ -216,6 +197,7 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sched"
         "modules/sched/components/scheduler"
         "modules/sched/components/worker"
+        "modules/sched/config"
         "modules/tlm"
         "modules/tlm/components"
 
