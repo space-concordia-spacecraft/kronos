@@ -17,14 +17,28 @@ namespace kronos {
             TickStub
         );
 
-        for(const auto& [id, workerConfig]: s_WorkerList) {
+        for (const auto& [id, workerConfig]: s_WorkerList) {
             // Initialize all workers
-            auto* worker = Framework::CreateComponent<Worker>(
-                "CA_WORKER_" + std::to_string(id)
-                , workerConfig.eventCode
+            auto* worker = Framework::CreateComponent<ComponentWorker>(
+                "CW_" + std::to_string(id),
+                workerConfig.eventCode,
+                workerConfig.stackSize,
+                workerConfig.priority
             );
-            m_ScheduledWorkers[id].worker = worker;
-            m_ScheduledWorkers[id].tickRate = workerConfig.tickRate;
+
+            if (m_ScheduledWorkers.contains(id))
+                continue;
+
+            m_ScheduledWorkers[id] = {
+                .worker = worker,
+                .bus = Framework::CreateBus<BusAsync>(
+                    "BA_SCHEDULED_" + std::to_string(workerConfig.tickRate),
+                    ks_event_scheduler_tick
+                ),
+                .tickRate = workerConfig.tickRate
+            };
+
+            m_ScheduledWorkers[id].bus->AddReceivingComponent(worker);
         }
     }
 
@@ -37,8 +51,26 @@ namespace kronos {
         xTimerDelete(m_Timer, 0);
     }
 
-    Worker* Scheduler::_GetWorker(KsIdType workerId) {
-        return m_ScheduledWorkers[workerId].worker;
+    void Scheduler::_RegisterComponent(KsIdType workerId, ComponentBase* componentBase) {
+        if (!m_ScheduledWorkers.contains(workerId))
+            // Worker doesn't exist
+            return;
+
+        m_ScheduledWorkers[workerId].worker->RegisterComponent(componentBase);
+    }
+
+    void Scheduler::_RegisterWorker(KsIdType workerId, uint16_t tickRate, ComponentWorker* worker) {
+        if (m_ScheduledWorkers.contains(workerId))
+            // Worker exists
+            return;
+
+        m_ScheduledWorkers[workerId] = {
+            .worker = worker,
+            .bus = Framework::CreateBus<BusAsync>("BA_SCHEDULED_" + std::to_string(tickRate), ks_event_scheduler_tick),
+            .tickRate = tickRate
+        };
+
+        m_ScheduledWorkers[workerId].bus->AddReceivingComponent(worker);
     }
 
     void Scheduler::TickStub(TimerHandle_t timerHandle) {
@@ -51,7 +83,12 @@ namespace kronos {
             scheduledWorker.tickCount++;
             if (scheduledWorker.tickCount >= scheduledWorker.tickRate) {
                 scheduledWorker.tickCount = 0;
-                xTaskNotify(scheduledWorker.worker->m_Task, 0, eNoAction);
+
+                // Publish to the bus
+                EventMessage message{
+                    .eventCode = ks_event_scheduler_tick
+                };
+                scheduledWorker.bus->Publish(message);
             }
         }
     }

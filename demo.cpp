@@ -11,7 +11,7 @@ int main() {
     // Task has to be created for Reliance Edge to be initialized properly
     xTaskCreate(
         Start,
-        "SCHEDULER",
+        "MAIN",
         KS_COMPONENT_STACK_SIZE_XLARGE,
         nullptr,
         KS_COMPONENT_PRIORITY_HIGH,
@@ -32,13 +32,10 @@ static void Start(void* data) {
 
     // ADD MODULES
     Framework::AddModule<FsModule>();
+    Framework::AddModule<SchedModule>();
     Framework::AddModule<LogModule>();
-
-
-
     Framework::AddModule<ParamsModule>();
     Framework::AddModule<ClkModule>();
-    Framework::AddModule<SchedModule>();
 
     // INITIALIZE MODULES
     Framework::InitModules();
@@ -47,7 +44,7 @@ static void Start(void* data) {
     auto* ledBlinker = Framework::CreateComponent<LedBlinker>("CP_LED_BLINKER");
 
     // ATTACH COMPONENTS TO WORKERS
-    Scheduler::GetWorker(ks_worker_2s)->RegisterComponent(ledBlinker);
+    Scheduler::RegisterComponent(ks_worker_2s, ledBlinker);
 
     // START FRAMEWORK
     Framework::Start();

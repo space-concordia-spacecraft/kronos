@@ -6,9 +6,12 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(HealthMonitor);
 
     HealthMonitor::HealthMonitor()
-        : ComponentPassive("CP_HEALTH"),
-          m_BusPing(Framework::CreateBus<BusAsync>("BA_HEALTH_PING", ks_event_health_ping)),
+        : ComponentWorker(
+        "W_HEALTH",
+        ks_event_health_ping
+    ),
           m_BusPong(Framework::CreateBus<BusAsync>("BA_HEALTH_PONG", ks_event_health_pong)) {
+
         m_BusPong->AddReceivingComponent(this);
     }
 
@@ -19,8 +22,7 @@ namespace kronos {
                 break;
             }
             case ks_event_health_pong: {
-                auto* component = reinterpret_cast<ComponentActive*>(message.data);
-                HandleComponentResponse(component);
+                HandleComponentResponse(message.Cast<ComponentActive>());
                 break;
             }
             default:
@@ -29,40 +31,46 @@ namespace kronos {
         return KS_CMDRESULT_NORETURN;
     }
 
-    KsResultType HealthMonitor::_RegisterActiveComponent(ComponentActive* component) {
-        if (m_ActiveComponentInfos.contains(component)) {
-            Logger::Warn(
-                "Component '%s' is already registered in the Health Monitor. Subsequent registration ignored.",
-                component->GetName().c_str()
-            );
-            return ks_error_component_healthmonitor_already_registered;
+    KsResultType HealthMonitor::PostInit() {
+        const auto& list = Framework::GetInstance().m_ActiveComponents;
+        std::transform(
+            list.begin(),
+            list.end(),
+            std::inserter(m_ActiveComponentInfos, m_ActiveComponentInfos.end()),
+            [](const String& name) {
+                return std::pair<const ComponentActive*, ComponentHealthInfo>{
+                    dynamic_cast<ComponentActive*>(Framework::GetInstance().m_Components[name].get()),
+                    {}
+                };
+            }
+        );
+
+        for(const auto& [componentActive, healthInfo] : m_ActiveComponentInfos) {
+            m_BusSend->AddReceivingComponent(componentActive);
         }
 
-        m_BusPing->AddReceivingComponent(component);
-        m_ActiveComponentInfos[component] = {};
         return ks_success;
     }
 
     KsResultType HealthMonitor::PingComponents() {
-        Logger::Debug("Health ping ...");
         EventMessage message;
         message.eventCode = ks_event_health_ping;
         message.returnBus = m_BusPong;
-        m_BusPing->Publish(message);
+        m_BusSend->Publish(message);
 
-        for (auto entry: m_ActiveComponentInfos) {
+        for (auto [component, healthInfo]: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
-            if (time - entry.second.lastResponse >= KS_HEALTH_PING_RATE) {
-                Logger::Error("Component '%s' has not responded.", entry.first->GetName().c_str());
+            if (time - healthInfo.lastResponse >= KS_HEALTH_PONG_MAX_RESPONSE_TIME) {
+                Logger::Error("Component '%s' has not responded.", component->GetName().c_str());
             }
         }
 
         return ks_success;
     }
 
-    KsResultType HealthMonitor::HandleComponentResponse(ComponentActive* component) {
-        m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
-        Logger::Debug("Health response from component '%s'", component->GetName().c_str());
+    KsResultType HealthMonitor::HandleComponentResponse(const ComponentActive& component) {
+        m_ActiveComponentInfos[&component].lastResponse = xTaskGetTickCount();
+        Logger::Debug("Health response from component '%s'", component.GetName().c_str());
 
         return ks_success;
     }

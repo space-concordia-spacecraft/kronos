@@ -26,6 +26,9 @@ namespace kronos {
         KsResultType Init() override;
 
         /// @copydoc
+        KsResultType PostInit() override;
+
+        /// @copydoc
         KsResultType Destroy() override;
 
         /// @copydoc

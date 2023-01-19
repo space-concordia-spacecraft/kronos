@@ -1,10 +1,8 @@
 #include "ks_sched_module.h"
 #include "ks_framework.h"
-
 #include "ks_scheduler.h"
 
 namespace kronos {
-
     void SchedModule::Init() const {
         Framework::CreateSingletonComponent<Scheduler>();
     }
@@ -16,5 +14,4 @@ namespace kronos {
     List <TypeInfo> SchedModule::GetExportedComponents() const {
         return Module::ExportComponents<Scheduler>();
     }
-
 }

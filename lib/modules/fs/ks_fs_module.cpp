@@ -1,6 +1,5 @@
 #include "ks_fs_module.h"
 #include "ks_framework.h"
-
 #include "ks_file_system.h"
 
 namespace kronos {
@@ -28,5 +27,4 @@ namespace kronos {
     List <TypeInfo> FsModule::GetExportedComponents() const {
         return Module::ExportComponents<FileSystem>();
     }
-
 }

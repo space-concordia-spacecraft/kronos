@@ -14,6 +14,9 @@ namespace kronos {
         // Tick event for scheduled components
         ks_event_scheduler_tick,
 
+        // Logger
+        ks_event_log_message,
+
         // Health Monitor
         ks_event_health_ping,
         ks_event_health_pong,
