@@ -8,7 +8,6 @@ namespace kronos {
 
     KsResultType CommandListener::Init() {
 //        usart_async_register_callback(m_Driver->GetDescriptor(), USART_ASYNC_RXC_CB, DriverReceiveCallbackStub);
-        return ComponentActive::Init();
     }
 
     KsCmdResult CommandListener::ProcessEvent(const EventMessage& message) {
@@ -41,29 +40,8 @@ namespace kronos {
             return ks_error_invalid_packet;
         }
 
-        return ks_success;
-    }
-
-    KsResultType CommandListener::Send() {
+        // TODO: Let'use the payload as a flag connected to a bus
 
         return ks_success;
-    }
-
-    void CommandListener::DriverReceiveCallbackStub(const struct usart_async_descriptor *const io_descr){
-//        s_Instance->DriverReceiveCallback(io_descr);
-    }
-
-    void CommandListener::DriverReceiveCallback(const struct usart_async_descriptor *const io_descr) {
-        static int counter = 0;
-        counter ++;
-
-//        if(counter>=sizeof(CommsPacket)) {
-//            // We expect the size of the comms packet
-//            EventMessage receiveCallback;
-//            receiveCallback.eventCode = KS_EVENT_CODE_READ;
-//            m_Queue.PushCritical(receiveCallback);
-//
-//            counter = 0;
-//        }
     }
 }
