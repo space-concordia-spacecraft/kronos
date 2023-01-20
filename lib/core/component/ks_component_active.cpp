@@ -47,14 +47,10 @@ namespace kronos {
                     EventMessage healthResponse;
                     healthResponse.eventCode = ks_event_health_pong;
                     healthResponse.data = this;
-                    healthResponse.dataSize = sizeof(uint32_t);
                     message.returnBus->Publish(healthResponse);
                 }
                 break;
-            default:
-                return KS_CMDRESULT_NORETURN;
         }
         return KS_CMDRESULT_NORETURN;
     }
-
 }

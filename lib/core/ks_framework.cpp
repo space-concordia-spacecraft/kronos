@@ -1,5 +1,6 @@
 #include "ks_framework.h"
 #include "ks_log_module.h"
+#include "ks_logger.h"
 
 namespace kronos {
 
@@ -31,6 +32,14 @@ namespace kronos {
                 Logger::Info("Initializing component '%s' ...", component.second->GetName().c_str());
             }
             component.second->Init();
+        }
+
+        // Init Components
+        for (auto& component: m_Components) {
+            if (HasModule<LogModule>()) {
+                Logger::Info("Post Initializing component '%s' ...", component.second->GetName().c_str());
+            }
+            component.second->PostInit();
         }
     }
 

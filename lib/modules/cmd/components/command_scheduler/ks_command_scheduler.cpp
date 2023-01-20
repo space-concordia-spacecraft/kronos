@@ -14,7 +14,6 @@ namespace kronos {
         while (true) {
             if (!m_ScheduledCommandQueue.empty()) {
                 auto& message = m_ScheduledCommandQueue.top();
-
             }
             taskYIELD();
         }

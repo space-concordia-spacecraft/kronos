@@ -2,15 +2,16 @@
 
 #include "ks_module.h"
 #include "ks_bus.h"
-#include "ks_health_monitor.h"
+#include "ks_component_active.h"
 
 namespace kronos {
 
-    class HealthModule;
+    class HealthMonitor;
 
     //! \class Framework
     //! \brief A class that implements the framework using the Singleton design pattern
     class Framework {
+        friend class HealthMonitor;
     KS_SINGLETON(Framework);
 
     public:
@@ -78,7 +79,6 @@ namespace kronos {
             // Initializing Module
             auto id = ClassID<T>();
             auto ptr = new T(std::forward<Args>(args)...);
-//            ptr->Init();
             m_Modules[id] = Scope<T>(ptr);
         }
 
@@ -101,11 +101,8 @@ namespace kronos {
             auto ref = CreateRef<T>(name, std::forward<Args>(args)...);
             m_Components[name] = ref;
 
-            if constexpr (std::is_base_of_v<ComponentActive, T>) {
-                if (_HasModule<HealthModule>()) {
-                    // Component detected as ACTIVE
-                    HealthMonitor::GetInstance().RegisterActiveComponent(ref.get());
-                }
+            if constexpr (std::is_base_of_v<ComponentActive, T> && !std::is_base_of_v<HealthMonitor, T>) {
+                m_ActiveComponents.push_back(name);
             }
 
             return ref.get();
@@ -125,12 +122,8 @@ namespace kronos {
             }
 
             m_Components[name] = ref;
-
-            if constexpr (std::is_base_of_v<ComponentActive, T>) {
-                if (_HasModule<HealthModule>()) {
-                    // Component detected as ACTIVE
-                    HealthMonitor::GetInstance().RegisterActiveComponent(ref.get());
-                }
+            if constexpr (std::is_base_of_v<ComponentActive, T> && !std::is_base_of_v<HealthMonitor, T>) {
+                m_ActiveComponents.push_back(name);
             }
         }
 
@@ -173,6 +166,7 @@ namespace kronos {
         List <KsIdType> m_ModuleList;
         Map <KsIdType, Scope<IModule>> m_Modules;
         Map <String, Ref<ComponentBase>> m_Components;
+        List<String> m_ActiveComponents;
         Map <String, Ref<BusBase>> m_Busses;
 
     };

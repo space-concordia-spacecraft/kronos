@@ -94,7 +94,7 @@ namespace kronos {
         //! \param data
         //! \return
         template<typename T, typename R>
-        R* PublishSync(T* data = nullptr) {
+        R* PublishSync(const T& data) {
             if (m_ReceivingComponent == nullptr) {
                 // TODO: HANDLE ERROR OR WARNING
                 return static_cast<R*>(KS_CMDRESULT_NORETURN);
@@ -103,12 +103,7 @@ namespace kronos {
             EventMessage message;
             message.eventCode = m_EventCode;
 
-            if (data != nullptr) {
-                T* newData = new T;
-                *newData = *data;
-                message.data = reinterpret_cast<void*>(newData);
-                message.dataSize = sizeof(T);
-            }
+            message.data = std::any(data);
 
             return PublishSync<R>(message);
         }
@@ -130,7 +125,7 @@ namespace kronos {
         void PublishAsync(const EventMessage& message) const;
 
         template<typename T>
-        void PublishAsync(T* data, BusBase* returnBus = nullptr) {
+        void PublishAsync(const T& data, BusBase* returnBus = nullptr) {
             if (m_ReceivingComponents.empty()) {
                 // TODO: HANDLE ERROR OR WARNING
                 return;
@@ -139,13 +134,19 @@ namespace kronos {
             EventMessage message;
             message.eventCode = m_EventCode;
             message.returnBus = returnBus;
+            message.data = std::any(data);
 
-            if (data != nullptr) {
-                T* newData = new T;
-                *newData = *data;
-                message.data = reinterpret_cast<void*>(newData);
-                message.dataSize = sizeof(T);
+            Publish(message);
+        }
+
+        void PublishAsync() {
+            if (m_ReceivingComponents.empty()) {
+                // TODO: HANDLE ERROR OR WARNING
+                return;
             }
+
+            EventMessage message;
+            message.eventCode = m_EventCode;
 
             PublishAsync(message);
         }

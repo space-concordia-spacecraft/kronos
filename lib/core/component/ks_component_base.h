@@ -17,11 +17,14 @@ namespace kronos {
         //! Identifier for the event. This allows the user to process the event properly
         KsEventCodeType eventCode = ks_event_invalid;
         //! The data being passed through the event
-        void* data = nullptr;
-        //! The size of the data being passed if necessary
-        size_t dataSize = 0;
+        std::any data{};
         //! The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away
         BusBase* returnBus = nullptr;
+
+        template <typename T>
+        T Cast() const {
+            return std::any_cast<T>(data);
+        }
     };
 
     //! \class ComponentBase
@@ -42,6 +45,11 @@ namespace kronos {
         //!
         //! \return KS_SUCCESS if there was no errors
         virtual KsResultType Init() = 0;
+
+        //! \brief This runs after all components have been initialized
+        //!
+        //! \return KS_SUCCESS if there was no errors
+        virtual KsResultType PostInit() = 0;
 
         //! \brief destroys the component
         //!

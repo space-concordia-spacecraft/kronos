@@ -1,8 +1,10 @@
 #pragma once
 
+#include "ks_bus.h"
 #include "ks_file.h"
 #include "ks_clock.h"
 #include "ks_logger_term.h"
+#include "ks_component_queued.h"
 
 #define KS_LOGGING_FILE_PATH "/bingbong.log"
 
@@ -16,10 +18,15 @@ namespace kronos {
         ks_log_error
     };
 
+    struct LogEventMessage {
+        String message;
+        KsLogSeverity severity;
+    };
+
     /**
      * The Logger class is derived from the ComponentActive class implemented in Kronos
      */
-    class Logger : public ComponentPassive {
+    class Logger : public ComponentQueued {
     KS_SINGLETON(Logger);
 
     public:
@@ -27,6 +34,8 @@ namespace kronos {
         ~Logger() override = default;
 
     public:
+        KsCmdResult ProcessEvent(const EventMessage& eventMessage) override;
+
         template<typename ...Args>
         static void Trace(const char* msg, Args&& ... args) {
             s_Instance->Log(KsLogSeverity::ks_log_trace, msg, std::forward<Args>(args)...);
@@ -77,16 +86,17 @@ namespace kronos {
                 );
             }
 
-            auto msgLen = sprintf(
+            sprintf(
                 msg,
                 buf,
                 args...
             );
-            // TODO: replace with UART
-            printf("%s", msg);
 
-            if (severity > ks_log_debug)
-                m_File.Write(msg, msgLen);
+            LogEventMessage eventMessage = {
+                .message = msg
+            };
+
+            m_Bus->PublishAsync(eventMessage);
         }
 
         /**
@@ -104,7 +114,10 @@ namespace kronos {
         static String ConvertSeverity(KsLogSeverity severity);
 
     private:
+        void ProcessMessage(const LogEventMessage& eventMessage);
+
         File m_File;
+        BusAsync* m_Bus;
 
     };
 

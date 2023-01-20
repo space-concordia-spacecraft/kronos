@@ -1,6 +1,6 @@
 #include "ks_health_module.h"
 #include "ks_framework.h"
-
+#include "ks_sched_module.h"
 #include "ks_health_monitor.h"
 #include "ks_log_module.h"
 
@@ -11,7 +11,7 @@ namespace kronos {
     }
 
     List <TypeInfo> HealthModule::GetModuleDependencies() const {
-        return Module::DependsOn<LogModule>();
+        return Module::DependsOn<LogModule, SchedModule>();
     }
 
     List <TypeInfo> HealthModule::GetExportedComponents() const {

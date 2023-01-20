@@ -9,6 +9,10 @@ namespace kronos {
         return ks_success;
     }
 
+    KsResultType ComponentPassive::PostInit() {
+        return ks_success;
+    }
+
     KsResultType ComponentPassive::Destroy() {
         return ks_success;
     }
