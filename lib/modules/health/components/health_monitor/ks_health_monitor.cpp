@@ -6,18 +6,18 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(HealthMonitor);
 
     HealthMonitor::HealthMonitor()
-        : ComponentPublisher(
+        : ComponentActive(
         "W_HEALTH",
         ks_event_health_ping
     ),
-          m_BusPong(Framework::CreateBus("B_HEALTH_PONG")) {
-
+          m_BusPong(Framework::GetBus("B_HEALTH_PONG")),
+          m_BusPing(Framework::GetBus("B_HEALTH_PING")) {
         m_BusPong->AddReceivingComponent(this);
     }
 
     void HealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_scheduler_tick: {
+            case ks_event_health_ping: {
                 PingComponents();
                 break;
             }
@@ -42,15 +42,15 @@ namespace kronos {
             }
         );
 
-        for(const auto& [componentActive, healthInfo] : m_ActiveComponentInfos) {
-            m_BusSend->AddReceivingComponent(componentActive);
+        for (const auto& [componentActive, healthInfo]: m_ActiveComponentInfos) {
+            m_BusPing->AddReceivingComponent(componentActive);
         }
 
         return ks_success;
     }
 
     KsResultType HealthMonitor::PingComponents() {
-        m_BusSend->Publish(ks_event_health_ping, m_BusPong);
+        m_BusPing->Publish(ks_event_health_ping, m_BusPong);
 
         for (auto [component, healthInfo]: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();

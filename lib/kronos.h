@@ -26,6 +26,7 @@
 #include "ks_sched_module.h"
 #include "ks_tlm_module.h"
 #include "ks_cmd_module.h"
+#include "ks_wrk_module.h"
 
 // Core Components
 #include "ks_clock.h"

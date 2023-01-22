@@ -16,15 +16,4 @@ namespace kronos {
 
         m_ReceivingComponents.push_back(component);
     }
-
-    void Bus::Publish(const EventMessage* message) const {
-        if (m_ReceivingComponents.empty()) {
-            KS_ASSERT("There are no components registered to this bus.");
-            return;
-        }
-
-        for (auto component: m_ReceivingComponents) {
-            component->ReceiveEvent(message);
-        }
-    }
 }

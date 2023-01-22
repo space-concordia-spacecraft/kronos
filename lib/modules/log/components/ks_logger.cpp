@@ -72,8 +72,9 @@ namespace kronos {
                 offset,
                 payloadSize
             );
+            packet.Header.PayloadSize = payloadSize;
 
-            if((i + payloadSize) >= KSP_MAX_PAYLOAD_SIZE) {
+            if((i + payloadSize) >= eventMessage.message.size()) {
                 flags = PacketFlags::eof;
             }
 

@@ -10,7 +10,7 @@
 namespace kronos {
 
     //! \class ComponentParameterDatabase Class
-    class ParameterDatabase : public ComponentPassive {
+    class ParameterDatabase : public ComponentQueued {
     KS_SINGLETON(ParameterDatabase);
 
     public:

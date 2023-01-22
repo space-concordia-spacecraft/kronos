@@ -8,7 +8,7 @@
 namespace kronos {
 
     LedBlinker::LedBlinker(const std::string& name)
-        : ComponentPassive(name) {}
+        : ComponentQueued(name) {}
 
     KsResultType LedBlinker::Init() {
         if (!ParameterDatabase::GetParam("LED", &m_Toggles))
@@ -18,7 +18,7 @@ namespace kronos {
 
     void LedBlinker::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_scheduler_tick:
+            case ks_event_toggle_led:
                 ToggleLed();
                 break;
         }

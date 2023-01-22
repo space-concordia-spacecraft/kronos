@@ -3,7 +3,7 @@
 namespace kronos {
     KS_SINGLETON_INSTANCE(ParameterDatabase);
 
-    ParameterDatabase::ParameterDatabase() : ComponentPassive("CP_PARAM_DB") {
+    ParameterDatabase::ParameterDatabase() : ComponentQueued("CQ_PARAM_DB") {
         // Create the importer
         ApolloImporter apolloImporter(KS_PARAM_DB_FILENAME);
 
@@ -22,7 +22,7 @@ namespace kronos {
 
     void ParameterDatabase::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_scheduler_tick:
+            case ks_event_save_param:
                 _SaveParams();
                 break;
         }

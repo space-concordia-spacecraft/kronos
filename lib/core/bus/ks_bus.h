@@ -39,8 +39,10 @@ namespace kronos {
                 return;
             }
 
-            EventMessage* message = Framework::CreateEventMessage<T>(data, eventCode, returnBus);
-            Publish(message);
+            for (auto component: m_ReceivingComponents) {
+                EventMessage* message = Framework::CreateEventMessage<T>(data, eventCode, returnBus);
+                component->ReceiveEvent(message);
+            }
         }
 
         //! \brief
@@ -55,8 +57,10 @@ namespace kronos {
                 return;
             }
 
-            EventMessage* message = Framework::CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
-            Publish(message);
+            for (auto component: m_ReceivingComponents) {
+                EventMessage* message = Framework::CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
+                component->ReceiveEvent(message);
+            }
         }
 
         //! \brief
@@ -68,20 +72,16 @@ namespace kronos {
                 return;
             }
 
-            EventMessage* message = Framework::CreateEventMessage(eventCode, returnBus);
-            Publish(message);
+            for (auto component: m_ReceivingComponents) {
+                EventMessage* message = Framework::CreateEventMessage(eventCode, returnBus);
+                component->ReceiveEvent(message);
+            }
         }
 
         //! \brief Getter for the name of the bus
         //!
         //! \return the name of the bus
         [[nodiscard]] const String& GetName() const;
-
-    private:
-        //! \brief Sends an event message to all subscribed components
-        //!
-        //! \param message reference to the event message being sent to the components
-        void Publish(const EventMessage* message) const;
 
     protected:
         //! Name of the bus.

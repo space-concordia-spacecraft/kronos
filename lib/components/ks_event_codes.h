@@ -31,6 +31,9 @@ namespace kronos {
         ks_event_comms_dispatch_echo,
         ks_event_comms_dispatch_downlink,
 
+        // LED
+        ks_event_toggle_led,
+
         // Invalid Event
         ks_event_invalid = UINT16_MAX
     };

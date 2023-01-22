@@ -201,6 +201,8 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sched/config"
         "modules/tlm"
         "modules/tlm/components"
+        "modules/wrk"
+        "modules/wrk/components"
 
         # KRONOS OS RELATED IMPLEMENTATIONS
         "os"

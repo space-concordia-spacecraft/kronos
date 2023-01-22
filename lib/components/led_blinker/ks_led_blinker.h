@@ -1,8 +1,10 @@
-#include "kronos.h"
+#pragma once
+
+#include "ks_component_queued.h"
 
 namespace kronos {
 
-    class LedBlinker : public ComponentPassive {
+    class LedBlinker : public ComponentQueued {
     public:
         explicit LedBlinker(const std::string& name);
 

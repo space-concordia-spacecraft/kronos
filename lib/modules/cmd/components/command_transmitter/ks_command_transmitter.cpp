@@ -17,8 +17,7 @@ namespace kronos {
     }
 
     KsResultType CommandTransmitter::Transmit(Packet packet) {
-        printf("lolxd");
-//        m_IoDriver->Write((uint8_t*) &packet, sizeof(packet));
+        m_IoDriver->Write((uint8_t*) &packet, sizeof(packet));
         return ks_success;
     }
 }

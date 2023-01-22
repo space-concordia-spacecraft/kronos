@@ -8,8 +8,15 @@
 namespace kronos {
 
     void HealthModule::Init() const {
+        // Create Busses
+        Framework::CreateBus("B_HEALTH_PING");
+        Framework::CreateBus("B_HEALTH_PONG");
+
+        // Create Components
         Framework::CreateSingletonComponent<HealthMonitor>();
-        Scheduler::RegisterWorker(ks_worker_health, 100, &HealthMonitor::GetInstance());
+
+        // Schedule the Health Monitor to ping every 5 seconds
+        Scheduler::ScheduleEvent(5000, ks_event_health_ping, &HealthMonitor::GetInstance());
     }
 
     List <TypeInfo> HealthModule::GetModuleDependencies() const {
