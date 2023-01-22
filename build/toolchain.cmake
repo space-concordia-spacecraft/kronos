@@ -24,10 +24,6 @@ include("${PROJECT_SOURCE_DIR}/build/include/arch/${KS_ARCH}.cmake")
 string(REPLACE ";" " " KS_COMPILE_FLAGS "${KS_COMPILE_FLAGS}")
 string(REPLACE ";" " " KS_LINK_FLAGS "${KS_LINK_FLAGS}")
 
-message("KS_COMPILE_FLAGS: ${KS_COMPILE_FLAGS}")
-message("KS_LINK_FLAGS: ${KS_LINK_FLAGS}")
-message("KS_COMPILE_DEFINITIONS: ${KS_COMPILE_DEFINITIONS}")
-
 function(print_sources TARGET)
     set(SOURCES ${ARGN})
     list(LENGTH SOURCES NUM_SOURCES)
@@ -61,7 +57,6 @@ function(add_mcu_executable EXECUTABLE_NAME)
             COMPILE_FLAGS "-O0 -g3 -Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
             LINK_FLAGS "-g3 -Wl,-Map=\"${MAP_OUTPUT_FILE}\" ${KS_LINK_FLAGS}"
     )
-    message("KS_COMPILE_DEFINITIONS: ${KS_COMPILE_DEFINITIONS}")
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${KS_COMPILE_DEFINITIONS})
 
     # Create binary from elf file
@@ -92,6 +87,5 @@ function(add_mcu_library LIBRARY_NAME)
             COMPILE_FLAGS "-O0 -Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     )
-    message("KS_COMPILE_DEFINITIONS: ${KS_COMPILE_DEFINITIONS}")
     target_compile_definitions(${LIBRARY_NAME} PUBLIC ${KS_COMPILE_DEFINITIONS})
 endfunction(add_mcu_library)

@@ -16,6 +16,7 @@ namespace kronos {
 
         // Logger
         ks_event_log_message,
+        ks_event_log_toggle_echo,
 
         // Health Monitor
         ks_event_health_ping,
@@ -26,8 +27,9 @@ namespace kronos {
 
         // Commans
         ks_event_comms_listen,
-        ks_event_comms_send,
-        ks_event_comms_dispatch,
+        ks_event_comms_transmit,
+        ks_event_comms_dispatch_echo,
+        ks_event_comms_dispatch_downlink,
 
         // Invalid Event
         ks_event_invalid = UINT16_MAX

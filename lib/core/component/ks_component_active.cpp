@@ -1,5 +1,6 @@
 #include "ks_component_active.h"
 #include "ks_bus.h"
+#include "ks_framework.h"
 
 namespace kronos {
 
@@ -32,25 +33,25 @@ namespace kronos {
 
     void ComponentActive::Run() {
         while (true) {
-            EventMessage message;
+            const EventMessage* message;
             if (m_Queue->Pop(&message, 0) == pdPASS) {
-                ProcessEvent(message);
+                ProcessEvent(*message);
+                Framework::DeleteEventMessage(message);
             }
             taskYIELD();
         }
     }
 
-    KsCmdResult ComponentActive::ProcessEvent(const EventMessage& message) {
+    void ComponentActive::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_health_ping:
                 if (message.returnBus != nullptr) {
-                    EventMessage healthResponse;
-                    healthResponse.eventCode = ks_event_health_pong;
-                    healthResponse.data = this;
-                    message.returnBus->Publish(healthResponse);
+                    message.returnBus->Publish(
+                        this,
+                        ks_event_health_pong
+                    );
                 }
                 break;
         }
-        return KS_CMDRESULT_NORETURN;
     }
 }

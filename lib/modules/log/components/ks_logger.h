@@ -34,7 +34,7 @@ namespace kronos {
         ~Logger() override = default;
 
     public:
-        KsCmdResult ProcessEvent(const EventMessage& eventMessage) override;
+        void ProcessEvent(const EventMessage& eventMessage) override;
 
         template<typename ...Args>
         static void Trace(const char* msg, Args&& ... args) {
@@ -71,14 +71,16 @@ namespace kronos {
             static char msg[250];
 
             if (severity == ks_log_trace) {
-                sprintf(
+                snprintf(
                     buf,
+                    sizeof(buf),
                     "%s\n",
                     fmt
                 );
             } else {
-                sprintf(
+                snprintf(
                     buf,
+                    sizeof(buf),
                     KS_TERM_TIME "[%s]" KS_TERM_RESET " %s %s\n",
                     Clock::GetTime().c_str(),
                     ConvertSeverity(severity).c_str(),
@@ -86,25 +88,15 @@ namespace kronos {
                 );
             }
 
-            sprintf(
-                msg,
-                buf,
-                args...
-            );
+            snprintf(msg, sizeof(msg), buf, args...);
 
             LogEventMessage eventMessage = {
-                .message = msg
+                .message = msg,
+                .severity = severity
             };
 
-            m_Bus->PublishAsync(eventMessage);
+            m_Bus->Publish(eventMessage, ks_event_log_message);
         }
-
-        /**
-         * Converts timestamp to a null-terminated string using base 10 (decimal)
-         * @param timestamp
-         * @return
-         */
-        static float ConvertTimestamp(uint32_t timestamp);
 
         /**
          * ConvertSeverity() converts the integer severity value into a string for the log.
@@ -113,11 +105,14 @@ namespace kronos {
          */
         static String ConvertSeverity(KsLogSeverity severity);
 
+        void SetEcho(bool shouldEcho);
+
     private:
         void ProcessMessage(const LogEventMessage& eventMessage);
 
         File m_File;
-        BusAsync* m_Bus;
+        Bus* m_Bus;
+        bool m_ShouldEcho = true;
 
     };
 

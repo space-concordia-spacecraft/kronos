@@ -1,159 +1,93 @@
 #pragma once
 
 #include "ks_component_base.h"
-
+#include "ks_framework.h"
 #include <algorithm>
 #include <vector>
 
 namespace kronos {
 
-    //! \class BusBase
-    //! \brief Base implementation for buses
+    //! \class Bus
+    //! \brief Implementation of busses used for cross-task communication.
     //!
     //! This class implements all the base functions used in both Async and Sync buses.
-    class BusBase {
+    class Bus {
 
     public:
         //! \brief Constructor to create a new bus
         //!
-        //! \param opcode the opcode the bus uses to publish
         //! \param name the name of the bus
-        BusBase(String name, KsEventCodeType opcode);
+        explicit Bus(String name);
 
         //! \brief Virtual destructor to be invoked for proper destruction of child classes.
-        virtual ~BusBase() = default;
+        ~Bus() = default;
 
         //! \brief Adds a new subscriber to the bus
         //!
         //! \param component pointer to the component that is subscribing to the bus
-        virtual void AddReceivingComponent(ComponentBase* component) = 0;
+        void AddReceivingComponent(ComponentBase* component);
 
-        //! \brief Sends an event message to all subscribed components
+        //! \brief
         //!
-        //! \param message reference to the event message being sent to the components
-        virtual void Publish(const EventMessage& message) const = 0;
+        //! \tparam T
+        //! \param data
+        //! \param returnBus
+        template<typename T>
+        void Publish(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty()) {
+                // TODO: HANDLE ERROR OR WARNING
+                return;
+            }
+
+            EventMessage* message = Framework::CreateEventMessage<T>(data, eventCode, returnBus);
+            Publish(message);
+        }
+
+        //! \brief
+        //!
+        //! \tparam T
+        //! \param data
+        //! \param returnBus
+        template<typename T>
+        void  Publish(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty()) {
+                // TODO: HANDLE ERROR OR WARNING
+                return;
+            }
+
+            EventMessage* message = Framework::CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
+            Publish(message);
+        }
+
+        //! \brief
+        //!
+        //! \param returnBus
+        void Publish(KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty()) {
+                // TODO: HANDLE ERROR OR WARNING
+                return;
+            }
+
+            EventMessage* message = Framework::CreateEventMessage(eventCode, returnBus);
+            Publish(message);
+        }
 
         //! \brief Getter for the name of the bus
         //!
         //! \return the name of the bus
-        const String& GetName() const;
+        [[nodiscard]] const String& GetName() const;
 
-        //! \brief Getter for the event code of the bus
+    private:
+        //! \brief Sends an event message to all subscribed components
         //!
-        //! \return the event code of the bus
-        KsEventCodeType GetEventCode() const;
+        //! \param message reference to the event message being sent to the components
+        void Publish(const EventMessage* message) const;
 
     protected:
-        //! Event code that gets sent to all subscribed components
-        KsEventCodeType m_EventCode;
-
-        //! Name of the bus
+        //! Name of the bus.
         String m_Name;
 
+        //! A list of components subscribed to the bus.
+        List<ComponentBase*> m_ReceivingComponents;
     };
-
-    //! \class BusSync
-    //! \brief A class that implements synchronous buses
-    //!
-    //! This class implements synchronous buses. These are able to return values
-    class BusSync : public BusBase {
-
-    public:
-        //! @copydoc
-        BusSync(String name, KsEventCodeType opcode);
-
-        //! @copydoc
-        void AddReceivingComponent(ComponentBase* component) override;
-
-        //! @copydoc
-        void Publish(const EventMessage& message) const override;
-
-        //! \brief Publishes the message synchronously to the subscribed components
-        //!
-        //! \tparam R type of the return
-        //! \param message reference to the event message being sent to the components
-        //! \return
-        template<typename R>
-        R* PublishSync(const EventMessage& message) {
-            if (m_ReceivingComponent == nullptr) {
-                // TODO: HANDLE ERROR OR WARNING
-                return static_cast<R*>(KS_CMDRESULT_NORETURN);
-            }
-
-            if (m_EventCode != message.eventCode) {
-                // TODO: HANDLE ERROR OR WARNING
-                return static_cast<R*>(KS_CMDRESULT_NORETURN);
-            }
-
-            return static_cast<R*>(m_ReceivingComponent->ReceiveEvent(message));
-        }
-
-        //! \brief
-        //! \tparam T
-        //! \tparam R
-        //! \param data
-        //! \return
-        template<typename T, typename R>
-        R* PublishSync(const T& data) {
-            if (m_ReceivingComponent == nullptr) {
-                // TODO: HANDLE ERROR OR WARNING
-                return static_cast<R*>(KS_CMDRESULT_NORETURN);
-            }
-
-            EventMessage message;
-            message.eventCode = m_EventCode;
-
-            message.data = std::any(data);
-
-            return PublishSync<R>(message);
-        }
-
-    private:
-        ComponentBase* m_ReceivingComponent = nullptr;
-
-    };
-
-    class BusAsync : public BusBase {
-
-    public:
-        BusAsync(String name, KsEventCodeType opcode);
-
-        void AddReceivingComponent(ComponentBase* component) override;
-
-        void Publish(const EventMessage& message) const override;
-
-        void PublishAsync(const EventMessage& message) const;
-
-        template<typename T>
-        void PublishAsync(const T& data, BusBase* returnBus = nullptr) {
-            if (m_ReceivingComponents.empty()) {
-                // TODO: HANDLE ERROR OR WARNING
-                return;
-            }
-
-            EventMessage message;
-            message.eventCode = m_EventCode;
-            message.returnBus = returnBus;
-            message.data = std::any(data);
-
-            Publish(message);
-        }
-
-        void PublishAsync() {
-            if (m_ReceivingComponents.empty()) {
-                // TODO: HANDLE ERROR OR WARNING
-                return;
-            }
-
-            EventMessage message;
-            message.eventCode = m_EventCode;
-
-            PublishAsync(message);
-        }
-
-    private:
-        std::vector<ComponentBase*> m_ReceivingComponents;
-
-    };
-
 }

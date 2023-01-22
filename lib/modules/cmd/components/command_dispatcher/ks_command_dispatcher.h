@@ -2,7 +2,7 @@
 
 #include "ks_component_active.h"
 #include "ks_default_commands.h"
-
+#include "ks_bus.h"
 #include <unordered_map>
 #include <functional>
 
@@ -15,10 +15,10 @@ namespace kronos {
 
     class CommandDispatcher : public ComponentActive {
     public:
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
-        KsResultType RegisterCommand(KsCommandId opcode, const Function<void(void*)>&);
+        explicit CommandDispatcher(const String& name);
+        void ProcessEvent(const EventMessage& message) override;
 
     private:
-        Map<KsCommandId, Function<void(void*)>> m_CommandMessages;
+        Bus* m_Bus;
     };
 }

@@ -41,7 +41,7 @@ namespace kronos {
         [[noreturn]] virtual void Run();
 
         //! @copydoc
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
 
     private:
         //! Stack size provided to the task

@@ -1,21 +1,25 @@
 #include "ks_usart.h"
+#include "hal_io.h"
+#include "hal_usart_os.h"
 
 namespace kronos {
-    Usart::Usart(KsUsartDesc* desc):m_Descriptor(desc){}
-
-    void Usart::Write(const uint8_t* const buf, const uint16_t length) {
-
+    KsUsart::KsUsart(KsUsartDescriptor* desc) : m_UsartDescriptor(desc) {
+        usart_os_get_io(m_UsartDescriptor, &m_IoDescriptor);
     }
 
-    void Usart::Write(const String& buf) {
-
+    int32_t KsUsart::Write(const uint8_t* const buf, const uint16_t length) {
+        return io_write(m_IoDescriptor, buf, length);
     }
 
-    void Usart::Read(const uint8_t* const buf, const uint16_t length) {
-
+    int32_t KsUsart::Write(const String& buf) {
+        return io_write(m_IoDescriptor, (uint8_t*) buf.c_str(), buf.size());
     }
 
-    void Usart::Read(const String& buf) {
+    int32_t KsUsart::Read(uint8_t* buf, const uint16_t length) {
+        // Means we haven't received enough bytes
+        if (m_UsartDescriptor->rx_size < length)
+            return -1;
 
+        return io_read(m_IoDescriptor, buf, length);
     }
 }

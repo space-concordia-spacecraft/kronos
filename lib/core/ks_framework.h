@@ -1,10 +1,11 @@
 #pragma once
 
+#include "ks_io.h"
 #include "ks_module.h"
-#include "ks_bus.h"
 #include "ks_component_active.h"
 
 namespace kronos {
+    class Bus;
 
     class HealthMonitor;
 
@@ -12,6 +13,7 @@ namespace kronos {
     //! \brief A class that implements the framework using the Singleton design pattern
     class Framework {
         friend class HealthMonitor;
+
     KS_SINGLETON(Framework);
 
     public:
@@ -30,7 +32,7 @@ namespace kronos {
 
         //! \brief Convenience method for static calls. See _CreateComponent().
         template<typename T, typename... Args>
-        static inline T* CreateComponent(const std::string& name, Args&& ... args) {
+        static inline T* CreateComponent(const String& name, Args&& ... args) {
             return s_Instance->_CreateComponent<T, Args...>(name, std::forward<Args>(args)...);
         }
 
@@ -41,9 +43,26 @@ namespace kronos {
         }
 
         //! \brief Convenience method for static calls. See _CreateBus().
-        template<typename T, typename... Args>
-        static inline T* CreateBus(const std::string& name, Args&& ... args) {
+        template<typename T=Bus, typename... Args>
+        static inline T* CreateBus(const String& name, Args&& ... args) {
             return s_Instance->_CreateBus<T, Args...>(name, std::forward<Args>(args)...);
+        }
+
+        //! \brief Convenience method for static calls. See _CreateDriver().
+        template<typename T, typename... Args>
+        static inline T* CreateDriver(const String& name, Args&& ... args) {
+            return s_Instance->_CreateDriver<T, Args...>(name, std::forward<Args>(args)...);
+        }
+
+        template<class T>
+        static inline EventMessage* CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            return s_Instance->_CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
+        }
+
+        template<class T>
+        static inline EventMessage*
+        CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            return s_Instance->_CreateEventMessage<T>(data, eventCode, returnBus);
         }
 
         //! \brief Convenience method for static calls. See _HasModule().
@@ -52,11 +71,26 @@ namespace kronos {
             return s_Instance->_HasModule<T>();
         }
 
+    public:
         //! \brief Convenience method for static calls. See _Start().
         KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
 
         //! \brief Convenience method for static calls. See _InitModules().
         KS_SINGLETON_EXPOSE_METHOD(_InitModules, bool InitModules());
+
+        KS_SINGLETON_EXPOSE_METHOD(_GetBus, Bus* GetBus(const String& name), name);
+
+        KS_SINGLETON_EXPOSE_METHOD(_GetDriver, IoDriver* GetDriver(const String& name), name);
+
+        KS_SINGLETON_EXPOSE_METHOD(_CreateEventMessage,
+                                   EventMessage*
+                                   CreateEventMessage(KsEventCodeType eventCode, Bus * returnBus = nullptr),
+                                   eventCode,
+                                   returnBus);
+
+        KS_SINGLETON_EXPOSE_METHOD(_DeleteEventMessage,
+                                   void DeleteEventMessage(const EventMessage* eventMessage),
+                                   eventMessage);
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS sched
@@ -136,7 +170,7 @@ namespace kronos {
         //! \return The bus that was created, nullptr if there was an error.
         template<class T, typename... Args>
         T* _CreateBus(const std::string& name, Args&& ... args) {
-            static_assert(std::is_base_of_v<BusBase, T>, "T must extend BusBase!");
+            static_assert(std::is_base_of_v<Bus, T>, "T must extend Bus!");
 
             if (m_Busses.contains(name)) {
                 // Bus already created
@@ -147,6 +181,48 @@ namespace kronos {
             m_Busses[name] = ref;
             return ref.get();
         }
+
+        template<class T, typename... Args>
+        T* _CreateDriver(const String& name, Args&& ... args) {
+            static_assert(std::is_base_of_v<IoDriver, T>, "T must extend IoDriver!");
+
+            if (m_Drivers.contains(name)) {
+                // Bus already created
+                return nullptr;
+            }
+
+            auto ref = CreateRef<T>(std::forward<Args>(args)...);
+            m_Drivers[name] = ref;
+            return ref.get();
+        }
+
+        template<class T>
+        EventMessage* _CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            Scope<EventMessage> eventMessage = std::make_unique<EventMessage>();
+            eventMessage->eventCode = eventCode;
+            eventMessage->data = std::make_any<T>(std::forward<T>(data));
+            eventMessage->returnBus = returnBus;
+
+            auto* eventMessagePtr = eventMessage.get();
+            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope<EventMessage>>(eventMessage));
+            return eventMessagePtr;
+        }
+
+        template<class T>
+        EventMessage* _CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            Scope<EventMessage> eventMessage = std::make_unique<EventMessage>();
+            eventMessage->eventCode = eventCode;
+            eventMessage->data = std::make_any<T>(data);
+            eventMessage->returnBus = returnBus;
+
+            auto* eventMessagePtr = eventMessage.get();
+            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope<EventMessage>>(eventMessage));
+            return eventMessagePtr;
+        }
+
+        EventMessage* _CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus = nullptr);
+
+        void _DeleteEventMessage(const EventMessage* eventMessage);
 
         //!
         //! \tparam T
@@ -162,12 +238,18 @@ namespace kronos {
         //! \return
         bool _InitModules();
 
+        Bus* _GetBus(const String& name);
+
+        IoDriver* _GetDriver(const String& name);
+
     private:
         List <KsIdType> m_ModuleList;
         Map <KsIdType, Scope<IModule>> m_Modules;
         Map <String, Ref<ComponentBase>> m_Components;
-        List<String> m_ActiveComponents;
-        Map <String, Ref<BusBase>> m_Busses;
+        List <String> m_ActiveComponents;
+        Map <String, Ref<Bus>> m_Busses;
+        Map <String, Ref<IoDriver>> m_Drivers;
+        Map<const EventMessage*, Scope < EventMessage>> m_EventMessages;
 
     };
 

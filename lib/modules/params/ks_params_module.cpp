@@ -3,7 +3,6 @@
 #include "ks_fs_module.h"
 #include "ks_sched_module.h"
 #include "ks_scheduler.h"
-#include "ks_log_module.h"
 #include "ks_parameter_database.h"
 
 namespace kronos {

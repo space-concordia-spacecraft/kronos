@@ -6,7 +6,7 @@
 #define KS_DEBUGBREAK()
 #endif
 
-#define KS_INTERNAL_ASSERT_IMPL(type, check, msg, ...) if (!(check)) { Logger::Error(msg, __VA_ARGS__); KS_DEBUGBREAK(); }
+#define KS_INTERNAL_ASSERT_IMPL(type, check, msg, ...) if (!(check)) { KS_DEBUGBREAK(); }
 #define KS_INTERNAL_ASSERT_WITH_MSG(type, check, ...) KS_INTERNAL_ASSERT_IMPL(type, check, "Assertion failed: %s\n", __VA_ARGS__)
 #define KS_INTERNAL_ASSERT_NO_MSG(type, check) KS_INTERNAL_ASSERT_IMPL(type, check, "Assertion '%s' failed at %s:%d\n", #check, __FILE__, __LINE__)
 

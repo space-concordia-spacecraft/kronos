@@ -180,6 +180,7 @@ set(KRONOS_INCLUDE_DIRS
         "modules/cmd/components/command_dispatcher"
         "modules/cmd/components/command_listener"
         "modules/cmd/components/command_scheduler"
+        "modules/cmd/components/command_transmitter"
         "modules/cmd/utils"
         "modules/fs"
         "modules/fs/components"

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ks_component_worker.h"
+#include "ks_component_publisher.h"
 #include "ks_bus.h"
 #include "ks_logger.h"
 #include "ks_error_component_codes.h"
@@ -13,21 +13,21 @@ namespace kronos {
         uint32_t lastResponse = 0;
     };
 
-    class HealthMonitor : public ComponentWorker {
+    class HealthMonitor : public ComponentPublisher {
     KS_SINGLETON(HealthMonitor);
 
     public:
         HealthMonitor();
 
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
         KsResultType PostInit() override;
 
     private:
         KsResultType PingComponents();
-        KsResultType HandleComponentResponse(const ComponentActive& component);
+        KsResultType HandleComponentResponse(ComponentActive* component);
 
     private:
-        Map<const ComponentActive*, ComponentHealthInfo> m_ActiveComponentInfos{};
-        BusBase* m_BusPong;
+        Map<ComponentActive*, ComponentHealthInfo> m_ActiveComponentInfos{};
+        Bus* m_BusPong;
     };
 }

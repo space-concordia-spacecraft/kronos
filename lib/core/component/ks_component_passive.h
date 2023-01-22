@@ -32,10 +32,10 @@ namespace kronos {
         KsResultType Destroy() override;
 
         /// @copydoc
-        KsCmdResult ReceiveEvent(const EventMessage& message) override;
+        void ReceiveEvent(const EventMessage* message) override;
 
         //!
-        KsCmdResult ProcessEvent(const EventMessage& message) override { return KS_CMDRESULT_NORETURN; };
+        void ProcessEvent(const EventMessage& message) override {};
     };
 
 }

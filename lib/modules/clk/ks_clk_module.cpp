@@ -12,7 +12,7 @@ namespace kronos {
     }
 
     List <TypeInfo> ClkModule::GetModuleDependencies() const {
-        return Module::DependsOn<SchedModule, ParamsModule>();
+        return Module::DependsOn<ParamsModule>();
     }
 
     List <TypeInfo> ClkModule::GetExportedComponents() const {

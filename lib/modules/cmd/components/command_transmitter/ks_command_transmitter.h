@@ -2,16 +2,18 @@
 #include "ks_component_queued.h"
 #include "ks_packet_parser.h"
 #include "ks_io.h"
+#include "ks_bus.h"
 
 namespace kronos {
-    class CommandListener : public ComponentQueued {
+    class CommandTransmitter: public ComponentQueued {
     public:
-        CommandListener(const String& name, IoDriver* ioDriver);
+        explicit CommandTransmitter(const std::string& name, IoDriver* ioDriver);
         void ProcessEvent(const EventMessage& message) override;
 
     private:
+        Bus* m_Bus;
         IoDriver* m_IoDriver;
 
-        KsResultType Listen();
+        KsResultType Transmit(Packet packet);
     };
 }

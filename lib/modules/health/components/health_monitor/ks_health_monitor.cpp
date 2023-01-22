@@ -6,29 +6,26 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(HealthMonitor);
 
     HealthMonitor::HealthMonitor()
-        : ComponentWorker(
+        : ComponentPublisher(
         "W_HEALTH",
         ks_event_health_ping
     ),
-          m_BusPong(Framework::CreateBus<BusAsync>("BA_HEALTH_PONG", ks_event_health_pong)) {
+          m_BusPong(Framework::CreateBus("B_HEALTH_PONG")) {
 
         m_BusPong->AddReceivingComponent(this);
     }
 
-    KsCmdResult HealthMonitor::ProcessEvent(const EventMessage& message) {
+    void HealthMonitor::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_scheduler_tick: {
                 PingComponents();
                 break;
             }
             case ks_event_health_pong: {
-                HandleComponentResponse(message.Cast<ComponentActive>());
+                HandleComponentResponse(message.Cast<ComponentActive*>());
                 break;
             }
-            default:
-                return KS_CMDRESULT_NORETURN;
         }
-        return KS_CMDRESULT_NORETURN;
     }
 
     KsResultType HealthMonitor::PostInit() {
@@ -38,7 +35,7 @@ namespace kronos {
             list.end(),
             std::inserter(m_ActiveComponentInfos, m_ActiveComponentInfos.end()),
             [](const String& name) {
-                return std::pair<const ComponentActive*, ComponentHealthInfo>{
+                return std::pair<ComponentActive*, ComponentHealthInfo>{
                     dynamic_cast<ComponentActive*>(Framework::GetInstance().m_Components[name].get()),
                     {}
                 };
@@ -53,10 +50,7 @@ namespace kronos {
     }
 
     KsResultType HealthMonitor::PingComponents() {
-        EventMessage message;
-        message.eventCode = ks_event_health_ping;
-        message.returnBus = m_BusPong;
-        m_BusSend->Publish(message);
+        m_BusSend->Publish(ks_event_health_ping, m_BusPong);
 
         for (auto [component, healthInfo]: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
@@ -68,9 +62,9 @@ namespace kronos {
         return ks_success;
     }
 
-    KsResultType HealthMonitor::HandleComponentResponse(const ComponentActive& component) {
-        m_ActiveComponentInfos[&component].lastResponse = xTaskGetTickCount();
-        Logger::Debug("Health response from component '%s'", component.GetName().c_str());
+    KsResultType HealthMonitor::HandleComponentResponse(ComponentActive* component) {
+        m_ActiveComponentInfos[component].lastResponse = xTaskGetTickCount();
+        Logger::Debug("Health response from component '%s'", component->GetName().c_str());
 
         return ks_success;
     }

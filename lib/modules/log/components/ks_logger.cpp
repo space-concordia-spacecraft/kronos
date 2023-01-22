@@ -1,57 +1,93 @@
 #include "ks_logger.h"
 #include "ks_framework.h"
+#include "ks_packet_parser.h"
 
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(Logger);
 
-    Logger::Logger()
-        : ComponentQueued("CQ_LOGGER"), m_File(KS_LOGGING_FILE_PATH),
-        m_Bus(Framework::CreateBus<BusAsync>("BA_CQ_LOGGER", ks_event_log_message)){
+    Logger::Logger() :
+        ComponentQueued("CQ_LOGGER"),
+        m_File(KS_LOGGING_FILE_PATH),
+        m_Bus(Framework::CreateBus("B_LOGGER")) {
         m_Bus->AddReceivingComponent(this);
     };
 
-    KsCmdResult Logger::ProcessEvent(const EventMessage& eventMessage) {
-        switch(eventMessage.eventCode) {
+    void Logger::ProcessEvent(const EventMessage& eventMessage) {
+        switch (eventMessage.eventCode) {
             case ks_event_log_message:
                 ProcessMessage(eventMessage.Cast<LogEventMessage>());
                 break;
+            case ks_event_log_toggle_echo:
+                SetEcho(!m_ShouldEcho);
+                break;
         }
-        return KS_CMDRESULT_NORETURN;
-    }
-
-    float Logger::ConvertTimestamp(uint32_t timestamp) {
-        return (static_cast<float>(timestamp) / 1000.0f);
     }
 
     String Logger::ConvertSeverity(KsLogSeverity severity) {
         switch (severity) {
             case ks_log_debug:
                 return KS_TERM_DEBUG
-                "[DEBUG]"
-                KS_TERM_RESET;
+                       "[DEBUG]"
+                       KS_TERM_RESET;
             case ks_log_info:
                 return KS_TERM_INFO
-                "[INFO]"
-                KS_TERM_RESET;
+                       "[INFO]"
+                       KS_TERM_RESET;
             case ks_log_warn:
                 return KS_TERM_WARN
-                "[WARNING]"
-                KS_TERM_RESET;
+                       "[WARNING]"
+                       KS_TERM_RESET;
             case ks_log_error:
                 return KS_TERM_ERROR
-                "[ERROR]"
-                KS_TERM_RESET;
+                       "[ERROR]"
+                       KS_TERM_RESET;
             default:
                 return "";
         }
     }
 
     void Logger::ProcessMessage(const LogEventMessage& eventMessage) {
-        printf("%s", eventMessage.message.c_str());
-
+        // Only write to a file if the severity is over debug
         if (eventMessage.severity > ks_log_debug)
             m_File.Write(eventMessage.message.c_str(), eventMessage.message.size());
+
+        // If we're not echoing we should just return out of the function
+        if (!m_ShouldEcho)
+            return;
+
+        Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
+        if(transmitBus == nullptr)
+            return;
+
+        // Split the message into packets
+        for (size_t i = 0; i < eventMessage.message.size(); i += KSP_MAX_PAYLOAD_SIZE) {
+            Packet packet{};
+            auto payloadSize = std::min<uint32_t>(KSP_MAX_PAYLOAD_SIZE, eventMessage.message.size() - i);
+            auto offset = eventMessage.message.c_str() + i;
+            auto flags = PacketFlags::none;
+
+            memcpy(
+                packet.Payload,
+                offset,
+                payloadSize
+            );
+
+            if((i + payloadSize) >= KSP_MAX_PAYLOAD_SIZE) {
+                flags = PacketFlags::eof;
+            }
+
+            EncodePacket(&packet, flags, 0, (uint8_t*) offset, payloadSize);
+
+            transmitBus->Publish(
+                packet,
+                ks_event_comms_transmit
+            );
+        }
+    }
+
+    void Logger::SetEcho(bool shouldEcho) {
+        m_ShouldEcho = shouldEcho;
     }
 
 }

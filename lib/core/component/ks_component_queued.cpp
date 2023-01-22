@@ -1,9 +1,11 @@
 #include "ks_component_queued.h"
+#include "ks_logger.h"
+#include "ks_framework.h"
 
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const String& name)
-        : ComponentPassive(name), m_Queue(Queue<EventMessage>::Create()) {}
+        : ComponentPassive(name), m_Queue(Queue<const EventMessage*>::Create()) {}
 
     KsResultType ComponentQueued::Init() {
         return ComponentPassive::Init();
@@ -14,25 +16,21 @@ namespace kronos {
     }
 
     KsResultType ComponentQueued::ProcessEventQueue() {
-        EventMessage message;
+        const EventMessage* message;
         while (m_Queue->Pop(&message, 0) == pdPASS) {
-            ProcessEvent(message);
+            ProcessEvent(*message);
+            Framework::DeleteEventMessage(message);
         }
-
         return ks_success;
     }
 
-    KsCmdResult ComponentQueued::ReceiveEvent(const EventMessage& message) {
-        if (message.eventCode == ks_event_empty_queue) {
+    void ComponentQueued::ReceiveEvent(const EventMessage* message) {
+        if (message->eventCode == ks_event_empty_queue) {
             ProcessEventQueue();
-            return KS_CMDRESULT_NORETURN;
+            return;
         }
 
-        if (m_Queue->Push(message) != pdPASS) {
-            // TODO: HANDLE ERROR OR WARNING
-        }
-
-        return KS_CMDRESULT_NORETURN;
+        auto ret = m_Queue->Push(message);
+        KS_ASSERT(ret == pdPASS, "Unable to push to queue.");
     }
-
 }

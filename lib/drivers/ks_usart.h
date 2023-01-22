@@ -2,16 +2,16 @@
 #include "ks_io.h"
 
 namespace kronos {
-    class Usart : public IoDriver {
+    class KsUsart : public IoDriver {
     public:
-        explicit Usart(KsUsartDesc* desc);
+        explicit KsUsart(KsUsartDescriptor* desc);
+        ~KsUsart() = default;
 
-        void Write(const uint8_t* buf, uint16_t length) override;
-        void Write(const String& buf) override;
+        int32_t Write(const uint8_t* buf, uint16_t length) override;
+        int32_t Write(const String& buf) override;
 
-        void Read(const uint8_t* buf, uint16_t length) override;
-        void Read(const String& buf) override;
+        int32_t Read(uint8_t* buf, uint16_t length) override;
     private:
-        KsUsartDesc* m_Descriptor;
+        KsUsartDescriptor* m_UsartDescriptor;
     };
 }

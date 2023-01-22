@@ -7,7 +7,7 @@
 
 namespace kronos {
 
-    class BusBase;
+    class Bus;
 
     //! \struct EventMessage
     //! \brief A struct that holds information about an event message
@@ -19,7 +19,7 @@ namespace kronos {
         //! The data being passed through the event
         std::any data{};
         //! The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away
-        BusBase* returnBus = nullptr;
+        Bus* returnBus = nullptr;
 
         template <typename T>
         T Cast() const {
@@ -59,14 +59,12 @@ namespace kronos {
         //! \brief Receives the event from the publishing bus
         //!
         //! \param message the event message containing the information being published on the bus
-        //! \return KS_SUCCESS if there are no errors.
-        virtual KsCmdResult ReceiveEvent(const EventMessage& message) = 0;
+        virtual void ReceiveEvent(const EventMessage* message) = 0;
 
         //! \brief Processes the event message
         //!
         //! \param message the event message containing the information that was published to the bus
-        //! \return KS_SUCCESS if there are no errors
-        virtual KsCmdResult ProcessEvent(const EventMessage& message) = 0;
+        virtual void ProcessEvent(const EventMessage& message) = 0;
 
         //! \brief gets the name of the component
         //! \return

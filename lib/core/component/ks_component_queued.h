@@ -32,11 +32,11 @@ namespace kronos {
         KsResultType Destroy() override;
 
         //! @copydoc
-        KsCmdResult ReceiveEvent(const EventMessage& message) override;
+        void ReceiveEvent(const EventMessage* message) override;
 
     protected:
         //! Queue that stores events being sent to the component.
-        std::shared_ptr<Queue<EventMessage>> m_Queue;
+        std::shared_ptr<Queue<const EventMessage*>> m_Queue;
 
     };
 

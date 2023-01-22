@@ -1,18 +1,17 @@
 #include "ks_command_dispatcher.h"
+#include "ks_framework.h"
 
 namespace kronos {
-    KsCmdResult CommandDispatcher::ProcessEvent(const EventMessage& message) {
+    CommandDispatcher::CommandDispatcher(const String& name) : ComponentActive(name),
+                                             m_Bus(Framework::CreateBus("B_CMD_DISPATCHER")) {}
+
+    void CommandDispatcher::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_comms_dispatch:
-                auto commandMessage = message.Cast<CommandMessage>();
-                m_CommandMessages[commandMessage.commandId](commandMessage.parameter);
+            case ks_event_comms_dispatch_echo:
+                Framework::GetBus("B_LOGGER")->Publish(ks_event_log_toggle_echo);
+                break;
+            case ks_event_comms_dispatch_downlink:
                 break;
         }
-        return KS_CMDRESULT_NORETURN;
-    }
-
-    KsResultType CommandDispatcher::RegisterCommand(KsCommandId opcode, const std::function<void(void*)>& pFunction) {
-        m_CommandMessages[opcode] = pFunction;
-        return ks_success;
     }
 }

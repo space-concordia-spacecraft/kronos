@@ -16,13 +16,12 @@ namespace kronos {
         return ks_success;
     }
 
-    KsCmdResult LedBlinker::ProcessEvent(const EventMessage& message) {
+    void LedBlinker::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_scheduler_tick:
                 ToggleLed();
                 break;
         }
-        return KS_CMDRESULT_NORETURN;
     }
 
     void LedBlinker::ToggleLed() {
@@ -30,5 +29,4 @@ namespace kronos {
         Gpio::Toggle(LED0);
         ParameterDatabase::SetParam("LED", m_Toggles);
     }
-
 }

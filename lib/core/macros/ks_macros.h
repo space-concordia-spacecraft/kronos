@@ -28,6 +28,10 @@ static inline fn {                                         \
     return s_Instance->instanceName(__VA_ARGS__);          \
 }
 
+// This macro is to find a key
+#define KS_MAP_FIND(map, key, it) if (auto it = map.find(key); it != map.end())
+#define KS_LIST_FIND(list, value, it) if (auto it = std::find(list.begin(), list.end(), value); it != list.end())
+
 // This macro counts the number of variadic arguments passed to it
 #define KS_NARG(...) \
          KS_NARG_(__VA_ARGS__,KS_RSEQ_N())

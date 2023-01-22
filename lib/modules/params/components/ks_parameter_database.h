@@ -17,7 +17,7 @@ namespace kronos {
         //! \brief Constructor for ParameterDatabase. Attempts to read a file called "params" and parses the data.
         ParameterDatabase();
 
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
 
     public:
         template<typename T = uint32_t>

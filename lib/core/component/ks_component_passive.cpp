@@ -17,8 +17,8 @@ namespace kronos {
         return ks_success;
     }
 
-    KsCmdResult ComponentPassive::ReceiveEvent(const EventMessage& message) {
-        return ProcessEvent(message);
+    void ComponentPassive::ReceiveEvent(const EventMessage* message) {
+        ProcessEvent(*message);
     }
 
 }

@@ -30,9 +30,13 @@ static void Start(void* data) {
     // INITIALIZE FRAMEWORK
     Framework::CreateInstance();
 
+    // INITIALIZE ALL DRIVERS
+    Framework::CreateDriver<KsUsart>("D_CMD", &TARGET_IO);
+
     // ADD MODULES
     Framework::AddModule<FsModule>();
     Framework::AddModule<SchedModule>();
+    Framework::AddModule<CmdModule>();
     Framework::AddModule<LogModule>();
     Framework::AddModule<ParamsModule>();
     Framework::AddModule<ClkModule>();
@@ -44,7 +48,7 @@ static void Start(void* data) {
     auto* ledBlinker = Framework::CreateComponent<LedBlinker>("CP_LED_BLINKER");
 
     // ATTACH COMPONENTS TO WORKERS
-    Scheduler::RegisterComponent(ks_worker_2s, ledBlinker);
+    Scheduler::RegisterComponent(ks_worker_10s, ledBlinker);
 
     // START FRAMEWORK
     Framework::Start();

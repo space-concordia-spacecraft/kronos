@@ -13,7 +13,6 @@ namespace kronos {
 
         calendar_enable(&CALENDAR_0);
 
-        // FIXME: For some reason the date doesn't get set properly when you unplug and plug the board back in.
         if (!ParameterDatabase::GetParam("KS_DATE", &date)) {
             date.year = 2023;
             date.month = 1;
@@ -31,13 +30,12 @@ namespace kronos {
         return ks_success;
     }
 
-    KsCmdResult Clock::ProcessEvent(const EventMessage& message) {
+    void Clock::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_scheduler_tick:
                 SaveTime();
                 break;
         }
-        return KS_CMDRESULT_NORETURN;
     }
 
     void Clock::SaveTime() {
@@ -74,8 +72,9 @@ namespace kronos {
         calendar_date_time currentDateTime{};
         calendar_get_date_time(&CALENDAR_0, &currentDateTime);
 
-        sprintf(
+        snprintf(
             buf,
+            sizeof(buf),
             "%04d-%02d-%02d %02d:%02d:%02d",
             currentDateTime.date.year,
             currentDateTime.date.month,

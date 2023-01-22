@@ -13,9 +13,9 @@ namespace kronos {
         }
     };
 
-    class CommandScheduled: public ComponentActive {
+    class CommandScheduler: public ComponentActive {
     public:
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
         [[noreturn]] void Run() override;
 
     private:

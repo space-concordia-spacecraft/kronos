@@ -11,7 +11,7 @@ namespace kronos {
     private:
         uint32_t m_Toggles = 0;
 
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
         void ToggleLed();
     };
 

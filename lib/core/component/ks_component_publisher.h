@@ -5,21 +5,22 @@
 
 namespace kronos {
 
-    class ComponentWorker : public ComponentActive {
+    class ComponentPublisher : public ComponentActive {
 
     public:
-        explicit ComponentWorker(
+        explicit ComponentPublisher(
             const std::string& name,
             KsEventCodeType eventCode,
             size_t stackSize = KS_COMPONENT_STACK_SIZE_XLARGE,
             uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM);
 
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
 
         KsResultType RegisterComponent(ComponentBase* component);
 
     protected:
-        BusAsync* m_BusSend;
+        Bus* m_BusSend;
+        KsEventCodeType m_EventCode;
         EventMessage m_EventMessage;
     };
 

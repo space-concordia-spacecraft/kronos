@@ -18,17 +18,14 @@ namespace kronos {
         for (size_t index = 0; index < headers.size(); index++) {
             m_Parameters[headers[index].name] = data[index];
         }
-
-//        Logger::Trace("Loaded %u parameter(s) from file '%s'.", headers.size(), KS_PARAM_DB_FILENAME);
     }
 
-    KsCmdResult ParameterDatabase::ProcessEvent(const EventMessage& message) {
+    void ParameterDatabase::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_scheduler_tick:
                 _SaveParams();
                 break;
         }
-        return KS_CMDRESULT_NORETURN;
     }
 
     KsResultType ParameterDatabase::_SaveParams() {

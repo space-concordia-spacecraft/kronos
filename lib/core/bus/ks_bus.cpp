@@ -1,73 +1,25 @@
 #include "ks_bus.h"
+#include "ks_logger.h"
 
 namespace kronos {
+    Bus::Bus(String name)
+        : m_Name(std::move(name)) {}
 
-    // ==================== Base Bus ====================
-
-    BusBase::BusBase(String name, KsEventCodeType eventCode)
-        : m_EventCode(eventCode), m_Name(std::move(name)) {}
-
-    const String& BusBase::GetName() const {
+    const String& Bus::GetName() const {
         return m_Name;
     }
 
-    KsEventCodeType BusBase::GetEventCode() const {
-        return m_EventCode;
-    }
-
-    // ==================== Synchronous Bus ====================
-
-    BusSync::BusSync(String name, KsEventCodeType eventCode)
-        : BusBase(std::move(name), eventCode) {}
-
-    void BusSync::AddReceivingComponent(ComponentBase* component) {
-        if (m_ReceivingComponent != nullptr) {
-            // TODO: HANDLE ERROR
-            return;
-        }
-        m_ReceivingComponent = component;
-    }
-
-    void BusSync::Publish(const EventMessage& message) const {
-        if (m_ReceivingComponent == nullptr) {
-            // TODO: HANDLE ERROR OR WARNING
+    void Bus::AddReceivingComponent(ComponentBase* component) {
+        KS_LIST_FIND(m_ReceivingComponents, component, it) {
             return;
         }
 
-        if (m_EventCode != message.eventCode) {
-            // TODO: HANDLE ERROR OR WARNING
-            return;
-        }
-
-        m_ReceivingComponent->ReceiveEvent(message);
-    }
-
-
-    // ==================== Asynchronous Bus ====================
-
-    BusAsync::BusAsync(String name, KsEventCodeType opcode)
-        : BusBase(std::move(name), opcode) {}
-
-    void BusAsync::AddReceivingComponent(ComponentBase* component) {
-        if (std::find(
-            m_ReceivingComponents.begin(),
-            m_ReceivingComponents.end(),
-            component
-        ) != m_ReceivingComponents.end()) {
-            // TODO: HANDLE ERROR OR WARNING
-            return;
-        }
         m_ReceivingComponents.push_back(component);
     }
 
-    void BusAsync::Publish(const EventMessage& message) const {
+    void Bus::Publish(const EventMessage* message) const {
         if (m_ReceivingComponents.empty()) {
-            // TODO: HANDLE ERROR OR WARNING
-            return;
-        }
-
-        if (m_EventCode != message.eventCode) {
-            // TODO: HANDLE ERROR OR WARNING
+            KS_ASSERT("There are no components registered to this bus.");
             return;
         }
 
@@ -75,9 +27,4 @@ namespace kronos {
             component->ReceiveEvent(message);
         }
     }
-
-    void BusAsync::PublishAsync(const EventMessage& message) const {
-        Publish(message);
-    }
-
 }

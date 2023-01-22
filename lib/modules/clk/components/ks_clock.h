@@ -16,7 +16,7 @@ namespace kronos {
         ~Clock() override = default;
 
         KsResultType Init() override;
-        KsCmdResult ProcessEvent(const EventMessage& message) override;
+        void ProcessEvent(const EventMessage& message) override;
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_GetTime, String GetTime());

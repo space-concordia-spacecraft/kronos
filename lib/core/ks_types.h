@@ -50,10 +50,10 @@ typedef uint32_t KsIdType;
 #define KS_COMPONENT_PRIORITY_LOW       ( tskIDLE_PRIORITY + 1 )
 
 // Stack sizes
-#define KS_COMPONENT_STACK_SIZE_XLARGE  configMINIMAL_STACK_SIZE * 8
-#define KS_COMPONENT_STACK_SIZE_LARGE   configMINIMAL_STACK_SIZE * 4
-#define KS_COMPONENT_STACK_SIZE_MEDIUM  configMINIMAL_STACK_SIZE * 2
-#define KS_COMPONENT_STACK_SIZE_SMALL   configMINIMAL_STACK_SIZE
+#define KS_COMPONENT_STACK_SIZE_XLARGE  ( configMINIMAL_STACK_SIZE * 4 )
+#define KS_COMPONENT_STACK_SIZE_LARGE   ( configMINIMAL_STACK_SIZE * 3 )
+#define KS_COMPONENT_STACK_SIZE_MEDIUM  ( configMINIMAL_STACK_SIZE * 2 )
+#define KS_COMPONENT_STACK_SIZE_SMALL   ( configMINIMAL_STACK_SIZE * 1 )
 
 #endif
 
@@ -66,18 +66,15 @@ typedef uint32_t KsIdType;
 
 typedef gpio_pull_mode KsGpioPullMode;
 typedef gpio_direction KsGpioDirection;
-typedef usart_os_descriptor KsUsartDesc;
+typedef io_descriptor KsIoDescriptor;
+typedef usart_os_descriptor KsUsartDescriptor;
 
 #elif defined(KS_POSIX_SIM)
 typedef bool KsGpioPullMode;
 typedef bool KsGpioDirection;
 #endif
 
-//! \typedef Type that tells you the result of
-typedef void* KsCmdResult;
 typedef uint16_t KsOpcode;
-
-#define KS_CMDRESULT_NORETURN ((KsCmdResult) nullptr)
 
 // NAMEOF MACROS
 #include "nameof.hpp"
