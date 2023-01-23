@@ -19,7 +19,7 @@ namespace kronos {
         Packet packet{};
         m_IoDriver->Read((uint8_t*) &packet.Header, sizeof(packet.Header));
 
-        int32_t size = ValidatePacketHeader(&packet.Header);
+        int32_t size = ValidatePacketHeader(packet.Header);
 
         if (size < 0) {
             return ks_error_invalid_packet_header;
@@ -27,14 +27,14 @@ namespace kronos {
 
         m_IoDriver->Read((uint8_t*) &packet.Payload, size);
 
-        if (!ValidatePacket(&packet)) {
+        if (!ValidatePacket(packet)) {
             return ks_error_invalid_packet;
         }
 
         Framework::GetBus("B_CMD_DISPATCHER")->Publish(packet.Header.CommandId);
 
         Packet returnPacket{};
-        EncodePacket(&returnPacket, PacketFlags::ack, packet.Header.CommandId, nullptr, 0);
+        EncodePacket(returnPacket, PacketFlags::ack, packet.Header.CommandId, nullptr, 0);
 
         Framework::GetBus("B_CMD_TRANSMIT")->Publish(returnPacket, ks_event_comms_transmit);
 
