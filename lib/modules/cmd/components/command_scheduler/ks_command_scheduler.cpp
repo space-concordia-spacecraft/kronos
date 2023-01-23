@@ -12,7 +12,7 @@ namespace kronos {
     void CommandScheduler::Run() {
         while (true) {
             if (!m_ScheduledCommandQueue.empty()) {
-                auto& message = m_ScheduledCommandQueue.top();
+//                auto& message = m_ScheduledCommandQueue.top();
             }
             taskYIELD();
         }

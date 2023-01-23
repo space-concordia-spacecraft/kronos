@@ -1,4 +1,5 @@
 #pragma once
+
 #include "ks_component_active.h"
 #include "ks_default_commands.h"
 
@@ -13,12 +14,15 @@ namespace kronos {
         }
     };
 
-    class CommandScheduler: public ComponentActive {
+    class CommandScheduler : public ComponentActive {
+
     public:
         void ProcessEvent(const EventMessage& message) override;
         [[noreturn]] void Run() override;
 
     private:
-        PriorityQueue<ScheduledCommand> m_ScheduledCommandQueue;
+        PriorityQueue <ScheduledCommand> m_ScheduledCommandQueue;
+
     };
+
 }

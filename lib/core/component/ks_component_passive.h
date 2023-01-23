@@ -7,8 +7,6 @@
 
 #include "ks_component_base.h"
 
-#include <string>
-
 namespace kronos {
 
     //! \class ComponentPassive

@@ -124,12 +124,15 @@ namespace kronos {
         eventMessage->returnBus = returnBus;
 
         auto* eventMessagePtr = eventMessage.get();
-        m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
-        (eventMessage));
+        m_EventMessages.emplace(
+            eventMessagePtr,
+            std::forward<Scope<EventMessage>>(eventMessage)
+        );
         return eventMessagePtr;
     }
 
     void Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
         m_EventMessages.erase(eventMessage);
     }
+
 }

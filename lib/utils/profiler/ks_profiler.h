@@ -14,14 +14,18 @@
 #include <string>
 #include <unordered_map>
 
-namespace kronos {
+namespace kronos{
     //! \struct ProfilingSession
     //! \brief A struct used to store the name of a profiling session
     //!
     //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
-        ProfilingSession(const std::string& name, TickType_t interval)
-            : name(name), profileLogInterval(interval) {
+        ProfilingSession(
+        const std::string
+        &name, TickType_t
+        interval)
+        : name(name), profileLogInterval(interval)
+        {
             startLog = xTaskGetTickCount() * portTICK_RATE_MS;
         }
 
@@ -35,7 +39,7 @@ namespace kronos {
         TickType_t startLog;
 
         //! HashMap that maps a function being profiled to the longest time it took to run in a given interval
-        std::unordered_map<std::string, TickType_t> longestProfiles;
+        std::unordered_map <std::string, TickType_t> longestProfiles;
     };
 
     //! \class Profiler
@@ -43,15 +47,17 @@ namespace kronos {
     //!
     //! This class is used to either store or print to the terminal the profiling information for a given function. It uses the Singleton design pattern.
     class Profiler {
-    private:
+        private:
         //! Pointer holding the instance of the current profiling session
         ProfilingSession* m_CurrentSession;
-    public:
+        public:
 
         //! \brief Begins a profiling session.
         //!
         //! \param name the name of the profiling session.
-        void BeginSession(const std::string& name, TickType_t interval = 1);
+        void BeginSession(const std::string
+        &name, TickType_t
+        interval = 1);
 
         //! \brief Ends the profiling session.
         void EndSession();
@@ -62,11 +68,17 @@ namespace kronos {
         //! \param location The path location of the function being profiled
         //! \param start The start time for the profiling
         //! \param end The end time for the profiling
-        void Log(const std::string& functionName, const std::string& location, TickType_t start, TickType_t end);
+        void Log(const std::string
+        &functionName,
+        const std::string
+        &location, TickType_t
+        start, TickType_t
+        end);
 
         //! Getter for the Singleton design pattern
         //! \return Instance of the profiler
-        static Profiler& Get();
+        static Profiler
+        &Get();
 
     };
 
@@ -75,7 +87,7 @@ namespace kronos {
     //!
     //! This class implements a simple timer used for the profiling of scopes
     class ProfilerTimer {
-    private:
+        private:
         //! Start time for the timer
         TickType_t m_Start;
 
@@ -84,12 +96,16 @@ namespace kronos {
 
         //! Path location for the scope being benchmarked as well as its line number
         std::string m_Path;
-    public:
+        public:
         //! \brief Starts the timer
         //!
         //! \param name the name of the scope being benchmarked
         //! \param path the path location for the scope being benchmarked
-        ProfilerTimer(const std::string& name, const std::string& path);
+        ProfilerTimer(
+        const std::string
+        &name,
+        const std::string
+        &path);
 
         //! \brief Ends the timer
         ~ProfilerTimer();

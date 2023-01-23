@@ -15,7 +15,9 @@ namespace kronos {
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_Mount, KsResultType Mount());
+
         KS_SINGLETON_EXPOSE_METHOD(_Format, KsResultType Format());
+
         KS_SINGLETON_EXPOSE_METHOD(_Sync, KsResultType Sync());
 
     private:
@@ -25,7 +27,7 @@ namespace kronos {
 
     private:
         String m_Volume;
-        
+
     };
 
 }

@@ -3,7 +3,7 @@
 
 namespace kronos {
     CommandDispatcher::CommandDispatcher(const String& name) : ComponentActive(name),
-                                             m_Bus(Framework::CreateBus("B_CMD_DISPATCHER")) {}
+                                                               m_Bus(Framework::CreateBus("B_CMD_DISPATCHER")) {}
 
     void CommandDispatcher::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {

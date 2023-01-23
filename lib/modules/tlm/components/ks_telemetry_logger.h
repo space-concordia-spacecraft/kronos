@@ -41,6 +41,7 @@ namespace kronos {
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_Update, void Update());
+
         KS_SINGLETON_EXPOSE_METHOD(_AddTelemetryGroup, KsResult AddTelemetryGroup(
             const String& name,
                 uint32_t rate,

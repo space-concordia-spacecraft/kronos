@@ -12,7 +12,7 @@ namespace kronos {
     }
 
     int32_t KsUsart::Write(const String& buf) {
-        return io_write(m_IoDescriptor, (uint8_t*) buf.c_str(), buf.size());
+        return io_write(m_IoDescriptor, (uint8_t*)buf.c_str(), buf.size());
     }
 
     int32_t KsUsart::Read(uint8_t* buf, const size_t length) {

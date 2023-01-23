@@ -20,6 +20,7 @@ namespace kronos {
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_GetTime, String GetTime());
+
         KS_SINGLETON_EXPOSE_METHOD(
             _SetTime,
             void SetTime(

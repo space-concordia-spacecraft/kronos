@@ -11,13 +11,14 @@ namespace kronos {
     void CommandTransmitter::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_comms_transmit:
-                Transmit(message.Cast<Packet>());
+                Packet packet = message.Cast<Packet>();
+                Transmit(packet);
                 break;
         }
     }
 
-    KsResultType CommandTransmitter::Transmit(Packet packet) {
-        m_IoDriver->Write((uint8_t*) &packet, sizeof(packet.Header) + packet.Header.PayloadSize);
+    KsResultType CommandTransmitter::Transmit(const Packet& packet) {
+        m_IoDriver->Write((uint8_t*)&packet, sizeof(packet));
         return ks_success;
     }
 }

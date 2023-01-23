@@ -58,7 +58,9 @@ namespace kronos {
 }
 
 #ifdef KS_FREERTOS_API
+
 #include "ks_queue_freertos.h"
+
 #elif defined(KS_WINDOWS_API)
 #include "ks_queue_windows.h"
 #endif
@@ -66,7 +68,7 @@ namespace kronos {
 namespace kronos {
     //! \brief
     template<typename T>
-    std::shared_ptr<Queue<T>> Queue<T>::Create(){
+    std::shared_ptr<Queue<T>> Queue<T>::Create() {
 #ifdef KS_FREERTOS_API
         return std::make_shared<QueueFreeRTOS<T>>();
 #elif defined(KS_WINDOWS_API)

@@ -2,8 +2,6 @@
 
 #include "ks_component_base.h"
 #include "ks_framework.h"
-#include <algorithm>
-#include <vector>
 
 namespace kronos {
 
@@ -51,7 +49,7 @@ namespace kronos {
         //! \param data
         //! \param returnBus
         template<typename T>
-        void  Publish(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+        void Publish(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
             if (m_ReceivingComponents.empty()) {
                 // TODO: HANDLE ERROR OR WARNING
                 return;
@@ -89,5 +87,7 @@ namespace kronos {
 
         //! A list of components subscribed to the bus.
         List<ComponentBase*> m_ReceivingComponents;
+
     };
+
 }

@@ -27,7 +27,7 @@ namespace kronos {
     void Scheduler::_ScheduleEvent(uint32_t intervalMs, KsEventCodeType eventCode, ComponentQueued* component) {
         uint32_t tickRate = intervalMs / KS_DEFAULT_TIMER_INTERVAL;
 
-        if(!m_ScheduledBusses.contains(tickRate)) {
+        if (!m_ScheduledBusses.contains(tickRate)) {
             m_ScheduledBusses[tickRate] = {
                 .bus = Framework::CreateBus("B_SCHED_" + std::to_string(intervalMs))
             };
