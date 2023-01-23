@@ -30,6 +30,7 @@ typedef uint32_t KsIdType;
 #include <stack>
 #include <regex>
 #include <any>
+#include <span>
 
 // KRONOS TYPES AND MACROS
 #include "ks_macros.h"
@@ -91,6 +92,8 @@ namespace kronos {
     using StringView = std::string_view;
     template<typename T>
     using List = std::vector<T>;
+    template<typename T>
+    using Span = std::span<T>;
     template<typename K, typename V>
     using Map = std::unordered_map<K, V>;
     template<typename T>

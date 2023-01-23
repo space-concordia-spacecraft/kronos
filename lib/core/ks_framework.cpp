@@ -130,10 +130,6 @@ namespace kronos {
     }
 
     void Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
-        try {
-            m_EventMessages.erase(eventMessage);
-        } catch (...) {
-            KS_ASSERT(false, "cock");
-        }
+        m_EventMessages.erase(eventMessage);
     }
 }

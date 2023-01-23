@@ -17,7 +17,7 @@ namespace kronos {
     }
 
     KsResultType CommandTransmitter::Transmit(Packet packet) {
-        m_IoDriver->Write((uint8_t*) &packet, sizeof(packet));
+        m_IoDriver->Write((uint8_t*) &packet, sizeof(packet.Header) + packet.Header.PayloadSize);
         return ks_success;
     }
 }
