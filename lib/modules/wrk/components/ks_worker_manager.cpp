@@ -20,7 +20,7 @@ namespace kronos {
         }
     }
 
-    void WorkerManager::_RegisterComponent(KsIdType workerId, ComponentBase* component) {
+    void WorkerManager::_RegisterComponent(KsIdType workerId, ComponentQueued* component) {
         m_Workers[workerId]->RegisterComponent(component);
     }
 

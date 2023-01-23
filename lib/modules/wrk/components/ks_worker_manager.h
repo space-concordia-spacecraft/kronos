@@ -20,12 +20,12 @@ namespace kronos {
 
     public:
         KS_SINGLETON_EXPOSE_METHOD(_RegisterComponent,
-                                   void RegisterComponent(KsIdType workerId, ComponentBase* component),
+                                   void RegisterComponent(KsIdType workerId, ComponentQueued* component),
                                    workerId,
                                    component);
 
     private:
-        void _RegisterComponent(KsIdType workerId, ComponentBase* component);
+        void _RegisterComponent(KsIdType workerId, ComponentQueued* component);
 
         static Map <KsIdType, KsWorkerConfig> s_WorkerConfig;
         Map<KsIdType, ComponentWorker*> m_Workers;

@@ -13,10 +13,10 @@ namespace kronos {
                                  uint16_t priority);
 
         [[noreturn]] void Run() override;
-        KsResultType RegisterComponent(ComponentBase* component);
+        KsResultType RegisterComponent(ComponentQueued* component);
 
     protected:
-        Bus* m_BusSend;
+        List<ComponentQueued*> m_QueuedComponents{};
         EventMessage m_EventMessage;
     };
 

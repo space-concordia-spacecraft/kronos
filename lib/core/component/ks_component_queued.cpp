@@ -25,12 +25,6 @@ namespace kronos {
     }
 
     void ComponentQueued::ReceiveEvent(const EventMessage* message) {
-        if (message->eventCode == ks_event_empty_queue) {
-            Framework::DeleteEventMessage(message);
-            ProcessEventQueue();
-            return;
-        }
-
         if (m_Queue->Push(message) != pdPASS){
             KS_ASSERT(false, "Unable to push to queue.");
             Framework::DeleteEventMessage(message);

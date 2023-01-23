@@ -8,9 +8,6 @@ namespace kronos {
 
     // FIXME: Turn this into defines
     enum KsEventCode : KsEventCodeType {
-        // Event to empty queue for all Queued Components.
-        ks_event_empty_queue,
-
         // Tick event for scheduled components
         ks_event_scheduler_tick,
 

@@ -6,8 +6,7 @@ namespace kronos {
         const std::string& name,
         size_t stackSize,
         uint16_t priority
-    ) : ComponentActive(name, stackSize, priority),
-        m_BusSend(Framework::CreateBus("B_P_" + name)) {}
+    ) : ComponentActive(name, stackSize, priority){}
 
     void ComponentWorker::Run() {
         while (true) {
@@ -17,14 +16,15 @@ namespace kronos {
                 Framework::DeleteEventMessage(message);
             }
 
-            m_BusSend->Publish(ks_event_empty_queue);
+            for(const auto& component: m_QueuedComponents)
+                component->ProcessEventQueue();
 
             taskYIELD();
         }
     }
 
-    KsResultType ComponentWorker::RegisterComponent(ComponentBase* componentBase) {
-        m_BusSend->AddReceivingComponent(componentBase);
+    KsResultType ComponentWorker::RegisterComponent(ComponentQueued* component) {
+        m_QueuedComponents.push_back(component);
         return ks_success;
     }
 }

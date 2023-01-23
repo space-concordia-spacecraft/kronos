@@ -119,17 +119,21 @@ namespace kronos {
     }
 
     EventMessage* Framework::_CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus) {
-        Scope<EventMessage> eventMessage = std::make_unique<EventMessage>();
+        Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
         eventMessage->eventCode = eventCode;
         eventMessage->returnBus = returnBus;
 
         auto* eventMessagePtr = eventMessage.get();
-        m_EventMessages.emplace(eventMessagePtr, std::forward<Scope<EventMessage>>(eventMessage));
+        m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
+        (eventMessage));
         return eventMessagePtr;
     }
 
     void Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
-//        m_EventMessages[eventMessage].reset();
-        m_EventMessages.erase(eventMessage);
+        try {
+            m_EventMessages.erase(eventMessage);
+        } catch (...) {
+            KS_ASSERT(false, "cock");
+        }
     }
 }
