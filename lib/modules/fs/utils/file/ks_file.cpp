@@ -77,19 +77,16 @@ namespace kronos {
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
         if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
-            Logger::Debug("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
 
         if (!IsOpen()) {
-            Logger::Error("File '%s' is not opened. Cannot write requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_write(m_FileId, buffer, length);
         if (ret < 0) {
-            Logger::Error("Unable to write to file '%s' (%d).", m_FilePath.c_str(), red_errno);
             return ks_error_file_write;
         }
 
@@ -105,7 +102,6 @@ namespace kronos {
     KsResultType File::Remove(const String& name) {
         auto ret = red_unlink(name.c_str());
         if (ret < 0) {
-            Logger::Error("Unable to remove file '%s' (%d).", name.c_str(), red_errno);
             return ks_error_file_remove;
         }
         return ks_success;
@@ -118,14 +114,12 @@ namespace kronos {
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
         if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
-            Logger::Debug("Unable to open file '%s' (%d).", name.c_str(), m_FileId);
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
 
         m_FileId = red_open(name.c_str(), flags);
         if (!IsOpen()) {
-            Logger::Error("Unable to open file '%s' (%d).", name.c_str(), m_FileId);
             return ks_error_file_open;
         }
 
@@ -140,19 +134,16 @@ namespace kronos {
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
         if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
-            Logger::Debug("File '%s' is not opened. Cannot close requested file.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
 
         if (!IsOpen()) {
-            Logger::Error("File '%s' is not opened. Cannot close requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_close(m_FileId);
         if (ret != 0) {
-            Logger::Error("Unable to close file '%s' (%d).", m_FilePath.c_str(), ret);
             return ks_error_file_close;
         }
 

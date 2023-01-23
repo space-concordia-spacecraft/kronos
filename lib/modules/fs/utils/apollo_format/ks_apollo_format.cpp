@@ -50,7 +50,9 @@ namespace kronos {
 
     ApolloImporter::ApolloImporter(const String& path) :
         m_File(path, KS_OPEN_MODE_READ_ONLY) {
-        ReadFileHeader();
+        if (m_File.IsOpen()) {
+            ReadFileHeader();
+        }
     }
 
     KsResultType ApolloImporter::ReadFileHeader() {
@@ -94,6 +96,9 @@ namespace kronos {
     }
 
     KsResultType ApolloImporter::ReadRow(List <uint32_t>& data) {
+        if (!m_File.IsOpen())
+            return ks_error_file_open;
+
         // Clear vector
         data.clear();
         data.resize(m_Headers.size());

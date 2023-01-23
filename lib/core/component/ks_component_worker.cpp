@@ -6,8 +6,7 @@ namespace kronos {
         const std::string& name,
         size_t stackSize,
         uint16_t priority
-    ) :
-        ComponentActive(name, stackSize, priority),
+    ) : ComponentActive(name, stackSize, priority),
         m_BusSend(Framework::CreateBus("B_P_" + name)) {}
 
     void ComponentWorker::Run() {

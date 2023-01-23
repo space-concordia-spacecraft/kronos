@@ -129,7 +129,7 @@ namespace kronos {
     }
 
     void Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
-        m_EventMessages[eventMessage].reset();
+//        m_EventMessages[eventMessage].reset();
         m_EventMessages.erase(eventMessage);
     }
 }
