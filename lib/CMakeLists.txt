@@ -88,8 +88,10 @@ set(KRONOS_SRC_REL
         "drivers/asf/ks_usart.cpp"
 
         # KRONOS COMPONENTS
-        "modules/health/components/health_monitor/ks_health_monitor.cpp"
         "components/led_blinker/ks_led_blinker.cpp"
+
+        # KRONOS UTILITIES
+        "utils/profiler/ks_profiler.cpp"
         )
 foreach(src ${KRONOS_SRC_REL})
     get_filename_component(src_abs "${src}" ABSOLUTE)
@@ -214,6 +216,9 @@ set(KRONOS_INCLUDE_DIRS
         # KRONOS COMPONENTS
         "components"
         "components/led_blinker"
+
+        # KRONOS UTILITIES
+        "utils/profiler"
         )
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 

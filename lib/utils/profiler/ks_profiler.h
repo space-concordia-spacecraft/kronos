@@ -8,29 +8,19 @@
 #define INITIALIZATION_INTERVAL 10000
 #define RUNNING_INTERVAL 30000
 
-// Kronos includes
-#include "kronos.h"
-
-#include <string>
-#include <unordered_map>
-
-namespace kronos{
+namespace kronos {
     //! \struct ProfilingSession
     //! \brief A struct used to store the name of a profiling session
     //!
     //! This struct is used to hold information about the profiling session.
     struct ProfilingSession {
-        ProfilingSession(
-        const std::string
-        &name, TickType_t
-        interval)
-        : name(name), profileLogInterval(interval)
-        {
+        ProfilingSession(String name, TickType_t interval)
+            : name(std::move(name)), profileLogInterval(interval) {
             startLog = xTaskGetTickCount() * portTICK_RATE_MS;
         }
 
         //! Name of the profiling session
-        std::string name;
+        String name;
 
         //! Time interval at which the function profiles get logged
         TickType_t profileLogInterval;
@@ -68,12 +58,7 @@ namespace kronos{
         //! \param location The path location of the function being profiled
         //! \param start The start time for the profiling
         //! \param end The end time for the profiling
-        void Log(const std::string
-        &functionName,
-        const std::string
-        &location, TickType_t
-        start, TickType_t
-        end);
+        void Log(const String& functionName, const String& location, TickType_t start, TickType_t end);
 
         //! Getter for the Singleton design pattern
         //! \return Instance of the profiler
@@ -92,20 +77,17 @@ namespace kronos{
         TickType_t m_Start;
 
         //! Name of the scope being benchmarked
-        std::string m_Name;
+        String m_Name;
 
         //! Path location for the scope being benchmarked as well as its line number
-        std::string m_Path;
-        public:
+        String m_Path;
+
+    public:
         //! \brief Starts the timer
         //!
         //! \param name the name of the scope being benchmarked
         //! \param path the path location for the scope being benchmarked
-        ProfilerTimer(
-        const std::string
-        &name,
-        const std::string
-        &path);
+        ProfilerTimer(String name, String path);
 
         //! \brief Ends the timer
         ~ProfilerTimer();
