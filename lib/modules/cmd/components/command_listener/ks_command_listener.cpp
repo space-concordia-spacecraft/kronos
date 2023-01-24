@@ -36,6 +36,7 @@ namespace kronos {
         Packet returnPacket{};
         EncodePacket(returnPacket, packet.Header.PacketId, PacketFlags::ack, packet.Header.CommandId, nullptr, 0);
         Framework::GetBus("B_CMD_TRANSMIT")->Publish(returnPacket, ks_event_comms_transmit);
+        Framework::GetBus("B_CMD_DISPATCH")->Publish(packet, ks_event_comms_dispatch);
     }
 
     void CommandListener::Run() {

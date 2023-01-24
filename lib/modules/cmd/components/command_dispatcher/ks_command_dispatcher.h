@@ -3,8 +3,7 @@
 #include "ks_component_active.h"
 #include "ks_default_commands.h"
 #include "ks_bus.h"
-#include <unordered_map>
-#include <functional>
+#include "ks_packet.h"
 
 namespace kronos {
 
@@ -19,6 +18,7 @@ namespace kronos {
         void ProcessEvent(const EventMessage& message) override;
 
     private:
+        void ProcessCommand(const Packet& packet);
         Bus* m_Bus;
     };
 }

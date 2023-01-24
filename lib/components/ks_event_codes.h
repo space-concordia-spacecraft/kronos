@@ -25,8 +25,7 @@ namespace kronos {
         // Commans
         ks_event_comms_listen,
         ks_event_comms_transmit,
-        ks_event_comms_dispatch_echo,
-        ks_event_comms_dispatch_downlink,
+        ks_event_comms_dispatch,
 
         // LED
         ks_event_toggle_led,
