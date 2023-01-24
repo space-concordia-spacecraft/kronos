@@ -19,7 +19,7 @@ namespace kronos {
         //! \param element the element object to insert into the queue
         //! \param ticksToWait ticks to wait before throwing an error
         //! \return true if the operation was successful
-        KsResultType Push (const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) override {
+        KsResultType Push(const T& element, TickType_t ticksToWait = KS_QUEUE_DEFAULT_WAIT_TIME) override {
             return xQueueSend(m_Queue, &element, ticksToWait);
         };
 

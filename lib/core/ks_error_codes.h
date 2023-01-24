@@ -1,6 +1,7 @@
 #pragma once
 
 namespace kronos {
+
     enum KsResult : KsResultType {
         __ks_error_start = INT32_MIN,
 
@@ -38,5 +39,6 @@ namespace kronos {
 
         ks_success = 0,
     };
+
 }
 

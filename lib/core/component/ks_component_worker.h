@@ -8,9 +8,11 @@ namespace kronos {
     class ComponentWorker : public ComponentActive {
 
     public:
-        explicit ComponentWorker(const std::string& name,
-                                 size_t stackSize,
-                                 uint16_t priority);
+        explicit ComponentWorker(
+            const std::string& name,
+            size_t stackSize,
+            uint16_t priority
+        );
 
         [[noreturn]] void Run() override;
         KsResultType RegisterComponent(ComponentQueued* component);
@@ -18,6 +20,7 @@ namespace kronos {
     protected:
         List<ComponentQueued*> m_QueuedComponents{};
         EventMessage m_EventMessage;
+
     };
 
 }

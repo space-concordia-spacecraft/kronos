@@ -21,7 +21,7 @@ namespace kronos {
         //! The return bus. This is only used for asynchronous buses as synchronous buses allow you to return values right away
         Bus* returnBus = nullptr;
 
-        template <typename T>
+        template<typename T>
         T Cast() const {
             return std::any_cast<T>(data);
         }

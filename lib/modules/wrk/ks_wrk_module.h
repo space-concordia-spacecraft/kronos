@@ -8,9 +8,9 @@ namespace kronos {
     public:
         void Init() const override;
 
-        [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final;
+        [[nodiscard]] List<TypeInfo> GetModuleDependencies() const final;
 
-        [[nodiscard]] List <TypeInfo> GetExportedComponents() const final;
+        [[nodiscard]] List<TypeInfo> GetExportedComponents() const final;
 
     };
 

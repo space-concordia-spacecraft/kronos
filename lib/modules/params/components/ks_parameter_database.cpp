@@ -37,7 +37,7 @@ namespace kronos {
 
         // Put all data and headers into appropriate vectors
         for (const auto& param: m_Parameters) {
-            headers.push_back({param.first, KS_APOLLO_INT});
+            headers.push_back({ param.first, KS_APOLLO_INT });
             data.push_back(param.second);
         }
 

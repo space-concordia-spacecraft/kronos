@@ -74,7 +74,7 @@ namespace kronos {
                 std::conjunction_v<std::is_base_of<IModule, Dependencies>...>,
                 "Dependencies must extend IModule!"
             );
-            return {GetTypeInfo<Dependencies>()...};
+            return { GetTypeInfo<Dependencies>()... };
         }
 
         //! \brief
@@ -87,7 +87,7 @@ namespace kronos {
                 std::conjunction_v<std::is_base_of<ComponentBase, Components>...>,
                 "Components must extend ComponentBase!"
             );
-            return {GetTypeInfo<Components>()...};
+            return { GetTypeInfo<Components>()... };
         }
 
     };

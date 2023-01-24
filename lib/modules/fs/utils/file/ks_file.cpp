@@ -17,12 +17,12 @@ namespace kronos {
     }
 
     KsResultType File::Sync() {
-        m_OperationAttempts ++;
+        m_OperationAttempts++;
 
         // This most likely happens if the logger can't complete this operation.
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
-        if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
+        if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
             Logger::Debug("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
@@ -44,12 +44,12 @@ namespace kronos {
     }
 
     int32_t File::Read(void* buffer, uint32_t length) {
-        m_OperationAttempts ++;
+        m_OperationAttempts++;
 
         // This most likely happens if the logger can't complete this operation.
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
-        if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
+        if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
             Logger::Debug("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
@@ -66,17 +66,17 @@ namespace kronos {
             return ks_error_file_read;
         }
 
-        m_OperationAttempts = 0 ;
+        m_OperationAttempts = 0;
         return ks_success;
     }
 
     int32_t File::Write(const void* buffer, uint32_t length) {
-        m_OperationAttempts ++;
+        m_OperationAttempts++;
 
         // This most likely happens if the logger can't complete this operation.
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
-        if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
+        if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
@@ -108,12 +108,12 @@ namespace kronos {
     }
 
     KsResultType File::Open(const String& name, uint32_t flags) {
-        m_OperationAttempts ++;
+        m_OperationAttempts++;
 
         // This most likely happens if the logger can't complete this operation.
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
-        if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
+        if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
@@ -128,12 +128,12 @@ namespace kronos {
     }
 
     KsResultType File::Close() {
-        m_OperationAttempts ++;
+        m_OperationAttempts++;
 
         // This most likely happens if the logger can't complete this operation.
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
-        if  (m_OperationAttempts > KS_MAX_ATTEMPTS) {
+        if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }

@@ -57,7 +57,7 @@ namespace kronos {
             return;
 
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
-        if(transmitBus == nullptr)
+        if (transmitBus == nullptr)
             return;
 
         // Split the message into packets
@@ -74,11 +74,11 @@ namespace kronos {
             );
             packet.Header.PayloadSize = payloadSize;
 
-            if((i + payloadSize) >= eventMessage.message.size()) {
+            if ((i + payloadSize) >= eventMessage.message.size()) {
                 flags = PacketFlags::eof;
             }
 
-            EncodePacket(packet, flags, 0, (uint8_t*) offset, payloadSize);
+            EncodePacket(packet, flags, 0, (uint8_t*)offset, payloadSize);
 
             transmitBus->Publish(
                 packet,

@@ -17,7 +17,7 @@ namespace kronos {
 
     KsResultType CommandListener::Listen() {
         Packet packet{};
-        m_IoDriver->Read((uint8_t*) &packet.Header, sizeof(packet.Header));
+        m_IoDriver->Read((uint8_t*)&packet.Header, sizeof(packet.Header));
 
         int32_t size = ValidatePacketHeader(packet.Header);
 
@@ -25,7 +25,7 @@ namespace kronos {
             return ks_error_invalid_packet_header;
         }
 
-        m_IoDriver->Read((uint8_t*) &packet.Payload, size);
+        m_IoDriver->Read((uint8_t*)&packet.Payload, size);
 
         if (!ValidatePacket(packet)) {
             return ks_error_invalid_packet;

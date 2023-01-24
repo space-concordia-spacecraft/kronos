@@ -84,7 +84,7 @@ namespace kronos {
 
         KS_SINGLETON_EXPOSE_METHOD(_CreateEventMessage,
                                    EventMessage*
-                                   CreateEventMessage(KsEventCodeType eventCode, Bus * returnBus = nullptr),
+                                       CreateEventMessage(KsEventCodeType eventCode, Bus * returnBus = nullptr),
                                    eventCode,
                                    returnBus);
 
@@ -198,25 +198,27 @@ namespace kronos {
 
         template<class T>
         EventMessage* _CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
-            Scope<EventMessage> eventMessage = std::make_unique<EventMessage>();
+            Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
             eventMessage->eventCode = eventCode;
             eventMessage->data = std::make_any<T>(std::forward<T>(data));
             eventMessage->returnBus = returnBus;
 
             auto* eventMessagePtr = eventMessage.get();
-            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope<EventMessage>>(eventMessage));
+            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
+            (eventMessage));
             return eventMessagePtr;
         }
 
         template<class T>
         EventMessage* _CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
-            Scope<EventMessage> eventMessage = std::make_unique<EventMessage>();
+            Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
             eventMessage->eventCode = eventCode;
             eventMessage->data = std::make_any<T>(data);
             eventMessage->returnBus = returnBus;
 
             auto* eventMessagePtr = eventMessage.get();
-            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope<EventMessage>>(eventMessage));
+            m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
+            (eventMessage));
             return eventMessagePtr;
         }
 

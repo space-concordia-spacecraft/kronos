@@ -32,5 +32,5 @@ namespace kronos {
         }
         return ks_success;
     }
-    
+
 }
