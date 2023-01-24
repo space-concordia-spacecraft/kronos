@@ -3,6 +3,7 @@
 #include "hal_usart_os.h"
 
 namespace kronos {
+
     KsUsart::KsUsart(KsUsartDescriptor* desc) : m_UsartDescriptor(desc) {
         usart_os_get_io(m_UsartDescriptor, &m_IoDescriptor);
     }
@@ -16,14 +17,31 @@ namespace kronos {
     }
 
     int32_t KsUsart::Read(uint8_t* buf, const size_t length) {
-        // Means we haven't received enough bytes
-        if (m_UsartDescriptor->rx_size < length)
-            return -1;
-
         return io_read(m_IoDescriptor, buf, length);
     }
 
-    int32_t KsUsart::ReadUntil(uint8_t* buf, size_t length, uint8_t* expectedBuf, size_t expectedLength) {
+    int32_t KsUsart::ReadUntil(uint8_t* buf, size_t length, const uint8_t* delim, size_t delimLength) {
+        static char s_ReadBuffer[1024] = {};
 
+        int32_t nBytesRead = 0;
+        while (true) {
+            uint8_t c;
+            if (Read(&c, sizeof(c)) > 0) {
+                s_ReadBuffer[nBytesRead++] = c;
+                if (nBytesRead >= (int32_t)delimLength &&
+                        strncmp(s_ReadBuffer + nBytesRead - delimLength, (const char*)delim, delimLength) == 0) {
+                    break;
+                }
+                if (nBytesRead >= std::min<int32_t>(sizeof(s_ReadBuffer), (int32_t)length)) {
+                    break;
+                }
+            } else {
+                break;
+            }
+        }
+
+        memcpy(buf, s_ReadBuffer, nBytesRead);
+        return nBytesRead;
     }
+
 }

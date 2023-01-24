@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <climits>
 #include <cstdarg>
+#include <cstring>
 
 typedef int32_t KsResultType;
 typedef uint32_t KsTickType;
@@ -31,6 +32,7 @@ typedef uint32_t KsIdType;
 #include <regex>
 #include <any>
 #include <span>
+#include <sstream>
 
 // KRONOS TYPES AND MACROS
 #include "ks_macros.h"
@@ -90,6 +92,7 @@ namespace kronos {
     // STD Containers
     using String = std::string;
     using StringView = std::string_view;
+    using StringStream = std::stringstream;
     template<typename T>
     using List = std::vector<T>;
     template<typename T>

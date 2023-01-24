@@ -1,18 +1,22 @@
 #pragma once
 
-#include "ks_component_queued.h"
-#include "ks_packet_parser.h"
+#include "ks_component_active.h"
 #include "ks_io.h"
 
 namespace kronos {
-    class CommandListener : public ComponentQueued {
+
+    class CommandListener : public ComponentActive {
+
     public:
         CommandListener(const String& name, IoDriver* ioDriver);
-        void ProcessEvent(const EventMessage& message) override;
+
+        [[noreturn]] void Run() override;
 
     private:
         IoDriver* m_IoDriver;
 
-        KsResultType Listen();
+        void Listen();
+
     };
+
 }

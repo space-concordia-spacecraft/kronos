@@ -1,43 +1,48 @@
 #include "ks_command_listener.h"
 #include "ks_logger.h"
 #include "ks_framework.h"
+#include "ks_packet_parser.h"
 
 namespace kronos {
+
     CommandListener::CommandListener(const String& name, IoDriver* ioDriver) :
-        ComponentQueued(name), m_IoDriver(ioDriver) {
+        ComponentActive(name), m_IoDriver(ioDriver) {
     }
 
-    void CommandListener::ProcessEvent(const EventMessage& message) {
-        switch (message.eventCode) {
-            case ks_event_scheduler_tick:
-                Listen();
-                break;
-        }
-    }
+    void CommandListener::Listen() {
+        static constexpr const char s_MagicNumber[] = { KSP_MAGIC_BYTES };
+        static uint8_t s_TempBuffer[1024] = {};
 
-    KsResultType CommandListener::Listen() {
         Packet packet{};
-        m_IoDriver->Read((uint8_t*)&packet.Header, sizeof(packet.Header));
+        if (m_IoDriver->ReadUntil(
+            s_TempBuffer,
+            sizeof(s_TempBuffer),
+            (uint8_t*)s_MagicNumber,
+            sizeof(s_MagicNumber)
+        ) <= 0) return;
 
+        packet.Header.Magic = KSP_MAGIC;
+        m_IoDriver->Read((uint8_t*)&packet.Header.PacketId, sizeof(packet.Header) - sizeof(packet.Header.Magic));
         int32_t size = ValidatePacketHeader(packet.Header);
-
         if (size < 0) {
-            return ks_error_invalid_packet_header;
+            return;
         }
 
         m_IoDriver->Read((uint8_t*)&packet.Payload, size);
-
         if (!ValidatePacket(packet)) {
-            return ks_error_invalid_packet;
+            return;
         }
 
-        Framework::GetBus("B_CMD_DISPATCHER")->Publish(packet.Header.CommandId);
-
         Packet returnPacket{};
-        EncodePacket(returnPacket, PacketFlags::ack, packet.Header.CommandId, nullptr, 0);
-
+        EncodePacket(returnPacket, packet.Header.PacketId, PacketFlags::ack, packet.Header.CommandId, nullptr, 0);
         Framework::GetBus("B_CMD_TRANSMIT")->Publish(returnPacket, ks_event_comms_transmit);
-
-        return ks_success;
     }
+
+    void CommandListener::Run() {
+        while (true) {
+            Listen();
+            taskYIELD();
+        }
+    }
+
 }

@@ -2,6 +2,7 @@
 #include "ks_framework.h"
 
 namespace kronos {
+
     CommandTransmitter::CommandTransmitter(const std::string& name, IoDriver* ioDriver) :
         ComponentQueued(name),
         m_Bus(Framework::CreateBus("B_CMD_TRANSMIT")), m_IoDriver(ioDriver) {
@@ -11,7 +12,7 @@ namespace kronos {
     void CommandTransmitter::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_comms_transmit:
-                Packet packet = message.Cast<Packet>();
+                auto packet = message.Cast<Packet>();
                 Transmit(packet);
                 break;
         }
@@ -21,4 +22,5 @@ namespace kronos {
         m_IoDriver->Write((uint8_t*)&packet, sizeof(packet));
         return ks_success;
     }
+
 }
