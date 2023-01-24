@@ -24,6 +24,6 @@ namespace kronos {
     }
 
     int32_t KsUsart::ReadUntil(uint8_t* buf, size_t length, uint8_t* expectedBuf, size_t expectedLength) {
-
+        return 0;
     }
 }

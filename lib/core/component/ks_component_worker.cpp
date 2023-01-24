@@ -1,5 +1,6 @@
 #include "ks_component_worker.h"
 #include "ks_framework.h"
+#include "ks_profiler.h"
 
 namespace kronos {
     ComponentWorker::ComponentWorker(
@@ -10,14 +11,16 @@ namespace kronos {
 
     void ComponentWorker::Run() {
         while (true) {
-            const EventMessage* message;
-            if (m_Queue->Pop(&message, 0) == pdPASS) {
-                ComponentActive::ProcessEvent(*message);
-                Framework::DeleteEventMessage(message);
-            }
+            {
+                const EventMessage* message;
+                if (m_Queue->Pop(&message, 0) == pdPASS) {
+                    ComponentActive::ProcessEvent(*message);
+                    Framework::DeleteEventMessage(message);
+                }
 
-            for(const auto& component: m_QueuedComponents)
-                component->ProcessEventQueue();
+                for(const auto& component: m_QueuedComponents)
+                    component->ProcessEventQueue();
+            }
 
             taskYIELD();
         }
