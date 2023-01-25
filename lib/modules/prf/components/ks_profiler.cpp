@@ -1,12 +1,17 @@
 #include "ks_profiler.h"
+#include "ks_file.h"
 
 namespace kronos {
     KS_SINGLETON_INSTANCE(Profiler);
 
-    Profiler::Profiler() : ComponentQueued("CQ_PROFILER") {}
+    Profiler::Profiler() : ComponentQueued("CQ_PROFILER"), m_File(KS_PROFILER_FILE_PATH) {}
 
-    void Profiler::ProcessEvent(const EventMessage& message) {
-
+    void Profiler::ProcessEvent(const EventMessage& eventMessage) {
+        switch (eventMessage.eventCode) {
+            case ks_event_save_param:
+                SaveProfiles();
+                break;
+        }
     }
 
     void Profiler::_Update(const String& scopeName, const String& path, TickType_t start, TickType_t end) {
@@ -19,7 +24,6 @@ namespace kronos {
             return;
 
         m_ProfiledFunctions[scopeName] = {
-            .name = scopeName,
             .path = path,
             .interval = intervalMs,
             .stackSizeRemaining = currentTaskDetails.usStackHighWaterMark
@@ -27,6 +31,14 @@ namespace kronos {
     }
 
     void Profiler::SaveProfiles() {
-        // TODO: save the results to a file. Include the time spent in each task.
+        if (!m_File.IsOpen())
+            return;
+
+        for (const auto& [scopeName, profileInfo]: m_ProfiledFunctions) {
+            m_File.Write(scopeName.c_str(), scopeName.size());
+            m_File.Write((uint8_t*)&profileInfo, sizeof(profileInfo));
+        }
+
+        // Log the run time tasks as well? https://www.freertos.org/a00021.html#vTaskGetRunTimeStats
     }
 }

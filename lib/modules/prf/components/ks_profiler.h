@@ -3,9 +3,10 @@
 #include "ks_component_queued.h"
 #include "ks_file.h"
 
+#define KS_PROFILER_FILE_PATH       "/profile"
+
 namespace kronos {
-    struct ProfiledFunction {
-        String name;
+    struct ProfileInfo {
         String path;
         size_t interval;
         size_t stackSizeRemaining;
@@ -28,6 +29,8 @@ namespace kronos {
 
         void SaveProfiles();
     private:
-        Map <String, ProfiledFunction> m_ProfiledFunctions{};
+        Map <String, ProfileInfo> m_ProfiledFunctions{};
+        File m_File;
+        size_t m_TickCount = 0;
     };
 }

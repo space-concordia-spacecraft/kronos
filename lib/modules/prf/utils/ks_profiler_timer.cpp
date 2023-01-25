@@ -1,4 +1,5 @@
 #include "ks_profiler_timer.h"
+#include "ks_profiler.h"
 
 namespace kronos {
     ProfilerTimer::ProfilerTimer(String scopeName, String path)
@@ -8,6 +9,6 @@ namespace kronos {
 
     ProfilerTimer::~ProfilerTimer() {
         auto endTime = xTaskGetTickCount() * portTICK_RATE_MS;
-        Profiler::Get().Log(m_Name, m_Path, m_Start, endTime);
+        Profiler::Update(m_ScopeName, m_Path, m_Start, endTime);
     }
 }
