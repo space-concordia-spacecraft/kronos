@@ -89,9 +89,6 @@ set(KRONOS_SRC_REL
 
         # KRONOS COMPONENTS
         "components/led_blinker/ks_led_blinker.cpp"
-
-        # KRONOS UTILITIES
-        "utils/profiler/ks_profiler.cpp"
         )
 foreach(src ${KRONOS_SRC_REL})
     get_filename_component(src_abs "${src}" ABSOLUTE)
@@ -197,6 +194,9 @@ set(KRONOS_INCLUDE_DIRS
         "modules/log/utils"
         "modules/params"
         "modules/params/components"
+        "modules/prf"
+        "modules/prf/components"
+        "modules/prf/utils"
         "modules/sched"
         "modules/sched/components/scheduler"
         "modules/sched/components/worker"
@@ -216,9 +216,6 @@ set(KRONOS_INCLUDE_DIRS
         # KRONOS COMPONENTS
         "components"
         "components/led_blinker"
-
-        # KRONOS UTILITIES
-        "utils/profiler"
         )
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 
