@@ -1,8 +1,8 @@
 #include "ks_clk_module.h"
 #include "ks_framework.h"
 
-#include "ks_sched_module.h"
-#include "ks_params_module.h"
+#include "ks_sch_module.h"
+#include "ks_prm_module.h"
 #include "ks_clock.h"
 
 namespace kronos {

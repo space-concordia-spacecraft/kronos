@@ -36,9 +36,9 @@ namespace kronos {
         data.reserve(m_Parameters.size());
 
         // Put all data and headers into appropriate vectors
-        for (const auto& param: m_Parameters) {
-            headers.push_back({ param.first, KS_APOLLO_INT });
-            data.push_back(param.second);
+        for (const auto& [name, value]: m_Parameters) {
+            headers.push_back({ name, KS_APOLLO_INT });
+            data.push_back(value);
         }
 
         // Create Apollo Exporter using appropriate headers

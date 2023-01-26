@@ -19,11 +19,13 @@
 
 // Core Modules
 #include "ks_clk_module.h"
+#include "ks_cmd_module.h"
 #include "ks_fs_module.h"
-#include "ks_health_module.h"
+#include "ks_hlt_module.h"
 #include "ks_log_module.h"
-#include "ks_params_module.h"
-#include "ks_sched_module.h"
+#include "ks_prf_module.h"
+#include "ks_prm_module.h"
+#include "ks_sch_module.h"
 #include "ks_tlm_module.h"
 #include "ks_cmd_module.h"
 #include "ks_wrk_module.h"
