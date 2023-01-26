@@ -67,6 +67,8 @@ namespace kronos {
         );
         KsResultType Close();
 
+        [[nodiscard]] size_t Size() const;
+
         explicit operator bool() const;
 
     private:

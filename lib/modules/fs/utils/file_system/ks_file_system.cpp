@@ -7,7 +7,7 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(FileSystem);
 
     FileSystem::FileSystem()
-        : ComponentPassive("CP_FILE_SYSTEM"), m_Volume(KS_FILESYSTEM_VOLUME) {
+        : m_Volume(KS_FILESYSTEM_VOLUME) {
         auto ret = red_init();
         KS_ASSERT(ret == 0, "Unable to initialize Reliance Edge.");
     }

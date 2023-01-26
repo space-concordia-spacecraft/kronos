@@ -22,6 +22,9 @@ namespace kronos {
         // Parameter DB Save
         ks_event_save_param,
 
+        // File
+        ks_event_file_downlink,
+
         // Commans
         ks_event_comms_listen,
         ks_event_comms_transmit,

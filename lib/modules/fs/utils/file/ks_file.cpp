@@ -152,6 +152,14 @@ namespace kronos {
         return ks_success;
     }
 
+    size_t File::Size() const {
+        REDSTAT stat;
+        if (red_fstat(m_FileId, &stat) != 0)
+            return -1;
+
+        return stat.st_size;
+    }
+
     File::operator bool() const {
         return IsOpen();
     }
