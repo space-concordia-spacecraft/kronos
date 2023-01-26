@@ -19,7 +19,7 @@ namespace kronos {
     void CommandDispatcher::ProcessCommand(const Packet& packet) {
         switch (packet.Header.CommandId) {
             case KS_CMD_PING:
-                // Maybe we should use the ping to send the TLEs, otherwise add a new event in `ks_command_ids.h`
+                // TODO: Obtain the date from the ping to update the clock
                 break;
             case KS_CMD_ECHO:
                 Framework::GetBus("B_LOGGER")->Publish(ks_event_log_toggle_echo);

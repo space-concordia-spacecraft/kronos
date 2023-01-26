@@ -6,7 +6,7 @@
 #include "ks_logger_term.h"
 #include "ks_component_queued.h"
 
-#define KS_LOGGING_FILE_PATH "/bingbong.log"
+#define KS_LOGGING_FILE_PATH "/logs"
 
 namespace kronos {
 
