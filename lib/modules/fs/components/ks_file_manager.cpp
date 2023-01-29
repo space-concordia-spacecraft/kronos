@@ -65,7 +65,7 @@ namespace kronos {
 
             m_BytesSent += payloadSize + sizeof(packet.Header);
 
-            if(m_BytesSent >= m_FileSize)
+            if (m_BytesSent >= m_FileSize)
                 flags = PacketFlags::eof;
 
             EncodePacketPart(packet, flags, KS_CMD_DOWNLINK_PART, i_Packet, m_DownlinkBuffer + i, payloadSize);
@@ -118,7 +118,8 @@ namespace kronos {
         REDDIRENT* entry;
         while ((entry = red_readdir(dir)) != nullptr) {
             FileInfo info{
-                .fileSize = entry->d_stat.st_size
+                .fileSize = entry->d_stat.st_size,
+                .name = {}
             };
 
             nameLength = strlen(entry->d_name) + 1;
@@ -147,7 +148,7 @@ namespace kronos {
         }
 
         // Split the message into packets
-        uint16_t i_packet{ 0 };
+        KspPacketIdxType i_packet{ 0 };
         for (size_t i = 0; i < totalSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
             Packet packet{};
             auto flags = PacketFlags::none;
