@@ -135,7 +135,7 @@ namespace kronos {
             auto ref = CreateRef<T>(name, std::forward<Args>(args)...);
             m_Components[name] = ref;
 
-            if constexpr (std::is_base_of_v<ComponentActive, T> && !std::is_base_of_v<HealthMonitor, T>) {
+            if constexpr (std::is_base_of_v<ComponentActive, T>) {
                 m_ActiveComponents.push_back(name);
             }
 
@@ -156,7 +156,7 @@ namespace kronos {
             }
 
             m_Components[name] = ref;
-            if constexpr (std::is_base_of_v<ComponentActive, T> && !std::is_base_of_v<HealthMonitor, T>) {
+            if constexpr (std::is_base_of_v<ComponentActive, T>) {
                 m_ActiveComponents.push_back(name);
             }
         }

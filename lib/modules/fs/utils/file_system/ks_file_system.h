@@ -3,7 +3,6 @@
 #define KS_FILESYSTEM_VOLUME ""
 
 namespace kronos {
-
     class FileSystem {
     KS_SINGLETON(FileSystem);
 

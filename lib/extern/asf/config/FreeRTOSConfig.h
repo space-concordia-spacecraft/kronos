@@ -37,7 +37,7 @@ void assert_triggered(const char* file, uint32_t line);
 // <i> Default: 64
 // <id> freertos_minimal_stack_size
 #ifndef configMINIMAL_STACK_SIZE
-#define configMINIMAL_STACK_SIZE ((uint16_t)1024)
+#define configMINIMAL_STACK_SIZE ((uint16_t)256)
 #endif
 
 /* configTOTAL_HEAP_SIZE is not used when heap_3.c is used. */

@@ -15,8 +15,8 @@ namespace kronos {
         // Create Components
         Framework::CreateSingletonComponent<HealthMonitor>();
 
-        // Schedule the Health Monitor to ping every 5 seconds
-        Scheduler::ScheduleEvent(5000, ks_event_health_ping, &HealthMonitor::GetInstance());
+        // Schedule the Health Monitor to ping every 10 seconds
+        Scheduler::ScheduleEvent(10000, ks_event_health_ping, &HealthMonitor::GetInstance());
     }
 
     List <TypeInfo> HealthModule::GetModuleDependencies() const {

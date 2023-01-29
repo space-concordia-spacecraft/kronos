@@ -23,19 +23,16 @@ namespace kronos {
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
         if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
-            Logger::Debug("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
 
         if (!IsOpen()) {
-            Logger::Error("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_fsync(m_FileId);
         if (ret < 0) {
-            Logger::Error("Unable to sync file '%s' (%d).", m_FilePath.c_str(), red_errno);
             return ks_error_file_sync;
         }
 
@@ -50,24 +47,21 @@ namespace kronos {
         // An error would normally get thrown which would then attempt to write to a file.
         // This causes infinite loop
         if (m_OperationAttempts > KS_MAX_ATTEMPTS) {
-            Logger::Debug("File '%s' is not opened. Cannot sync changes to storage device.", m_FilePath.c_str());
             m_OperationAttempts = 0;
             return ks_error_file_max_attempts;
         }
 
         if (!IsOpen()) {
-            Logger::Error("File '%s' is not opened. Cannot read requested file.", m_FilePath.c_str());
             return ks_error_file_not_open;
         }
 
         auto ret = red_read(m_FileId, buffer, length);
         if (ret < 0) {
-            Logger::Error("Unable to read from file '%s' (%d).", m_FilePath.c_str(), red_errno);
             return ks_error_file_read;
         }
 
         m_OperationAttempts = 0;
-        return ks_success;
+        return ret;
     }
 
     int32_t File::Write(const void* buffer, uint32_t length) {
@@ -96,7 +90,7 @@ namespace kronos {
         }
 
         m_OperationAttempts = 0;
-        return ks_success;
+        return ret;
     }
 
     KsResultType File::Remove(const String& name) {

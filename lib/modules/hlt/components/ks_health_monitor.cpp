@@ -7,8 +7,8 @@ namespace kronos {
 
     HealthMonitor::HealthMonitor()
         : ComponentActive(
-        "W_HEALTH",
-        ks_event_health_ping
+        "CA_HEALTH",
+        KS_COMPONENT_STACK_SIZE_MEDIUM
     ),
           m_BusPong(Framework::GetBus("B_HEALTH_PONG")),
           m_BusPing(Framework::GetBus("B_HEALTH_PING")) {
@@ -29,7 +29,12 @@ namespace kronos {
     }
 
     KsResultType HealthMonitor::PostInit() {
-        const auto& list = Framework::GetInstance().m_ActiveComponents;
+        auto list = Framework::GetInstance().m_ActiveComponents;
+
+        std::erase_if(list, [](const String& name){
+            return name == "CA_HEALTH" || name == "CA_CMD_LISTENER";
+        });
+
         std::transform(
             list.begin(),
             list.end(),
@@ -54,7 +59,7 @@ namespace kronos {
 
         for (auto [component, healthInfo]: m_ActiveComponentInfos) {
             uint32_t time = xTaskGetTickCount();
-            if (time - healthInfo.lastResponse >= KS_HEALTH_PONG_MAX_RESPONSE_TIME) {
+            if (time - healthInfo.lastResponse >= pdMS_TO_TICKS(KS_HEALTH_PONG_MAX_RESPONSE_TIME)) {
                 Logger::Error("Component '%s' has not responded.", component->GetName().c_str());
             }
         }

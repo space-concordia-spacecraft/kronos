@@ -23,7 +23,10 @@ namespace kronos {
         ks_event_save_param,
 
         // File
-        ks_event_file_downlink,
+        ks_event_file_downlink_begin,
+        ks_event_file_downlink_fetch,
+        ks_event_file_downlink_continue,
+        ks_event_file_downlink_list,
 
         // Commans
         ks_event_comms_listen,

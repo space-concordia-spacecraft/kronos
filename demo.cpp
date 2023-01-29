@@ -36,6 +36,7 @@ static void Start(void* data) {
     // ADD MODULES
     Framework::AddModule<FsModule>();
     Framework::AddModule<SchedModule>();
+    Framework::AddModule<HealthModule>();
     Framework::AddModule<WorkerModule>();
     Framework::AddModule<CmdModule>();
     Framework::AddModule<LogModule>();

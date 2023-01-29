@@ -1,11 +1,11 @@
 #pragma once
 
-#include "ks_component_worker.h"
+#include "ks_component_active.h"
 #include "ks_bus.h"
 #include "ks_logger.h"
 #include "ks_error_component_codes.h"
 
-#define KS_HEALTH_PONG_MAX_RESPONSE_TIME 3000
+#define KS_HEALTH_PONG_MAX_RESPONSE_TIME 15000
 
 namespace kronos {
 

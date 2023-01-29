@@ -35,7 +35,6 @@ namespace kronos {
 //                Logger::Info("-- %s", m_Modules[module]->GetName().data());
 //            }
 //        }
-        Logger::Info("Test");
     }
 
     bool Framework::_InitModules() {

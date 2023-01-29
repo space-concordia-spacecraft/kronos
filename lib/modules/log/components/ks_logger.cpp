@@ -5,7 +5,6 @@
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(Logger);
-
     Logger::Logger() :
         ComponentQueued("CQ_LOGGER"),
         m_File(KS_LOGGING_FILE_PATH),

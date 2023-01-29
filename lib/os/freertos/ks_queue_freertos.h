@@ -10,7 +10,7 @@ namespace kronos {
     class QueueFreeRTOS : public Queue<T> {
     public:
         //! \brief Parametrized Constructor to create a Queue with size 10
-        explicit QueueFreeRTOS(size_t length = 20) : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}
+        explicit QueueFreeRTOS(size_t length = 40) : m_Length(length), m_Queue(xQueueCreate(length, sizeof(T))) {}
 
         ~QueueFreeRTOS() override { vQueueDelete(m_Queue); };
 

@@ -6,7 +6,7 @@
 #include "ks_logger_term.h"
 #include "ks_component_queued.h"
 
-#define KS_LOGGING_FILE_PATH "/logs"
+#define KS_LOGGING_FILE_PATH "/live.log"
 
 namespace kronos {
 
@@ -112,7 +112,7 @@ namespace kronos {
 
         File m_File;
         Bus* m_Bus;
-        bool m_ShouldEcho = true;
+        bool m_ShouldEcho = false;
 
     };
 
