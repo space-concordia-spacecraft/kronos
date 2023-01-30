@@ -81,7 +81,7 @@ namespace kronos {
                 snprintf(
                     buf,
                     sizeof(buf),
-                    KS_TERM_TIME "[%s]" KS_TERM_RESET " %s %s\n",
+                    "[%s] %s %s\n",
                     Clock::GetTime().c_str(),
                     ConvertSeverity(severity).c_str(),
                     fmt

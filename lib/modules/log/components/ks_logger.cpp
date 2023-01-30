@@ -5,6 +5,7 @@
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(Logger);
+
     Logger::Logger() :
         ComponentQueued("CQ_LOGGER"),
         m_File(KS_LOGGING_FILE_PATH),
@@ -26,21 +27,13 @@ namespace kronos {
     String Logger::ConvertSeverity(KsLogSeverity severity) {
         switch (severity) {
             case ks_log_debug:
-                return KS_TERM_DEBUG
-                       "[DEBUG]"
-                       KS_TERM_RESET;
+                return "[DEBUG]";
             case ks_log_info:
-                return KS_TERM_INFO
-                       "[INFO]"
-                       KS_TERM_RESET;
+                return "[INFO]";
             case ks_log_warn:
-                return KS_TERM_WARN
-                       "[WARNING]"
-                       KS_TERM_RESET;
+                return "[WARNING]";
             case ks_log_error:
-                return KS_TERM_ERROR
-                       "[ERROR]"
-                       KS_TERM_RESET;
+                return "[ERROR]";
             default:
                 return "";
         }
