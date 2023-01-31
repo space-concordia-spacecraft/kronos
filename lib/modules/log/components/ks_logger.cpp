@@ -1,6 +1,7 @@
 #include "ks_logger.h"
 #include "ks_framework.h"
 #include "ks_packet_parser.h"
+#include "ks_command_ids.h"
 
 namespace kronos {
 
@@ -70,7 +71,7 @@ namespace kronos {
                 flags = PacketFlags::eof;
             }
 
-            EncodePacket(packet, flags, 0, (uint8_t*)offset, payloadSize);
+            EncodePacket(packet, flags, KsCommand::KS_CMD_RES_ECHO, (uint8_t*)offset, payloadSize);
 
             transmitBus->Publish(
                 packet,

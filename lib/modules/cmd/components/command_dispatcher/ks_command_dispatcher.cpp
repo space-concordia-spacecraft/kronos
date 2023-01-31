@@ -3,6 +3,7 @@
 #include "ks_command_ids.h"
 
 namespace kronos {
+    using enum KsCommand;
     CommandDispatcher::CommandDispatcher(const String& name) : ComponentActive(name),
                                                                m_Bus(Framework::CreateBus("B_CMD_DISPATCH")) {
         m_Bus->AddReceivingComponent(this);

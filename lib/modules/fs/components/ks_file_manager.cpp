@@ -2,9 +2,12 @@
 #include "ks_file_system.h"
 #include "ks_framework.h"
 #include "ks_bus.h"
+#include "ks_command_ids.h"
 
 namespace kronos {
     KS_SINGLETON_INSTANCE(FileManager);
+
+    using enum KsCommand;
 
     FileManager::FileManager() :
         ComponentQueued("CQ_FILE_MANAGER"),
@@ -33,7 +36,7 @@ namespace kronos {
                 DownlinkNext();
                 break;
             case ks_event_file_downlink_fetch:
-                DownlinkPart(message.Cast<List<uint8_t>>());
+                DownlinkPart(message.Cast < List < KspPacketIdxType >> ());
                 break;
             case ks_event_file_downlink_list:
                 ListFiles();
@@ -42,9 +45,28 @@ namespace kronos {
     }
 
     void FileManager::DownlinkBegin(const String& fileName) {
-        // Open file and read the first x bytes
+        Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
+        m_File.Close();
         m_File.Open(fileName, KS_OPEN_MODE_READ_ONLY);
         m_FileSize = m_File.Size();
+
+        // Build first packet with file info
+        Packet packet{};
+        size_t totalSize = sizeof(m_FileSize);
+        totalSize += fileName.size() + 1;
+        uint8_t buffer[totalSize];
+
+        // Pack file size and name into the payload
+        memcpy(buffer, &m_FileSize, sizeof(m_FileSize));
+        memcpy(buffer + sizeof(m_FileSize), fileName.c_str(), fileName.size() + 1);
+
+        EncodePacket(packet, PacketFlags::none, KS_CMD_RES_FILEINFO, buffer, totalSize);
+
+        transmitBus->Publish(
+            packet,
+            ks_event_comms_transmit
+        );
+
         DownlinkNext();
     }
 
@@ -52,23 +74,41 @@ namespace kronos {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
         m_DownlinkBufferSize = m_File.Read(m_DownlinkBuffer, KSP_MAX_PAYLOAD_SIZE_PART * KS_DOWNLINK_FILE_RATE);
 
-        if (m_DownlinkBufferSize < 0)
-            // TODO: TRANSMIT ERROR OF SOME KIND
+        if (m_DownlinkBufferSize < 0) {
+            KS_ASSERT("Error downlinking file");
+            Packet errPacket{};
+
+            EncodePacket(
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
+
+            transmitBus->Publish(
+                errPacket,
+                ks_event_comms_transmit
+            );
             return;
+        }
 
-        uint16_t i_Packet{ 0 };
 
-        for (int i = 0; i < m_DownlinkBufferSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
+        KspPacketIdxType i_Packet{ 0 };
+        for (int32_t i = 0; i < m_DownlinkBufferSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
             Packet packet{};
-            auto payloadSize = std::min<int>(KSP_MAX_PAYLOAD_SIZE_PART, m_DownlinkBufferSize - i);
+            // we use uint32_t bc otherwise m_DownlinkBufferSize - i might overflow and this won't work
+            auto payloadSize = std::min<uint32_t>(KSP_MAX_PAYLOAD_SIZE_PART, m_DownlinkBufferSize - i);
             auto flags = PacketFlags::none;
 
-            m_BytesSent += payloadSize + sizeof(packet.Header);
-
-            if (m_BytesSent >= m_FileSize)
+            // Set the flag to eof if we are at the end
+            m_BytesSent += payloadSize;
+            if (m_BytesSent >= m_FileSize) {
                 flags = PacketFlags::eof;
+                m_BytesSent = 0;
+                m_File.Close();
+            }
 
-            EncodePacketPart(packet, flags, KS_CMD_DOWNLINK_PART, i_Packet, m_DownlinkBuffer + i, payloadSize);
+            EncodePacketPart(packet, flags, KS_CMD_RES_FILEPART, i_Packet, m_DownlinkBuffer + i, payloadSize);
             i_Packet++;
 
             transmitBus->Publish(
@@ -78,16 +118,17 @@ namespace kronos {
         }
     }
 
-    void FileManager::DownlinkPart(const List <uint8_t>& packets) {
+    void FileManager::DownlinkPart(const List <KspPacketIdxType>& packets) {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
 
         for (const auto& i_Packet: packets) {
             Packet packet{};
             auto offset = i_Packet * KSP_MAX_PAYLOAD_SIZE_PART;
-            auto payloadSize = std::min<int>(KSP_MAX_PAYLOAD_SIZE_PART, m_DownlinkBufferSize - offset);
+            // we use uint32_t bc otherwise m_DownlinkBufferSize - offset might overflow and this won't work
+            auto payloadSize = std::min<uint32_t>(KSP_MAX_PAYLOAD_SIZE_PART, m_DownlinkBufferSize - offset);
             auto flags = PacketFlags::none;
 
-            EncodePacketPart(packet, flags, KS_CMD_DOWNLINK_PART, i_Packet, m_DownlinkBuffer + offset, payloadSize);
+            EncodePacketPart(packet, flags, KS_CMD_RES_FILEPART, i_Packet, m_DownlinkBuffer + offset, payloadSize);
 
             transmitBus->Publish(
                 packet,
@@ -97,11 +138,6 @@ namespace kronos {
     }
 
     void FileManager::ListFiles() {
-        struct FileInfo {
-            uint64_t fileSize;
-            char name[REDCONF_NAME_MAX + 1];
-        } __attribute__((packed));
-
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
 
         if (transmitBus == nullptr)
@@ -163,7 +199,7 @@ namespace kronos {
                 flags = PacketFlags::eof;
             }
 
-            EncodePacketPart(packet, flags, KS_CMD_LIST_FILES_RES, i_packet, (uint8_t*)payload, payloadSize);
+            EncodePacketPart(packet, flags, KS_CMD_RES_FILES, i_packet, (uint8_t*)payload, payloadSize);
 
             transmitBus->Publish(
                 packet,
