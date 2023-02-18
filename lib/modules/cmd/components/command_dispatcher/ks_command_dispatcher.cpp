@@ -1,6 +1,7 @@
 #include "ks_command_dispatcher.h"
 #include "ks_framework.h"
 #include "ks_command_ids.h"
+#include "ks_file_manager.h"
 
 namespace kronos {
     using enum KsCommand;
@@ -32,10 +33,13 @@ namespace kronos {
                 );
                 break;
             case KS_CMD_DOWNLINK_FETCH: {
-                List<uint8_t> packetsRequested;
-                packetsRequested.resize(packet.Header.PayloadSize);
-                memcpy(packetsRequested.data(), packet.Payload, packet.Header.PayloadSize);
-                Framework::GetBus("B_FILE_MANAGER")->Publish(packetsRequested, ks_event_file_downlink_fetch);
+                FileFetch request{};
+                request.packets.resize(packet.Header.PayloadSize - sizeof(request.offset));
+
+                memcpy(&request.offset, packet.Payload, sizeof(request.offset));
+                memcpy(request.packets.data(), packet.Payload + sizeof(request.offset), packet.Header.PayloadSize - sizeof(request.offset));
+
+                Framework::GetBus("B_FILE_MANAGER")->Publish(request, ks_event_file_downlink_fetch);
                 break;
             }
             case KS_CMD_DOWNLINK_CONTINUE:

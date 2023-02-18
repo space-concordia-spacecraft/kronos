@@ -24,7 +24,7 @@ set(KS_LINK_FLAGS
         # Generate cross-reference table
         -Wl,--cref
         # Linker script
-        -T \"${CMAKE_SOURCE_DIR}/lib/extern/asf/${SAM_ARCH}/gcc/gcc/${SAM_MCU}_flash.ld\")
+        -T \"${CMAKE_SOURCE_DIR}/lib/extern/asf/${SAM_ARCH}/${SAM_ARCH}/gcc/gcc/${SAM_MCU}_flash.ld\")
 
 set(KS_COMPILE_DEFINITIONS
         # ASF + FreeRTOS

@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.17)
 
 set(CMAKE_CXX_STANDARD 20)
+set(ASF_DIR "extern/asf/${KS_BOARD}")
 
 # FreeRTOS
-get_filename_component(FREERTOS_CONFIG_FILE_DIRECTORY "extern/asf/config" ABSOLUTE)
+get_filename_component(FREERTOS_CONFIG_FILE_DIRECTORY "${ASF_DIR}/config" ABSOLUTE)
 set(FREERTOS_CONFIG_FILE_DIRECTORY "${FREERTOS_CONFIG_FILE_DIRECTORY}" CACHE STRING "")
 set(FREERTOS_HEAP "4" CACHE STRING "")
 set(FREERTOS_PORT "${KS_FREERTOS_PORT}" CACHE STRING "")
@@ -21,22 +22,24 @@ add_subdirectory(extern/kronos-packet)
 # Glob source files
 set(KRONOS_SRC_REL
         # FREERTOS
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
-        # ASF START
-        "extern/asf/stdio_start.c"
-        "extern/asf/driver_init.c"
-        "extern/asf/sd_mmc_start.c"
-        "extern/asf/atmel_start.c"
+        "${ASF_DIR}/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
 
-        # ASF SAME70
-        "extern/asf/same70b/gcc/system_same70q21b.c"
-        "extern/asf/same70b/gcc/gcc/startup_same70q21b.c"
+        # ASF START
+        "${ASF_DIR}/stdio_start.c"
+        "${ASF_DIR}/spi_nor_flash_main.c"
+        "${ASF_DIR}/driver_init.c"
+        "${ASF_DIR}/atmel_start.c"
+
+        # ASF
+        "${ASF_DIR}/${KS_BOARD}/gcc/system_samv71q21b.c"
+        "${ASF_DIR}/${KS_BOARD}/gcc/gcc/startup_samv71q21b.c"
 
         # ASF STDIO REDIRECT
-        "extern/asf/stdio_redirect/stdio_io.c"
+        "${ASF_DIR}/stdio_redirect/stdio_io.c"
 
-        # ASF SD/MMC
-        "extern/asf/sd_mmc/sd_mmc.c"
+        # ASF SPI NOR FLASH
+        "${ASF_DIR}/spi_nor_flash/spi_nor_flash.c"
+        "${ASF_DIR}/spi_nor_flash/n25q256a/n25q256a.c"
 
         # RELIANCE EDGE
         "extern/reliance-edge/bdev/bdev.c"
@@ -97,9 +100,9 @@ endforeach()
 
 # ASF Driver Files
 file(GLOB_RECURSE KRONOS_DRIVERS_SRC
-        "extern/asf/hpl/**.c"
-        "extern/asf/hri/**.c"
-        "extern/asf/hal/**.c")
+        "${ASF_DIR}/hpl/**.c"
+        "${ASF_DIR}/hri/**.c"
+        "${ASF_DIR}/hal/**.c")
 list(APPEND KRONOS_SRC ${KRONOS_DRIVERS_SRC})
 
 # Kronos Core
@@ -116,43 +119,45 @@ add_mcu_library(Kronos ${KRONOS_SRC} ${KRONOS_DRIVERS_SRC})
 # Include directories
 set(KRONOS_INCLUDE_DIRS
         # FREERTOS
-        "extern/asf/thirdparty/RTOS"
-        "extern/asf/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
+        "${ASF_DIR}/thirdparty/RTOS"
+        "${ASF_DIR}/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
         # ASF
-        "extern/asf"
+        "${ASF_DIR}"
 
         # ASF CMSIS
-        "extern/asf/CMSIS/Core/Include"
+        "${ASF_DIR}/CMSIS/Core/Include"
 
         # ASF CONFIG
-        "extern/asf/config"
+        "${ASF_DIR}/config"
 
         # ASF HAL
-        "extern/asf/hal/include"
-        "extern/asf/hal/utils/include"
+        "${ASF_DIR}/hal/include"
+        "${ASF_DIR}/hal/utils/include"
 
         #ASF HPL
-        "extern/asf/hpl/core"
-        "extern/asf/hpl/mcan"
-        "extern/asf/hpl/pio"
-        "extern/asf/hpl/pmc"
-        "extern/asf/hpl/usart"
+        "${ASF_DIR}/hpl/core"
+        "${ASF_DIR}/hpl/mcan"
+        "${ASF_DIR}/hpl/pio"
+        "${ASF_DIR}/hpl/pmc"
+        "${ASF_DIR}/hpl/uart"
+        "${ASF_DIR}/hpl/mcan"
+        "${ASF_DIR}/hpl/spi"
 
         # ASF HRI
-        "extern/asf/hri"
+        "${ASF_DIR}/hri"
 
-        # ASF SAME70
-        "extern/asf/same70b/include"
-        "extern/asf/same70b/include/component"
-        "extern/asf/same70b/include/instance"
-        "extern/asf/same70b/include/pio"
-        "extern/asf/same70b/include/pio"
+        # ASF SAM
+        "${ASF_DIR}/${KS_BOARD}/include"
+        "${ASF_DIR}/${KS_BOARD}/include/component"
+        "${ASF_DIR}/${KS_BOARD}/include/instance"
+        "${ASF_DIR}/${KS_BOARD}/include/pio"
 
         # ASF STDIO REDIRECT
-        "extern/asf/stdio_redirect"
+        "${ASF_DIR}/stdio_redirect"
 
-        # ASF SD/MMC
-        "extern/asf/sd_mmc"
+        # ASF SPI NOR FLASH
+        "${ASF_DIR}/spi_nor_flash"
+        "${ASF_DIR}/spi_nor_flash/n25q256a"
 
         # RELIANCE EDGE
         "extern/reliance-edge/include"
@@ -224,9 +229,13 @@ target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 set(KRONOS_EXTRA_SRC
         # This is done for functions that are not used in the library but that are needed later.
         # Because they're not used they're initially yeeted.
-        "extern/asf/hal/utils/src/utils_syscalls.c"
-        "extern/asf/stdio_redirect/gcc/read.c"
-        "extern/asf/stdio_redirect/gcc/write.c"
+        "${ASF_DIR}/hal/utils/src/utils_assert.c"
+        "${ASF_DIR}/hal/utils/src/utils_event.c"
+        "${ASF_DIR}/hal/utils/src/utils_list.c"
+        "${ASF_DIR}/hal/utils/src/utils_ringbuffer.c"
+        "${ASF_DIR}/hal/utils/src/utils_syscalls.c"
+        "${ASF_DIR}/stdio_redirect/gcc/read.c"
+        "${ASF_DIR}/stdio_redirect/gcc/write.c"
         "kronos.cpp")
 
 target_sources(Kronos PUBLIC ${KRONOS_EXTRA_SRC})

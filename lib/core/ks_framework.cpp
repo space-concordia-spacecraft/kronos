@@ -17,24 +17,10 @@ namespace kronos {
             component.second->PostInit();
         }
 
-        // Log active modules
-//        if (_HasModule<LogModule>()) {
-//            Logger::Trace(KS_TERM_CYAN);
-//            Logger::Trace(R"($$\   $$\ $$$$$$$\   $$$$$$\  $$\   $$\  $$$$$$\   $$$$$$\  )");
-//            Logger::Trace(R"($$ | $$  |$$  __$$\ $$  __$$\ $$$\  $$ |$$  __$$\ $$  __$$\ )");
-//            Logger::Trace(R"($$ |$$  / $$ |  $$ |$$ /  $$ |$$$$\ $$ |$$ /  $$ |$$ /  \__|)");
-//            Logger::Trace(R"($$$$$  /  $$$$$$$  |$$ |  $$ |$$ $$\$$ |$$ |  $$ |\$$$$$$\  )");
-//            Logger::Trace(R"($$  $$<   $$  __$$< $$ |  $$ |$$ \$$$$ |$$ |  $$ | \____$$\ )");
-//            Logger::Trace(R"($$ |\$$\  $$ |  $$ |$$ |  $$ |$$ |\$$$ |$$ |  $$ |$$\   $$ |)");
-//            Logger::Trace(R"($$ | \$$\ $$ |  $$ | $$$$$$  |$$ | \$$ | $$$$$$  |\$$$$$$  |)");
-//            Logger::Trace(R"(\__|  \__|\__|  \__| \______/ \__|  \__| \______/  \______/)");
-//            Logger::Trace(KS_TERM_RESET);
-//
 //            Logger::Info("Initialized framework with %u module(s): ", m_ModuleList.size());
 //            for (const auto& module: m_ModuleList) {
 //                Logger::Info("-- %s", m_Modules[module]->GetName().data());
 //            }
-//        }
     }
 
     bool Framework::_InitModules() {

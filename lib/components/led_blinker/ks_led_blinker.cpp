@@ -1,8 +1,5 @@
 #include "ks_led_blinker.h"
 
-#include "driver_init.h"
-#include "ks_gpio.h"
-
 #include "ks_parameter_database.h"
 
 namespace kronos {
@@ -26,7 +23,7 @@ namespace kronos {
 
     void LedBlinker::ToggleLed() {
         Logger::Debug("Toggling LED %u", m_Toggles++);
-        Gpio::Toggle(LED0);
+        // Gpio::Toggle(LED0); Uncomment this and replace "LED0" with the correct pin
         ParameterDatabase::SetParam("LED", m_Toggles);
     }
 }

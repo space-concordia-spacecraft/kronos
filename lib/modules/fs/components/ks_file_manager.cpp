@@ -36,7 +36,7 @@ namespace kronos {
                 DownlinkNext();
                 break;
             case ks_event_file_downlink_fetch:
-                DownlinkPart(message.Cast < List < KspPacketIdxType >> ());
+                DownlinkFetch(message.Cast<FileFetch>());
                 break;
             case ks_event_file_downlink_list:
                 ListFiles();
@@ -46,9 +46,13 @@ namespace kronos {
 
     void FileManager::DownlinkBegin(const String& fileName) {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
-        m_File.Close();
+        if(m_File.IsOpen())
+            m_File.Close();
+
         m_File.Open(fileName, KS_OPEN_MODE_READ_ONLY);
         m_FileSize = m_File.Size();
+
+        m_BytesSent = 0;
 
         // Build first packet with file info
         Packet packet{};
@@ -72,7 +76,8 @@ namespace kronos {
 
     void FileManager::DownlinkNext() {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
-        m_DownlinkBufferSize = m_File.Read(m_DownlinkBuffer, KSP_MAX_PAYLOAD_SIZE_PART * KS_DOWNLINK_FILE_RATE);
+
+        m_DownlinkBufferSize = m_File.Read(m_DownlinkBuffer, KSP_MAX_PAYLOAD_SIZE_PART * KSP_MAX_PACKET_PART_RATE);
 
         if (m_DownlinkBufferSize < 0) {
             KS_ASSERT("Error downlinking file");
@@ -118,10 +123,64 @@ namespace kronos {
         }
     }
 
-    void FileManager::DownlinkPart(const List <KspPacketIdxType>& packets) {
+    void FileManager::DownlinkFetch(const FileFetch& fetchRequest) {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
+        Packet errPacket{};
 
-        for (const auto& i_Packet: packets) {
+        if(!m_File.IsOpen()) {
+            KS_ASSERT("Error fetching file");
+
+            EncodePacket(
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
+
+            transmitBus->Publish(
+                errPacket,
+                ks_event_comms_transmit
+            );
+            return;
+        }
+
+        if(m_File.Seek(fetchRequest.offset, KS_SEEK_SET) < 0) {
+            KS_ASSERT("Error fetching file");
+
+            EncodePacket(
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
+
+            transmitBus->Publish(
+                errPacket,
+                ks_event_comms_transmit
+            );
+            return;
+        }
+
+        m_DownlinkBufferSize = m_File.Read(m_DownlinkBuffer, KSP_MAX_PAYLOAD_SIZE_PART * KSP_MAX_PACKET_PART_RATE);
+
+        if (m_DownlinkBufferSize < 0) {
+            KS_ASSERT("Error fetching file");
+
+            EncodePacket(
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
+
+            transmitBus->Publish(
+                errPacket,
+                ks_event_comms_transmit
+            );
+            return;
+        }
+
+        for (const auto& i_Packet: fetchRequest.packets) {
             Packet packet{};
             auto offset = i_Packet * KSP_MAX_PAYLOAD_SIZE_PART;
             // we use uint32_t bc otherwise m_DownlinkBufferSize - offset might overflow and this won't work

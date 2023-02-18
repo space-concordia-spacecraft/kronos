@@ -12,6 +12,11 @@ namespace kronos {
         char name[REDCONF_NAME_MAX + 1];
     } __attribute__((packed));
 
+    struct FileFetch {
+        uint32_t offset;
+        List<KspPacketIdxType> packets;
+    };
+
     class FileManager : public ComponentQueued {
     KS_SINGLETON(FileManager);
 
@@ -24,7 +29,7 @@ namespace kronos {
     private:
         void DownlinkBegin(const String& fileName);
         void DownlinkNext();
-        void DownlinkPart(const List<uint8_t>& packets);
+        void DownlinkFetch(const FileFetch& fetchRequest);
         void ListFiles();
 
     private:

@@ -93,6 +93,10 @@ namespace kronos {
         return ret;
     }
 
+    int64_t File::Seek(int64_t offset, KsSeekOrigin seekOrigin) const {
+        return red_lseek(m_FileId, offset, seekOrigin);
+    }
+
     KsResultType File::Remove(const String& name) {
         auto ret = red_unlink(name.c_str());
         if (ret < 0) {

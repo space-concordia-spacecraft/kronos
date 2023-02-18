@@ -12,6 +12,12 @@
 #define KS_OPEN_MODE_EXCL RED_O_EXCL                // Throws an error if the file already exists. must be combined with KS_OPEN_MODE_CREATE
 #define KS_OPEN_MODE_TRUNCATE RED_O_TRUNC           // Truncate the opened file to size zero.
 
+#define KS_SEEK_SET RED_SEEK_SET                    // Move cursor relative to the beginning of the file
+#define KS_SEEK_CUR RED_SEEK_CUR                    // Move cursor relative to current position
+#define KS_SEEK_END RED_SEEK_END                    // Move cursor relative to the end of the file
+
+typedef REDWHENCE KsSeekOrigin;
+
 #define KS_MAX_ATTEMPTS 3
 
 namespace kronos {
@@ -60,6 +66,8 @@ namespace kronos {
         //! - ks_error_file_write: If something went wrong when writing. Error thrown by thirdparty.
         int32_t Write(const void* buffer, uint32_t length);
         int32_t Read(void* buffer, uint32_t length);
+        [[nodiscard]] int64_t Seek(int64_t offset, KsSeekOrigin seekOrigin) const;
+
         static KsResultType Remove(const String& name);
         KsResultType Open(
             const String& name,

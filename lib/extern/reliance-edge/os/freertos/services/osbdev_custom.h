@@ -29,30 +29,15 @@
 #ifndef OSBDEV_CUSTOM_H
 #define OSBDEV_CUSTOM_H
 
-
-/*  Hi, there!  You might be seeing this error message and wondering what to do
-    about it.  The gist of it is that FreeRTOS does not provide a standard
-    interface for communicating with the block device.  You need to fill in
-    these functions to tell Reliance Edge how it should be opening, closing,
-    reading from, and writing to your block device (whatever that may be: SD,
-    MMC, eMMC, CF, USB, etc.).  This is discussed in detail in the Reliance Edge
-    Developer's Guide (available at tuxera.com/products/reliance-edge); see the
-    _Porting Guide_ chapter, in particular the "Block Device" section, and the
-    _FreeRTOS Integration_ chapter.  This directory contains several examples of
-    how the block device can be implemented (these examples are described in the
-    documentation just referenced, and in comments near the top of osbdev.c).
-    These examples may be useful to you as a reference; if you are lucky, one of
-    them might even work for you.
-*/
-#error "FreeRTOS block device not implemented"
-
-
 /*  If you need to include headers to access your block device, do so here.  For
     example, if you are using an SD card driver whose interfaces are defined in
     sd.h, that would be included here.
 #include <foobar.h>
 */
 
+#include <hal_flash.h>
+#include <stdlib.h>
+static uint8_t *gapbRamDisk[REDCONF_VOLUME_COUNT];
 
 /** @brief Initialize a disk.
 
@@ -69,17 +54,48 @@ static REDSTATUS DiskOpen(
     uint8_t         bVolNum,
     BDEVOPENMODE    mode)
 {
-    REDSTATUS       ret;
-
-    /*  Avoid warnings about unused function parameters.
-    */
+    REDSTATUS       ret = 0;
+    const VOLCONF  *pVolConf = &gaRedVolConf[bVolNum];
     (void)bVolNum;
     (void)mode;
 
-    /*  Insert code here to open/initialize the block device.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
+    if(pVolConf->ullSectorOffset > 0U)
+    {
+        /*  A sector offset makes no sense for a RAM disk.  The feature exists
+            to enable partitioning, but we don't support having more than one
+            file system on a RAM disk.  Thus, having a sector offset would only
+            waste memory by making the RAM disk bigger.
+        */
+        REDERROR();
+        ret = -RED_EINVAL;
+    }
+    else if((pVolConf->ulSectorSize == SECTOR_SIZE_AUTO) || (pVolConf->ullSectorCount == SECTOR_COUNT_AUTO))
+    {
+        /*  Automatic geometry detection is not possible for RAM disks.
+        */
+        ret = -RED_EINVAL;
+    }
+    else if(gapbRamDisk[bVolNum] == NULL)
+    {
+        if((size_t)pVolConf->ullSectorCount != pVolConf->ullSectorCount)
+        {
+            REDERROR();
+            ret = -RED_EINVAL;
+        }
+        else
+        {
+            gapbRamDisk[bVolNum] = calloc((size_t)pVolConf->ullSectorCount, pVolConf->ulSectorSize);
+            if(gapbRamDisk[bVolNum] == NULL)
+            {
+                ret = -RED_EIO;
+            }
+        }
+    }
+    else
+    {
+        /*  RAM disk already exists, nothing to do.
+        */
+    }
 
     return ret;
 }
@@ -99,14 +115,20 @@ static REDSTATUS DiskClose(
 {
     REDSTATUS   ret;
 
-    /*  Avoid warnings about unused function parameters.
-    */
-    (void)bVolNum;
-
-    /*  Insert code here to close/deinitialize the block device.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
+    if(gapbRamDisk[bVolNum] == NULL)
+    {
+        REDERROR();
+        ret = -RED_EINVAL;
+    }
+    else
+    {
+        /*  This implementation uses dynamically allocated memory, but must
+            retain previously written data after the block device is closed, and
+            thus the memory cannot be freed and will remain allocated until
+            reboot.
+        */
+        ret = 0;
+    }
 
     return ret;
 }
@@ -129,19 +151,10 @@ static REDSTATUS DiskGetGeometry(
     uint8_t     bVolNum,
     BDEVINFO   *pInfo)
 {
-    REDSTATUS   ret;
-
-    /*  Avoid warnings about unused function parameters.
-    */
     (void)bVolNum;
     (void)pInfo;
 
-    /*  Insert code here to read the block device geometry.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
-
-    return ret;
+    return -RED_ENOTSUPP;
 }
 
 
@@ -166,17 +179,20 @@ static REDSTATUS DiskRead(
 {
     REDSTATUS   ret;
 
-    /*  Avoid warnings about unused function parameters.
-    */
-    (void)bVolNum;
-    (void)ullSectorStart;
-    (void)ulSectorCount;
-    (void)pBuffer;
+    if(gapbRamDisk[bVolNum] == NULL)
+    {
+        REDERROR();
+        ret = -RED_EINVAL;
+    }
+    else
+    {
+        uint64_t ullByteOffset = ullSectorStart * gaRedVolConf[bVolNum].ulSectorSize;
+        uint32_t ulByteCount = ulSectorCount * gaRedVolConf[bVolNum].ulSectorSize;
 
-    /*  Insert code here to read sectors from the block device.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
+        RedMemCpy(pBuffer, &gapbRamDisk[bVolNum][ullByteOffset], ulByteCount);
+
+        ret = 0;
+    }
 
     return ret;
 }
@@ -205,17 +221,20 @@ static REDSTATUS DiskWrite(
 {
     REDSTATUS   ret;
 
-    /*  Avoid warnings about unused function parameters.
-    */
-    (void)bVolNum;
-    (void)ullSectorStart;
-    (void)ulSectorCount;
-    (void)pBuffer;
+    if(gapbRamDisk[bVolNum] == NULL)
+    {
+        REDERROR();
+        ret = -RED_EINVAL;
+    }
+    else
+    {
+        uint64_t ullByteOffset = ullSectorStart * gaRedVolConf[bVolNum].ulSectorSize;
+        uint32_t ulByteCount = ulSectorCount * gaRedVolConf[bVolNum].ulSectorSize;
 
-    /*  Insert code here to write sectors to the block device.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
+        RedMemCpy(&gapbRamDisk[bVolNum][ullByteOffset], pBuffer, ulByteCount);
+
+        ret = 0;
+    }
 
     return ret;
 }
@@ -236,16 +255,15 @@ static REDSTATUS DiskFlush(
 {
     REDSTATUS   ret;
 
-    /*  Avoid warnings about unused function parameters.
-    */
-    (void)bVolNum;
-
-    /*  Insert code here to flush the block device.  If writing to the block
-        device is inherently synchronous (no hardware or software cache), then
-        this can do nothing and return success.
-    */
-    REDERROR();
-    ret = -RED_ENOSYS;
+    if(gapbRamDisk[bVolNum] == NULL)
+    {
+        REDERROR();
+        ret = -RED_EINVAL;
+    }
+    else
+    {
+        ret = 0;
+    }
 
     return ret;
 }
