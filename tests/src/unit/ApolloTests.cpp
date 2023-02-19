@@ -1,33 +1,33 @@
 #include "unit/ApolloTests.h"
-#include "ks_apollo_format.h"
-#include "ks_file_manager.h"
 
 using namespace kronos;
 
 KT_TEST(ExportTest) {
     // Open file
-    File* file = ComponentFileManager::Get().Open("/apollo_test.txt", KS_OPEN_MODE_CREATE | KS_OPEN_MODE_WRITE_ONLY);
-    KT_ASSERT(file, "UNABLE TO OPEN FILE");
+    File file;
+    file.Open("/apollo_test.txt");
+    KT_ASSERT(&file, "UNABLE TO OPEN FILE");
 
     // Create exporter
-    ApolloExporter apolloExporter(file, {
+    ApolloExporter apolloExporter(&file, {
             { "Test 1", KS_APOLLO_INT },
             { "Test 2", KS_APOLLO_INT }
     });
 
     // Write data
-    KT_ASSERT(apolloExporter.WriteRow({ 69, 420 }) == KS_SUCCESS, "UNABLE TO WRITE DATA TO FILE");
+    KT_ASSERT(apolloExporter.WriteRow({ 69, 420 }) == ks_success, "UNABLE TO WRITE DATA TO FILE");
 
     return true;
 }
 
 KT_TEST(ImportTest) {
     // Open file
-    File* file = ComponentFileManager::Get().Open("/apollo_test.txt", KS_OPEN_MODE_READ_ONLY);
-    KT_ASSERT(file, "UNABLE TO OPEN FILE");
+    File file;
+    file.Open("/apollo_test.txt");
+    KT_ASSERT(&file, "UNABLE TO OPEN FILE");
 
     // Create importer
-    ApolloImporter apolloImporter(file);
+    ApolloImporter apolloImporter(&file);
     auto headers = apolloImporter.GetHeaders();
     KT_ASSERT(headers.size() == 2, "HEADER SIZE DOESN'T MATCH");
     KT_ASSERT(headers[0].name == "Test 1", "HEADER DATA MISMATCH");

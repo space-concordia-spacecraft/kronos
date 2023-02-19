@@ -1,6 +1,6 @@
 #pragma once
 
-#define KT_DEBUGBREAK()
+#define KT_DEBUGBREAK() __asm("BKPT #0");
 
 #define KT_INTERNAL_ASSERT_IMPL(type, check, msg, ...) if (!(check)) { printf(msg, __VA_ARGS__); KT_DEBUGBREAK(); return false; }
 #define KT_INTERNAL_ASSERT_WITH_MSG(type, check, ...) KT_INTERNAL_ASSERT_IMPL(type, check, "Assertion failed: %s\n", __VA_ARGS__)

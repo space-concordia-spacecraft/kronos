@@ -1,214 +1,259 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
+set(ASF_DIR "extern/asf/${KS_BOARD}")
 
-project(Kronos)
-#add_subdirectory(extern/HDF5)
+# FreeRTOS
+get_filename_component(FREERTOS_CONFIG_FILE_DIRECTORY "${ASF_DIR}/config" ABSOLUTE)
+set(FREERTOS_CONFIG_FILE_DIRECTORY "${FREERTOS_CONFIG_FILE_DIRECTORY}" CACHE STRING "")
+set(FREERTOS_HEAP "4" CACHE STRING "")
+set(FREERTOS_PORT "${KS_FREERTOS_PORT}" CACHE STRING "")
+add_subdirectory(extern/freertos)
 
-message(STATUS "Using the following variables to include Kronos source:")
-message("")
-message("ARM_CPU: \t\t\t${ARM_CPU}")
-message("SAM_ARCH: \t\t\t${SAM_ARCH}")
-message("SAM_MCU: \t\t\t${SAM_MCU}")
-message("SAM_BOARD: \t\t\t${SAM_BOARD}")
-if(USE_UPLOADER)
-    message("SAM_UPLOAD_TOOL: \t${SAM_UPLOAD_TOOL}")
-endif()
-message("")
+# Nameof header-only library
+set(NAMEOF_OPT_BUILD_EXAMPLES OFF)
+set(NAMEOF_OPT_BUILD_TESTS OFF)
+set(NAMEOF_OPT_INSTALL OFF)
+add_subdirectory(extern/nameof)
+
+# Kronos packet library
+add_subdirectory(extern/kronos-packet)
+
 # Glob source files
-set(KRONOS_SRC
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/event_groups.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/list.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/queue.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/tasks.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/timers.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/memcpy.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/MemMang/heap_4.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1/port.c"
+set(KRONOS_SRC_REL
+        # FREERTOS
+        "${ASF_DIR}/thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_bridge.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_buffer.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_conn.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_crc32.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_debug.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_endian.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_hex_dump.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_iflist.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_io.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_port.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_promisc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_qfifo.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_route.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_service_handler.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_services.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/csp_sfp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_clock.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_malloc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_queue.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_semaphore.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_system.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_thread.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/freertos/csp_time.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_time.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/arch/csp_system.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/drivers/usart/usart_sam.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/drivers/usart/usart_kiss.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_can.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_can_pbuf.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_i2c.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_kiss.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_lo.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/interfaces/csp_if_zmqhub.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_cidr.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/rtable/csp_rtable_static.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_rdp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/transport/csp_udp.c"
+        # ASF START
+        "${ASF_DIR}/stdio_start.c"
+        "${ASF_DIR}/spi_nor_flash_main.c"
+        "${ASF_DIR}/driver_init.c"
+        "${ASF_DIR}/atmel_start.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/interrupt/interrupt_sam_nvic.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/usart_serial.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/read.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/write.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix/matrix.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan/mcan.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu/mpu.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio/pio_handler.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/pmc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc/sleep.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/tc/tc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart/uart.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart/usart.c"
+        # ASF
+        "${ASF_DIR}/${KS_BOARD}/gcc/system_samv71q21b.c"
+        "${ASF_DIR}/${KS_BOARD}/gcc/gcc/startup_samv71q21b.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/clock/${SAM_ARCH}/sysclk.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/${SAM_BOARD}/init.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/system_${SAM_ARCH}.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates/gcc/startup_${SAM_ARCH}.c"
+        # ASF STDIO REDIRECT
+        "${ASF_DIR}/stdio_redirect/stdio_io.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/bdev/bdev.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/blockio.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/buffer.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/core.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/dir.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/format.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imap.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imapextern.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/imapinline.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/inode.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/inodedata.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/driver/volume.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/fse/fse.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osassert.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osbdev.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osclock.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osmutex.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/osoutput.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/ostask.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/services/ostimestamp.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/posix/path.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/posix/posix.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/posix/fsstress.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/atoi.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/math.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/printf.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tests/util/rand.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tools/getopt.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/tools/toolcmn.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/bitmap.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/crc.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/memory.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/namelen.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/sign.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/util/string.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/config/redconf.c"
+        # ASF SPI NOR FLASH
+        "${ASF_DIR}/spi_nor_flash/spi_nor_flash.c"
+        "${ASF_DIR}/spi_nor_flash/n25q256a/n25q256a.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_base.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_passive.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_queued.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/ks_component_active.cpp"
+        # RELIANCE EDGE
+        "extern/reliance-edge/bdev/bdev.c"
+        "extern/reliance-edge/config/redconf.c"
+        "extern/reliance-edge/core/driver/blockio.c"
+        "extern/reliance-edge/core/driver/buffer.c"
+        "extern/reliance-edge/core/driver/buffercmn.c"
+        "extern/reliance-edge/core/driver/core.c"
+        "extern/reliance-edge/core/driver/dir.c"
+        "extern/reliance-edge/core/driver/format.c"
+        "extern/reliance-edge/core/driver/imap.c"
+        "extern/reliance-edge/core/driver/imapextern.c"
+        "extern/reliance-edge/core/driver/imapinline.c"
+        "extern/reliance-edge/core/driver/inode.c"
+        "extern/reliance-edge/core/driver/inodedata.c"
+        "extern/reliance-edge/core/driver/volume.c"
+        "extern/reliance-edge/fse/fse.c"
+        "extern/reliance-edge/os/freertos/services/osassert.c"
+        "extern/reliance-edge/os/freertos/services/osbdev.c"
+        "extern/reliance-edge/os/freertos/services/osclock.c"
+        "extern/reliance-edge/os/freertos/services/osmutex.c"
+        "extern/reliance-edge/os/freertos/services/osoutput.c"
+        "extern/reliance-edge/os/freertos/services/ostask.c"
+        "extern/reliance-edge/os/freertos/services/ostimestamp.c"
+        "extern/reliance-edge/posix/path.c"
+        "extern/reliance-edge/posix/posix.c"
+        "extern/reliance-edge/util/bitmap.c"
+        "extern/reliance-edge/util/crc.c"
+        "extern/reliance-edge/util/endian.c"
+        "extern/reliance-edge/util/heap.c"
+        "extern/reliance-edge/util/memory.c"
+        "extern/reliance-edge/util/namelen.c"
+        "extern/reliance-edge/util/sign.c"
+        "extern/reliance-edge/util/string.c"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_telemetry_logger.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_file_manager.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_health_monitor.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_logger.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_timer.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_rate_group.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_command_dispatcher.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/services/ks_parameter_database.cpp"
+        # KRONOS
+        "core/ks_framework.cpp"
+        "core/bus/ks_bus.cpp"
+        "core/component/ks_component_base.cpp"
+        "core/component/ks_component_passive.cpp"
+        "core/component/ks_component_queued.cpp"
+        "core/component/ks_component_active.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_can.cpp"
-        #        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_uart.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/components/drivers/ks_csp.cpp"
+        # KRONOS OS DEPENDENT TYPES
+        "kronos.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_profiler.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/utils/ks_apollo_format.cpp"
+        # KRONOS DRIVERS
+        "drivers/asf/ks_gpio.cpp"
+        "drivers/asf/ks_usart.cpp"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/kronos.cpp"
+        # KRONOS COMPONENTS
+        "components/led_blinker/ks_led_blinker.cpp"
+        )
+foreach(src ${KRONOS_SRC_REL})
+    get_filename_component(src_abs "${src}" ABSOLUTE)
+    list(APPEND KRONOS_SRC "${src_abs}")
+endforeach()
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_bus.cpp"
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/ks_framework.cpp"
-)
+# ASF Driver Files
+file(GLOB_RECURSE KRONOS_DRIVERS_SRC
+        "${ASF_DIR}/hpl/**.c"
+        "${ASF_DIR}/hri/**.c"
+        "${ASF_DIR}/hal/**.c")
+list(APPEND KRONOS_SRC ${KRONOS_DRIVERS_SRC})
 
-add_sam_library(Kronos ${KRONOS_SRC})
+# Kronos Core
+file(GLOB_RECURSE KRONOS_CORE_SRC "core/**.cpp")
+list(APPEND KRONOS_SRC ${KRONOS_CORE_SRC})
 
+# Kronos Modules
+file(GLOB_RECURSE KRONOS_MODULES_SRC "modules/**.cpp")
+list(APPEND KRONOS_SRC ${KRONOS_MODULES_SRC})
+
+# Create SAM library target
+add_mcu_library(Kronos ${KRONOS_SRC} ${KRONOS_DRIVERS_SRC})
+
+# Include directories
 set(KRONOS_INCLUDE_DIRS
-        "${CMAKE_CURRENT_SOURCE_DIR}/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/components/drivers"
-        "${CMAKE_CURRENT_SOURCE_DIR}/include/utils"
+        # FREERTOS
+        "${ASF_DIR}/thirdparty/RTOS"
+        "${ASF_DIR}/thirdparty/RTOS/freertos/FreeRTOSV10.0.0"
+        # ASF
+        "${ASF_DIR}"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/FreeRTOS/portable/GCC/ARM_CM7/r0p1"
+        # ASF CMSIS
+        "${ASF_DIR}/CMSIS/Core/Include"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/config"
+        # ASF CONFIG
+        "${ASF_DIR}/config"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards/${SAM_BOARD}"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/source/templates"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/cmsis/${SAM_ARCH}/include"
+        # ASF HAL
+        "${ASF_DIR}/hal/include"
+        "${ASF_DIR}/hal/utils/include"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/fpu"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial/sam_uart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/matrix"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pmc"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/gpio"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/boards"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/pio"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/boards"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/header_files"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/tc"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/ioport"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mpu"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/thirdparty/CMSIS/Lib/GCC"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/clock"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/utils/stdio/stdio_serial"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/preprocessor"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/common/services/serial"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/usart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/uart"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/drivers/mcan"
+        #ASF HPL
+        "${ASF_DIR}/hpl/core"
+        "${ASF_DIR}/hpl/mcan"
+        "${ASF_DIR}/hpl/pio"
+        "${ASF_DIR}/hpl/pmc"
+        "${ASF_DIR}/hpl/uart"
+        "${ASF_DIR}/hpl/mcan"
+        "${ASF_DIR}/hpl/spi"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/include/"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/libcsp/src/"
+        # ASF HRI
+        "${ASF_DIR}/hri"
 
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/core/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/extern/RelianceEdge/os/freertos/include"
-        #"${CMAKE_CURRENT_SOURCE_DIR}/extern/HDF5"
-)
+        # ASF SAM
+        "${ASF_DIR}/${KS_BOARD}/include"
+        "${ASF_DIR}/${KS_BOARD}/include/component"
+        "${ASF_DIR}/${KS_BOARD}/include/instance"
+        "${ASF_DIR}/${KS_BOARD}/include/pio"
 
-set(KRONOS_EXTRA_SRC "${CMAKE_CURRENT_SOURCE_DIR}/extern/ASF/sam/utils/syscalls/gcc/syscalls.c" CACHE STRING "Extra source code for the Kronos library. To be included when compiling an executable." FORCE)
+        # ASF STDIO REDIRECT
+        "${ASF_DIR}/stdio_redirect"
 
+        # ASF SPI NOR FLASH
+        "${ASF_DIR}/spi_nor_flash"
+        "${ASF_DIR}/spi_nor_flash/n25q256a"
+
+        # RELIANCE EDGE
+        "extern/reliance-edge/include"
+        "extern/reliance-edge/config"
+        "extern/reliance-edge/core/driver"
+        "extern/reliance-edge/core/include"
+        "extern/reliance-edge/os/freertos/include"
+        "extern/reliance-edge/os/freertos/services"
+
+        # KRONOS
+        "${CMAKE_CURRENT_SOURCE_DIR}"
+        "core"
+        "core/bus"
+        "core/component"
+        "core/module"
+
+        # KRONOS MACROS
+        "core/macros"
+
+        # KRONOS MODULES
+        "modules/clk"
+        "modules/clk/components"
+        "modules/cmd"
+        "modules/cmd/components/command_dispatcher"
+        "modules/cmd/components/command_listener"
+        "modules/cmd/components/command_scheduler"
+        "modules/cmd/components/command_transmitter"
+        "modules/cmd/utils"
+        "modules/fs"
+        "modules/fs/components"
+        "modules/fs/utils"
+        "modules/fs/utils/apollo_format"
+        "modules/fs/utils/file"
+        "modules/fs/utils/file_system"
+        "modules/hlt"
+        "modules/hlt/components"
+        "modules/hlt/components/health_monitor"
+        "modules/lcn"
+        "modules/lcn/components/lcn_master"
+        "modules/lcn/components/lcn_slave"
+        "modules/log"
+        "modules/log/components"
+        "modules/log/utils"
+        "modules/prf"
+        "modules/prf/components"
+        "modules/prf/utils"
+        "modules/prm"
+        "modules/prm/components"
+        "modules/sch"
+        "modules/sch/components/scheduler"
+        "modules/sch/components/worker"
+        "modules/sch/config"
+        "modules/tlm"
+        "modules/tlm/components"
+        "modules/wrk"
+        "modules/wrk/components"
+
+        # KRONOS OS RELATED IMPLEMENTATIONS
+        "os"
+        "os/freertos"
+
+        # KRONOS DRIVERS
+        "drivers"
+
+        # KRONOS COMPONENTS
+        "components"
+        "components/led_blinker"
+        )
+target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
+
+# Extra sources
+set(KRONOS_EXTRA_SRC
+        # This is done for functions that are not used in the library but that are needed later.
+        # Because they're not used they're initially yeeted.
+        "${ASF_DIR}/hal/utils/src/utils_assert.c"
+        "${ASF_DIR}/hal/utils/src/utils_event.c"
+        "${ASF_DIR}/hal/utils/src/utils_list.c"
+        "${ASF_DIR}/hal/utils/src/utils_ringbuffer.c"
+        "${ASF_DIR}/hal/utils/src/utils_syscalls.c"
+        "${ASF_DIR}/stdio_redirect/gcc/read.c"
+        "${ASF_DIR}/stdio_redirect/gcc/write.c"
+        "kronos.cpp")
+
+target_sources(Kronos PUBLIC ${KRONOS_EXTRA_SRC})
+
+# Debug definitions
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DKS_DEBUG")
-target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS} )
-#target_include_directories(Kronos PUBLIC ${HDF5_INCLUDE_DIRS} )
 
-target_compile_definitions(Kronos PUBLIC CSP_FREERTOS)
+# Extra compile definitions
+if(DEFINED KS_COMPILE_DEFINITIONS)
+    target_compile_definitions(Kronos PUBLIC ${KS_COMPILE_DEFINITIONS})
+endif()
 
-#target_link_libraries(Kronos PUBLIC ${HDF5_LIBRARIES})
+# Precompile types
+target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
+
+# Links libraries
+target_link_libraries(Kronos PUBLIC freertos_kernel KronosPacket nameof::nameof)

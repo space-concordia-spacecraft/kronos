@@ -1,22 +1,15 @@
 cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_CXX_STANDARD 14)
-
 project(Kronos)
 
+include(build/toolchain.cmake)
+
+# Compile flags
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-expansion-to-defined -Wno-unused-parameter -Wno-unused-function -Wno-volatile")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-expansion-to-defined -Wno-unused-parameter -Wno-unused-function")
+
 add_subdirectory(lib)
-add_subdirectory(tests)
 
-set(DEMO_SRC "${KRONOS_EXTRA_SRC}" demo.cpp)
-
-add_sam_executable(Kronos_Demo "${DEMO_SRC}")
-
-target_include_directories(Kronos_Demo PUBLIC
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/components"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/services"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/types"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/include/utilities"
-)
-
+set(DEMO_SRC demo.cpp)
+add_mcu_executable(Kronos_Demo "${DEMO_SRC}")
 target_link_libraries(Kronos_Demo Kronos)

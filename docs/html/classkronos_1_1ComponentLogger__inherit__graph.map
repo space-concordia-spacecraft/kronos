@@ -1,7 +1,0 @@
-<map id="kronos::ComponentLogger" name="kronos::ComponentLogger">
-<area shape="rect" id="node1" title=" " alt="" coords="8,304,201,331"/>
-<area shape="rect" id="node2" href="$classkronos_1_1ComponentActive.html" title="A class that implements the base of an active component." alt="" coords="9,229,200,256"/>
-<area shape="rect" id="node3" href="$classkronos_1_1ComponentQueued.html" title="A class that implements the base for all queued components." alt="" coords="5,155,204,181"/>
-<area shape="rect" id="node4" href="$classkronos_1_1ComponentPassive.html" title="A class that implements the base for all passive components." alt="" coords="5,80,204,107"/>
-<area shape="rect" id="node5" href="$classkronos_1_1ComponentBase.html" title="A class that implements the base of all components." alt="" coords="14,5,195,32"/>
-</map>

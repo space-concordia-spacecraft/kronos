@@ -1,9 +1,0 @@
-<map id="kronos::ComponentRateGroup" name="kronos::ComponentRateGroup">
-<area shape="rect" id="node1" title=" " alt="" coords="153,427,371,453"/>
-<area shape="rect" id="node2" href="$classkronos_1_1ComponentActive.html" title="A class that implements the base of an active component." alt="" coords="167,351,357,377"/>
-<area shape="rect" id="node3" href="$classkronos_1_1ComponentQueued.html" title="A class that implements the base for all queued components." alt="" coords="163,275,361,301"/>
-<area shape="rect" id="node4" href="$classkronos_1_1ComponentPassive.html" title="A class that implements the base for all passive components." alt="" coords="5,178,204,205"/>
-<area shape="rect" id="node5" href="$classkronos_1_1ComponentBase.html" title="A class that implements the base of all components." alt="" coords="14,95,195,121"/>
-<area shape="rect" id="node6" href="$classkronos_1_1String.html" title=" " alt="" coords="49,5,161,32"/>
-<area shape="rect" id="node7" href="$classkronos_1_1Queue.html" title=" " alt="" coords="228,171,403,212"/>
-</map>

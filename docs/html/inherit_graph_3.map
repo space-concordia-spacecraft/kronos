@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classkronos_1_1BusBase.html" title="Base implementation for buses." alt="" coords="5,31,136,57"/>
-<area shape="rect" id="node2" href="$classkronos_1_1BusAsync.html" title=" " alt="" coords="184,5,321,32"/>
-<area shape="rect" id="node3" href="$classkronos_1_1BusSync.html" title="A class that implements synchronous buses." alt="" coords="188,56,317,83"/>
-</map>
