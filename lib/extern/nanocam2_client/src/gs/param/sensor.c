@@ -1,7 +1,8 @@
 /* Copyright (c) 2013 GomSpace A/S. All rights reserved. (AUTO GENERATED) */
 
-#include <gs/cam/param/host/sensor.h>
+#include <gs/cam/param/sensor.h>
 #include <gs/util/pgm.h>
+#include "gs/param/types.h"
 
 const gs_param_table_row_t gs_cam_sensor_table[] = {
     {.name = "chip-version",  .addr = GS_CAM_SENSOR_CHIP_VERSION,                        .type = GS_PARAM_UINT16,  .size =   2, .array_size =  1, .flags = GS_PARAM_F_SHOW_HEX},

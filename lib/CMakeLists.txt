@@ -25,8 +25,20 @@ add_subdirectory(extern/nameof)
 # Kronos packet library
 add_subdirectory(extern/kronos-packet)
 
-# GS CSP
+# CSP PARAM CLIENT
+add_subdirectory(extern/libutil)
+
+# CSP GS
 add_subdirectory(extern/libgscsp)
+
+# CSP PARAM CLIENT
+add_subdirectory(extern/libparam_client)
+
+# CSP NANOCAM
+add_subdirectory(extern/nanocam2_client)
+
+# CSP NANOCOM
+add_subdirectory(extern/nanocom-ax_client)
 
 # Glob source files
 set(KRONOS_SRC
@@ -101,6 +113,8 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sch/components/scheduler"
         "modules/sch/components/worker"
         "modules/sch/config"
+        "modules/thm"
+        "modules/thm/components"
         "modules/tlm"
         "modules/tlm/components"
         "modules/wrk"
@@ -134,4 +148,4 @@ endif()
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
 
 # Links libraries
-target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof)
+target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof libgscsp libparam_client)

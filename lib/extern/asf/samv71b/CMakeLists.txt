@@ -5,7 +5,7 @@ set(ASF_SRC
 
         # ASF START
         "stdio_start.c"
-        "sd_mmc_start.c"
+        "spi_nor_flash_main.c"
         "driver_init.c"
         "atmel_start.c"
 
@@ -16,8 +16,9 @@ set(ASF_SRC
         # ASF STDIO REDIRECT
         "stdio_redirect/stdio_io.c"
 
-        # ASF SD MMC
-        "sd_mmc/sd_mmc.c")
+        # ASF SPI NOR FLASH
+        "spi_nor_flash/spi_nor_flash.c"
+        "spi_nor_flash/n25q256a/n25q256a.c")
 
 file(GLOB_RECURSE ASF_DRIVERS_SRC
         "hpl/**.c"
@@ -74,7 +75,8 @@ set(ASF_INCLUDE_DIRS
         "stdio_redirect"
 
         # ASF SD MMC
-        "sd_mmc")
+        "spi_nor_flash"
+        "spi_nor_flash/n25q256a")
 
 add_mcu_library("asf" ${ASF_SRC})
 target_include_directories("asf" PUBLIC ${ASF_INCLUDE_DIRS})

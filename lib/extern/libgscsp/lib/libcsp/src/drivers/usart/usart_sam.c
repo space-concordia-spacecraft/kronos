@@ -35,7 +35,7 @@ static void usart_rx_callback(struct usart_os_descriptor* uart_descriptor) {
 int csp_usart_write(csp_usart_fd_t fd, const void* data, size_t data_length) {
     // I have no clue what the fuck to write from fd so for now Im just making it always output it to UHF
     struct io_descriptor* io;
-    usart_os_get_io(&USART_0, &io);
+    usart_os_get_io(&USART_UHF, &io);
     io_write(io, (const uint8_t*)data, data_length);
     return 0;
 }
@@ -44,7 +44,7 @@ int csp_usart_open(
     const csp_usart_conf_t* conf, csp_usart_callback_t rx_callback, void* user_data, csp_usart_fd_t* return_fd
 ) {
 
-    struct usart_os_descriptor* device = &USART_0;
+    struct usart_os_descriptor* device = &USART_UHF;
 
     usart_context_t* ctx = csp_calloc(1, sizeof(*ctx));
 

@@ -1,6 +1,6 @@
 /* Copyright (c) 2013 GomSpace A/S. All rights reserved. (AUTO GENERATED) */
 
-#include <gs/cam/param/host/image.h>
+#include <gs/cam/param/image.h>
 #include <gs/util/pgm.h>
 
 const gs_param_table_row_t gs_cam_image_table[] = {
