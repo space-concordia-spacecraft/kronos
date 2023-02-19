@@ -31,7 +31,7 @@ middlewares:
       freertos_minimal_stack_size: 256
       freertos_pctaskgettaskname: true
       freertos_tick_rate_hz: 1000
-      freertos_timer_task_priority: 2
+      freertos_timer_task_priority: 4
       freertos_timer_task_stack_depth: 260
       freertos_total_heap_size: 47104
       freertos_use_16_bit_ticks: false
