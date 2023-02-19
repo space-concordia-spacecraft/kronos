@@ -1,0 +1,133 @@
+#!/usr/bin/env python
+# encoding: utf-8
+# Copyright (c) 2013-2017 GomSpace A/S. All rights reserved.
+
+import gs_gcc
+import gs_doc
+import gs_dist
+from waflib.Build import BuildContext
+
+APPNAME = 'gscsp'
+
+
+def libcsp_with_os(ctx):
+    if ctx.gs_is_linux():
+        return 'posix'
+    if ctx.gs_is_freertos():
+        return 'freertos'
+    return None
+
+
+def libcsp_with_driver_usart(ctx):
+    if ctx.gs_is_linux():
+        return 'linux'
+    return None
+
+
+def options(ctx):
+    ctx.load('gs_gcc gs_doc')
+    gs_gcc.gs_recurse(ctx)
+
+    gr = ctx.add_option_group('libgscsp options (legacy libcsp options)')
+    gr.add_option('--enable-if-i2c', action='store_true', help='Enable I2C interface (formerly CSP)')
+    gr.add_option('--enable-if-kiss', action='store_true', help='Enable KISS/RS.232 interface (formerly CSP)')
+    gr.add_option('--with-rdp-max-window', type=int, help='Set maximum window size for RDP')
+    gr.add_option('--with-max-bind-port', type=int, help='Set maximum bindable port')
+    gr.add_option('--with-max-connections', type=int, help='Set maximum number of connections')
+    gr.add_option('--with-conn-queue-length', type=int, help='Set max connection queue length')
+    gr.add_option('--with-router-queue-length', type=int, help='Set max router queue length')
+    gr.add_option('--with-connection-so', type=int, help='Set outgoing connection socket options')
+
+
+def configure(ctx):
+    ctx.load('gs_gcc gs_doc')
+
+    ctx.env.append_unique('FILES_GSCSP', 'src/*.c')
+    ctx.env.append_unique('USE_GSCSP', ['csp', 'csp_h', 'util'])
+
+    ctx.env.append_unique('FILES_GSCSP', 'src/drivers/i2c/*.c')
+
+    if ctx.gs_is_freertos():
+        ctx.env.append_unique('FILES_GSCSP', 'src/drivers/can/*.c')
+        ctx.env.append_unique('FILES_GSCSP', 'src/drivers/kiss/*.c')
+        ctx.env.append_unique('FILES_GSCSP', 'src/freertos/*.c')
+        ctx.env.append_unique('USE_GSCSP', ['embed'])
+
+    if ctx.gs_is_linux():
+        ctx.env.append_unique('FILES_GSCSP', 'src/linux/**/*.c')
+
+    # former libcsp options, moved here to keep compatibility and features
+    def set_define(key, value):
+        ctx.env.append_unique('DEFINES_GSCSP', key + '=' + str(value if value else 0))
+
+    set_define('CSP_USE_I2C', (1 if ctx.options.enable_if_i2c else 0))
+    set_define('CSP_USE_KISS', (1 if ctx.options.enable_if_kiss else 0))
+    set_define('GSCSP_MAX_CONNECTIONS', ctx.options.with_max_connections)  # -> conf.max_connections
+    set_define('GSCSP_RX_QUEUE_LENGTH', ctx.options.with_conn_queue_length)  # -> conf.rx_queue_length
+    set_define('GSCSP_ROUTER_QUEUE_LENGTH', ctx.options.with_router_queue_length)  # -> conf.router_queue_length
+    set_define('GSCSP_MAX_BIND_PORT', ctx.options.with_max_bind_port)  # -> conf.max_bind_port
+    set_define('GSCSP_MAX_RDP_WINDOW', ctx.options.with_rdp_max_window)  # -> conf.max_bind_port
+    set_define('GSCSP_CONNECTION_SO', ctx.options.with_connection_so)  # -> conf.default_connection_options|CSP_O_CRC32
+    set_define('GSCSP_FREERTOS', (1 if ctx.gs_is_freertos() else 0))
+
+    # libcsp options
+    ctx.options.with_os = libcsp_with_os(ctx)
+    ctx.options.with_driver_usart = libcsp_with_driver_usart(ctx)
+
+    if ctx.env.INCLUDES_PYTHON3 and not ctx.gs_is_build_disabled(['shlib', 'csp_shlib']) and not ctx.gs_is_bitbake():
+        ctx.options.enable_python3_bindings = True
+
+    ctx.options.disable_stlib = True
+    ctx.options.enable_crc32 = True
+
+    if ctx.options.enable_external_debug is None:
+        ctx.options.enable_external_debug = True  # Use GomSpace log system instead of CSPs own
+
+    if ctx.gs_is_linux() and not ctx.gs_is_build_disabled(['shlib', 'csp_shlib']):
+        ctx.options.enable_shlib = True
+
+    ctx.gs_add_doxygen(input=['include', 'lib/libcsp/include'])
+
+    gs_gcc.gs_recurse(ctx)
+
+
+def build(ctx):
+    gs_gcc.gs_recurse(ctx)
+
+    public_include = ctx.gs_include(name=APPNAME,
+                                    includes=['include'])
+
+    ctx.gs_objects(source=ctx.path.ant_glob(ctx.env.FILES_GSCSP),
+                   target=APPNAME,
+                   defines=ctx.env.DEFINES_GSCSP,
+                   use=ctx.env.USE_GSCSP + [public_include])
+
+    ctx.gs_shlib(source=ctx.path.ant_glob(ctx.env.FILES_GSCSP),
+                 target=APPNAME,
+                 defines=ctx.env.DEFINES_GSCSP,
+                 gs_prefix='',  # make library libgscsp
+                 gs_use_shlib=ctx.env.USE_GSCSP + [public_include])
+
+    ctx.gs_python_bindings(source=ctx.path.ant_glob('src/bindings/python/pygscsp.c'),
+                           target=APPNAME,
+                           gs_prefix='',  # make library libgscsp
+                           gs_use_shlib=ctx.env.USE_GSCSP + [APPNAME, public_include],
+                           py_version=3,
+                           package='libgscsp')
+
+
+def doc(ctx):
+    gs_doc.library(ctx, keyvalues={
+        'gs_prod_name': 'lib'+APPNAME,
+        'gs_prod_desc': 'GomSpace CSP extension',
+    })
+
+
+class Doc(BuildContext):
+    cmd = fun = 'doc'
+
+
+def gs_dist(ctx):
+    ctx.add_default_files(source_module=True)
+    ctx.add_files(ctx.path.ant_glob(['lib/libcsp/**/*']))
+    ctx.add_license_file("CSP", "lib/libcsp/COPYING")

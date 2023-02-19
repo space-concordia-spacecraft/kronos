@@ -36,3 +36,5 @@ set(KS_COMPILE_DEFINITIONS
         "__${SAM_MCU_UPPER}__"
         # Board
         "BOARD=${SAM_BOARD_UPPER}")
+
+set(KS_MCU ${SAM_MCU})

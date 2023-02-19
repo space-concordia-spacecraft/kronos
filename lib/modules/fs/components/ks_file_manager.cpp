@@ -5,9 +5,8 @@
 #include "ks_command_ids.h"
 
 namespace kronos {
-    KS_SINGLETON_INSTANCE(FileManager);
 
-    using enum KsCommand;
+    KS_SINGLETON_INSTANCE(FileManager);
 
     FileManager::FileManager() :
         ComponentQueued("CQ_FILE_MANAGER"),

@@ -30,7 +30,7 @@ static void Start(void* data) {
     Framework::CreateInstance();
 
     // INITIALIZE ALL DRIVERS
-    Framework::CreateDriver<KsUsart>("D_CMD", &USART_MUTUAL);
+    Framework::CreateDriver<KsUsart>("D_CMD", &USART_0);
 
     // ADD MODULES
     Framework::AddModule<FsModule>();
