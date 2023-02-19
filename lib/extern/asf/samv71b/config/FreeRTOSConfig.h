@@ -181,7 +181,7 @@ void assert_triggered(const char *file, uint32_t line);
 // <i> Default is 2
 // <id> freertos_timer_task_priority
 #ifndef configTIMER_TASK_PRIORITY
-#define configTIMER_TASK_PRIORITY (2)
+#define configTIMER_TASK_PRIORITY (4)
 #endif
 
 #define configTIMER_QUEUE_LENGTH 2
