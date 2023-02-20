@@ -148,4 +148,4 @@ endif()
 target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
 
 # Links libraries
-target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof libgscsp libparam_client)
+target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof libgscsp libparam_client nanocam nanocom)

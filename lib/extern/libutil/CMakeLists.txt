@@ -1,9 +1,9 @@
 file(GLOB LIBUTIL_SRC
         "src/*.c"
-        "src/cmd/*.c"
         )
 
 file(GLOB_RECURSE LIBUTIL_SRC_REC
+        "src/cmd/**.c"
         "src/drivers/**.c"
         "src/gosh/**.c"
         "src/log/**.c"
@@ -15,6 +15,9 @@ list(APPEND LIBUTIL_SRC ${LIBUTIL_SRC_REC})
 
 set(LIBUTIL_INCLUDE_DIRS
         "include"
+        "include/gs"
+        "include/deprecated"
+        "include/deprecated/gs/gosh/"
         "src")
 
 add_mcu_library("libutil" ${LIBUTIL_SRC})

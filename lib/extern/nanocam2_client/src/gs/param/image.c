@@ -2,6 +2,7 @@
 
 #include <gs/cam/param/image.h>
 #include <gs/util/pgm.h>
+#include "gs/param/types.h"
 
 const gs_param_table_row_t gs_cam_image_table[] = {
     {.name = "exposure-us",   .addr = GS_CAM_IMAGE_EXPOSURE_US,                          .type = GS_PARAM_UINT32,  .size =   4, .array_size =  1, .flags = 0},

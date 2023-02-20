@@ -1,8 +1,7 @@
 /* Copyright (c) 2013 GomSpace A/S. All rights reserved. (AUTO GENERATED) */
 
-#include <gs/cam/param/telem.h>
+#include <gs/cam/param/host/telem.h>
 #include <gs/util/pgm.h>
-#include "gs/param/types.h"
 
 const gs_param_table_row_t gs_cam_telem_table[] = {
     {.name = "boot-count",    .addr = GS_CAM_TELEM_BOOT_COUNT,                           .type = GS_PARAM_UINT32,  .size =   4, .array_size =  1, .flags = GS_PARAM_F_AUTO_PERSIST},

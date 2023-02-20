@@ -7,6 +7,8 @@
 #include <csp/arch/csp_system.h>
 #include "local.h"
 
+#define GSCSP_FREERTOS 1
+
 const char *csp_get_hostname(void)
 {
     return csp_get_conf()->hostname;
@@ -33,12 +35,12 @@ void gs_csp_conf_get_defaults_embedded(gs_csp_conf_t * conf)
         .hostname = "hostname",
         .model = "model",
         .revision = "revision",
-        .max_connections = (GSCSP_MAX_CONNECTIONS != 0) ? GSCSP_MAX_CONNECTIONS : 5,
-        .rx_queue_length = (GSCSP_RX_QUEUE_LENGTH != 0) ? GSCSP_RX_QUEUE_LENGTH : 20,
-        .router_queue_length = (GSCSP_ROUTER_QUEUE_LENGTH != 0) ? GSCSP_ROUTER_QUEUE_LENGTH : 100,
-        .max_bind_port = (GSCSP_MAX_BIND_PORT != 0) ? GSCSP_MAX_BIND_PORT : 18,
-        .max_rdp_window_size = (GSCSP_MAX_RDP_WINDOW != 0) ? GSCSP_MAX_RDP_WINDOW : 20,
-        .default_connection_options = GSCSP_CONNECTION_SO | CSP_O_CRC32,
+        .max_connections = 5,
+        .rx_queue_length = 20,
+        .router_queue_length = 100,
+        .max_bind_port = 18,
+        .max_rdp_window_size = 20,
+        .default_connection_options = CSP_O_CRC32,
     };
 
     *conf = defaults;
@@ -53,9 +55,9 @@ void gs_csp_conf_get_defaults_server(gs_csp_conf_t * conf)
     gs_csp_conf_get_defaults_embedded(conf);
     conf->csp_buffer_size = 512;
     conf->csp_buffers = 400;
-    conf->max_connections = (GSCSP_MAX_CONNECTIONS != 0) ? GSCSP_MAX_CONNECTIONS : 20;
-    conf->rx_queue_length = (GSCSP_RX_QUEUE_LENGTH != 0) ? GSCSP_RX_QUEUE_LENGTH : 100;
-    conf->max_bind_port = (GSCSP_MAX_BIND_PORT != 0) ? GSCSP_MAX_BIND_PORT : 31;
+    conf->max_connections = 20;
+    conf->rx_queue_length = 100;
+    conf->max_bind_port = 31;
 }
 
 gs_error_t gs_csp_init(const gs_csp_conf_t * conf)

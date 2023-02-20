@@ -1,18 +1,13 @@
 add_subdirectory("lib/libcsp")
 
-set(LIBGSCSP_SRC
-        "src/clock.c"
-        "src/commands.c"
-        "src/conn.c"
-        "src/csp.c"
-        "src/error.c"
-        "src/log.c"
-        "src/router.c"
-        "src/rtable.c"
-        "src/service_dispatcher.c"
-        "src/service_handler.c"
-        "src/transaction.c"
+file(GLOB LIBGSCSP_SRC
+        "src/*.c"
         )
+
+file(GLOB_RECURSE LIBGSCSP_SRC_REC
+        "src/drivers/kiss/**.c"
+        )
+list(APPEND LIBGSCSP_SRC ${LIBGSCSP_SRC_REC})
 
 set(LIBGSCSP_INCLUDE_DIRS
         "include"
@@ -20,4 +15,4 @@ set(LIBGSCSP_INCLUDE_DIRS
 
 add_mcu_library("libgscsp" ${LIBGSCSP_SRC})
 target_include_directories("libgscsp" PUBLIC ${LIBGSCSP_INCLUDE_DIRS})
-target_link_libraries("libgscsp" PUBLIC libutil libcsp)
+target_link_libraries("libgscsp" PUBLIC libcsp)

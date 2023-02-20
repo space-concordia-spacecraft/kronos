@@ -1,7 +1,7 @@
 /* Copyright (c) 2013-2018 GomSpace A/S. All rights reserved. */
 
 #include <gs/csp/drivers/kiss/kiss.h>
-#include <gs/embed/drivers/uart/uart.h>
+//#include <gs/embed/drivers/uart/uart.h> TODO: Replace or remove
 #include <gs/csp/csp.h>
 #include <gs/util/string.h>
 #include <gs/util/check.h>
@@ -20,13 +20,14 @@ static gs_csp_kiss_interface_t * csp_kiss_interfaces[MAX_DEVICES];
 static int csp_kiss_driver_tx(void * driver_data, const uint8_t * data, size_t data_length)
 {
     size_t wrote = 0;
-    gs_error_t error = gs_uart_write_buffer(GS_TYPES_PTR2UINT(driver_data), 1000, data, data_length, &wrote);
-    return (error == GS_OK) ? CSP_ERR_NONE : CSP_ERR_DRIVER;
+//    gs_error_t error = gs_uart_write_buffer(GS_TYPES_PTR2UINT(driver_data), 1000, data, data_length, &wrote);
+    return CSP_ERR_DRIVER;
 }
 
 static void uart_rx_callback_isr(void * user_data, const uint8_t * data, size_t data_size, gs_context_switch_t * cswitch)
 {
-    csp_kiss_rx(user_data, data, data_size, &cswitch->task_woken);
+    // TODO: Figure out what the fuck
+//    csp_kiss_rx(user_data, data, data_size, &cswitch->task_woken);
 }
 
 gs_error_t gs_csp_kiss_init2(uint8_t device, uint32_t mtu, const char * name, bool set_default_route, csp_iface_t ** csp_if)
@@ -53,7 +54,7 @@ gs_error_t gs_csp_kiss_init2(uint8_t device, uint32_t mtu, const char * name, bo
     interface->iface.driver_data = GS_TYPES_UINT2PTR(device);
 
     csp_iface_t * iface = &interface->iface;
-    gs_error_t error = gs_uart_set_rx_callback(device, uart_rx_callback_isr, iface);
+    gs_error_t error = CSP_ERR_DRIVER;//gs_uart_set_rx_callback(device, uart_rx_callback_isr, iface);
     if (error) {
         log_error("%s[%u]: gs_uart_set_rx_callback() failed, error: %s", __FUNCTION__, device, gs_error_string(error));
         return error;

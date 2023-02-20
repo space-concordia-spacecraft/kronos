@@ -1,5 +1,5 @@
 file(GLOB_RECURSE NANOCOM_SRC
-        "src/**.c")
+        "src/ax100_client.c")
 
 set(NANOCOM_INCLUDE_DIRS
         "include"

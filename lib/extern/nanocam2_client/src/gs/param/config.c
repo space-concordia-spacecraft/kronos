@@ -1,7 +1,8 @@
 /* Copyright (c) 2013 GomSpace A/S. All rights reserved. (AUTO GENERATED) */
 
-#include <gs/cam/param/host/config.h>
+#include <gs/cam/param/config.h>
 #include <gs/util/pgm.h>
+#include "gs/param/types.h"
 
 const gs_param_table_row_t gs_cam_config_table[] = {
     {.name = "csp-addr",      .addr = GS_CAM_CONFIG_CSP_ADDR,                            .type = GS_PARAM_UINT8,   .size =   1, .array_size =  1, .flags = 0},

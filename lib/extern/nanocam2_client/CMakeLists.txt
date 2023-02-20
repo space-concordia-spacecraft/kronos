@@ -1,5 +1,5 @@
 file(GLOB_RECURSE NANOCAM_SRC
-        "src/**.c")
+        "src/nanocam.c")
 
 set(NANOCAM_INCLUDE_DIRS
         "include"
