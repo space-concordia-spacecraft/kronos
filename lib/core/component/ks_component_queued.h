@@ -20,7 +20,7 @@ namespace kronos {
         //! \brief Creates a new queued component
         //!
         //! \param name the name of the component
-        explicit ComponentQueued(const String& name);
+        explicit ComponentQueued(const String& name, KsTickType queueTicksToWait = 0);
 
         //! \brief Pops all events from the queue and processes them
         KsResultType ProcessEventQueue();
@@ -37,7 +37,7 @@ namespace kronos {
     protected:
         //! Queue that stores events being sent to the component.
         std::shared_ptr<Queue<const EventMessage*>> m_Queue;
-
+        KsTickType m_QueueTicksToWait;
     };
 
 }

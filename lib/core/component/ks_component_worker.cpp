@@ -7,7 +7,7 @@ namespace kronos {
         const std::string& name,
         size_t stackSize,
         uint16_t priority
-    ) : ComponentActive(name, stackSize, priority) {}
+    ) : ComponentActive(name, 0, stackSize, priority) {}
 
     void ComponentWorker::Run() {
         while (true) {

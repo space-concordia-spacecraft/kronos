@@ -4,8 +4,8 @@
 
 namespace kronos {
 
-    ComponentQueued::ComponentQueued(const String& name)
-        : ComponentPassive(name), m_Queue(Queue<const EventMessage*>::Create()) {}
+    ComponentQueued::ComponentQueued(const String& name, KsTickType queueTicksToWait)
+        : ComponentPassive(name), m_Queue(Queue<const EventMessage*>::Create()), m_QueueTicksToWait(queueTicksToWait) {}
 
     KsResultType ComponentQueued::Init() {
         return ComponentPassive::Init();
@@ -17,7 +17,7 @@ namespace kronos {
 
     KsResultType ComponentQueued::ProcessEventQueue() {
         const EventMessage* message;
-        while (m_Queue->Pop(&message, 0) == pdPASS) {
+        while (m_Queue->Pop(&message, m_QueueTicksToWait) == pdPASS) {
             ProcessEvent(*message);
             Framework::DeleteEventMessage(message);
         }
