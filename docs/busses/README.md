@@ -23,6 +23,7 @@ The following is an example of publishing an event code to a bus.
 ```c++
 Framework::GetBus("B_LOGGER")->Publish(ks_event_log_toggle_echo);
 ```
+{% endcode %}
 
 The following is an example of publishing an event code and an event message to a bus.
 
@@ -30,6 +31,7 @@ The following is an example of publishing an event code and an event message to 
 ```c++
 Framework::GetBus("B_FILE_MANAGER")->Publish( String((char*)packet.Payload), ks_event_file_downlink_begin);
 ``` 
+{% endcode %}
 
 ## Subscribing
 To subscribe to a bus it's quite simple, simply fetch the bus and call the `AddReceivingComponent(component)` function. The parameter that it takes in is a pointer to the component subscribing to the bus.
@@ -48,6 +50,7 @@ for (auto component: m_ReceivingComponents) {
     component->ReceiveEvent(message);
 }
 ```
+{% endcode %}
 
 Notice the for loop calls the `ReceiveEvent(message)` function implemented by the component. This message is then processed immediately, or added to a queue (check components to further understand the difference).
 
@@ -65,5 +68,6 @@ void CommandDispatcher::ProcessEvent(const EventMessage& message) {
     ComponentActive::ProcessEvent(message);
 }
 ```
+{% endcode %}
 
 The `ProcessEvent()` function takes in the message. To extract the data being transported, the developer can simply call the `Cast<T>()` function implemented by `EventMessage`. Make sure that `T` is the same type being sent by the `Publish()` function.
