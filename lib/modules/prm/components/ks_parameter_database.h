@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ks_component_passive.h"
+#include "ks_component_queued.h"
 #include "ks_apollo_format.h"
 #include "ks_file.h"
 #include "ks_logger.h"

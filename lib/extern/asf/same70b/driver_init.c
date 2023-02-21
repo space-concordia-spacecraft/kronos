@@ -13,8 +13,6 @@
 #include <utils.h>
 #include <hpl_usart_base.h>
 
-#include <hpl_usart_base.h>
-
 /* The priority of the peripheral should be between the low and high interrupt priority set by chosen RTOS,
  * Otherwise, some of the RTOS APIs may fail to work inside interrupts
  * In case of FreeRTOS,the Lowest Interrupt priority is set by configLIBRARY_LOWEST_INTERRUPT_PRIORITY and

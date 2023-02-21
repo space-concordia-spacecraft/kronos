@@ -14,10 +14,10 @@ namespace kronos {
 
         Framework::CreateComponent<CommandDispatcher>("CA_CMD_DISPATCHER");
         Framework::CreateComponent<CommandListener>(
-            "CA_CMD_LISTENER", Framework::GetDriver("D_CMD")
+            "CA_CMD_LISTENER", Framework::GetDriver("U_UHF")
         );
         auto* commandTransmitter = Framework::CreateComponent<CommandTransmitter>(
-            "CQ_CMD_TRANSMITTER", Framework::GetDriver("D_CMD")
+            "CQ_CMD_TRANSMITTER", Framework::GetDriver("U_UHF")
         );
 
         WorkerManager::RegisterComponent(ks_worker_main, commandTransmitter);

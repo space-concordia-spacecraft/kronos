@@ -4,8 +4,8 @@
 
 namespace kronos {
 
-    ComponentActive::ComponentActive(const String& name, size_t stackSize, uint16_t priority)
-        : ComponentQueued(name), m_StackSize(stackSize), m_Priority(priority) {}
+    ComponentActive::ComponentActive(const String& name, KsTickType queueTicksToWait, size_t stackSize, uint16_t priority)
+        : ComponentQueued(name, queueTicksToWait), m_StackSize(stackSize), m_Priority(priority) {}
 
     void ComponentActive::Start(void* data) {
         static_cast<ComponentActive*>(data)->Run();

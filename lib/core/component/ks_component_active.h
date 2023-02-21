@@ -27,6 +27,7 @@ namespace kronos {
         //! \param priority the priority at which the created task will execute
         explicit ComponentActive(
             const String& name,
+            KsTickType queueTicksToWait = 0,
             size_t stackSize = KS_COMPONENT_STACK_SIZE_SMALL,
             uint16_t priority = KS_COMPONENT_PRIORITY_MEDIUM
         );

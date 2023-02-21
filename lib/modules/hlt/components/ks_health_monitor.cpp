@@ -8,6 +8,7 @@ namespace kronos {
     HealthMonitor::HealthMonitor()
         : ComponentActive(
         "CA_HEALTH",
+        KS_QUEUE_DEFAULT_WAIT_TIME,
         KS_COMPONENT_STACK_SIZE_MEDIUM
     ),
           m_BusPong(Framework::GetBus("B_HEALTH_PONG")),

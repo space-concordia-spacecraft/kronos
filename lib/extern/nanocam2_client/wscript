@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+# encoding: utf-8
+# Copyright (c) 2013-2019 GomSpace A/S. All rights reserved.
+
+import gs_gcc
+
+APPNAME = 'nanocam2-client'
+
+
+def options(ctx):
+    ctx.load('gs_gcc')
+    gs_gcc.gs_recurse(ctx)
+
+
+def configure(ctx):
+    ctx.load('gs_gcc')
+
+    ctx.env.append_unique('FILES_NANOCAM2_CLIENT', ['src/*.c'])
+
+    ctx.gs_add_doxygen(exclude=['*/include/deprecated/*', '*/include/gs/cam/nanocam_types.h'])
+
+    gs_gcc.gs_recurse(ctx)
+
+
+def build(ctx):
+    gs_gcc.gs_recurse(ctx)
+
+    public_include = APPNAME + '_h'
+
+    # Generate new tables
+    ctx.gs_call_handler(handler='param_gen_4_3', name=APPNAME, prefix='cam',
+                        generate_client=True, generate_rsti=True, generate_addr=True, update_source=True)
+
+    ctx(export_includes=['include'], name=public_include)
+
+    ctx.objects(source=ctx.path.ant_glob(ctx.env.FILES_NANOCAM2_CLIENT),
+                target=APPNAME,
+                use=['gscsp', 'csp', 'gosh', 'util', 'param', public_include])
+
+
+def gs_dist(ctx):
+    ctx.add_default_files(source_module=True)

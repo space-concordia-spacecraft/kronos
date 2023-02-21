@@ -1,17 +1,13 @@
 /*             ----> DO NOT REMOVE THE FOLLOWING NOTICE <----
-
                   Copyright (c) 2014-2022 Tuxera US Inc.
                       All Rights Reserved Worldwide.
-
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation; use version 2 of the License.
-
     This program is distributed in the hope that it will be useful,
     but "AS-IS," WITHOUT ANY WARRANTY; without even the implied warranty
     of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License along
     with this program; if not, write to the Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -20,7 +16,6 @@
     comply with the terms of the GPLv2 license must obtain a commercial
     license before incorporating Reliance Edge into proprietary software
     for distribution in any form.
-
     Visit https://www.tuxera.com/products/reliance-edge/ for more information.
 */
 /** @brief
@@ -40,13 +35,10 @@
 static uint8_t *gapbRamDisk[REDCONF_VOLUME_COUNT];
 
 /** @brief Initialize a disk.
-
     @param bVolNum  The volume number of the volume whose block device is being
                     initialized.
     @param mode     The open mode, indicating the type of access required.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0           Operation was successful.
     @retval -RED_EIO    A disk I/O error occurred.
 */
@@ -102,12 +94,9 @@ static REDSTATUS DiskOpen(
 
 
 /** @brief Uninitialize a disk.
-
     @param bVolNum  The volume number of the volume whose block device is being
                     uninitialized.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0   Operation was successful.
 */
 static REDSTATUS DiskClose(
@@ -135,14 +124,11 @@ static REDSTATUS DiskClose(
 
 
 /** @brief Return the disk geometry.
-
     @param bVolNum  The volume number of the volume whose block device geometry
                     is being queried.
     @param pInfo    On successful return, populated with the geometry of the
                     block device.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0               Operation was successful.
     @retval -RED_EIO        A disk I/O or driver error occurred.
     @retval -RED_ENOTSUPP   The geometry cannot be queried on this block device.
@@ -159,15 +145,12 @@ static REDSTATUS DiskGetGeometry(
 
 
 /** @brief Read sectors from a disk.
-
     @param bVolNum          The volume number of the volume whose block device
                             is being read from.
     @param ullSectorStart   The starting sector number.
     @param ulSectorCount    The number of sectors to read.
     @param pBuffer          The buffer into which to read the sector data.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0           Operation was successful.
     @retval -RED_EIO    A disk I/O error occurred.
 */
@@ -201,15 +184,12 @@ static REDSTATUS DiskRead(
 #if REDCONF_READ_ONLY == 0
 
 /** @brief Write sectors to a disk.
-
     @param bVolNum          The volume number of the volume whose block device
                             is being written to.
     @param ullSectorStart   The starting sector number.
     @param ulSectorCount    The number of sectors to write.
     @param pBuffer          The buffer from which to write the sector data.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0           Operation was successful.
     @retval -RED_EIO    A disk I/O error occurred.
 */
@@ -241,12 +221,9 @@ static REDSTATUS DiskWrite(
 
 
 /** @brief Flush any caches beneath the file system.
-
     @param bVolNum  The volume number of the volume whose block device is being
                     flushed.
-
     @return A negated ::REDSTATUS code indicating the operation result.
-
     @retval 0           Operation was successful.
     @retval -RED_EIO    A disk I/O error occurred.
 */

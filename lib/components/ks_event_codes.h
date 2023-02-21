@@ -28,10 +28,13 @@ namespace kronos {
         ks_event_file_downlink_continue,
         ks_event_file_downlink_list,
 
-        // Commans
+        // Commands
         ks_event_comms_listen,
         ks_event_comms_transmit,
         ks_event_comms_dispatch,
+
+        // Thermal
+        ks_event_update_heater,
 
         // LED
         ks_event_toggle_led,
