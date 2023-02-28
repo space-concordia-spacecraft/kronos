@@ -8,7 +8,11 @@ set(CMAKE_CXX_ARCHIVE_APPEND "<CMAKE_AR> <LINK_FLAGS> -r -o <TARGET> <OBJECTS>")
 
 find_program(CMAKE_OBJCOPY arm-none-eabi-objcopy)
 
-# Check board and architecture
+# Check build directory, board, and architecture
+if(NOT KS_TOOLCHAIN_DIR)
+    message(FATAL_ERROR "KS_TOOLCHAIN_DIR is not defined! Set the variable before configuring cmake with this toolchain!")
+endif()
+
 if(NOT KS_BOARD)
     message(FATAL_ERROR "KS_BOARD is not defined! Set the variable before configuring cmake with this toolchain!")
 endif()
@@ -18,8 +22,8 @@ if(NOT KS_ARCH)
 endif()
 
 # Include board and architecture files
-include("${PROJECT_SOURCE_DIR}/build/include/board/${KS_BOARD}.cmake")
-include("${PROJECT_SOURCE_DIR}/build/include/arch/${KS_ARCH}.cmake")
+include("${KS_TOOLCHAIN_DIR}/include/board/${KS_BOARD}.cmake")
+include("${KS_TOOLCHAIN_DIR}/include/arch/${KS_ARCH}.cmake")
 
 string(REPLACE ";" " " KS_COMPILE_FLAGS "${KS_COMPILE_FLAGS}")
 string(REPLACE ";" " " KS_LINK_FLAGS "${KS_LINK_FLAGS}")

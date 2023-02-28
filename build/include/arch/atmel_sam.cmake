@@ -1,4 +1,4 @@
-include("${PROJECT_SOURCE_DIR}/build/include/arch/arm.cmake")
+include("${KS_TOOLCHAIN_DIR}/include/arch/arm.cmake")
 
 string(TOUPPER "${SAM_MCU}" SAM_MCU_UPPER)
 string(TOUPPER "${SAM_BOARD}" SAM_BOARD_UPPER)
