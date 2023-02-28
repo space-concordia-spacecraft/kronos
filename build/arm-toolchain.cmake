@@ -13,8 +13,14 @@ function(restore_cache_variable NAME)
     endif()
 endfunction()
 
-restore_cache_variable(KS_TOOLCHAIN_DIR)
+restore_cache_variable(KS_PROJECT_DIR)
 restore_cache_variable(KS_BOARD)
 restore_cache_variable(KS_ARCH)
 
-include("${KS_TOOLCHAIN_DIR}/toolchain.cmake")
+if(NOT KS_PROJECT_DIR)
+    set(KS_PROJECT_DIR "${CMAKE_SOURCE_DIR}")
+    set(ENV{_KS_PROJECT_DIR} "${KS_PROJECT_DIR}")
+    message(WARNING "KS_PROJECT_DIR is not defined! Using project source directory instead: \"${CMAKE_SOURCE_DIR}\"")
+endif()
+
+include("${KS_PROJECT_DIR}/build/toolchain.cmake")

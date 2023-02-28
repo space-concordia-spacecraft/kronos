@@ -1,4 +1,4 @@
-include("${KS_TOOLCHAIN_DIR}/include/arch/arm.cmake")
+include("${KS_PROJECT_DIR}/build/include/arch/arm.cmake")
 
 string(TOUPPER "${SAM_MCU}" SAM_MCU_UPPER)
 string(TOUPPER "${SAM_BOARD}" SAM_BOARD_UPPER)
@@ -24,7 +24,7 @@ set(KS_LINK_FLAGS
         # Generate cross-reference table
         -Wl,--cref
         # Linker script
-        -T \"${CMAKE_SOURCE_DIR}/lib/extern/asf/${SAM_ARCH}/${SAM_ARCH}/gcc/gcc/${SAM_MCU}_flash.ld\")
+        -T \"${KS_PROJECT_DIR}/lib/extern/asf/${SAM_ARCH}/${SAM_ARCH}/gcc/gcc/${SAM_MCU}_flash.ld\")
 
 set(KS_COMPILE_DEFINITIONS
         # ASF + FreeRTOS
