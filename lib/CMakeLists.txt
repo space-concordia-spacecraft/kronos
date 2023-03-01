@@ -39,7 +39,6 @@ set(KRONOS_SRC
         "drivers/asf/ks_gpio.cpp"
         "drivers/asf/ks_usart.cpp"
 
-        # KRONOS COMPONENTS
         "components/led_blinker/ks_led_blinker.cpp")
 
 # Kronos Core
@@ -100,6 +99,7 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sch/config"
         "modules/thm"
         "modules/thm/components"
+        "modules/thm/drivers"
         "modules/tlm"
         "modules/tlm/components"
         "modules/wrk"
