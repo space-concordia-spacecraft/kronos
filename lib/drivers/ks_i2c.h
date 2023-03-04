@@ -5,7 +5,7 @@
 namespace kronos {
 
         class KsI2c : public IoDriver {
-
+        // TODO: add a way to send to a register
         public:
             explicit KsI2c(KsI2cDescriptor* desc);
             ~KsI2c() override = default;
