@@ -6,7 +6,7 @@ namespace kronos {
 
         class KsI2c : public IoDriver {
 
-            public:
+        public:
             explicit KsI2c(KsI2cDescriptor* desc);
             ~KsI2c() override = default;
 
@@ -19,7 +19,7 @@ namespace kronos {
         public:
             int32_t SetSlaveAddr(int16_t addr, int32_t addrLen);
 
-            private:
+        private:
             KsI2cDescriptor* m_I2cDescriptor;
 
         };

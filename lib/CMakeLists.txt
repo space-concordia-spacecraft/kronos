@@ -39,6 +39,7 @@ set(KRONOS_SRC
         "drivers/asf/ks_gpio.cpp"
         "drivers/asf/ks_usart.cpp"
         "drivers/asf/ks_i2c.cpp"
+        "drivers/asf/ks_spi.cpp"
 
         "components/led_blinker/ks_led_blinker.cpp")
 

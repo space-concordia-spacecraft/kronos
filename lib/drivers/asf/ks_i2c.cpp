@@ -6,6 +6,7 @@ namespace kronos {
 
     KsI2c::KsI2c(KsI2cDescriptor* desc) : m_I2cDescriptor(desc) {
         i2c_m_os_get_io(m_I2cDescriptor, &m_IoDescriptor);
+        i2c_m_os_enable(m_I2cDescriptor);
     }
 
     int32_t KsI2c::Write(const uint8_t* const buf, const size_t length) {
