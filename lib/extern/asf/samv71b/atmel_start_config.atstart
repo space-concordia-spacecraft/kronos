@@ -64,14 +64,6 @@ middlewares:
     functionality: FreeRTOS_v10.0.0
     api: RTOS:FreeRTOSv1000:MemMang_4
     dependencies: {}
-  STDIO_REDIRECT_0:
-    user_label: STDIO_REDIRECT_0
-    configuration: {}
-    definition: Atmel:STDIO_redirect:0.0.1::STDIO_Redirect
-    functionality: STDIO_Redirect
-    api: STDIO:Redirect:IO
-    dependencies:
-      Target IO: USART_UHF
   SPI_NOR_FLASH_0:
     user_label: SPI_NOR_FLASH_0
     configuration:
@@ -81,6 +73,14 @@ middlewares:
     api: Flash:SPI-NOR-Flash:N25Q256A
     dependencies:
       QSPI instance: QSPI_INSTANCE
+  STDIO_REDIRECT_0:
+    user_label: STDIO_REDIRECT_0
+    configuration: {}
+    definition: Atmel:STDIO_redirect:0.0.1::STDIO_Redirect
+    functionality: STDIO_Redirect
+    api: STDIO:Redirect:IO
+    dependencies:
+      Target IO: USART_UHF
 drivers:
   FLASH_0:
     user_label: FLASH_0
@@ -457,7 +457,7 @@ drivers:
     api: HAL:Driver:USART_RTOS_Beta
     configuration:
       uart_advanced: false
-      uart_baud_rate: 38400
+      uart_baud_rate: 500000
       uart_channel_mode: Normal Mode
       uart_parity: No parity
       uart_receive_filter_enable: false
@@ -935,6 +935,13 @@ pads:
     mode: Advanced
     user_label: PA13
     configuration: null
+  SPI_CS_ADC:
+    name: PA16
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA16
+    mode: Digital output
+    user_label: SPI_CS_ADC
+    configuration:
+      pad_initial_level: High
   PA14:
     name: PA14
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA14
@@ -953,6 +960,13 @@ pads:
     mode: Peripheral IO
     user_label: PD26
     configuration: null
+  SPI_CS_C:
+    name: PA25
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA25
+    mode: Digital output
+    user_label: SPI_CS_C
+    configuration:
+      pad_initial_level: High
   PA11:
     name: PA11
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA11

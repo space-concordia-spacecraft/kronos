@@ -35,10 +35,10 @@ examples \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0 \
 spi_nor_flash/n25q256a \
-stdio_redirect/gcc \
+stdio_redirect \
 hal/src \
 samv71b/gcc \
-stdio_redirect \
+stdio_redirect/gcc \
 hpl/xdmac \
 hal/utils/src \
 hpl/rtc \
@@ -195,11 +195,11 @@ DIR_INCLUDES +=  \
 -I"../thirdparty/RTOS/freertos/FreeRTOSV10.0.0/module_config" \
 -I"../" \
 -I"../config" \
--I"../stdio_redirect" \
--I"../" \
--I"../config" \
 -I"../spi_nor_flash" \
 -I"../spi_nor_flash/n25q256a" \
+-I"../" \
+-I"../config" \
+-I"../stdio_redirect" \
 -I"../" \
 -I"../CMSIS/Core/Include" \
 -I"../samv71b/include"

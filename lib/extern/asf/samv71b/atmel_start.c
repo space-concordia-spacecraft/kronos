@@ -6,6 +6,6 @@
 void atmel_start_init(void)
 {
 	system_init();
-	stdio_redirect_init();
 	spi_nor_flash_init();
+	stdio_redirect_init();
 }

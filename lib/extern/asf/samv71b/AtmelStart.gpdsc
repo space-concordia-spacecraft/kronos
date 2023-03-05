@@ -198,6 +198,11 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="thirdparty/RTOS/hal_rtos.h"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/spi_nor_flash.rst"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="spi_nor_flash/n25q256a/n25q256a.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="spi_nor_flash/n25q256a/n25q256a.h"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="spi_nor_flash/spi_nor_flash.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="spi_nor_flash/spi_nor_flash.h"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/stdio.rst"/>
         <file category="source" condition="GCC" name="stdio_redirect/gcc/read.c"/>
         <file category="source" condition="GCC" name="stdio_redirect/gcc/write.c"/>
@@ -206,11 +211,6 @@
         <file category="source" condition="ARMCC" name="stdio_redirect/keil/Retarget.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="stdio_redirect/stdio_io.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="stdio_redirect/stdio_io.h"/>
-        <file category="doc" condition="ARMCC, GCC, IAR" name="documentation/spi_nor_flash.rst"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="spi_nor_flash/n25q256a/n25q256a.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="spi_nor_flash/n25q256a/n25q256a.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="spi_nor_flash/spi_nor_flash.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="spi_nor_flash/spi_nor_flash.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="main.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="driver_init.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="driver_init.h"/>
@@ -253,10 +253,10 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/xdmac/hpl_xdmac.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="rtos_start.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="rtos_start.h"/>
-        <file category="source" condition="ARMCC, GCC, IAR" name="stdio_start.c"/>
-        <file category="header" condition="ARMCC, GCC, IAR" name="stdio_start.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="spi_nor_flash_main.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="spi_nor_flash_main.h"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="stdio_start.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="stdio_start.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="atmel_start.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="atmel_start.c"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_efc_config.h"/>
@@ -270,8 +270,8 @@
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_xdmac_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/peripheral_clk_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/FreeRTOSConfig.h"/>
-        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/stdio_redirect_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/conf_spi_nor_flash.h"/>
+        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/stdio_redirect_config.h"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
         <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="examples"/>
@@ -300,11 +300,11 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="thirdparty/RTOS/freertos/FreeRTOSV10.0.0/module_config"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
         <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="stdio_redirect"/>
-        <file category="include" condition="ARMCC, GCC, IAR" name=""/>
-        <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="spi_nor_flash"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="spi_nor_flash/n25q256a"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name=""/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="config"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="stdio_redirect"/>
         <file category="include" condition="ARMCC, GCC, IAR" name=""/>
       </files>
     </component>

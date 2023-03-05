@@ -444,8 +444,38 @@ void system_init(void)
 {
 	init_mcu();
 
+	_pmc_enable_periph_clock(ID_PIOA);
+
 	/* Disable Watchdog */
 	hri_wdt_set_MR_WDDIS_bit(WDT);
+
+	/* GPIO on PA16 */
+
+	gpio_set_pin_level(SPI_CS_ADC,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_ADC, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_ADC, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA25 */
+
+	gpio_set_pin_level(SPI_CS_C,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_C, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_C, GPIO_PIN_FUNCTION_OFF);
 
 	FLASH_0_init();
 
