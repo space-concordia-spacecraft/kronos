@@ -2,7 +2,6 @@
 #include "ks_framework.h"
 #include "ks_worker_manager.h"
 #include "ks_wrk_module.h"
-#include "ks_sch_module.h"
 #include "ks_command_dispatcher.h"
 #include "ks_command_listener.h"
 #include "ks_command_transmitter.h"

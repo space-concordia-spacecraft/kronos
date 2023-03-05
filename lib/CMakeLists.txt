@@ -101,7 +101,7 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sch/config"
         "modules/thm"
         "modules/thm/components"
-        "modules/thm/drivers"
+        "modules/thm/utils"
         "modules/tlm"
         "modules/tlm/components"
         "modules/wrk"

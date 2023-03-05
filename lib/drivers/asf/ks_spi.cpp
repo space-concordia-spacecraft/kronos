@@ -41,4 +41,32 @@ namespace kronos {
         memcpy(buf, s_ReadBuffer, nBytesRead);
         return nBytesRead;
     }
+
+    void KsSpi::ChipSelect(uint8_t pin, bool level) {
+        gpio_set_pin_level(pin, level);
+    }
+
+    void KsSpi::ToggleChipSelect(uint8_t pin) {
+        gpio_toggle_pin_level(pin);
+    }
+
+    int32_t KsSpi::Write(uint8_t pin, const uint8_t* buf, size_t length) {
+        ChipSelect(pin, false);
+
+        auto res = Write(buf, length);
+
+        ChipSelect(pin, true);
+
+        return res;
+    }
+
+    int32_t KsSpi::Read(uint8_t pin, uint8_t* buf, size_t length) {
+        ChipSelect(pin, false);
+
+        auto res = Read(buf, length);
+
+        ChipSelect(pin, true);
+
+        return res;
+    }
 }

@@ -18,6 +18,9 @@ namespace kronos {
 
         public:
             int32_t SetSlaveAddr(int16_t addr, int32_t addrLen);
+            int32_t SetRegister(uint8_t reg);
+            int32_t Write(uint8_t reg, const uint8_t* buf, size_t length);
+            int32_t Read(uint8_t reg, uint8_t* buf, size_t length);
 
         private:
             KsI2cDescriptor* m_I2cDescriptor;
