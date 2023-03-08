@@ -195,24 +195,24 @@ void task_i2c_0_create()
 	 * tasks and before while(1) in main function */
 }
 
-#define TASK_USART_MUTUAL_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
-#define TASK_USART_MUTUAL_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
+#define TASK_UART_MUTUAL_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
+#define TASK_UART_MUTUAL_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
 
-static TaskHandle_t xCreatedusart_mutualTask;
-static uint8_t      example_USART_MUTUAL[12] = "Hello World!";
+static TaskHandle_t xCreateduart_mutualTask;
+static uint8_t      example_UART_MUTUAL[12] = "Hello World!";
 
 /**
- * Example task of using USART_MUTUAL to echo using the IO abstraction.
+ * Example task of using UART_MUTUAL to echo using the IO abstraction.
  */
-static void USART_MUTUAL_example_task(void *param)
+static void UART_MUTUAL_example_task(void *param)
 {
 	struct io_descriptor *io;
 	uint16_t              data;
 
 	(void)param;
 
-	usart_os_get_io(&USART_MUTUAL, &io);
-	io_write(io, example_USART_MUTUAL, 12);
+	usart_os_get_io(&UART_MUTUAL, &io);
+	io_write(io, example_UART_MUTUAL, 12);
 
 	for (;;) {
 		if (io_read(io, (uint8_t *)&data, 2) == 2) {
@@ -223,17 +223,17 @@ static void USART_MUTUAL_example_task(void *param)
 }
 
 /**
- * \brief Create OS task for USART_MUTUAL
+ * \brief Create OS task for UART_MUTUAL
  */
-void task_usart_mutual_create()
+void task_uart_mutual_create()
 {
-	/* Create task for USART_MUTUAL */
-	if (xTaskCreate(USART_MUTUAL_example_task,
-	                "usart_mutual",
-	                TASK_USART_MUTUAL_STACK_SIZE,
+	/* Create task for UART_MUTUAL */
+	if (xTaskCreate(UART_MUTUAL_example_task,
+	                "uart_mutual",
+	                TASK_UART_MUTUAL_STACK_SIZE,
 	                NULL,
-	                TASK_USART_MUTUAL_STACK_PRIORITY,
-	                &xCreatedusart_mutualTask)
+	                TASK_UART_MUTUAL_STACK_PRIORITY,
+	                &xCreateduart_mutualTask)
 	    != pdPASS) {
 		while (1) {
 			/* Please checkup stack and FreeRTOS configuration. */
@@ -291,24 +291,24 @@ void task_usart_uhf_create()
 	 * tasks and before while(1) in main function */
 }
 
-#define TASK_USART_DSS_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
-#define TASK_USART_DSS_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
+#define TASK_UART_DSS_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
+#define TASK_UART_DSS_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
 
-static TaskHandle_t xCreatedusart_dssTask;
-static uint8_t      example_USART_DSS[12] = "Hello World!";
+static TaskHandle_t xCreateduart_dssTask;
+static uint8_t      example_UART_DSS[12] = "Hello World!";
 
 /**
- * Example task of using USART_DSS to echo using the IO abstraction.
+ * Example task of using UART_DSS to echo using the IO abstraction.
  */
-static void USART_DSS_example_task(void *param)
+static void UART_DSS_example_task(void *param)
 {
 	struct io_descriptor *io;
 	uint16_t              data;
 
 	(void)param;
 
-	usart_os_get_io(&USART_DSS, &io);
-	io_write(io, example_USART_DSS, 12);
+	usart_os_get_io(&UART_DSS, &io);
+	io_write(io, example_UART_DSS, 12);
 
 	for (;;) {
 		if (io_read(io, (uint8_t *)&data, 2) == 2) {
@@ -319,17 +319,17 @@ static void USART_DSS_example_task(void *param)
 }
 
 /**
- * \brief Create OS task for USART_DSS
+ * \brief Create OS task for UART_DSS
  */
-void task_usart_dss_create()
+void task_uart_dss_create()
 {
-	/* Create task for USART_DSS */
-	if (xTaskCreate(USART_DSS_example_task,
-	                "usart_dss",
-	                TASK_USART_DSS_STACK_SIZE,
+	/* Create task for UART_DSS */
+	if (xTaskCreate(UART_DSS_example_task,
+	                "uart_dss",
+	                TASK_UART_DSS_STACK_SIZE,
 	                NULL,
-	                TASK_USART_DSS_STACK_PRIORITY,
-	                &xCreatedusart_dssTask)
+	                TASK_UART_DSS_STACK_PRIORITY,
+	                &xCreateduart_dssTask)
 	    != pdPASS) {
 		while (1) {
 			/* Please checkup stack and FreeRTOS configuration. */
@@ -339,24 +339,24 @@ void task_usart_dss_create()
 	 * tasks and before while(1) in main function */
 }
 
-#define TASK_USART_PL_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
-#define TASK_USART_PL_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
+#define TASK_UART_PL_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
+#define TASK_UART_PL_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
 
-static TaskHandle_t xCreatedusart_plTask;
-static uint8_t      example_USART_PL[12] = "Hello World!";
+static TaskHandle_t xCreateduart_plTask;
+static uint8_t      example_UART_PL[12] = "Hello World!";
 
 /**
- * Example task of using USART_PL to echo using the IO abstraction.
+ * Example task of using UART_PL to echo using the IO abstraction.
  */
-static void USART_PL_example_task(void *param)
+static void UART_PL_example_task(void *param)
 {
 	struct io_descriptor *io;
 	uint16_t              data;
 
 	(void)param;
 
-	usart_os_get_io(&USART_PL, &io);
-	io_write(io, example_USART_PL, 12);
+	usart_os_get_io(&UART_PL, &io);
+	io_write(io, example_UART_PL, 12);
 
 	for (;;) {
 		if (io_read(io, (uint8_t *)&data, 2) == 2) {
@@ -367,17 +367,17 @@ static void USART_PL_example_task(void *param)
 }
 
 /**
- * \brief Create OS task for USART_PL
+ * \brief Create OS task for UART_PL
  */
-void task_usart_pl_create()
+void task_uart_pl_create()
 {
-	/* Create task for USART_PL */
-	if (xTaskCreate(USART_PL_example_task,
-	                "usart_pl",
-	                TASK_USART_PL_STACK_SIZE,
+	/* Create task for UART_PL */
+	if (xTaskCreate(UART_PL_example_task,
+	                "uart_pl",
+	                TASK_UART_PL_STACK_SIZE,
 	                NULL,
-	                TASK_USART_PL_STACK_PRIORITY,
-	                &xCreatedusart_plTask)
+	                TASK_UART_PL_STACK_PRIORITY,
+	                &xCreateduart_plTask)
 	    != pdPASS) {
 		while (1) {
 			/* Please checkup stack and FreeRTOS configuration. */
@@ -387,24 +387,24 @@ void task_usart_pl_create()
 	 * tasks and before while(1) in main function */
 }
 
-#define TASK_USART_ADCS_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
-#define TASK_USART_ADCS_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
+#define TASK_UART_ADCS_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
+#define TASK_UART_ADCS_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
 
-static TaskHandle_t xCreatedusart_adcsTask;
-static uint8_t      example_USART_ADCS[12] = "Hello World!";
+static TaskHandle_t xCreateduart_adcsTask;
+static uint8_t      example_UART_ADCS[12] = "Hello World!";
 
 /**
- * Example task of using USART_ADCS to echo using the IO abstraction.
+ * Example task of using UART_ADCS to echo using the IO abstraction.
  */
-static void USART_ADCS_example_task(void *param)
+static void UART_ADCS_example_task(void *param)
 {
 	struct io_descriptor *io;
 	uint16_t              data;
 
 	(void)param;
 
-	usart_os_get_io(&USART_ADCS, &io);
-	io_write(io, example_USART_ADCS, 12);
+	usart_os_get_io(&UART_ADCS, &io);
+	io_write(io, example_UART_ADCS, 12);
 
 	for (;;) {
 		if (io_read(io, (uint8_t *)&data, 2) == 2) {
@@ -415,17 +415,17 @@ static void USART_ADCS_example_task(void *param)
 }
 
 /**
- * \brief Create OS task for USART_ADCS
+ * \brief Create OS task for UART_ADCS
  */
-void task_usart_adcs_create()
+void task_uart_adcs_create()
 {
-	/* Create task for USART_ADCS */
-	if (xTaskCreate(USART_ADCS_example_task,
-	                "usart_adcs",
-	                TASK_USART_ADCS_STACK_SIZE,
+	/* Create task for UART_ADCS */
+	if (xTaskCreate(UART_ADCS_example_task,
+	                "uart_adcs",
+	                TASK_UART_ADCS_STACK_SIZE,
 	                NULL,
-	                TASK_USART_ADCS_STACK_PRIORITY,
-	                &xCreatedusart_adcsTask)
+	                TASK_UART_ADCS_STACK_PRIORITY,
+	                &xCreateduart_adcsTask)
 	    != pdPASS) {
 		while (1) {
 			/* Please checkup stack and FreeRTOS configuration. */
