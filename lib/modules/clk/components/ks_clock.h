@@ -1,14 +1,14 @@
 #pragma once
 
 // Kronos
-#include "ks_component_passive.h"
+#include "ks_component_queued.h"
 
 // ASF related includes
 #include "driver_init.h"
 
 namespace kronos {
 
-    class Clock : public ComponentPassive {
+    class Clock : public ComponentQueued {
     KS_SINGLETON(Clock);
 
     public:
