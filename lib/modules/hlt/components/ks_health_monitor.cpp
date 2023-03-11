@@ -9,7 +9,8 @@ namespace kronos {
         : ComponentActive(
         "CA_HEALTH",
         KS_QUEUE_DEFAULT_WAIT_TIME,
-        KS_COMPONENT_STACK_SIZE_MEDIUM
+        KS_COMPONENT_STACK_SIZE_MEDIUM,
+        KS_COMPONENT_PRIORITY_HIGH
     ),
           m_BusPong(Framework::GetBus("B_HEALTH_PONG")),
           m_BusPing(Framework::GetBus("B_HEALTH_PING")) {

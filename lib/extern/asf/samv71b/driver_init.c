@@ -34,20 +34,20 @@ struct spi_m_os_descriptor SPI_0;
 
 struct i2c_m_os_desc I2C_0;
 
-struct usart_os_descriptor USART_MUTUAL;
-uint8_t                    USART_MUTUAL_buffer[USART_MUTUAL_BUFFER_SIZE];
+struct usart_os_descriptor UART_MUTUAL;
+uint8_t                    UART_MUTUAL_buffer[UART_MUTUAL_BUFFER_SIZE];
 
 struct usart_os_descriptor USART_UHF;
 uint8_t                    USART_UHF_buffer[USART_UHF_BUFFER_SIZE];
 
-struct usart_os_descriptor USART_DSS;
-uint8_t                    USART_DSS_buffer[USART_DSS_BUFFER_SIZE];
+struct usart_os_descriptor UART_DSS;
+uint8_t                    UART_DSS_buffer[UART_DSS_BUFFER_SIZE];
 
-struct usart_os_descriptor USART_PL;
-uint8_t                    USART_PL_buffer[USART_PL_BUFFER_SIZE];
+struct usart_os_descriptor UART_PL;
+uint8_t                    UART_PL_buffer[UART_PL_BUFFER_SIZE];
 
-struct usart_os_descriptor USART_ADCS;
-uint8_t                    USART_ADCS_buffer[USART_ADCS_BUFFER_SIZE];
+struct usart_os_descriptor UART_ADCS;
+uint8_t                    UART_ADCS_buffer[UART_ADCS_BUFFER_SIZE];
 
 void FLASH_0_CLOCK_init(void)
 {
@@ -300,7 +300,7 @@ void I2C_0_init(void)
 	I2C_0_PORT_init();
 }
 
-void USART_MUTUAL_PORT_init(void)
+void UART_MUTUAL_PORT_init(void)
 {
 
 	gpio_set_pin_function(PA9, MUX_PA9A_UART0_URXD0);
@@ -308,17 +308,17 @@ void USART_MUTUAL_PORT_init(void)
 	gpio_set_pin_function(PA10, MUX_PA10A_UART0_UTXD0);
 }
 
-void USART_MUTUAL_CLOCK_init(void)
+void UART_MUTUAL_CLOCK_init(void)
 {
 	_pmc_enable_periph_clock(ID_UART0);
 }
 
-void USART_MUTUAL_init(void)
+void UART_MUTUAL_init(void)
 {
-	USART_MUTUAL_CLOCK_init();
-	usart_os_init(&USART_MUTUAL, UART0, USART_MUTUAL_buffer, USART_MUTUAL_BUFFER_SIZE, (void *)_uart_get_usart_async());
-	usart_os_enable(&USART_MUTUAL);
-	USART_MUTUAL_PORT_init();
+	UART_MUTUAL_CLOCK_init();
+	usart_os_init(&UART_MUTUAL, UART0, UART_MUTUAL_buffer, UART_MUTUAL_BUFFER_SIZE, (void *)_uart_get_usart_async());
+	usart_os_enable(&UART_MUTUAL);
+	UART_MUTUAL_PORT_init();
 	NVIC_SetPriority(UART0_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
 }
 
@@ -344,7 +344,7 @@ void USART_UHF_init(void)
 	NVIC_SetPriority(UART1_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
 }
 
-void USART_DSS_PORT_init(void)
+void UART_DSS_PORT_init(void)
 {
 
 	gpio_set_pin_function(PD25, MUX_PD25C_UART2_URXD2);
@@ -352,21 +352,21 @@ void USART_DSS_PORT_init(void)
 	gpio_set_pin_function(PD26, MUX_PD26C_UART2_UTXD2);
 }
 
-void USART_DSS_CLOCK_init(void)
+void UART_DSS_CLOCK_init(void)
 {
 	_pmc_enable_periph_clock(ID_UART2);
 }
 
-void USART_DSS_init(void)
+void UART_DSS_init(void)
 {
-	USART_DSS_CLOCK_init();
-	usart_os_init(&USART_DSS, UART2, USART_DSS_buffer, USART_DSS_BUFFER_SIZE, (void *)_uart_get_usart_async());
-	usart_os_enable(&USART_DSS);
-	USART_DSS_PORT_init();
+	UART_DSS_CLOCK_init();
+	usart_os_init(&UART_DSS, UART2, UART_DSS_buffer, UART_DSS_BUFFER_SIZE, (void *)_uart_get_usart_async());
+	usart_os_enable(&UART_DSS);
+	UART_DSS_PORT_init();
 	NVIC_SetPriority(UART2_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
 }
 
-void USART_PL_PORT_init(void)
+void UART_PL_PORT_init(void)
 {
 
 	gpio_set_pin_function(PD28, MUX_PD28A_UART3_URXD3);
@@ -374,21 +374,21 @@ void USART_PL_PORT_init(void)
 	gpio_set_pin_function(PD30, MUX_PD30A_UART3_UTXD3);
 }
 
-void USART_PL_CLOCK_init(void)
+void UART_PL_CLOCK_init(void)
 {
 	_pmc_enable_periph_clock(ID_UART3);
 }
 
-void USART_PL_init(void)
+void UART_PL_init(void)
 {
-	USART_PL_CLOCK_init();
-	usart_os_init(&USART_PL, UART3, USART_PL_buffer, USART_PL_BUFFER_SIZE, (void *)_uart_get_usart_async());
-	usart_os_enable(&USART_PL);
-	USART_PL_PORT_init();
+	UART_PL_CLOCK_init();
+	usart_os_init(&UART_PL, UART3, UART_PL_buffer, UART_PL_BUFFER_SIZE, (void *)_uart_get_usart_async());
+	usart_os_enable(&UART_PL);
+	UART_PL_PORT_init();
 	NVIC_SetPriority(UART3_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
 }
 
-void USART_ADCS_PORT_init(void)
+void UART_ADCS_PORT_init(void)
 {
 
 	gpio_set_pin_function(PD18, MUX_PD18C_UART4_URXD4);
@@ -396,17 +396,17 @@ void USART_ADCS_PORT_init(void)
 	gpio_set_pin_function(PD19, MUX_PD19C_UART4_UTXD4);
 }
 
-void USART_ADCS_CLOCK_init(void)
+void UART_ADCS_CLOCK_init(void)
 {
 	_pmc_enable_periph_clock(ID_UART4);
 }
 
-void USART_ADCS_init(void)
+void UART_ADCS_init(void)
 {
-	USART_ADCS_CLOCK_init();
-	usart_os_init(&USART_ADCS, UART4, USART_ADCS_buffer, USART_ADCS_BUFFER_SIZE, (void *)_uart_get_usart_async());
-	usart_os_enable(&USART_ADCS);
-	USART_ADCS_PORT_init();
+	UART_ADCS_CLOCK_init();
+	usart_os_init(&UART_ADCS, UART4, UART_ADCS_buffer, UART_ADCS_BUFFER_SIZE, (void *)_uart_get_usart_async());
+	usart_os_enable(&UART_ADCS);
+	UART_ADCS_PORT_init();
 	NVIC_SetPriority(UART4_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
 }
 
@@ -427,6 +427,10 @@ void CAN_0_CLOCK_init()
  */
 void CAN_0_PORT_init(void)
 {
+
+	gpio_set_pin_function(PB3, MUX_PB3A_MCAN0_CANRX0);
+
+	gpio_set_pin_function(PB2, MUX_PB2A_MCAN0_CANTX0);
 }
 /**
  * \brief CAN initialization function
@@ -446,12 +450,33 @@ void system_init(void)
 
 	_pmc_enable_periph_clock(ID_PIOA);
 
+	_pmc_enable_periph_clock(ID_PIOB);
+
+	_pmc_enable_periph_clock(ID_PIOC);
+
+	_pmc_enable_periph_clock(ID_PIOD);
+
 	/* Disable Watchdog */
 	hri_wdt_set_MR_WDDIS_bit(WDT);
 
-	/* GPIO on PA16 */
+	/* GPIO on PA1 */
 
-	gpio_set_pin_level(SPI_CS_ADC,
+	// Set pin direction to input
+	gpio_set_pin_direction(UMB_DETECT, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(UMB_DETECT,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(UMB_DETECT, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA2 */
+
+	gpio_set_pin_level(MAG_M_EN,
 	                   // <y> Initial level
 	                   // <id> pad_initial_level
 	                   // <false"> Low
@@ -459,13 +484,87 @@ void system_init(void)
 	                   true);
 
 	// Set pin direction to output
-	gpio_set_pin_direction(SPI_CS_ADC, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(MAG_M_EN, GPIO_DIRECTION_OUT);
 
-	gpio_set_pin_function(SPI_CS_ADC, GPIO_PIN_FUNCTION_OFF);
+	gpio_set_pin_function(MAG_M_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA16 */
+
+	gpio_set_pin_level(SPI_CS_CDH_ADC,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_CDH_ADC, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_CDH_ADC, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA19 */
+
+	gpio_set_pin_level(MAG_T_Y_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_T_Y_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_T_Y_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA21 */
+
+	gpio_set_pin_level(MAG_T_X_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_T_X_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_T_X_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA22 */
+
+	gpio_set_pin_level(MAG_T_Z_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_T_Z_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_T_Z_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA23 */
+
+	gpio_set_pin_function(MAG_T_PWM, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA24 */
+
+	gpio_set_pin_level(MAG_T_Z_DIR,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_T_Z_DIR, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_T_Z_DIR, GPIO_PIN_FUNCTION_OFF);
 
 	/* GPIO on PA25 */
 
-	gpio_set_pin_level(SPI_CS_C,
+	gpio_set_pin_level(SPI_CS_ADCS_ADC_1,
 	                   // <y> Initial level
 	                   // <id> pad_initial_level
 	                   // <false"> Low
@@ -473,9 +572,597 @@ void system_init(void)
 	                   true);
 
 	// Set pin direction to output
-	gpio_set_pin_direction(SPI_CS_C, GPIO_DIRECTION_OUT);
+	gpio_set_pin_direction(SPI_CS_ADCS_ADC_1, GPIO_DIRECTION_OUT);
 
-	gpio_set_pin_function(SPI_CS_C, GPIO_PIN_FUNCTION_OFF);
+	gpio_set_pin_function(SPI_CS_ADCS_ADC_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA26 */
+
+	gpio_set_pin_level(I2C_PSS_IO_ADDR_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(I2C_PSS_IO_ADDR_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(I2C_PSS_IO_ADDR_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA27 */
+
+	gpio_set_pin_level(HEATER_PWM_2,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_PWM_2, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_PWM_2, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA28 */
+
+	gpio_set_pin_level(SPI_CS_PSS_ADC_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_PSS_ADC_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_PSS_ADC_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PA30 */
+
+	gpio_set_pin_level(SPI_CS_PSS_ADC_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_PSS_ADC_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_PSS_ADC_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PB0 */
+
+	gpio_set_pin_level(HEATER_PWM_3,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_PWM_3, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_PWM_3, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PB1 */
+
+	gpio_set_pin_level(RW_UART_SEL_ADDR1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RW_UART_SEL_ADDR1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RW_UART_SEL_ADDR1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PB13 */
+
+	gpio_set_pin_level(RWX_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RWX_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RWX_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC0 */
+
+	gpio_set_pin_level(RAD_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RAD_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RAD_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC1 */
+
+	gpio_set_pin_level(HEATER_PL_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_PL_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_PL_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC2 */
+
+	gpio_set_pin_level(RW_UART_SEL_ADDR0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RW_UART_SEL_ADDR0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RW_UART_SEL_ADDR0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC3 */
+
+	gpio_set_pin_level(MAG_T_Y_DIR,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_T_Y_DIR, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_T_Y_DIR, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC6 */
+
+	gpio_set_pin_level(RWZ_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RWZ_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RWZ_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC7 */
+
+	gpio_set_pin_function(MAG_T_X_PWM, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC8 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(REQ_PSS, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(REQ_PSS,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(REQ_PSS, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC9 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(WATCHDOG_MRST, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(WATCHDOG_MRST,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(WATCHDOG_MRST, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC10 */
+
+	gpio_set_pin_level(ERASE_OBC,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(ERASE_OBC, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(ERASE_OBC, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC11 */
+
+	gpio_set_pin_level(PW_MUTUAL,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(PW_MUTUAL, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(PW_MUTUAL, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC12 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PW_STATUS_FLAG_EXRAD, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PW_STATUS_FLAG_EXRAD,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PW_STATUS_FLAG_EXRAD, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC13 */
+
+	gpio_set_pin_level(RESET_PDS,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RESET_PDS, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RESET_PDS, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC14 */
+
+	gpio_set_pin_level(RESET_PSS,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RESET_PSS, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RESET_PSS, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC15 */
+
+	gpio_set_pin_level(SPI_CS_ADCS_ADC_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_ADCS_ADC_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_ADCS_ADC_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC18 */
+
+	gpio_set_pin_level(SPI_CS_PSS_ADC_2,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_PSS_ADC_2, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_PSS_ADC_2, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC19 */
+
+	gpio_set_pin_level(SPI_CS_PDS_ADC_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_PDS_ADC_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_PDS_ADC_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC20 */
+
+	gpio_set_pin_level(UHF_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(UHF_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(UHF_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC21 */
+
+	gpio_set_pin_level(SPI_CS_PDS_ADC_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_PDS_ADC_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_PDS_ADC_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC22 */
+
+	gpio_set_pin_level(SPI_CS_UHF_ADC,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SPI_CS_UHF_ADC, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SPI_CS_UHF_ADC, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC23 */
+
+	gpio_set_pin_level(DSS_EN_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(DSS_EN_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(DSS_EN_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC25 */
+
+	gpio_set_pin_level(DSS_EN_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(DSS_EN_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(DSS_EN_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC28 */
+
+	gpio_set_pin_level(I2C_PSS_IO_ADDR_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(I2C_PSS_IO_ADDR_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(I2C_PSS_IO_ADDR_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC29 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PW_STATUS_FLAG_INRAD, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PW_STATUS_FLAG_INRAD,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PW_STATUS_FLAG_INRAD, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC30 */
+
+	gpio_set_pin_level(RWY_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RWY_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RWY_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC31 */
+
+	gpio_set_pin_level(MAG_X_DIR,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(MAG_X_DIR, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(MAG_X_DIR, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD1 */
+
+	gpio_set_pin_level(SUNSENS_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(SUNSENS_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(SUNSENS_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD2 */
+
+	gpio_set_pin_level(ANTENNA_RELEASE_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(ANTENNA_RELEASE_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(ANTENNA_RELEASE_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD3 */
+
+	gpio_set_pin_level(ANTENNA_RELEASE_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(ANTENNA_RELEASE_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(ANTENNA_RELEASE_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD5 */
+
+	gpio_set_pin_function(MAG_T_Y_PWM, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD7 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PW_STATUS_FLAG_MUTUAL, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PW_STATUS_FLAG_MUTUAL,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PW_STATUS_FLAG_MUTUAL, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD10 */
+
+	gpio_set_pin_level(HEATER_ADCS_EN,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_ADCS_EN, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_ADCS_EN, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD11 */
+
+	gpio_set_pin_level(HEATER_PWM_1,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_PWM_1, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_PWM_1, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD15 */
+
+	gpio_set_pin_level(HEATER_PWM_0,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(HEATER_PWM_0, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(HEATER_PWM_0, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD16 */
+
+	gpio_set_pin_level(WATCHDOG_FEED,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(WATCHDOG_FEED, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(WATCHDOG_FEED, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD17 */
+
+	gpio_set_pin_level(RESET_MUTUAL,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   true);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(RESET_MUTUAL, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(RESET_MUTUAL, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PD29 */
+
+	// Set pin direction to input
+	gpio_set_pin_direction(WATCHDOG_WARN, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(WATCHDOG_WARN,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(WATCHDOG_WARN, GPIO_PIN_FUNCTION_OFF);
 
 	FLASH_0_init();
 
@@ -487,15 +1174,15 @@ void system_init(void)
 
 	I2C_0_init();
 
-	USART_MUTUAL_init();
+	UART_MUTUAL_init();
 
 	USART_UHF_init();
 
-	USART_DSS_init();
+	UART_DSS_init();
 
-	USART_PL_init();
+	UART_PL_init();
 
-	USART_ADCS_init();
+	UART_ADCS_init();
 
 	CAN_0_init();
 }

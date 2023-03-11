@@ -26,15 +26,15 @@ void task_spi_0_create();
 
 void task_i2c_0_create();
 
-void task_usart_mutual_create();
+void task_uart_mutual_create();
 
 void task_usart_uhf_create();
 
-void task_usart_dss_create();
+void task_uart_dss_create();
 
-void task_usart_pl_create();
+void task_uart_pl_create();
 
-void task_usart_adcs_create();
+void task_uart_adcs_create();
 
 void CAN_0_example(void);
 

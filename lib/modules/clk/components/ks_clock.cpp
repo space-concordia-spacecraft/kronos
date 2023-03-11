@@ -5,7 +5,7 @@ namespace kronos {
 
     KS_SINGLETON_INSTANCE(Clock);
 
-    Clock::Clock() : ComponentPassive("CP_CLOCK") {}
+    Clock::Clock() : ComponentQueued("CP_CLOCK") {}
 
     KsResultType Clock::Init() {
         calendar_date date{};
@@ -32,7 +32,7 @@ namespace kronos {
 
     void Clock::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
-            case ks_event_scheduler_tick:
+            case ks_event_save_param:
                 SaveTime();
                 break;
         }

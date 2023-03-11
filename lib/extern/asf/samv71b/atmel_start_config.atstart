@@ -413,8 +413,8 @@ drivers:
           external_frequency: 0
         configuration:
           twihs_clock_source: Master Clock (MCK)
-  USART_MUTUAL:
-    user_label: USART_MUTUAL
+  UART_MUTUAL:
+    user_label: UART_MUTUAL
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::UART0::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
     functionality: USART
     api: HAL:Driver:USART_RTOS_Beta
@@ -426,14 +426,14 @@ drivers:
       uart_receive_filter_enable: false
       uart_usclks: Peripheral clock is selected
     optional_signals:
-    - identifier: USART_MUTUAL:URXD/0
+    - identifier: UART_MUTUAL:URXD/0
       pad: PA9
       mode: Enabled
       configuration: null
       definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::UART0.URXD.0
       name: UART0/URXD/0
       label: URXD/0
-    - identifier: USART_MUTUAL:UTXD/0
+    - identifier: UART_MUTUAL:UTXD/0
       pad: PA10
       mode: Enabled
       configuration: null
@@ -487,8 +487,8 @@ drivers:
           external_frequency: 0
         configuration:
           uart_clock_source: Master Clock (MCK)
-  USART_DSS:
-    user_label: USART_DSS
+  UART_DSS:
+    user_label: UART_DSS
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::UART2::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
     functionality: USART
     api: HAL:Driver:USART_RTOS_Beta
@@ -500,14 +500,14 @@ drivers:
       uart_receive_filter_enable: false
       uart_usclks: Peripheral clock is selected
     optional_signals:
-    - identifier: USART_DSS:URXD/2
+    - identifier: UART_DSS:URXD/2
       pad: PD25
       mode: Enabled
       configuration: null
       definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::UART2.URXD.2
       name: UART2/URXD/2
       label: URXD/2
-    - identifier: USART_DSS:UTXD/2
+    - identifier: UART_DSS:UTXD/2
       pad: PD26
       mode: Enabled
       configuration: null
@@ -524,8 +524,8 @@ drivers:
           external_frequency: 0
         configuration:
           uart_clock_source: Master Clock (MCK)
-  USART_PL:
-    user_label: USART_PL
+  UART_PL:
+    user_label: UART_PL
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::UART3::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
     functionality: USART
     api: HAL:Driver:USART_RTOS_Beta
@@ -537,14 +537,14 @@ drivers:
       uart_receive_filter_enable: false
       uart_usclks: Peripheral clock is selected
     optional_signals:
-    - identifier: USART_PL:URXD/3
+    - identifier: UART_PL:URXD/3
       pad: PD28
       mode: Enabled
       configuration: null
       definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::UART3.URXD.3
       name: UART3/URXD/3
       label: URXD/3
-    - identifier: USART_PL:UTXD/3
+    - identifier: UART_PL:UTXD/3
       pad: PD30
       mode: Enabled
       configuration: null
@@ -561,8 +561,8 @@ drivers:
           external_frequency: 0
         configuration:
           uart_clock_source: Master Clock (MCK)
-  USART_ADCS:
-    user_label: USART_ADCS
+  UART_ADCS:
+    user_label: UART_ADCS
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::UART4::driver_config_definition::UART::HAL:Driver:USART.RTOS.Beta
     functionality: USART
     api: HAL:Driver:USART_RTOS_Beta
@@ -574,14 +574,14 @@ drivers:
       uart_receive_filter_enable: false
       uart_usclks: Peripheral clock is selected
     optional_signals:
-    - identifier: USART_ADCS:URXD/4
+    - identifier: UART_ADCS:URXD/4
       pad: PD18
       mode: Enabled
       configuration: null
       definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::UART4.URXD.4
       name: UART4/URXD/4
       label: URXD/4
-    - identifier: USART_ADCS:UTXD/4
+    - identifier: UART_ADCS:UTXD/4
       pad: PD19
       mode: Enabled
       configuration: null
@@ -887,7 +887,21 @@ drivers:
       can_txesc_tbds: 8 byte data field.
       can_xidam_eidm: 0
       can_xidfc_lss: 2
-    optional_signals: []
+    optional_signals:
+    - identifier: CAN_0:CANRX/0
+      pad: PB3
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::MCAN0.CANRX.0
+      name: MCAN0/CANRX/0
+      label: CANRX/0
+    - identifier: CAN_0:CANTX/0
+      pad: PB2
+      mode: Enabled
+      configuration: null
+      definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::optional_signal_definition::MCAN0.CANTX.0
+      name: MCAN0/CANTX/0
+      label: CANTX/0
     variant: null
     clocks:
       domain_group:
@@ -905,6 +919,13 @@ pads:
     mode: Advanced
     user_label: PD31
     configuration: null
+  RAD_EN:
+    name: PC0
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC0
+    mode: Digital output
+    user_label: RAD_EN
+    configuration:
+      pad_initial_level: High
   PC27:
     name: PC27
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC27
@@ -917,11 +938,84 @@ pads:
     mode: Peripheral IO
     user_label: PC26
     configuration: null
+  MAG_X_DIR:
+    name: PC31
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC31
+    mode: Digital output
+    user_label: MAG_X_DIR
+    configuration: null
+  RWY_EN:
+    name: PC30
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC30
+    mode: Digital output
+    user_label: RWY_EN
+    configuration: null
+  PW_STATUS_FLAG_INRAD:
+    name: PC29
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC29
+    mode: Digital input
+    user_label: PW_STATUS_FLAG_INRAD
+    configuration: null
+  PW_STATUS_FLAG_EXRAD:
+    name: PC12
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC12
+    mode: Digital input
+    user_label: PW_STATUS_FLAG_EXRAD
+    configuration: null
+  SPI_CS_ADCS_ADC_0:
+    name: PC15
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC15
+    mode: Digital output
+    user_label: SPI_CS_ADCS_ADC_0
+    configuration:
+      pad_initial_level: High
+  RESET_PDS:
+    name: PC13
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC13
+    mode: Digital output
+    user_label: RESET_PDS
+    configuration: null
+  RW_UART_SEL_ADDR1:
+    name: PB1
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PB1
+    mode: Digital output
+    user_label: RW_UART_SEL_ADDR1
+    configuration: null
+  HEATER_PWM_3:
+    name: PB0
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PB0
+    mode: Digital output
+    user_label: HEATER_PWM_3
+    configuration: null
+  MAG_T_Y_EN:
+    name: PA19
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA19
+    mode: Digital output
+    user_label: MAG_T_Y_EN
+    configuration: null
   PA17:
     name: PA17
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA17
     mode: Advanced
     user_label: PA17
+    configuration: null
+  PB2:
+    name: PB2
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PB2
+    mode: Peripheral IO
+    user_label: PB2
+    configuration: null
+  PB3:
+    name: PB3
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PB3
+    mode: Peripheral IO
+    user_label: PB3
+    configuration: null
+  MAG_T_X_EN:
+    name: PA21
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA21
+    mode: Digital output
+    user_label: MAG_T_X_EN
     configuration: null
   PD30:
     name: PD30
@@ -929,19 +1023,56 @@ pads:
     mode: Peripheral IO
     user_label: PD30
     configuration: null
+  MAG_T_Z_EN:
+    name: PA22
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA22
+    mode: Digital output
+    user_label: MAG_T_Z_EN
+    configuration:
+      pad_initial_level: Low
+  HEATER_PL_EN:
+    name: PC1
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC1
+    mode: Digital output
+    user_label: HEATER_PL_EN
+    configuration: null
+  RW_UART_SEL_ADDR0:
+    name: PC2
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC2
+    mode: Digital output
+    user_label: RW_UART_SEL_ADDR0
+    configuration: null
+  MAG_T_Y_DIR:
+    name: PC3
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC3
+    mode: Digital output
+    user_label: MAG_T_Y_DIR
+    configuration: null
   PA13:
     name: PA13
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA13
     mode: Advanced
     user_label: PA13
     configuration: null
-  SPI_CS_ADC:
+  SPI_CS_CDH_ADC:
     name: PA16
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA16
     mode: Digital output
-    user_label: SPI_CS_ADC
+    user_label: SPI_CS_CDH_ADC
     configuration:
       pad_initial_level: High
+  MAG_T_PWM:
+    name: PA23
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA23
+    mode: Analog
+    user_label: MAG_T_PWM
+    configuration: null
+  MAG_T_X_PWM:
+    name: PC7
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC7
+    mode: Analog
+    user_label: MAG_T_X_PWM
+    configuration: null
   PA14:
     name: PA14
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA14
@@ -960,13 +1091,31 @@ pads:
     mode: Peripheral IO
     user_label: PD26
     configuration: null
-  SPI_CS_C:
+  RWZ_EN:
+    name: PC6
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC6
+    mode: Digital output
+    user_label: RWZ_EN
+    configuration: null
+  MAG_T_Z_DIR:
+    name: PA24
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA24
+    mode: Digital output
+    user_label: MAG_T_Z_DIR
+    configuration: null
+  SPI_CS_ADCS_ADC_1:
     name: PA25
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA25
     mode: Digital output
-    user_label: SPI_CS_C
+    user_label: SPI_CS_ADCS_ADC_1
     configuration:
       pad_initial_level: High
+  I2C_PSS_IO_ADDR_1:
+    name: PA26
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA26
+    mode: Digital output
+    user_label: I2C_PSS_IO_ADDR_1
+    configuration: null
   PA11:
     name: PA11
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA11
@@ -997,6 +1146,12 @@ pads:
     mode: Peripheral IO
     user_label: PD18
     configuration: null
+  HEATER_PWM_2:
+    name: PA27
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA27
+    mode: Digital output
+    user_label: HEATER_PWM_2
+    configuration: null
   PD28:
     name: PD28
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD28
@@ -1009,11 +1164,24 @@ pads:
     mode: Peripheral IO
     user_label: PA5
     configuration: null
+  RESET_MUTUAL:
+    name: PD17
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD17
+    mode: Digital output
+    user_label: RESET_MUTUAL
+    configuration:
+      pad_initial_level: High
   PA9:
     name: PA9
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA9
     mode: Peripheral IO
     user_label: PA9
+    configuration: null
+  I2C_PSS_IO_ADDR_0:
+    name: PC28
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC28
+    mode: Digital output
+    user_label: I2C_PSS_IO_ADDR_0
     configuration: null
   PA4:
     name: PA4
@@ -1021,23 +1189,195 @@ pads:
     mode: Peripheral IO
     user_label: PA4
     configuration: null
+  WATCHDOG_FEED:
+    name: PD16
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD16
+    mode: Digital output
+    user_label: WATCHDOG_FEED
+    configuration: null
+  REQ_PSS:
+    name: PC8
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC8
+    mode: Digital input
+    user_label: REQ_PSS
+    configuration: null
+  WATCHDOG_MRST:
+    name: PC9
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC9
+    mode: Digital input
+    user_label: WATCHDOG_MRST
+    configuration: null
+  ERASE_OBC:
+    name: PC10
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC10
+    mode: Digital output
+    user_label: ERASE_OBC
+    configuration: null
   PA3:
     name: PA3
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA3
     mode: Peripheral IO
     user_label: PA3
     configuration: null
+  MAG_M_EN:
+    name: PA2
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA2
+    mode: Digital output
+    user_label: MAG_M_EN
+    configuration:
+      pad_initial_level: High
+  PW_MUTUAL:
+    name: PC11
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC11
+    mode: Digital output
+    user_label: PW_MUTUAL
+    configuration: null
+  RESET_PSS:
+    name: PC14
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC14
+    mode: Digital output
+    user_label: RESET_PSS
+    configuration: null
+  HEATER_PWM_1:
+    name: PD11
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD11
+    mode: Digital output
+    user_label: HEATER_PWM_1
+    configuration: null
+  UMB_DETECT:
+    name: PA1
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA1
+    mode: Digital input
+    user_label: UMB_DETECT
+    configuration: null
+  HEATER_ADCS_EN:
+    name: PD10
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD10
+    mode: Digital output
+    user_label: HEATER_ADCS_EN
+    configuration:
+      pad_initial_level: High
+  HEATER_PWM_0:
+    name: PD15
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD15
+    mode: Digital output
+    user_label: HEATER_PWM_0
+    configuration: null
+  WATCHDOG_WARN:
+    name: PD29
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD29
+    mode: Digital input
+    user_label: WATCHDOG_WARN
+    configuration: null
+  SPI_CS_PSS_ADC_2:
+    name: PC18
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC18
+    mode: Digital output
+    user_label: SPI_CS_PSS_ADC_2
+    configuration:
+      pad_initial_level: High
+  SPI_CS_PSS_ADC_1:
+    name: PA28
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA28
+    mode: Digital output
+    user_label: SPI_CS_PSS_ADC_1
+    configuration:
+      pad_initial_level: High
   PA6:
     name: PA6
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA6
     mode: Peripheral IO
     user_label: PA6
     configuration: null
+  SPI_CS_PSS_ADC_0:
+    name: PA30
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PA30
+    mode: Digital output
+    user_label: SPI_CS_PSS_ADC_0
+    configuration:
+      pad_initial_level: High
+  SPI_CS_PDS_ADC_0:
+    name: PC19
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC19
+    mode: Digital output
+    user_label: SPI_CS_PDS_ADC_0
+    configuration:
+      pad_initial_level: High
+  PW_STATUS_FLAG_MUTUAL:
+    name: PD7
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD7
+    mode: Digital input
+    user_label: PW_STATUS_FLAG_MUTUAL
+    configuration: null
+  UHF_EN:
+    name: PC20
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC20
+    mode: Digital output
+    user_label: UHF_EN
+    configuration: null
+  SPI_CS_PDS_ADC_1:
+    name: PC21
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC21
+    mode: Digital output
+    user_label: SPI_CS_PDS_ADC_1
+    configuration:
+      pad_initial_level: High
+  SPI_CS_UHF_ADC:
+    name: PC22
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC22
+    mode: Digital output
+    user_label: SPI_CS_UHF_ADC
+    configuration:
+      pad_initial_level: High
+  MAG_T_Y_PWM:
+    name: PD5
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD5
+    mode: Analog
+    user_label: MAG_T_Y_PWM
+    configuration: null
+  DSS_EN_0:
+    name: PC23
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC23
+    mode: Digital output
+    user_label: DSS_EN_0
+    configuration:
+      pad_initial_level: High
+  ANTENNA_RELEASE_1:
+    name: PD3
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD3
+    mode: Digital output
+    user_label: ANTENNA_RELEASE_1
+    configuration: null
   PC24:
     name: PC24
     definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC24
     mode: Peripheral IO
     user_label: PC24
+    configuration: null
+  ANTENNA_RELEASE_0:
+    name: PD2
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD2
+    mode: Digital output
+    user_label: ANTENNA_RELEASE_0
+    configuration: null
+  SUNSENS_EN:
+    name: PD1
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PD1
+    mode: Digital output
+    user_label: SUNSENS_EN
+    configuration: null
+  DSS_EN_1:
+    name: PC25
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PC25
+    mode: Digital output
+    user_label: DSS_EN_1
+    configuration:
+      pad_initial_level: High
+  RWX_EN:
+    name: PB13
+    definition: Atmel:SAMV71B_Drivers:0.0.1::ATSAMV71Q21B-AAB::pad::PB13
+    mode: Digital output
+    user_label: RWX_EN
     configuration: null
 toolchain_options: []
 static_files: []
