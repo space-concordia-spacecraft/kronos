@@ -71,7 +71,7 @@ namespace kronos {
                 flags = PacketFlags::eof;
             }
 
-            EncodePacket(packet, flags, KsCommand::KS_CMD_RES_ECHO, (uint8_t*)offset, payloadSize);
+            EncodePacket(packet, flags, KS_CMD_ECHO, (uint8_t*)offset, payloadSize);
 
             transmitBus->Publish(
                 packet,

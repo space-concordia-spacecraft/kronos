@@ -102,6 +102,7 @@ namespace kronos {
             {
                 .name = name,
                 .channels = channels,
+                .data = {},
                 .apolloExporter = ApolloExporter("/" + name + ".apl", headers)
             }
         );
