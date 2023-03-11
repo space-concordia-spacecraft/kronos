@@ -16,7 +16,11 @@
 extern "C" {
 #endif
 
+void QUAD_SPI_0_example(void);
+
 void CALENDAR_0_example(void);
+
+void task_spi_0_create();
 
 void task_i2c_0_create();
 

@@ -3,14 +3,15 @@
 #include "ks_framework.h"
 #include "ks_bus.h"
 #include "ks_command_ids.h"
+#include "ks_command_transmitter.h"
 
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(FileManager);
 
     FileManager::FileManager() :
-        ComponentQueued("CQ_FILE_MANAGER"),
-        m_Bus(Framework::CreateBus("B_FILE_MANAGER")) {
+            ComponentQueued("CQ_FILE_MANAGER"),
+            m_Bus(Framework::CreateBus("B_FILE_MANAGER")) {
         m_Bus->AddReceivingComponent(this);
 
         // TODO: There's a cleaner way to do this. There's also a way to automatically format the drive if the system can't initialize it.
@@ -45,7 +46,7 @@ namespace kronos {
 
     void FileManager::DownlinkBegin(const String& fileName) {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
-        if(m_File.IsOpen())
+        if (m_File.IsOpen())
             m_File.Close();
 
         m_File.Open(fileName, KS_OPEN_MODE_READ_ONLY);
@@ -66,8 +67,8 @@ namespace kronos {
         EncodePacket(packet, PacketFlags::none, KS_CMD_RES_FILEINFO, buffer, totalSize);
 
         transmitBus->Publish(
-            packet,
-            ks_event_comms_transmit
+                packet,
+                ks_event_comms_transmit
         );
 
         DownlinkNext();
@@ -83,79 +84,56 @@ namespace kronos {
             Packet errPacket{};
 
             EncodePacket(
-                errPacket,
-                PacketFlags::err,
-                KS_CMD_RES_FILEPART,
-                (const uint8_t*)&red_errno,
-                sizeof(uint64_t));
+                    errPacket,
+                    PacketFlags::err,
+                    KS_CMD_RES_FILEPART,
+                    (const uint8_t*) &red_errno,
+                    sizeof(uint64_t));
 
             transmitBus->Publish(
-                errPacket,
-                ks_event_comms_transmit
+                    errPacket,
+                    ks_event_comms_transmit
             );
             return;
         }
 
-
-        KspPacketIdxType i_Packet{ 0 };
-        for (int32_t i = 0; i < m_DownlinkBufferSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
-            Packet packet{};
-            // we use uint32_t bc otherwise m_DownlinkBufferSize - i might overflow and this won't work
-            auto payloadSize = std::min<uint32_t>(KSP_MAX_PAYLOAD_SIZE_PART, m_DownlinkBufferSize - i);
-            auto flags = PacketFlags::none;
-
-            // Set the flag to eof if we are at the end
-            m_BytesSent += payloadSize;
-            if (m_BytesSent >= m_FileSize) {
-                flags = PacketFlags::eof;
-                m_BytesSent = 0;
-                m_File.Close();
-            }
-
-            EncodePacketPart(packet, flags, KS_CMD_RES_FILEPART, i_Packet, m_DownlinkBuffer + i, payloadSize);
-            i_Packet++;
-
-            transmitBus->Publish(
-                packet,
-                ks_event_comms_transmit
-            );
-        }
+        CommandTransmitter::TransmitPayload(KS_CMD_RES_FILEPART, m_DownlinkBuffer, m_DownlinkBufferSize);
     }
 
     void FileManager::DownlinkFetch(const FileFetch& fetchRequest) {
         Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
         Packet errPacket{};
 
-        if(!m_File.IsOpen()) {
+        if (!m_File.IsOpen()) {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                errPacket,
-                PacketFlags::err,
-                KS_CMD_RES_FILEPART,
-                (const uint8_t*)&red_errno,
-                sizeof(uint64_t));
+                    errPacket,
+                    PacketFlags::err,
+                    KS_CMD_RES_FILEPART,
+                    (const uint8_t*) &red_errno,
+                    sizeof(uint64_t));
 
             transmitBus->Publish(
-                errPacket,
-                ks_event_comms_transmit
+                    errPacket,
+                    ks_event_comms_transmit
             );
             return;
         }
 
-        if(m_File.Seek(fetchRequest.offset, KS_SEEK_SET) < 0) {
+        if (m_File.Seek(fetchRequest.offset, KS_SEEK_SET) < 0) {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                errPacket,
-                PacketFlags::err,
-                KS_CMD_RES_FILEPART,
-                (const uint8_t*)&red_errno,
-                sizeof(uint64_t));
+                    errPacket,
+                    PacketFlags::err,
+                    KS_CMD_RES_FILEPART,
+                    (const uint8_t*) &red_errno,
+                    sizeof(uint64_t));
 
             transmitBus->Publish(
-                errPacket,
-                ks_event_comms_transmit
+                    errPacket,
+                    ks_event_comms_transmit
             );
             return;
         }
@@ -166,15 +144,15 @@ namespace kronos {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                errPacket,
-                PacketFlags::err,
-                KS_CMD_RES_FILEPART,
-                (const uint8_t*)&red_errno,
-                sizeof(uint64_t));
+                    errPacket,
+                    PacketFlags::err,
+                    KS_CMD_RES_FILEPART,
+                    (const uint8_t*) &red_errno,
+                    sizeof(uint64_t));
 
             transmitBus->Publish(
-                errPacket,
-                ks_event_comms_transmit
+                    errPacket,
+                    ks_event_comms_transmit
             );
             return;
         }
@@ -189,20 +167,14 @@ namespace kronos {
             EncodePacketPart(packet, flags, KS_CMD_RES_FILEPART, i_Packet, m_DownlinkBuffer + offset, payloadSize);
 
             transmitBus->Publish(
-                packet,
-                ks_event_comms_transmit
+                    packet,
+                    ks_event_comms_transmit
             );
         }
     }
 
     void FileManager::ListFiles() {
-        Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
-
-        if (transmitBus == nullptr)
-            return;
-
         List <FileInfo> files{};
-        size_t nameLength;
         size_t totalSize{ 0 };
 
         // Open a directory
@@ -212,11 +184,11 @@ namespace kronos {
         REDDIRENT* entry;
         while ((entry = red_readdir(dir)) != nullptr) {
             FileInfo info{
-                .fileSize = entry->d_stat.st_size,
-                .name = {}
+                    .fileSize = entry->d_stat.st_size,
+                    .name = {}
             };
 
-            nameLength = strlen(entry->d_name) + 1;
+            size_t nameLength = strlen(entry->d_name) + 1;
 
             memcpy(info.name, entry->d_name, nameLength);
             files.emplace_back(info);
@@ -229,42 +201,20 @@ namespace kronos {
         red_closedir(dir);
 
         // Put everything into one big buffer
-        char buffer[totalSize];
+        uint8_t buffer[totalSize];
         size_t i_buffer{ 0 };
         for (auto file: files) {
             // Pack the file size
-            memcpy(buffer + i_buffer, (uint8_t*)&file.fileSize, sizeof(file.fileSize));
+            memcpy(buffer + i_buffer, (uint8_t*) &file.fileSize, sizeof(file.fileSize));
             i_buffer += sizeof(file.fileSize);
 
             // Pack the file name with \0 at the end
-            memcpy(buffer + i_buffer, &file.name, strlen(file.name) + 1);
-            i_buffer += (strlen(file.name) + 1);
+            auto nameLength = strlen(file.name);
+            memcpy(buffer + i_buffer, &file.name, nameLength + 1);
+            i_buffer += (nameLength + 1);
         }
 
-        // Split the message into packets
-        KspPacketIdxType i_packet{ 0 };
-        for (size_t i = 0; i < totalSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
-            Packet packet{};
-            auto flags = PacketFlags::none;
-            auto payload = buffer + i;
-
-            auto payloadSize = std::min<uint32_t>(
-                KSP_MAX_PAYLOAD_SIZE_PART,
-                totalSize - i
-            );
-
-            if ((i + payloadSize) >= totalSize) {
-                flags = PacketFlags::eof;
-            }
-
-            EncodePacketPart(packet, flags, KS_CMD_RES_FILES, i_packet, (uint8_t*)payload, payloadSize);
-
-            transmitBus->Publish(
-                packet,
-                ks_event_comms_transmit
-            );
-
-            i_packet++;
-        }
+        // Transmit the entire message (in several packets if needed)
+        CommandTransmitter::TransmitPayload(KS_CMD_RES_FILES, buffer, totalSize);
     }
 }

@@ -29,7 +29,7 @@ namespace kronos {
             ks_worker_main,
             {
                 .stackSize = KS_COMPONENT_STACK_SIZE_LARGE,
-                .priority = KS_COMPONENT_PRIORITY_LOW
+                .priority = KS_COMPONENT_PRIORITY_MEDIUM
             }
         }
     };

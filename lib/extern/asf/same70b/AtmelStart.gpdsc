@@ -54,6 +54,8 @@
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/can_async.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/i2c_master_os.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/mci_sync.rst"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/quad_spi_sync.rst"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/spi_master_os.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/usart_os.rst"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_atomic.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_calendar.h"/>
@@ -64,7 +66,9 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_init.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_io.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_mci_sync.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_qspi_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_sleep.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_spi_m_os.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_can.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_can_async.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_core.h"/>
@@ -80,7 +84,14 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_irq.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_mci_async.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_mci_sync.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_qspi.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_qspi_dma.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_qspi_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_sleep.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_async.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_dma.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_atomic.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_can_async.c"/>
@@ -90,6 +101,7 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_init.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_io.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_mci_sync.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_qspi_sync.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_sleep.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/utils/include/compiler.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/utils/include/err_codes.h"/>
@@ -209,10 +221,16 @@
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_calendar.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_missing_features.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_reset.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_m_async.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_m_dma.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_m_sync.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_s_async.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_spi_s_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_async.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_dma.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_sync.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_calendar.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_spi_m_os.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_usart_os.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/utils/include/parts.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/core/hpl_core_m7_base.c"/>
@@ -225,7 +243,10 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/pmc/hpl_pmc.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hpl/pmc/hpl_pmc.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/pmc/hpl_sleep.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hpl/qspi/hpl_qspi.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/rtc/hpl_rtc.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hpl/spi/hpl_spi.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hpl/spi/hpl_spi_base.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/twihs/hpl_twihs.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/usart/hpl_usart.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hpl/usart/hpl_usart_base.h"/>
@@ -241,7 +262,9 @@
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_hsmci_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_mcan_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_pmc_config.h"/>
+        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_qspi_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_rtc_config.h"/>
+        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_spi_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_twihs_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_usart_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_xdmac_config.h"/>
@@ -259,7 +282,9 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/mcan"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/pio"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/pmc"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="hpl/qspi"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/rtc"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="hpl/spi"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/twihs"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/usart"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/xdmac"/>

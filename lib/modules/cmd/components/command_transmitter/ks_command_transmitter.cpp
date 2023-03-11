@@ -23,4 +23,28 @@ namespace kronos {
         return ks_success;
     }
 
+    void CommandTransmitter::TransmitPayload(KsCommand cmd, const uint8_t* payload, size_t payloadSize) {
+        Bus* transmitBus = Framework::GetBus("B_CMD_TRANSMIT");
+        if (transmitBus == nullptr)
+            return;
+
+        KspPacketIdxType i_packet{ 0 };
+        for (size_t i = 0; i < payloadSize; i += KSP_MAX_PAYLOAD_SIZE_PART) {
+            Packet packet{};
+            auto partSize = std::min<uint32_t>(
+                    KSP_MAX_PAYLOAD_SIZE_PART,
+                    payloadSize - i
+            );
+            auto flags = (i + partSize) >= payloadSize ?
+                         PacketFlags::eof :
+                         PacketFlags::none;
+            EncodePacketPart(packet, flags, cmd, i_packet, (uint8_t*)(payload + i), payloadSize);
+            transmitBus->Publish(
+                    packet,
+                    ks_event_comms_transmit
+            );
+            i_packet++;
+        }
+    }
+
 }

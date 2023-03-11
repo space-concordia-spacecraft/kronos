@@ -11,6 +11,10 @@
 #include <hpl_pmc.h>
 #include <peripheral_clk_config.h>
 #include <utils.h>
+
+#include <hpl_spi_base.h>
+#include <hpl_usart_base.h>
+
 #include <hpl_usart_base.h>
 
 /* The priority of the peripheral should be between the low and high interrupt priority set by chosen RTOS,
@@ -25,7 +29,11 @@ struct can_async_descriptor CAN_0;
 
 struct mci_sync_desc MCI_0;
 
+struct qspi_sync_descriptor QUAD_SPI_0;
+
 struct calendar_descriptor CALENDAR_0;
+
+struct spi_m_os_descriptor SPI_0;
 
 struct i2c_m_os_desc I2C_0;
 
@@ -261,6 +269,22 @@ void MCI_0_init(void)
 	MCI_0_PORT_init();
 }
 
+void QUAD_SPI_0_PORT_init(void)
+{
+}
+
+void QUAD_SPI_0_CLOCK_init(void)
+{
+	_pmc_enable_periph_clock(ID_QSPI);
+}
+
+void QUAD_SPI_0_init(void)
+{
+	QUAD_SPI_0_CLOCK_init();
+	qspi_sync_init(&QUAD_SPI_0, QSPI);
+	QUAD_SPI_0_PORT_init();
+}
+
 void CALENDAR_0_CLOCK_init(void)
 {
 }
@@ -269,6 +293,32 @@ void CALENDAR_0_init(void)
 {
 	CALENDAR_0_CLOCK_init();
 	calendar_init(&CALENDAR_0, RTC);
+}
+
+void SPI_0_PORT_init(void)
+{
+
+	gpio_set_pin_function(PD20, MUX_PD20B_SPI0_MISO);
+
+	gpio_set_pin_function(PD21, MUX_PD21B_SPI0_MOSI);
+
+	gpio_set_pin_function(PD22, MUX_PD22B_SPI0_SPCK);
+}
+
+void SPI_0_CLOCK_init(void)
+{
+	_pmc_enable_periph_clock(ID_SPI0);
+}
+
+void SPI_0_init(void)
+{
+
+	SPI_0_CLOCK_init();
+	spi_m_os_set_func_ptr(&SPI_0, _spi_get_spi_m_async());
+	spi_m_os_init(&SPI_0, SPI0);
+	NVIC_SetPriority(SPI0_IRQn, PERIPHERAL_INTERRUPT_PRIORITY);
+	spi_m_os_enable(&SPI_0);
+	SPI_0_PORT_init();
 }
 
 void I2C_0_PORT_init(void)
@@ -427,7 +477,11 @@ void system_init(void)
 
 	MCI_0_init();
 
+	QUAD_SPI_0_init();
+
 	CALENDAR_0_init();
+
+	SPI_0_init();
 
 	I2C_0_init();
 

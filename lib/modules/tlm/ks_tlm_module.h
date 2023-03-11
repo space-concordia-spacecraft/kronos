@@ -4,7 +4,7 @@
 
 namespace kronos {
 
-    class TlmModule : Module<TlmModule> {
+    class TlmModule : public Module<TlmModule> {
 
     public:
         void Init() const override;

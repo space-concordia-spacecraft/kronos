@@ -11,6 +11,29 @@
 #include "utils.h"
 
 /**
+ * Example of using QUAD_SPI_0 to get S25FL1XX status1 value,
+ * and check bit 0 which indicate embedded operation is busy or not.
+ */
+void QUAD_SPI_0_example(void)
+{
+	uint8_t              status = 0xFF;
+	struct _qspi_command cmd    = {
+        .inst_frame.bits.inst_en  = 1,
+        .inst_frame.bits.data_en  = 1,
+        .inst_frame.bits.tfr_type = QSPI_READ_ACCESS,
+        .instruction              = 0x05,
+        .buf_len                  = 1,
+        .rx_buf                   = &status,
+    };
+
+	qspi_sync_enable(&QUAD_SPI_0);
+	while (status & (1 << 0)) {
+		qspi_sync_serial_run_command(&QUAD_SPI_0, &cmd);
+	}
+	qspi_sync_deinit(&QUAD_SPI_0);
+}
+
+/**
  * Example of using CALENDAR_0.
  */
 static struct calendar_alarm alarm;
@@ -43,6 +66,52 @@ void CALENDAR_0_example(void)
 	alarm.cal_alarm.mode              = REPEAT;
 
 	calendar_set_alarm(&CALENDAR_0, &alarm, alarm_cb);
+}
+
+#define TASK_SPI_0_STACK_SIZE (300 / sizeof(portSTACK_TYPE))
+#define TASK_SPI_0_STACK_PRIORITY (tskIDLE_PRIORITY + 1)
+
+static TaskHandle_t xCreatedspi_0Task;
+static uint8_t      example_SPI_0[12] = "Hello World!";
+
+/**
+ * Example task of using SPI_0 to echo using the IO abstraction.
+ */
+static void SPI_0_example_task(void *param)
+{
+	struct io_descriptor *io;
+	uint16_t              data;
+
+	(void)param;
+
+	spi_m_os_get_io_descriptor(&SPI_0, &io);
+	io_write(io, example_SPI_0, 12);
+
+	for (;;) {
+		if (io_read(io, (uint8_t *)&data, 2) == 2) {
+			/* read OK, handle data. */;
+		} else {
+			/* error. */;
+		}
+		os_sleep(10);
+	}
+}
+
+/**
+ * \brief Create OS task for SPI_0
+ */
+void task_spi_0_create()
+{
+	/* Create task for SPI_0 */
+	if (xTaskCreate(
+	        SPI_0_example_task, "spi_0", TASK_SPI_0_STACK_SIZE, NULL, TASK_SPI_0_STACK_PRIORITY, &xCreatedspi_0Task)
+	    != pdPASS) {
+		while (1) {
+			/* Ideally execution should not reach here. Please checkup stack and FreeRTOS configuration. */
+		}
+	}
+	/* Call vTaskStartScheduler() function in main function. Place vTaskStartScheduler function call after creating all
+	 * tasks and before while(1) in main function */
 }
 
 #define TASK_I2C_0_STACK_SIZE (300 / sizeof(portSTACK_TYPE))

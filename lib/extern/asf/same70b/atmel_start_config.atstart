@@ -273,6 +273,30 @@ drivers:
           external: false
           external_frequency: 0
         configuration: {}
+  QUAD_SPI_0:
+    user_label: QUAD_SPI_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::QSPI::driver_config_definition::QSPI.Master::HAL:Driver:QSPI.Sync
+    functionality: Quad_SPI
+    api: HAL:Driver:QSPI_Sync
+    configuration:
+      qspi_advanced: false
+      qspi_baud_rate: 50000000
+      qspi_cpha: Data is changed on the leading edge of SPCK and captured on the following
+        edge of SPCK.
+      qspi_cpol: The inactive state value of SPCK is logic level zero.
+      qspi_dlybs: 0
+      qspi_dlycs: 0
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: QSPI
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          qspi_clock_source: Master Clock (MCK)
   CALENDAR_0:
     user_label: CALENDAR_0
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::RTC::driver_config_definition::Calendar::HAL:Driver:Calendar
@@ -299,6 +323,43 @@ drivers:
           external_frequency: 0
         configuration:
           rtc_clock_source: SLCK for Peripheral
+  SPI_0:
+    user_label: SPI_0
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::SPI0::driver_config_definition::SPI.Master::HAL:Driver:SPI.Master.RTOS
+    functionality: SPI
+    api: HAL:Driver:SPI_Master_RTOS
+    configuration:
+      spi_master_advanced: false
+      spi_master_arch_cpha: Data is captured on the leading edge of SPCK and changed
+        on the following edge of SPCK.
+      spi_master_arch_cpol: The inactive state value of SPCK is logic level zero.
+      spi_master_baud_rate: 100000
+      spi_master_character_size: 8 bits
+      spi_master_dlybct: 1000
+      spi_master_dlybs: 1000
+      spi_master_dummybyte: 65535
+    optional_signals: []
+    variant:
+      specification: default
+      required_signals:
+      - name: SPI0/MISO
+        pad: PD20
+        label: MISO
+      - name: SPI0/MOSI
+        pad: PD21
+        label: MOSI
+      - name: SPI0/SPCK
+        pad: PD22
+        label: SPCK
+    clocks:
+      domain_group:
+        nodes:
+        - name: SPI
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          spi_clock_source: Master Clock (MCK)
   I2C_0:
     user_label: I2C_0
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::TWIHS0::driver_config_definition::I2C.Master.Standard~2FFast-mode::HAL:Driver:I2C.Master.RTOS.Beta
@@ -796,11 +857,29 @@ pads:
     mode: Advanced
     user_label: PA25
     configuration: null
+  PD22:
+    name: PD22
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD22
+    mode: Peripheral IO
+    user_label: PD22
+    configuration: null
   PA26:
     name: PA26
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA26
     mode: Advanced
     user_label: PA26
+    configuration: null
+  PD21:
+    name: PD21
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD21
+    mode: Peripheral IO
+    user_label: PD21
+    configuration: null
+  PD20:
+    name: PD20
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD20
+    mode: Peripheral IO
+    user_label: PD20
     configuration: null
   PA27:
     name: PA27

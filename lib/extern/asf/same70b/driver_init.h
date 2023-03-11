@@ -23,7 +23,11 @@ extern "C" {
 
 #include <hal_mci_sync.h>
 
+#include <hal_qspi_sync.h>
+
 #include <hal_calendar.h>
+
+#include <hal_spi_m_os.h>
 
 #include <hal_i2c_m_os.h>
 
@@ -33,13 +37,17 @@ extern "C" {
 
 #include <hal_can_async.h>
 
-#define USART_0_BUFFER_SIZE 32
+#define USART_0_BUFFER_SIZE 16
 
-#define TARGET_IO_BUFFER_SIZE 32
+#define TARGET_IO_BUFFER_SIZE 16
 
 extern struct mci_sync_desc MCI_0;
 
+extern struct qspi_sync_descriptor QUAD_SPI_0;
+
 extern struct calendar_descriptor CALENDAR_0;
+
+extern struct spi_m_os_descriptor SPI_0;
 
 extern struct i2c_m_os_desc I2C_0;
 
@@ -54,8 +62,18 @@ void MCI_0_PORT_init(void);
 void MCI_0_CLOCK_init(void);
 void MCI_0_init(void);
 
+void QUAD_SPI_0_PORT_init(void);
+void QUAD_SPI_0_CLOCK_init(void);
+void QUAD_SPI_0_init(void);
+
 void CALENDAR_0_CLOCK_init(void);
 void CALENDAR_0_init(void);
+
+void SPI_0_PORT_init(void);
+
+void SPI_0_CLOCK_init(void);
+
+void SPI_0_init(void);
 
 void I2C_0_PORT_init(void);
 void I2C_0_CLOCK_init(void);

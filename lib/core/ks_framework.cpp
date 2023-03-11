@@ -12,7 +12,7 @@ namespace kronos {
             component.second->Init();
         }
 
-        // Init Components
+        // PostInit Components
         for (auto& component: m_Components) {
             component.second->PostInit();
         }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ks_component_queued.h"
+#include "ks_command_ids.h"
 #include "ks_packet_parser.h"
 #include "ks_io.h"
 #include "ks_bus.h"
@@ -10,6 +11,8 @@ namespace kronos {
     public:
         explicit CommandTransmitter(const std::string& name, IoDriver* ioDriver);
         void ProcessEvent(const EventMessage& message) override;
+
+        static void TransmitPayload(KsCommand cmd, const uint8_t* payload, size_t payloadSize);
 
     private:
         Bus* m_Bus;

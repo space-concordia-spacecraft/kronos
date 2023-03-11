@@ -5,8 +5,9 @@
 
 namespace kronos {
 
-    CommandDispatcher::CommandDispatcher(const String& name) : ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME),
-                                                               m_Bus(Framework::CreateBus("B_CMD_DISPATCH")) {
+    CommandDispatcher::CommandDispatcher(const String& name)
+            : ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME),
+              m_Bus(Framework::CreateBus("B_CMD_DISPATCH")) {
         m_Bus->AddReceivingComponent(this);
     }
 
@@ -29,7 +30,7 @@ namespace kronos {
                 break;
             case KS_CMD_DOWNLINK_BEGIN:
                 Framework::GetBus("B_FILE_MANAGER")->Publish(
-                    String((char*)packet.Payload), ks_event_file_downlink_begin
+                        String((char*) packet.Payload), ks_event_file_downlink_begin
                 );
                 break;
             case KS_CMD_DOWNLINK_FETCH: {
@@ -37,7 +38,8 @@ namespace kronos {
                 request.packets.resize(packet.Header.PayloadSize - sizeof(request.offset));
 
                 memcpy(&request.offset, packet.Payload, sizeof(request.offset));
-                memcpy(request.packets.data(), packet.Payload + sizeof(request.offset), packet.Header.PayloadSize - sizeof(request.offset));
+                memcpy(request.packets.data(), packet.Payload + sizeof(request.offset),
+                       packet.Header.PayloadSize - sizeof(request.offset));
 
                 Framework::GetBus("B_FILE_MANAGER")->Publish(request, ks_event_file_downlink_fetch);
                 break;
@@ -47,6 +49,15 @@ namespace kronos {
                 break;
             case KS_CMD_LIST_FILES:
                 Framework::GetBus("B_FILE_MANAGER")->Publish(ks_event_file_downlink_list);
+                break;
+            case KS_CMD_ECHO_TLM:
+                Framework::GetBus("B_TLM_LOGGER")->Publish(packet.Payload[0], ks_event_tlm_set_active_group);
+                break;
+            case KS_CMD_LIST_TLM_GROUPS:
+                Framework::GetBus("B_TLM_LOGGER")->Publish(ks_event_tlm_list_groups);
+                break;
+            case KS_CMD_LIST_TLM_CHANNELS:
+                Framework::GetBus("B_TLM_LOGGER")->Publish(packet.Payload[0], ks_event_tlm_list_channels);
                 break;
         }
     }

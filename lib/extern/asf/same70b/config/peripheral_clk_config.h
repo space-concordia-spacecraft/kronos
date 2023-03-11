@@ -64,6 +64,24 @@
  */
 #define CONF_PCK6_FREQUENCY 1714285
 
+// <h> QSPI Clock Settings
+// <y> QSPI Clock source
+// <CONF_SRC_MCK"> Master Clock (MCK)
+// <i> This defines the clock source for the QSPI
+// <id> qspi_clock_source
+#ifndef CONF_QSPI_SRC
+#define CONF_QSPI_SRC CONF_SRC_MCK
+#endif
+// </h>
+
+/**
+ * \def QSPI FREQUENCY
+ * \brief QSPI's Clock frequency
+ */
+#ifndef CONF_QSPI_FREQUENCY
+#define CONF_QSPI_FREQUENCY 150000000
+#endif
+
 // <o> RTC Clock source
 // <0=> SLCK for Peripheral
 // <i> This defines the clock source for the RTC
@@ -78,6 +96,24 @@
  */
 #ifndef CONF_CLK_RTC_FREQUENCY
 #define CONF_CLK_RTC_FREQUENCY 0
+#endif
+
+// <h> SPI0 Clock Settings
+// <y> SPI0 Clock source
+// <CONF_SRC_MCK"> Master Clock (MCK)
+// <i> This defines the clock source for the SPI0
+// <id> spi_clock_source
+#ifndef CONF_SPI0_SRC
+#define CONF_SPI0_SRC CONF_SRC_MCK
+#endif
+// </h>
+
+/**
+ * \def SPI0 FREQUENCY
+ * \brief SPI0's Clock frequency
+ */
+#ifndef CONF_SPI0_FREQUENCY
+#define CONF_SPI0_FREQUENCY 150000000
 #endif
 
 // <h> TWIHS Clock Settings

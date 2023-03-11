@@ -54,8 +54,8 @@ function(add_mcu_executable EXECUTABLE_NAME)
             ${EXECUTABLE_NAME}
             PROPERTIES
             OUTPUT_NAME "${ELF_OUTPUT_FILE}"
-            COMPILE_FLAGS "-O0 -g3 -Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
-            LINK_FLAGS "-g3 -Wl,-Map=\"${MAP_OUTPUT_FILE}\" ${KS_LINK_FLAGS}"
+            COMPILE_FLAGS "-Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
+            LINK_FLAGS "-Wl,-Map=\"${MAP_OUTPUT_FILE}\" ${KS_LINK_FLAGS}"
     )
     target_compile_definitions(${EXECUTABLE_NAME} PUBLIC ${KS_COMPILE_DEFINITIONS})
 
@@ -84,7 +84,7 @@ function(add_mcu_library LIBRARY_NAME)
     set_target_properties(
             ${LIBRARY_NAME}
             PROPERTIES
-            COMPILE_FLAGS "-O0 -Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
+            COMPILE_FLAGS "-Wall -Wextra -c -MD -MP ${KS_COMPILE_FLAGS}"
             ARCHIVE_OUTPUT_NAME "${LIBRARY_NAME}"
     )
     target_compile_definitions(${LIBRARY_NAME} PUBLIC ${KS_COMPILE_DEFINITIONS})

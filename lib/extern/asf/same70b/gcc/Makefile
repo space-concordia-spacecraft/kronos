@@ -30,31 +30,34 @@ endif
 # List the subdirectories for creating object files
 SUB_DIRS +=  \
  \
-stdio_redirect \
+hpl/hsmci \
+hpl/qspi \
+sd_mmc \
+examples \
+thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0 \
-hpl/pmc \
+same70b/gcc \
+stdio_redirect/gcc \
+hal/src \
+stdio_redirect \
+hpl/xdmac \
+hal/utils/src \
+hpl/rtc \
+hpl/spi \
 hpl/usart \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang \
+same70b/gcc/gcc \
+hpl/pmc \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7 \
-hal/src \
-hpl/hsmci \
-sd_mmc \
-stdio_redirect/gcc \
-hpl/xdmac \
 hpl/mcan \
 hpl/twihs \
-same70b/gcc/gcc \
-examples \
-hal/utils/src \
-thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source \
-hpl/rtc \
-same70b/gcc \
 hpl/core
 
 # List the object files
 OBJS +=  \
 hal/src/hal_io.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o \
+hpl/qspi/hpl_qspi.o \
 hal/src/hal_can_async.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o \
@@ -74,12 +77,14 @@ hpl/pmc/hpl_sleep.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.o \
 thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.o \
 hal/src/hal_delay.o \
+hpl/spi/hpl_spi.o \
 hpl/core/hpl_init.o \
 hal/utils/src/utils_list.o \
 hal/src/hal_usart_os.o \
 hal/utils/src/utils_assert.o \
 hpl/mcan/hpl_mcan.o \
 hpl/pmc/hpl_pmc.o \
+hal/src/hal_spi_m_os.o \
 stdio_start.o \
 hal/src/hal_init.o \
 hpl/twihs/hpl_twihs.o \
@@ -94,6 +99,7 @@ same70b/gcc/gcc/startup_same70q21b.o \
 same70b/gcc/system_same70q21b.o \
 hal/utils/src/utils_ringbuffer.o \
 hal/src/hal_gpio.o \
+hal/src/hal_qspi_sync.o \
 hpl/hsmci/hpl_hsmci.o \
 hal/src/hal_mci_sync.o \
 hal/src/hal_sleep.o \
@@ -106,6 +112,7 @@ stdio_redirect/gcc/write.o
 OBJS_AS_ARGS +=  \
 "hal/src/hal_io.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.o" \
+"hpl/qspi/hpl_qspi.o" \
 "hal/src/hal_can_async.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/event_groups.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/MemMang/heap_4.o" \
@@ -125,12 +132,14 @@ OBJS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/portable/GCC/ARM_CM7/port.o" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/timers.o" \
 "hal/src/hal_delay.o" \
+"hpl/spi/hpl_spi.o" \
 "hpl/core/hpl_init.o" \
 "hal/utils/src/utils_list.o" \
 "hal/src/hal_usart_os.o" \
 "hal/utils/src/utils_assert.o" \
 "hpl/mcan/hpl_mcan.o" \
 "hpl/pmc/hpl_pmc.o" \
+"hal/src/hal_spi_m_os.o" \
 "stdio_start.o" \
 "hal/src/hal_init.o" \
 "hpl/twihs/hpl_twihs.o" \
@@ -145,6 +154,7 @@ OBJS_AS_ARGS +=  \
 "same70b/gcc/system_same70q21b.o" \
 "hal/utils/src/utils_ringbuffer.o" \
 "hal/src/hal_gpio.o" \
+"hal/src/hal_qspi_sync.o" \
 "hpl/hsmci/hpl_hsmci.o" \
 "hal/src/hal_mci_sync.o" \
 "hal/src/hal_sleep.o" \
@@ -166,7 +176,9 @@ DIR_INCLUDES +=  \
 -I"../hpl/mcan" \
 -I"../hpl/pio" \
 -I"../hpl/pmc" \
+-I"../hpl/qspi" \
 -I"../hpl/rtc" \
+-I"../hpl/spi" \
 -I"../hpl/twihs" \
 -I"../hpl/usart" \
 -I"../hpl/xdmac" \
@@ -199,6 +211,7 @@ DEPS_AS_ARGS +=  \
 "hal/src/hal_mci_sync.d" \
 "hal/src/hal_io.d" \
 "hal/src/hal_can_async.d" \
+"hpl/qspi/hpl_qspi.d" \
 "hpl/usart/hpl_usart.d" \
 "hal/utils/src/utils_syscalls.d" \
 "sd_mmc_start.d" \
@@ -215,7 +228,9 @@ DEPS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/stream_buffer.d" \
 "hal/src/hal_delay.d" \
 "hpl/core/hpl_init.d" \
+"hpl/spi/hpl_spi.d" \
 "stdio_start.d" \
+"hal/src/hal_spi_m_os.d" \
 "same70b/gcc/gcc/startup_same70q21b.d" \
 "hpl/twihs/hpl_twihs.d" \
 "hal/src/hal_init.d" \
@@ -230,6 +245,7 @@ DEPS_AS_ARGS +=  \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/list.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/Source/queue.d" \
 "hpl/hsmci/hpl_hsmci.d" \
+"hal/src/hal_qspi_sync.d" \
 "hal/src/hal_sleep.d" \
 "thirdparty/RTOS/freertos/FreeRTOSV10.0.0/rtos_port.d" \
 "hal/utils/src/utils_ringbuffer.d" \

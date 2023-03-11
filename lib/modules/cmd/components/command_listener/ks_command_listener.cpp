@@ -6,7 +6,7 @@
 namespace kronos {
 
     CommandListener::CommandListener(const String& name, IoDriver* ioDriver) :
-        ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME, KS_COMPONENT_STACK_SIZE_SMALL, KS_COMPONENT_PRIORITY_HIGH), m_IoDriver(ioDriver) {
+        ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME, KS_COMPONENT_STACK_SIZE_MEDIUM, KS_COMPONENT_PRIORITY_HIGH), m_IoDriver(ioDriver) {
     }
 
     void CommandListener::Listen() {

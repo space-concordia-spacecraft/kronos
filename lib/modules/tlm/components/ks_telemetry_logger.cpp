@@ -1,34 +1,89 @@
 #include "ks_telemetry_logger.h"
+#include "ks_command_transmitter.h"
 
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(TelemetryLogger);
 
     TelemetryLogger::TelemetryLogger()
-        : ComponentPassive("CP_TLM_LOGGER") {}
+        : ComponentQueued("CQ_TLM_LOGGER") {}
 
-    void TelemetryLogger::_Update() {
+    void TelemetryLogger::ProcessEvent(const EventMessage& message) {
+        switch (message.eventCode) {
+            case ks_event_scheduler_tick:
+                Update();
+                break;
+            case ks_event_tlm_set_active_group:
+                SetActiveTelemetryGroup(std::any_cast<uint8_t>(message.data));
+                break;
+            case ks_event_tlm_list_groups:
+                ListTelemetryGroups();
+                break;
+            case ks_event_tlm_list_channels:
+                ListTelemetryChannels(std::any_cast<uint8_t>(message.data));
+                break;
+        }
+    }
+
+    void TelemetryLogger::Update() {
         for (auto& rateGroup: m_TelemetryRateGroups) {
-            rateGroup.tickCount++;
-            if (rateGroup.tickCount >= rateGroup.tickRate) {
-                rateGroup.tickCount = 0;
+            // Retrieve telemetry data from each channel
+            rateGroup.data.resize(rateGroup.channels.size());
+            for (size_t i = 0; i < rateGroup.channels.size(); i++) {
+                rateGroup.data[i] = rateGroup.channels[i].retrieveTelemetry();
+            }
 
-                // Get the values from the tlm into a vector.
-                List <uint32_t> telemetryData;
-                for (const auto& i_Channel: rateGroup.channels) {
-                    uint32_t telemetryValue = i_Channel.retrieveTelemetry();
-                    telemetryData.push_back(telemetryValue);
-                }
-
-                // Write the vector to the ApolloExporter.
-                rateGroup.apolloExporter.WriteRow(telemetryData);
+            // Write the vector to the ApolloExporter.
+//            rateGroup.apolloExporter.WriteRow(rateGroup.data);
+            if (rateGroup.echo) {
+                CommandTransmitter::TransmitPayload(
+                    KS_CMD_ECHO_TLM,
+                    (uint8_t*) rateGroup.data.data(),
+                    rateGroup.data.size() * sizeof(uint32_t)
+                );
             }
         }
     }
 
+    void TelemetryLogger::SetActiveTelemetryGroup(uint8_t grpIdx) {
+        if (grpIdx != 0xFF && grpIdx >= m_TelemetryRateGroups.size())
+            return;
+        for (size_t i = 0; i < m_TelemetryRateGroups.size(); i++) {
+            m_TelemetryRateGroups[i].echo = i == grpIdx;
+        }
+    }
+
+    void TelemetryLogger::ListTelemetryGroups() {
+        List <uint8_t> payload;
+        size_t i = 0;
+        for (const auto& group: m_TelemetryRateGroups) {
+            payload.resize(payload.size() + group.name.size() + 1);
+            memcpy(payload.data() + i, group.name.c_str(), group.name.size());
+            payload[i + group.name.size()] = '\0';
+            i = payload.size();
+        }
+
+        CommandTransmitter::TransmitPayload(KS_CMD_RES_TLM_GROUPS, payload.data(), payload.size());
+    }
+
+    void TelemetryLogger::ListTelemetryChannels(uint8_t grpIdx) {
+        if (grpIdx >= m_TelemetryRateGroups.size())
+            return;
+
+        List <uint8_t> payload;
+        size_t i = 0;
+        for (const auto& channel: m_TelemetryRateGroups[grpIdx].channels) {
+            payload.resize(payload.size() + channel.name.size() + 1);
+            memcpy(payload.data() + i, channel.name.c_str(), channel.name.size());
+            payload[i + channel.name.size()] = '\0';
+            i = payload.size();
+        }
+
+        CommandTransmitter::TransmitPayload(KS_CMD_RES_TLM_CHANNELS, payload.data(), payload.size());
+    }
+
     KsResult TelemetryLogger::_AddTelemetryGroup(
         const String& name,
-        uint32_t rate,
         const List <TelemetryChannel>& channels
     ) {
         // Generate the headers for the file.
@@ -42,19 +97,17 @@ namespace kronos {
             );
         }
 
-        auto apolloExporter = ApolloExporter("/" + name + ".txt", headers);
-
         // Initialize rate group.
         m_TelemetryRateGroups.push_back(
             {
                 .name = name,
-                .tickRate = rate,
                 .channels = channels,
-                .apolloExporter = apolloExporter
+                .apolloExporter = ApolloExporter("/" + name + ".apl", headers)
             }
         );
 
         return ks_success;
     }
+
 
 }

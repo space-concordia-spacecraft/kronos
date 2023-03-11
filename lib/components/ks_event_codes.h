@@ -28,6 +28,11 @@ namespace kronos {
         ks_event_file_downlink_continue,
         ks_event_file_downlink_list,
 
+        // Telemetry
+        ks_event_tlm_set_active_group,
+        ks_event_tlm_list_groups,
+        ks_event_tlm_list_channels,
+
         // Commands
         ks_event_comms_listen,
         ks_event_comms_transmit,
