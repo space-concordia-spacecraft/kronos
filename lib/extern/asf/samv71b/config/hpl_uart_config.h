@@ -106,7 +106,7 @@
 // <i> UART baud rate setting
 // <id> uart_baud_rate
 #ifndef CONF_UART_1_BAUD
-#define CONF_UART_1_BAUD 500000
+#define CONF_UART_1_BAUD 38400
 #endif
 
 // </h>

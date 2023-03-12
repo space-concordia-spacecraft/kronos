@@ -10,8 +10,8 @@ namespace kronos {
     KS_SINGLETON_INSTANCE(FileManager);
 
     FileManager::FileManager() :
-            ComponentQueued("CQ_FILE_MANAGER"),
-            m_Bus(Framework::CreateBus("B_FILE_MANAGER")) {
+        ComponentQueued("CQ_FILE_MANAGER"),
+        m_Bus(Framework::CreateBus("B_FILE_MANAGER")) {
         m_Bus->AddReceivingComponent(this);
 
         // TODO: There's a cleaner way to do this. There's also a way to automatically format the drive if the system can't initialize it.
@@ -67,8 +67,8 @@ namespace kronos {
         EncodePacket(packet, PacketFlags::none, KS_CMD_RES_FILEINFO, buffer, totalSize);
 
         transmitBus->Publish(
-                packet,
-                ks_event_comms_transmit
+            packet,
+            ks_event_comms_transmit
         );
 
         DownlinkNext();
@@ -84,20 +84,26 @@ namespace kronos {
             Packet errPacket{};
 
             EncodePacket(
-                    errPacket,
-                    PacketFlags::err,
-                    KS_CMD_RES_FILEPART,
-                    (const uint8_t*) &red_errno,
-                    sizeof(uint64_t));
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
 
             transmitBus->Publish(
-                    errPacket,
-                    ks_event_comms_transmit
+                errPacket,
+                ks_event_comms_transmit
             );
             return;
         }
 
-        CommandTransmitter::TransmitPayload(KS_CMD_RES_FILEPART, m_DownlinkBuffer, m_DownlinkBufferSize);
+        m_BytesSent += m_DownlinkBufferSize;
+        CommandTransmitter::TransmitPayload(
+            KS_CMD_RES_FILEPART,
+            m_DownlinkBuffer,
+            m_DownlinkBufferSize,
+            m_BytesSent >= m_FileSize
+        );
     }
 
     void FileManager::DownlinkFetch(const FileFetch& fetchRequest) {
@@ -108,15 +114,15 @@ namespace kronos {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                    errPacket,
-                    PacketFlags::err,
-                    KS_CMD_RES_FILEPART,
-                    (const uint8_t*) &red_errno,
-                    sizeof(uint64_t));
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
 
             transmitBus->Publish(
-                    errPacket,
-                    ks_event_comms_transmit
+                errPacket,
+                ks_event_comms_transmit
             );
             return;
         }
@@ -125,15 +131,15 @@ namespace kronos {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                    errPacket,
-                    PacketFlags::err,
-                    KS_CMD_RES_FILEPART,
-                    (const uint8_t*) &red_errno,
-                    sizeof(uint64_t));
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
 
             transmitBus->Publish(
-                    errPacket,
-                    ks_event_comms_transmit
+                errPacket,
+                ks_event_comms_transmit
             );
             return;
         }
@@ -144,15 +150,15 @@ namespace kronos {
             KS_ASSERT("Error fetching file");
 
             EncodePacket(
-                    errPacket,
-                    PacketFlags::err,
-                    KS_CMD_RES_FILEPART,
-                    (const uint8_t*) &red_errno,
-                    sizeof(uint64_t));
+                errPacket,
+                PacketFlags::err,
+                KS_CMD_RES_FILEPART,
+                (const uint8_t*)&red_errno,
+                sizeof(uint64_t));
 
             transmitBus->Publish(
-                    errPacket,
-                    ks_event_comms_transmit
+                errPacket,
+                ks_event_comms_transmit
             );
             return;
         }
@@ -167,8 +173,8 @@ namespace kronos {
             EncodePacketPart(packet, flags, KS_CMD_RES_FILEPART, i_Packet, m_DownlinkBuffer + offset, payloadSize);
 
             transmitBus->Publish(
-                    packet,
-                    ks_event_comms_transmit
+                packet,
+                ks_event_comms_transmit
             );
         }
     }
@@ -184,8 +190,8 @@ namespace kronos {
         REDDIRENT* entry;
         while ((entry = red_readdir(dir)) != nullptr) {
             FileInfo info{
-                    .fileSize = entry->d_stat.st_size,
-                    .name = {}
+                .fileSize = entry->d_stat.st_size,
+                .name = {}
             };
 
             size_t nameLength = strlen(entry->d_name) + 1;
@@ -205,7 +211,7 @@ namespace kronos {
         size_t i_buffer{ 0 };
         for (auto file: files) {
             // Pack the file size
-            memcpy(buffer + i_buffer, (uint8_t*) &file.fileSize, sizeof(file.fileSize));
+            memcpy(buffer + i_buffer, (uint8_t*)&file.fileSize, sizeof(file.fileSize));
             i_buffer += sizeof(file.fileSize);
 
             // Pack the file name with \0 at the end
