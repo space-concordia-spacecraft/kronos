@@ -12,7 +12,7 @@ namespace kronos {
         explicit CommandTransmitter(const std::string& name, IoDriver* ioDriver);
         void ProcessEvent(const EventMessage& message) override;
 
-        static void TransmitPayload(KsCommand cmd, const uint8_t* payload, size_t payloadSize);
+        static void TransmitPayload(KsCommand cmd, const uint8_t* payload, size_t payloadSize, bool setEOF = true);
 
     private:
         Bus* m_Bus;

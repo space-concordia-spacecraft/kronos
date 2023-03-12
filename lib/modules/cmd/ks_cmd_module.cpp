@@ -11,9 +11,9 @@ namespace kronos {
     void CmdModule::Init() const {
         // TODO: Initialize busses here
 
-        Framework::CreateComponent<CommandDispatcher>("CA_CMD_DISPATCHER");
+        Framework::CreateComponent<CommandDispatcher>("CA_CMDDISPATCHER");
         Framework::CreateComponent<CommandListener>(
-            "CA_CMD_LISTENER", Framework::GetDriver("U_UHF")
+            "CA_CMDLISTENER", Framework::GetDriver("U_UHF")
         );
         auto* commandTransmitter = Framework::CreateComponent<CommandTransmitter>(
             "CQ_CMD_TRANSMITTER", Framework::GetDriver("U_UHF")

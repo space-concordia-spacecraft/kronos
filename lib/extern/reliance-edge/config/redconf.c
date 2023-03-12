@@ -13,5 +13,5 @@
 
 const VOLCONF gaRedVolConf[REDCONF_VOLUME_COUNT] =
     {
-        {512U, 256U, 0U, false, 5, 0U, ""}
+        {512U, 256U, 0U, false, 30, 0U, ""}
     };

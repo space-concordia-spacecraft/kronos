@@ -34,7 +34,7 @@ namespace kronos {
             }
 
             // Write the vector to the ApolloExporter.
-//            rateGroup.apolloExporter.WriteRow(rateGroup.data);
+            rateGroup.apolloExporter.WriteRow(rateGroup.data);
             if (rateGroup.echo) {
                 CommandTransmitter::TransmitPayload(
                     KS_CMD_ECHO_TLM,
