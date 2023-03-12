@@ -31,7 +31,7 @@ static void Start(void* data) {
 
     // INITIALIZE ALL DRIVERS
     Framework::CreateDriver<KsUsart>("U_UHF", &USART_UHF);
-    Framework::CreateDriver<KsUsart>("U_MUTUAL", &USART_MUTUAL);
+    Framework::CreateDriver<KsUsart>("U_MUTUAL", &UART_MUTUAL);
 
     // ADD MODULES
     Framework::AddModule<FsModule>();

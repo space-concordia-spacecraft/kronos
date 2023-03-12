@@ -1,6 +1,6 @@
 #include "FreeRTOS.h"
 
-#define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(200)
+#define KS_QUEUE_DEFAULT_WAIT_TIME pdMS_TO_TICKS(2000)
 
 namespace kronos {
 

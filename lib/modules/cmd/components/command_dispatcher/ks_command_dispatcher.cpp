@@ -6,7 +6,7 @@
 namespace kronos {
 
     CommandDispatcher::CommandDispatcher(const String& name)
-            : ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME),
+            : ComponentActive(name, KS_QUEUE_DEFAULT_WAIT_TIME, KS_COMPONENT_STACK_SIZE_MEDIUM, KS_COMPONENT_PRIORITY_HIGH),
               m_Bus(Framework::CreateBus("B_CMD_DISPATCH")) {
         m_Bus->AddReceivingComponent(this);
     }
