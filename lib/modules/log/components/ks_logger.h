@@ -112,7 +112,7 @@ namespace kronos {
 
         File m_File;
         Bus* m_Bus;
-        bool m_ShouldEcho = false;
+        bool m_ShouldEcho = true;
 
     };
 

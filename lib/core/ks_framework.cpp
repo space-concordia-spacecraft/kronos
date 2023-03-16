@@ -86,7 +86,7 @@ namespace kronos {
     }
 
     Bus* Framework::_GetBus(const String& name) {
-        KS_ASSERT(m_Busses.contains(name), "Bus with name doesn't exist");
+         KS_ASSERT(m_Busses.contains(name), "Bus with name doesn't exist");
 
         KS_MAP_FIND(m_Busses, name, it) {
             return it->second.get();

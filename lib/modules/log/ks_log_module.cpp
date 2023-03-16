@@ -15,7 +15,7 @@ namespace kronos {
     }
 
     List <TypeInfo> LogModule::GetModuleDependencies() const {
-        return Module::DependsOn<FsModule, ClkModule, WorkerModule, CmdModule>();
+        return Module::DependsOn<FsModule, ClkModule, WorkerModule>();
     }
 
     List <TypeInfo> LogModule::GetExportedComponents() const {
