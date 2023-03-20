@@ -3,7 +3,7 @@
 #include "ks_component_queued.h"
 #include "ks_command_ids.h"
 #include "ks_packet_parser.h"
-#include "ks_io.h"
+#include "drivers/protocols/ks_io.h"
 #include "ks_bus.h"
 
 namespace kronos {

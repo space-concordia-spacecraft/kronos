@@ -1,4 +1,4 @@
-#include "ks_i2c.h"
+#include "drivers/protocols/ks_i2c.h"
 #include "hal_io.h"
 #include "hal_i2c_m_os.h"
 

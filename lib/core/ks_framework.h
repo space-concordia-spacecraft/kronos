@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ks_io.h"
+#include "drivers/protocols/ks_io.h"
 #include "ks_module.h"
 #include "ks_component_active.h"
 

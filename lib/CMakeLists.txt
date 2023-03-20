@@ -36,10 +36,10 @@ set(KRONOS_SRC
         "core/component/ks_component_active.cpp"
 
         # KRONOS DRIVERS
-        "drivers/asf/ks_gpio.cpp"
-        "drivers/asf/ks_usart.cpp"
-        "drivers/asf/ks_i2c.cpp"
-        "drivers/asf/ks_spi.cpp"
+        "drivers/arch/asf/ks_gpio.cpp"
+        "drivers/arch/asf/ks_usart.cpp"
+        "drivers/arch/asf/ks_i2c.cpp"
+        "drivers/arch/asf/ks_spi.cpp"
 
         "components/led_blinker/ks_led_blinker.cpp")
 
@@ -99,9 +99,6 @@ set(KRONOS_INCLUDE_DIRS
         "modules/sch/components/scheduler"
         "modules/sch/components/worker"
         "modules/sch/config"
-        "modules/thm"
-        "modules/thm/components"
-        "modules/thm/utils"
         "modules/tlm"
         "modules/tlm/components"
         "modules/wrk"

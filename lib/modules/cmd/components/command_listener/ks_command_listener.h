@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ks_component_active.h"
-#include "ks_io.h"
+#include "drivers/protocols/ks_io.h"
 
 namespace kronos {
 

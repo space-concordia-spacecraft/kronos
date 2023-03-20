@@ -14,8 +14,8 @@
 #include "ks_framework.h"
 
 // Drivers
-#include "ks_io.h"
-#include "ks_usart.h"
+#include "drivers/protocols/ks_io.h"
+#include "drivers/protocols/ks_usart.h"
 
 // Core Modules
 #include "ks_clk_module.h"

@@ -1,4 +1,4 @@
-#include "ks_spi.h"
+#include "drivers/protocols/ks_spi.h"
 
 namespace kronos {
     KsSpi::KsSpi(KsSpiDescriptor* desc) : m_SpiDescriptor(desc) {
