@@ -7,3 +7,6 @@
 [submodule "lib/extern/freertos"]
 	path = lib/extern/freertos
 	url = https://github.com/space-concordia-spacecraft/FreeRTOS
+[submodule "lib/extern/littlefs"]
+	path = lib/extern/littlefs
+	url = https://github.com/littlefs-project/littlefs

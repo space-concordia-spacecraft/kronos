@@ -37,9 +37,11 @@ set(KRONOS_SRC
 
         # KRONOS DRIVERS
         "drivers/arch/asf/ks_gpio.cpp"
-        "drivers/arch/asf/ks_usart.cpp"
-        "drivers/arch/asf/ks_i2c.cpp"
-        "drivers/arch/asf/ks_spi.cpp"
+        "drivers/arch/asf/protocols/ks_usart.cpp"
+        "drivers/arch/asf/protocols/ks_i2c.cpp"
+        "drivers/arch/asf/protocols/ks_spi.cpp"
+
+        "drivers/sensors/thermistor/ks_thermistor.cpp"
 
         "components/led_blinker/ks_led_blinker.cpp")
 
@@ -110,6 +112,9 @@ set(KRONOS_INCLUDE_DIRS
 
         # KRONOS DRIVERS
         "drivers"
+
+        "drivers/protocols"
+        "drivers/sensors/thermistor"
 
         # KRONOS COMPONENTS
         "components"
