@@ -84,7 +84,7 @@ namespace kronos {
          KS_ASSERT(m_Busses.contains(name), "Bus with name doesn't exist");
 
         KS_MAP_FIND(m_Busses, name, it) {
-            return ErrorOr<Bus*>(it->second.get());
+            return it->second.get();
         }
         KS_THROW(ks_error_bus_missing, Bus*);
     }
@@ -93,7 +93,7 @@ namespace kronos {
         KS_ASSERT(m_Drivers.contains(name), "Driver with name doesn't exist");
 
         KS_MAP_FIND(m_Drivers, name, it) {
-            return ErrorOr<IoDriver*>(it->second.get());
+            return it->second.get();
         }
         KS_THROW(ks_error_drivers_missing, IoDriver*);
     }
@@ -108,7 +108,7 @@ namespace kronos {
             eventMessagePtr,
             std::forward<Scope<EventMessage>>(eventMessage)
         );
-        return ErrorOr<EventMessage*>(eventMessagePtr);
+        return eventMessagePtr;
     }
 
     ErrorOr<void> Framework::_DeleteEventMessage(const EventMessage* eventMessage) {

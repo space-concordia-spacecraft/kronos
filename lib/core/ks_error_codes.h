@@ -43,9 +43,11 @@ namespace kronos {
         ks_error_file_sync,
         ks_error_file_read,
         ks_error_file_write,
+        ks_error_file_seek,
         ks_error_file_remove,
         ks_error_file_open,
         ks_error_file_close,
+        ks_error_file_size,
         ks_error_file_not_open,
         ks_error_file_max_attempts,
 

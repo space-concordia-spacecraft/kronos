@@ -85,7 +85,7 @@ namespace kronos {
         //! \brief Getter for the headers read from the file
         //!
         //! \return Vector of ApolloHeaders read from the file
-        List <ApolloHeader> GetHeaders() { return m_Headers; }
+        ErrorOr<List <ApolloHeader>> GetHeaders() { return m_Headers; }
 
     private:
         //! File object used to read the data and the headers

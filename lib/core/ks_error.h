@@ -17,11 +17,9 @@ namespace kronos {
     template<typename T>
     class ErrorOr {
     public:
-        ErrorOr() = default;
+        ErrorOr(T value) : m_ValueOrError(value) {}
 
-        explicit ErrorOr(T value) : m_ValueOrError(value) {}
-
-        explicit ErrorOr(KsResult error, const String& location, List<String> stackTrace = {}) : m_ValueOrError(error) {
+        ErrorOr(KsResult error, const String& location, List<String> stackTrace = {}) : m_ValueOrError(error) {
             m_StackTrace.emplace_back(location + std::to_string(error));
             m_StackTrace.assign(stackTrace.begin(), stackTrace.end());
         }
@@ -48,7 +46,7 @@ namespace kronos {
     public:
         ErrorOr() = default;
 
-        explicit ErrorOr(KsResult error, const String& location, List<String> stackTrace = {}) : m_ValueOrError(error) {
+        ErrorOr(KsResult error, const String& location, List<String> stackTrace = {}) : m_ValueOrError(error) {
             m_StackTrace.emplace_back(location + std::to_string(error));
             m_StackTrace.assign(stackTrace.begin(), stackTrace.end());
         }

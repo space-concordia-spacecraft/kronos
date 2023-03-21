@@ -211,7 +211,7 @@ namespace kronos {
             m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
             (eventMessage));
 
-            return ErrorOr<EventMessage*>(eventMessagePtr);
+            return eventMessagePtr;
         }
 
         template<class T>
@@ -224,7 +224,7 @@ namespace kronos {
             auto* eventMessagePtr = eventMessage.get();
             m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
             (eventMessage));
-            return ErrorOr<EventMessage*>(eventMessagePtr);
+            return eventMessagePtr;
         }
 
         ErrorOr<EventMessage*> _CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus = nullptr);

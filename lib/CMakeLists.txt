@@ -14,7 +14,7 @@ add_subdirectory(extern/freertos)
 add_subdirectory("extern/asf/${KS_BOARD}")
 
 # Reliance Edge
-add_subdirectory(extern/reliance-edge)
+add_subdirectory(extern/littlefs)
 
 # Nameof header-only library
 set(NAMEOF_OPT_BUILD_EXAMPLES OFF)
@@ -37,10 +37,15 @@ set(KRONOS_SRC
 
         # KRONOS DRIVERS
         "drivers/arch/asf/ks_gpio.cpp"
+
         "drivers/arch/asf/clock/ks_clock.cpp"
         "drivers/arch/asf/protocols/ks_usart.cpp"
         "drivers/arch/asf/protocols/ks_i2c.cpp"
         "drivers/arch/asf/protocols/ks_spi.cpp"
+
+        "drivers/file_system/apollo_format/ks_apollo_format.cpp"
+        "drivers/file_system/ks_file.cpp"
+        "drivers/file_system/ks_filesystem.cpp"
 
         "drivers/sensors/thermistor/ks_thermistor.cpp")
 
@@ -113,8 +118,11 @@ set(KRONOS_INCLUDE_DIRS
         "drivers"
 
         "drivers/clock"
+        "drivers/file_system"
+        "drivers/file_system/apollo_format"
         "drivers/protocols"
-        "drivers/sensors/thermistor")
+        "drivers/sensors/thermistor"
+        "drivers/storage")
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 
 # Debug definitions
@@ -133,4 +141,4 @@ target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURR
                                          "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_error.h>")
 
 # Links libraries
-target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof)
+target_link_libraries(Kronos PUBLIC asf littlefs KronosPacket nameof::nameof)

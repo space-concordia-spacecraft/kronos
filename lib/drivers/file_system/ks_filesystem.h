@@ -1,8 +1,27 @@
-//
-// Created by space on 3/19/23.
-//
+#pragma once
 
-#ifndef KRONOS_KS_FILESYSTEM_H
-#define KRONOS_KS_FILESYSTEM_H
+#include "lfs.h"
+#include "ks_ram.h"
 
-#endif //KRONOS_KS_FILESYSTEM_H
+namespace kronos {
+    class FileSystem {
+        KS_SINGLETON(FileSystem);
+
+    public:
+        FileSystem() = default;
+        ~FileSystem() = default;
+
+    public:
+        KS_SINGLETON_EXPOSE_METHOD(_Mount, ErrorOr<void> Mount());
+        KS_SINGLETON_EXPOSE_METHOD(_Format, ErrorOr<void> Format());
+        KS_SINGLETON_EXPOSE_METHOD(_FS, lfs_t* FS());
+
+    private:
+        ErrorOr<void> _Mount();
+        ErrorOr<void> _Format();
+
+        lfs_t* _FS();
+
+        Ref<lfs_t> m_FS;
+    };
+}

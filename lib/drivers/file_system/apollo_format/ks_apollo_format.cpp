@@ -2,12 +2,11 @@
 
 namespace kronos {
 
-    ApolloExporter::ApolloExporter(const String& path, const List <ApolloHeader>& headers) :
-        m_File(path, KS_OPEN_MODE_WRITE_ONLY | KS_OPEN_MODE_CREATE) {
+    ApolloExporter::ApolloExporter(const String& path, const List <ApolloHeader>& headers){
         WriteFileHeader(headers);
     }
 
-    KsResultType ApolloExporter::WriteFileHeader(const List <ApolloHeader>& headers) {
+    ErrorOr<void> ApolloExporter::WriteFileHeader(const List <ApolloHeader>& headers) {
         uint32_t magicNumber = KS_APOLLO_MAGIC;
         uint32_t version = KS_APOLLO_VERSION_1;
         uint32_t headerCount = headers.size();
@@ -31,7 +30,7 @@ namespace kronos {
             return ret;
         }
 
-        return ks_success;
+        return {};
     }
 
     KsResultType ApolloExporter::WriteRow(const List <uint32_t>& data) {
