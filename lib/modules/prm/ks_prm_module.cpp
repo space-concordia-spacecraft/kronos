@@ -9,10 +9,13 @@
 
 namespace kronos {
 
-    void ParamsModule::Init() const {
-        Framework::CreateSingletonComponent<ParameterDatabase>();
+    ErrorOr<void> ParamsModule::Init() const {
+        TRY(ks_error_component_create, Framework::CreateSingletonComponent<ParameterDatabase>(), void);
+
         Scheduler::ScheduleEvent(5000, ks_event_save_param, &ParameterDatabase::GetInstance());
         WorkerManager::RegisterComponent(ks_worker_main, &ParameterDatabase::GetInstance());
+
+        return {};
     }
 
     List <TypeInfo> ParamsModule::GetModuleDependencies() const {

@@ -9,7 +9,7 @@
 #include <cstdarg>
 #include <cstring>
 
-typedef int32_t KsResultType;
+typedef uint16_t KsResultType;
 typedef uint32_t KsTickType;
 typedef uint32_t KsIdType;
 
@@ -33,6 +33,8 @@ typedef uint32_t KsIdType;
 #include <any>
 #include <span>
 #include <sstream>
+#include <variant>
+#include <optional>
 
 // KRONOS TYPES AND MACROS
 #include "ks_macros.h"
@@ -111,6 +113,8 @@ namespace kronos {
     using Stack = std::stack<T>;
     template<typename T>
     using Set = std::unordered_set<T>;
+    template<typename T, typename E>
+    using Variant = std::variant<T, E>;
 
     template<typename T, typename ... Args>
     Ref<T> CreateRef(Args&& ... args) {

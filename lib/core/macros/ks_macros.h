@@ -54,4 +54,9 @@ static inline fn {                                         \
          19,18,17,16,15,14,13,12,11,10, \
          9,8,7,6,5,4,3,2,1,0
 
+// Macros to concatenate the file name and line number to a single string.
+#define STRINGIFY(x) #x
+#define TO_STRING(x) STRINGIFY(x)
+#define LOCATION TO_STRING(__FILE__) ":" TO_STRING(__LINE__)
+
 #include "ks_assert.h"

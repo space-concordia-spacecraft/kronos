@@ -2,6 +2,7 @@
 
 #include "ks_component_base.h"
 #include "ks_framework.h"
+#include "ks_error.h"
 
 namespace kronos {
 
@@ -23,7 +24,7 @@ namespace kronos {
         //! \brief Adds a new subscriber to the bus
         //!
         //! \param component pointer to the component that is subscribing to the bus
-        void AddReceivingComponent(ComponentBase* component);
+        ErrorOr<void> AddReceivingComponent(ComponentBase* component);
 
         //! \brief
         //!

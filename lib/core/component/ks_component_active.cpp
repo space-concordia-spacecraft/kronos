@@ -11,38 +11,43 @@ namespace kronos {
         static_cast<ComponentActive*>(data)->Run();
     }
 
-    KsResultType ComponentActive::Init() {
+    ErrorOr<void> ComponentActive::Init() {
         // Create Task
-        xTaskCreate(
+        if(xTaskCreate(
             Start,          // The function that implements the task.
             m_Name.data(),   // The text name assigned to the task - for debug only as it is not used by the kernel.
             m_StackSize,    // The size of the stack to allocate to the task.
             this,           // The parameter passed to the task - not used in this case.
             m_Priority,     // The priority assigned to the task.
             &m_Task
-        );       // Resulting task handle
+        ) != pdPASS) {
+            KS_THROW(ks_error_component_task_create, void);
+        }
 
-        return ks_success;
+        return {};
     }
 
-    KsResultType ComponentActive::Destroy() {
+    ErrorOr<void> ComponentActive::Destroy() {
         vTaskDelete(m_Task);
-
-        return ks_success;
+        return {};
     }
 
     void ComponentActive::Run() {
         while (true) {
             const EventMessage* message;
             if (m_Queue->Pop(&message, 0) == pdPASS) {
-                ProcessEvent(*message);
+                auto result = ProcessEvent(*message);
                 Framework::DeleteEventMessage(message);
+
+                if(result.HasError()) {
+                    // TODO: LOG ERROR
+                }
             }
             taskYIELD();
         }
     }
 
-    void ComponentActive::ProcessEvent(const EventMessage& message) {
+    ErrorOr<void> ComponentActive::ProcessEvent(const EventMessage& message) {
         switch (message.eventCode) {
             case ks_event_health_ping:
                 if (message.returnBus != nullptr) {
@@ -53,5 +58,7 @@ namespace kronos {
                 }
                 break;
         }
+
+        return {};
     }
 }

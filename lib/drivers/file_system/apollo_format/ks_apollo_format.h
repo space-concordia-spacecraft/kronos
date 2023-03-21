@@ -43,13 +43,13 @@ namespace kronos {
         //!
         //! \param headers Vector of ApolloHeader objects that get decoded and then stored in a file
         //! \return KS_SUCCESS if the operation was successful
-        KsResultType WriteFileHeader(const List <ApolloHeader>& headers);
+        ErrorOr<void> WriteFileHeader(const List <ApolloHeader>& headers);
 
         //! \brief Writes a row of data into the file stored in the ApolloExporter
         //!
         //! \param data Vector of uint32_t data to store into the file
         //! \return KS_SUCCESS if the operation was successful
-        KsResultType WriteRow(const List <uint32_t>& data);
+        ErrorOr<void> WriteRow(const List <uint32_t>& data);
 
     private:
         //! File pointer to the file object used to store data and headers
@@ -74,13 +74,13 @@ namespace kronos {
         //! \brief Reads the headers from the file stored in the ApolloImporter
         //!
         //! \return KS_SUCCESS if the operation was successful
-        KsResultType ReadFileHeader();
+        ErrorOr<void> ReadFileHeader();
 
         //! \brief Reads row of data from the file stored in the ApolloImporter
         //!
         //! \param data Vector of uint32_t used to store the data read from the file
         //! \return KS_SUCCESS if the operation was successful
-        KsResultType ReadRow(List <uint32_t>& data);
+        ErrorOr<void> ReadRow(List <uint32_t>& data);
 
         //! \brief Getter for the headers read from the file
         //!

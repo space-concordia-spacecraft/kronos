@@ -26,8 +26,8 @@ namespace kronos {
         }
     }
 
-    KsResultType ComponentWorker::RegisterComponent(ComponentQueued* component) {
+    ErrorOr<void> ComponentWorker::RegisterComponent(ComponentQueued* component) {
         m_QueuedComponents.push_back(component);
-        return ks_success;
+        return {};
     }
 }

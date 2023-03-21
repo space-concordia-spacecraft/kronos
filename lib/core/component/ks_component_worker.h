@@ -15,7 +15,7 @@ namespace kronos {
         );
 
         [[noreturn]] void Run() override;
-        KsResultType RegisterComponent(ComponentQueued* component);
+        ErrorOr<void> RegisterComponent(ComponentQueued* component);
 
     protected:
         List<ComponentQueued*> m_QueuedComponents{};

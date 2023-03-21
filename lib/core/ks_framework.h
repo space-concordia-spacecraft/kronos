@@ -26,41 +26,41 @@ namespace kronos {
     public:
         //! \brief Convenience method for static calls. See _AddModule().
         template<typename T, typename... Args>
-        static inline void AddModule(Args&& ... args) {
+        static inline ErrorOr<void> AddModule(Args&& ... args) {
             return s_Instance->_AddModule<T>(std::forward<Args>(args)...);
         }
 
         //! \brief Convenience method for static calls. See _CreateComponent().
         template<typename T, typename... Args>
-        static inline T* CreateComponent(const String& name, Args&& ... args) {
+        static inline ErrorOr<T*> CreateComponent(const String& name, Args&& ... args) {
             return s_Instance->_CreateComponent<T, Args...>(name, std::forward<Args>(args)...);
         }
 
         //! \brief Convenience method for static calls. See _CreateSingletonComponent().
         template<typename T>
-        static inline void CreateSingletonComponent() {
+        static inline ErrorOr<void> CreateSingletonComponent() {
             return s_Instance->_CreateSingletonComponent<T>();
         }
 
         //! \brief Convenience method for static calls. See _CreateBus().
         template<typename T=Bus, typename... Args>
-        static inline T* CreateBus(const String& name, Args&& ... args) {
+        static inline ErrorOr<T*> CreateBus(const String& name, Args&& ... args) {
             return s_Instance->_CreateBus<T, Args...>(name, std::forward<Args>(args)...);
         }
 
         //! \brief Convenience method for static calls. See _CreateDriver().
         template<typename T, typename... Args>
-        static inline T* CreateDriver(const String& name, Args&& ... args) {
+        static inline ErrorOr<T*> CreateDriver(const String& name, Args&& ... args) {
             return s_Instance->_CreateDriver<T, Args...>(name, std::forward<Args>(args)...);
         }
 
         template<class T>
-        static inline EventMessage* CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+        static inline ErrorOr<EventMessage*> CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
             return s_Instance->_CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
         }
 
         template<class T>
-        static inline EventMessage*
+        static inline ErrorOr<EventMessage*>
         CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
             return s_Instance->_CreateEventMessage<T>(data, eventCode, returnBus);
         }
@@ -73,28 +73,28 @@ namespace kronos {
 
     public:
         //! \brief Convenience method for static calls. See _Start().
-        KS_SINGLETON_EXPOSE_METHOD(_Start, void Start());
+        KS_SINGLETON_EXPOSE_METHOD(_Start, ErrorOr<void> Start());
 
         //! \brief Convenience method for static calls. See _InitModules().
-        KS_SINGLETON_EXPOSE_METHOD(_InitModules, bool InitModules());
+        KS_SINGLETON_EXPOSE_METHOD(_InitModules, ErrorOr<void> InitModules());
 
-        KS_SINGLETON_EXPOSE_METHOD(_GetBus, Bus* GetBus(const String& name), name);
+        KS_SINGLETON_EXPOSE_METHOD(_GetBus, ErrorOr<Bus*> GetBus(const String& name), name);
 
-        KS_SINGLETON_EXPOSE_METHOD(_GetDriver, IoDriver* GetDriver(const String& name), name);
+        KS_SINGLETON_EXPOSE_METHOD(_GetDriver, ErrorOr<IoDriver*> GetDriver(const String& name), name);
 
         KS_SINGLETON_EXPOSE_METHOD(_CreateEventMessage,
-                                   EventMessage*
+                                   ErrorOr<EventMessage*>
                                        CreateEventMessage(KsEventCodeType eventCode, Bus * returnBus = nullptr),
                                    eventCode,
                                    returnBus);
 
         KS_SINGLETON_EXPOSE_METHOD(_DeleteEventMessage,
-                                   void DeleteEventMessage(const EventMessage* eventMessage),
+                                   ErrorOr<void> DeleteEventMessage(const EventMessage* eventMessage),
                                    eventMessage);
 
     private:
         //! \brief Initializes all the components and starts the FreeRTOS sched
-        void _Start();
+        ErrorOr<void> _Start();
 
         //! \brief Initializes and adds a module to the framework.
         //!
@@ -102,18 +102,20 @@ namespace kronos {
         //! \tparam Args The types of the constructor arguments required to instantiate the module class.
         //! \param args The constructor arguments required to instantiate the module class.
         template<typename T, typename... Args>
-        void _AddModule(Args&& ... args) {
+        ErrorOr<void> _AddModule(Args&& ... args) {
             static_assert(std::is_base_of_v<IModule, T>, "T must extend IModule!");
 
             if (_HasModule<T>()) {
                 // Module already added
-                return;
+                KS_THROW(ks_error_module_exists, void);
             }
 
             // Initializing Module
             auto id = ClassID<T>();
             auto ptr = new T(std::forward<Args>(args)...);
             m_Modules[id] = Scope<T>(ptr);
+
+            return {};
         }
 
         //! \brief Creates a new component and registers it into the framework.
@@ -124,12 +126,12 @@ namespace kronos {
         //! \param args The constructor arguments required to instantiate the component class.
         //! \return The component that was created, nullptr if there was an error.
         template<class T, typename... Args>
-        T* _CreateComponent(const std::string& name, Args&& ... args) {
+        ErrorOr<T*> _CreateComponent(const std::string& name, Args&& ... args) {
             static_assert(std::is_base_of_v<ComponentBase, T>, "T must extend ComponentBase!");
 
             if (m_Components.contains(name)) {
                 // Component already created
-                return nullptr;
+                KS_THROW(ks_error_component_exists, void);
             }
 
             auto ref = CreateRef<T>(name, std::forward<Args>(args)...);
@@ -143,7 +145,7 @@ namespace kronos {
         }
 
         template<typename T>
-        void _CreateSingletonComponent() {
+        ErrorOr<void> _CreateSingletonComponent() {
             static_assert(std::is_base_of_v<ComponentBase, T>, "T must extend ComponentBase!");
 
             T::CreateInstance();
@@ -152,13 +154,15 @@ namespace kronos {
 
             if (m_Components.contains(name)) {
                 // Component already created
-                return;
+                KS_THROW(ks_error_component_exists, void);
             }
 
             m_Components[name] = ref;
             if constexpr (std::is_base_of_v<ComponentActive, T>) {
                 m_ActiveComponents.push_back(name);
             }
+
+            return {};
         }
 
         //! \brief Creates a new bus and registers it into the framework.
@@ -169,12 +173,12 @@ namespace kronos {
         //! \param args The constructor arguments required to instantiate the bus class.
         //! \return The bus that was created, nullptr if there was an error.
         template<class T, typename... Args>
-        T* _CreateBus(const std::string& name, Args&& ... args) {
+        ErrorOr<T*> _CreateBus(const std::string& name, Args&& ... args) {
             static_assert(std::is_base_of_v<Bus, T>, "T must extend Bus!");
 
             if (m_Busses.contains(name)) {
                 // Bus already created
-                return nullptr;
+                KS_THROW(ks_error_bus_exists, T*);
             }
 
             auto ref = CreateRef<T>(name, std::forward<Args>(args)...);
@@ -183,12 +187,12 @@ namespace kronos {
         }
 
         template<class T, typename... Args>
-        T* _CreateDriver(const String& name, Args&& ... args) {
+        ErrorOr<T*> _CreateDriver(const String& name, Args&& ... args) {
             static_assert(std::is_base_of_v<IoDriver, T>, "T must extend IoDriver!");
 
             if (m_Drivers.contains(name)) {
                 // Bus already created
-                return nullptr;
+                KS_THROW(ks_error_bus_exists, T*);
             }
 
             auto ref = CreateRef<T>(std::forward<Args>(args)...);
@@ -197,7 +201,7 @@ namespace kronos {
         }
 
         template<class T>
-        EventMessage* _CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+        ErrorOr<EventMessage*> _CreateEventMessage(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
             Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
             eventMessage->eventCode = eventCode;
             eventMessage->data = std::make_any<T>(std::forward<T>(data));
@@ -206,11 +210,12 @@ namespace kronos {
             auto* eventMessagePtr = eventMessage.get();
             m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
             (eventMessage));
-            return eventMessagePtr;
+
+            return ErrorOr<EventMessage*>(eventMessagePtr);
         }
 
         template<class T>
-        EventMessage* _CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+        ErrorOr<EventMessage*> _CreateEventMessage(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
             Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
             eventMessage->eventCode = eventCode;
             eventMessage->data = std::make_any<T>(data);
@@ -219,12 +224,12 @@ namespace kronos {
             auto* eventMessagePtr = eventMessage.get();
             m_EventMessages.emplace(eventMessagePtr, std::forward<Scope < EventMessage>>
             (eventMessage));
-            return eventMessagePtr;
+            return ErrorOr<EventMessage*>(eventMessagePtr);
         }
 
-        EventMessage* _CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus = nullptr);
+        ErrorOr<EventMessage*> _CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus = nullptr);
 
-        void _DeleteEventMessage(const EventMessage* eventMessage);
+        ErrorOr<void> _DeleteEventMessage(const EventMessage* eventMessage);
 
         //!
         //! \tparam T
@@ -238,11 +243,11 @@ namespace kronos {
         //!
         //! \param moduleList
         //! \return
-        bool _InitModules();
+        ErrorOr<void> _InitModules();
 
-        Bus* _GetBus(const String& name);
+        ErrorOr<Bus*> _GetBus(const String& name);
 
-        IoDriver* _GetDriver(const String& name);
+        ErrorOr<IoDriver*> _GetDriver(const String& name);
 
     private:
         List <KsIdType> m_ModuleList;

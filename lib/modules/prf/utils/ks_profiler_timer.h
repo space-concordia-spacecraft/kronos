@@ -28,11 +28,6 @@ namespace kronos {
     };
 }
 
-// Macros to concatenate the file name and line number to a single string.
-#define STRINGIFY(x) #x
-#define TO_STRING(x) STRINGIFY(x)
-#define LOCATION TO_STRING(__FILE__) ":" TO_STRING(__LINE__)
-
 // Macros to be used for general profiling
 #define PROFILE_SCOPE_NAME(name) ProfilerTimer timer(name, LOCATION)
 #define PROFILE_SCOPE() PROFILE_SCOPE_NAME(__PRETTY_FUNCTION__)

@@ -2,7 +2,6 @@
 // \title ks_component_base.h
 // \brief The base for the component classes.
 // ==================================================================================
-
 #pragma once
 
 namespace kronos {
@@ -44,27 +43,27 @@ namespace kronos {
         //! \brief initializes the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResultType Init() = 0;
+        virtual ErrorOr<void> Init() = 0;
 
         //! \brief This runs after all components have been initialized
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResultType PostInit() = 0;
+        virtual ErrorOr<void> PostInit() = 0;
 
         //! \brief destroys the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual KsResultType Destroy() = 0;
+        virtual ErrorOr<void> Destroy() = 0;
 
         //! \brief Receives the event from the publishing bus
         //!
         //! \param message the event message containing the information being published on the bus
-        virtual void ReceiveEvent(const EventMessage* message) = 0;
+        virtual ErrorOr<void> ReceiveEvent(const EventMessage* message) = 0;
 
         //! \brief Processes the event message
         //!
         //! \param message the event message containing the information that was published to the bus
-        virtual void ProcessEvent(const EventMessage& message) = 0;
+        virtual ErrorOr<void> ProcessEvent(const EventMessage& message) = 0;
 
         //! \brief gets the name of the component
         //! \return

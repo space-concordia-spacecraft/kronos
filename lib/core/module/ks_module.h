@@ -12,7 +12,7 @@ namespace kronos {
         virtual ~IModule() = default;
 
         //! \brief
-        virtual void Init() const = 0;
+        virtual ErrorOr<void> Init() const = 0;
 
         //! \brief
         //!
@@ -42,7 +42,7 @@ namespace kronos {
 
     public:
         //! \copydoc
-        void Init() const override {}
+        ErrorOr<void> Init() const override {}
 
         //! \copydoc
         [[nodiscard]] TypeInfo GetModuleInfo() const final {

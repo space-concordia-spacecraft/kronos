@@ -7,7 +7,7 @@ namespace kronos {
     class ParamsModule : public Module<ParamsModule> {
 
     public:
-        void Init() const override;
+        ErrorOr<void> Init() const override;
 
         [[nodiscard]] List <TypeInfo> GetModuleDependencies() const final;
 

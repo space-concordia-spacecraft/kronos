@@ -37,13 +37,12 @@ set(KRONOS_SRC
 
         # KRONOS DRIVERS
         "drivers/arch/asf/ks_gpio.cpp"
+        "drivers/arch/asf/clock/ks_clock.cpp"
         "drivers/arch/asf/protocols/ks_usart.cpp"
         "drivers/arch/asf/protocols/ks_i2c.cpp"
         "drivers/arch/asf/protocols/ks_spi.cpp"
 
-        "drivers/sensors/thermistor/ks_thermistor.cpp"
-
-        "components/led_blinker/ks_led_blinker.cpp")
+        "drivers/sensors/thermistor/ks_thermistor.cpp")
 
 # Kronos Core
 file(GLOB_RECURSE KRONOS_CORE_SRC "core/**.cpp")
@@ -113,13 +112,9 @@ set(KRONOS_INCLUDE_DIRS
         # KRONOS DRIVERS
         "drivers"
 
+        "drivers/clock"
         "drivers/protocols"
-        "drivers/sensors/thermistor"
-
-        # KRONOS COMPONENTS
-        "components"
-        "components/led_blinker"
-        )
+        "drivers/sensors/thermistor")
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 
 # Debug definitions
@@ -134,7 +129,8 @@ if(DEFINED KS_COMPILE_DEFINITIONS)
 endif()
 
 # Precompile types
-target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>")
+target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>"
+                                         "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_error.h>")
 
 # Links libraries
 target_link_libraries(Kronos PUBLIC asf reliance_edge KronosPacket nameof::nameof)

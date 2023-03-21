@@ -17,7 +17,7 @@ namespace kronos {
         //! \brief Constructor for ParameterDatabase. Attempts to read a file called "params" and parses the data.
         ParameterDatabase();
 
-        void ProcessEvent(const EventMessage& message) override;
+        ErrorOr<void> ProcessEvent(const EventMessage& message) override;
 
     public:
         template<typename T = uint32_t>
@@ -68,10 +68,7 @@ namespace kronos {
             m_Parameters[key] = *reinterpret_cast<uint32_t*>(&newValue);
         }
 
-        //! \brief Function to Save Parameter
-        //! \param key is the Key to be added
-        //! \return KS_SUCCESS if successful, else otherwise
-        KsResultType _SaveParams();
+        ErrorOr<void> _SaveParams();
 
     private:
         Map <String, uint32_t> m_Parameters;
