@@ -51,7 +51,7 @@ set(KRONOS_SRC
 
         "drivers/sensors/thermistor/ks_thermistor.cpp"
 
-        "drivers/storage/ks_ram.cpp")
+        "drivers/storage/ram/ks_ram.cpp")
 
 # Kronos Core
 file(GLOB_RECURSE KRONOS_CORE_SRC "core/**.cpp")
