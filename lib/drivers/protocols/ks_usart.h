@@ -4,7 +4,7 @@
 
 namespace kronos {
 
-    class KsUsart : public IoDriver {
+    class KsUsart : public IoDescriptor {
 
     public:
         explicit KsUsart(KsUsartDescriptor* desc);

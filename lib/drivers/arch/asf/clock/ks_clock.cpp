@@ -1,16 +1,15 @@
 #include "ks_clock.h"
 
 namespace kronos {
-    KS_SINGLETON_INSTANCE(Clock);
 
-    Clock::Clock() {
-        calendar_enable(&CALENDAR_0);
+    Clock::Clock(KsCalendarDescriptor* calendar):m_Descriptor(calendar) {
+        calendar_enable(calendar);
     }
 
-    ErrorOr<String> Clock::_ToString() {
+    String Clock::ToString() {
         static char buf[26];
         calendar_date_time currentDateTime{};
-        calendar_get_date_time(&CALENDAR_0, &currentDateTime);
+        calendar_get_date_time(m_Descriptor, &currentDateTime);
 
         snprintf(
             buf,
@@ -24,44 +23,44 @@ namespace kronos {
             currentDateTime.time.sec
         );
 
-        return ErrorOr<String>(buf);
+        return buf;
     }
 
-    ErrorOr<KsTime> Clock::_GetTime() {
+    KsTime Clock::GetTime() {
         calendar_date_time currentDateTime{};
-        calendar_get_date_time(&CALENDAR_0, &currentDateTime);
+        calendar_get_date_time(m_Descriptor, &currentDateTime);
 
-        return ErrorOr<KsTime>(currentDateTime.time);
+        return currentDateTime.time;
     }
 
-    ErrorOr<KsDate> Clock::_GetDate() {
+    KsDate Clock::GetDate() {
         calendar_date_time currentDateTime{};
-        calendar_get_date_time(&CALENDAR_0, &currentDateTime);
+        calendar_get_date_time(m_Descriptor, &currentDateTime);
 
-        return ErrorOr<KsDate>(currentDateTime.date);
+        return currentDateTime.date;
     }
 
-    ErrorOr<void> Clock::_SetDate(uint16_t year, uint8_t month, uint8_t day){
+    KsResult Clock::SetDate(uint16_t year, uint8_t month, uint8_t day){
         KsDate date{
             .day = day,
             .month = month,
             .year = year,
         };
 
-        calendar_set_date(&CALENDAR_0, &date);
+        if(calendar_set_date(m_Descriptor, &date) != ERR_NONE) KS_THROW(ks_error);
 
-        return {};
+        return ks_success;
     }
 
-    ErrorOr<void> Clock::_SetTime(uint8_t hour, uint8_t min, uint8_t sec) {
+    KsResult Clock::SetTime(uint8_t hour, uint8_t min, uint8_t sec) {
         KsTime time{
             .sec = sec,
             .min = min,
             .hour = hour,
         };
 
-        calendar_set_time(&CALENDAR_0, &time);
+        if(calendar_set_time(m_Descriptor, &time) != ERR_NONE) KS_THROW(ks_error);
 
-        return {};
+        return ks_success;
     }
 }

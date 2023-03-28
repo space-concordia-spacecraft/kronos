@@ -23,20 +23,20 @@ namespace kronos {
         explicit ComponentQueued(const String& name, KsTickType queueTicksToWait = 0);
 
         //! \brief Pops all events from the queue and processes them
-        ErrorOr<void> ProcessEventQueue();
+        KsResult ProcessEventQueue();
 
         //! @copydoc
-        ErrorOr<void> Init() override;
+        KsResult Init() override;
 
         //! @copydoc
-        ErrorOr<void> Destroy() override;
+        KsResult Destroy() override;
 
         //! @copydoc
-        ErrorOr<void> ReceiveEvent(const EventMessage* message) override;
+        KsResult ReceiveEvent(const EventMessage* message) override;
 
     protected:
         //! Queue that stores events being sent to the component.
-        std::shared_ptr<Queue<const EventMessage*>> m_Queue;
+        Ref<Queue<const EventMessage*>> m_Queue;
         KsTickType m_QueueTicksToWait;
     };
 

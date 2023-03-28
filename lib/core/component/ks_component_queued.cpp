@@ -1,36 +1,34 @@
 #include "ks_component_queued.h"
-#include "ks_logger.h"
 #include "ks_framework.h"
 
 namespace kronos {
 
     ComponentQueued::ComponentQueued(const String& name, KsTickType queueTicksToWait)
-        : ComponentPassive(name), m_Queue(Queue<const EventMessage*>::Create()), m_QueueTicksToWait(queueTicksToWait) {}
+        : ComponentPassive(name), m_QueueTicksToWait(queueTicksToWait) {}
 
-    ErrorOr<void> ComponentQueued::Init() {
+    KsResult ComponentQueued::Init() {
+        m_Queue = Queue<const EventMessage*>::Create();
         return ComponentPassive::Init();
     }
 
-    ErrorOr<void> ComponentQueued::Destroy() {
+    KsResult ComponentQueued::Destroy() {
         return ComponentPassive::Destroy();
     }
 
-    ErrorOr<void> ComponentQueued::ProcessEventQueue() {
+    KsResult ComponentQueued::ProcessEventQueue() {
         const EventMessage* message;
-        while (m_Queue->Pop(&message, m_QueueTicksToWait) == pdPASS) {
-            ProcessEvent(*message);
-            Framework::DeleteEventMessage(message);
+        while (m_Queue->Pop(&message, m_QueueTicksToWait) == ks_success) {
+            KS_TRY(ks_error_component_process_event, ProcessEvent(*message));
+            KS_TRY(ks_error_component_process_event, Framework::DeleteEventMessage(message));
         }
 
-        return {};
+        return ks_success;
     }
 
-    ErrorOr<void> ComponentQueued::ReceiveEvent(const EventMessage* message) {
-        if (m_Queue->Push(message) != pdPASS) {
-            // KS_ASSERT(false, "Unable to push to queue.");
-            Framework::DeleteEventMessage(message);
-        }
+    KsResult ComponentQueued::ReceiveEvent(const EventMessage* message) {
+        if (m_Queue->Push(message) != ks_success)
+            KS_TRY(ks_error_component_receive_event, Framework::DeleteEventMessage(message));
 
-        return {};
+        return ks_success;
     }
 }

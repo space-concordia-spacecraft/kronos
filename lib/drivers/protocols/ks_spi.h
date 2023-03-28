@@ -4,7 +4,7 @@
 
 namespace kronos {
 
-    class KsSpi : public IoDriver {
+    class KsSpi : public IoDescriptor {
 
     public:
         explicit KsSpi(KsSpiDescriptor* desc);

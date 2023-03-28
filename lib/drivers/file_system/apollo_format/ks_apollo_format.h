@@ -36,24 +36,28 @@ namespace kronos {
     //! This class uses a list of ApolloHeader objects to encode the data and then write into a File.
     class ApolloExporter {
     public:
-        ApolloExporter(const String& path, const List <ApolloHeader>& headers);
+        ApolloExporter() = default;
         ~ApolloExporter() = default;
+
+        KsResult Export(const String& path, const List <ApolloHeader>& headers);
 
         //! \brief Writes a given header list into the file stored in the ApolloExporter object
         //!
         //! \param headers Vector of ApolloHeader objects that get decoded and then stored in a file
         //! \return KS_SUCCESS if the operation was successful
-        ErrorOr<void> WriteFileHeader(const List <ApolloHeader>& headers);
+        KsResult WriteFileHeader(const List <ApolloHeader>& headers);
 
         //! \brief Writes a row of data into the file stored in the ApolloExporter
         //!
         //! \param data Vector of uint32_t data to store into the file
         //! \return KS_SUCCESS if the operation was successful
-        ErrorOr<void> WriteRow(const List <uint32_t>& data);
+        KsResult WriteRow(const List <uint32_t>& data);
 
     private:
         //! File pointer to the file object used to store data and headers
         File m_File;
+
+        String m_FilePath;
 
         //! Status of the ApolloExporter
         KsResultType m_Status = ks_error_apolloformat_status_uninitianalized;
@@ -68,28 +72,32 @@ namespace kronos {
         //! \brief Constructor that uses a file to read the headers
         //!
         //! \param file File object that contains data in the Apollo format
-        explicit ApolloImporter(const String& path);
+        ApolloImporter() = default;
         ~ApolloImporter() = default;
+
+        KsResult Import(const String& path);
 
         //! \brief Reads the headers from the file stored in the ApolloImporter
         //!
         //! \return KS_SUCCESS if the operation was successful
-        ErrorOr<void> ReadFileHeader();
+        KsResult ReadFileHeader();
 
         //! \brief Reads row of data from the file stored in the ApolloImporter
         //!
         //! \param data Vector of uint32_t used to store the data read from the file
         //! \return KS_SUCCESS if the operation was successful
-        ErrorOr<void> ReadRow(List <uint32_t>& data);
+        KsResult ReadRow(List <uint32_t>& data);
 
         //! \brief Getter for the headers read from the file
         //!
         //! \return Vector of ApolloHeaders read from the file
-        ErrorOr<List <ApolloHeader>> GetHeaders() { return m_Headers; }
+        List <ApolloHeader> GetHeaders() { return m_Headers; }
 
     private:
         //! File object used to read the data and the headers
         File m_File;
+
+        String m_FilePath;
 
         //! Status of the ApolloImporter
         KsResultType m_Status = ks_error_apolloformat_status_uninitianalized;

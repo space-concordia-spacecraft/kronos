@@ -2,7 +2,6 @@
 
 #include "ks_component_base.h"
 #include "ks_framework.h"
-#include "ks_error.h"
 
 namespace kronos {
 
@@ -24,7 +23,7 @@ namespace kronos {
         //! \brief Adds a new subscriber to the bus
         //!
         //! \param component pointer to the component that is subscribing to the bus
-        ErrorOr<void> AddReceivingComponent(ComponentBase* component);
+        KsResult AddReceivingComponent(ComponentBase* component);
 
         //! \brief
         //!
@@ -32,16 +31,16 @@ namespace kronos {
         //! \param data
         //! \param returnBus
         template<typename T>
-        void Publish(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
-            if (m_ReceivingComponents.empty()) {
-                // TODO: HANDLE ERROR OR WARNING
-                return;
-            }
+        KsResult Publish(const T& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty())
+                KS_THROW(ks_error_bus_no_subscribers);
 
             for (auto component: m_ReceivingComponents) {
                 EventMessage* message = Framework::CreateEventMessage<T>(data, eventCode, returnBus);
-                component->ReceiveEvent(message);
+                KS_TRY(ks_error_bus_publish, component->ReceiveEvent(message));
             }
+
+            return ks_success;
         }
 
         //! \brief
@@ -50,31 +49,29 @@ namespace kronos {
         //! \param data
         //! \param returnBus
         template<typename T>
-        void Publish(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
-            if (m_ReceivingComponents.empty()) {
-                // TODO: HANDLE ERROR OR WARNING
-                return;
-            }
+        KsResult Publish(T&& data, KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty()) KS_THROW(ks_error_bus_no_subscribers);
 
             for (auto component: m_ReceivingComponents) {
                 EventMessage* message = Framework::CreateEventMessage<T>(std::forward<T>(data), eventCode, returnBus);
                 component->ReceiveEvent(message);
             }
+
+            return ks_success;
         }
 
         //! \brief
         //!
         //! \param returnBus
-        void Publish(KsEventCodeType eventCode, Bus* returnBus = nullptr) {
-            if (m_ReceivingComponents.empty()) {
-                // TODO: HANDLE ERROR OR WARNING
-                return;
-            }
+        KsResult Publish(KsEventCodeType eventCode, Bus* returnBus = nullptr) {
+            if (m_ReceivingComponents.empty()) KS_THROW(ks_error_bus_no_subscribers);
 
             for (auto component: m_ReceivingComponents) {
                 EventMessage* message = Framework::CreateEventMessage(eventCode, returnBus);
                 component->ReceiveEvent(message);
             }
+
+            return ks_success;
         }
 
         //! \brief Getter for the name of the bus

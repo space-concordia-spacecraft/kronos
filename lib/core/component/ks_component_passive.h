@@ -21,19 +21,19 @@ namespace kronos {
         explicit ComponentPassive(const String& name);
 
         /// @copydoc
-        ErrorOr<void> Init() override;
+        KsResult Init() override;
 
         /// @copydoc
-        ErrorOr<void> PostInit() override;
+        KsResult PostInit() override;
 
         /// @copydoc
-        ErrorOr<void> Destroy() override;
+        KsResult Destroy() override;
 
         /// @copydoc
-        ErrorOr<void> ReceiveEvent(const EventMessage* message) override;
+        KsResult ReceiveEvent(const EventMessage* message) override;
 
         //!
-        ErrorOr<void> ProcessEvent(const EventMessage& message) override {};
+        KsResult ProcessEvent(const EventMessage& message) override;
     };
 
 }

@@ -22,37 +22,52 @@ namespace kronos {
 
     class File {
 
+        template<typename T, typename ... Args>
+        friend Scope<T> kronos::CreateScope(Args&& ... args);
+
     public:
+        explicit File(
+            const String& path,
+            int flags = KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_APPEND
+        );
+
+        File() = default;
+
         //! \brief Destructor to automatically close the file when exiting scope.
         ~File();
 
-        //! \brief Function to synchronize the file.
-        //! This is mostly useful if the file has to be manually synchronized.
-        [[nodiscard]] ErrorOr<void> Sync();
+        [[nodiscard]] bool IsOpen() const;
+
+        KsResult Sync();
+
+        int32_t Read(void* buffer, uint32_t length);
 
         //! \brief Function to write to a file.
         //!
         //! \param buffer Buffer being written to the file.
         //! \param length Length of the buffer being written to the file.
-        ErrorOr<int32_t> Write(const void* buffer, uint32_t length);
-        ErrorOr<int32_t> Read(void* buffer, uint32_t length);
-        [[nodiscard]] ErrorOr<int32_t> Seek(int32_t offset, int seekOrigin);
+        int32_t Write(const void* buffer, uint32_t length);
 
-        static ErrorOr<void> Remove(const String& name);
-        ErrorOr<File> static Open(
-            const String& name,
+        [[nodiscard]] int32_t Seek(int32_t offset, int seekOrigin);
+
+        static KsResult Remove(const String& name);
+
+        KsResult Open(
+            const String& path,
             int flags = KS_OPEN_MODE_WRITE_READ | KS_OPEN_MODE_CREATE | KS_OPEN_MODE_APPEND
         );
-        ErrorOr<void> Close();
 
-        [[nodiscard]] ErrorOr<size_t> Size();
+        KsResult Close();
+
+        [[nodiscard]] size_t Size();
+
+        explicit operator bool() const;
 
     private:
-        File(lfs_file_t file, String path);
+        bool m_IsOpen = false;
 
         /// The file descriptor used to interface with the Reliance Edge API.
-        lfs_file_t m_File{};
-        String m_FilePath{};
+        lfs_file_t m_FileHandle{};
         uint8_t m_OperationAttempts{};
     };
 

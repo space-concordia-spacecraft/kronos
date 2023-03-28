@@ -6,6 +6,7 @@
     <mapping directory="$PROJECT_DIR$/lib/extern/freertos/portable/ThirdParty/Community-Supported-Ports" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/extern/freertos/portable/ThirdParty/Partner-Supported-Ports" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/extern/kronos-packet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lib/extern/littlefs" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/lib/extern/nameof" vcs="Git" />
   </component>
 </project>

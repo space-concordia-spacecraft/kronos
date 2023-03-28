@@ -35,6 +35,8 @@ set(KRONOS_SRC
         "core/component/ks_component_queued.cpp"
         "core/component/ks_component_active.cpp"
 
+        "core/utils/error/ks_error.cpp"
+
         # KRONOS DRIVERS
         "drivers/arch/asf/ks_gpio.cpp"
 
@@ -47,7 +49,9 @@ set(KRONOS_SRC
         "drivers/file_system/ks_file.cpp"
         "drivers/file_system/ks_filesystem.cpp"
 
-        "drivers/sensors/thermistor/ks_thermistor.cpp")
+        "drivers/sensors/thermistor/ks_thermistor.cpp"
+
+        "drivers/storage/ks_ram.cpp")
 
 # Kronos Core
 file(GLOB_RECURSE KRONOS_CORE_SRC "core/**.cpp")
@@ -62,67 +66,52 @@ add_mcu_library(Kronos ${KRONOS_SRC})
 
 # Include directories
 set(KRONOS_INCLUDE_DIRS
+        "config"
+
         # KRONOS
         "./"
         "core"
         "core/bus"
         "core/component"
-        "core/module"
-
-        # KRONOS MACROS
         "core/macros"
-
-        # KRONOS MODULES
-        "modules/clk"
-        "modules/clk/components"
-        "modules/cmd"
-        "modules/cmd/components/command_dispatcher"
-        "modules/cmd/components/command_listener"
-        "modules/cmd/components/command_scheduler"
-        "modules/cmd/components/command_transmitter"
-        "modules/cmd/utils"
-        "modules/fs"
-        "modules/fs/components"
-        "modules/fs/utils"
-        "modules/fs/utils/apollo_format"
-        "modules/fs/utils/file"
-        "modules/fs/utils/file_system"
-        "modules/hlt"
-        "modules/hlt/components"
-        "modules/hlt/components/health_monitor"
-        "modules/lcn"
-        "modules/lcn/components/lcn_master"
-        "modules/lcn/components/lcn_slave"
-        "modules/log"
-        "modules/log/components"
-        "modules/log/utils"
-        "modules/prf"
-        "modules/prf/components"
-        "modules/prf/utils"
-        "modules/prm"
-        "modules/prm/components"
-        "modules/sch"
-        "modules/sch/components/scheduler"
-        "modules/sch/components/worker"
-        "modules/sch/config"
-        "modules/tlm"
-        "modules/tlm/components"
-        "modules/wrk"
-        "modules/wrk/components"
-
-        # KRONOS OS RELATED IMPLEMENTATIONS
-        "os"
-        "os/freertos"
+        "core/module"
+        "core/types"
+        "core/utils/error"
 
         # KRONOS DRIVERS
         "drivers"
-
         "drivers/clock"
         "drivers/file_system"
         "drivers/file_system/apollo_format"
         "drivers/protocols"
         "drivers/sensors/thermistor"
-        "drivers/storage")
+        "drivers/storage"
+
+        # KRONOS MODULES
+        "modules/communication_handler"
+        "modules/communication_handler/components/command_dispatcher"
+        "modules/communication_handler/components/command_listener"
+        "modules/communication_handler/components/command_scheduler"
+        "modules/communication_handler/components/command_transmitter"
+
+        "modules/file_manager"
+        "modules/file_manager/components"
+
+        "modules/housekeeping"
+        "modules/housekeeping/components"
+
+        "modules/parameter_database"
+        "modules/parameter_database/components"
+
+        "modules/scheduler"
+        "modules/scheduler/components"
+
+        "modules/telemetry"
+        "modules/telemetry/components"
+
+        "modules/worker"
+        "modules/worker/components")
+
 target_include_directories(Kronos PUBLIC ${KRONOS_INCLUDE_DIRS})
 
 # Debug definitions
@@ -137,8 +126,7 @@ if(DEFINED KS_COMPILE_DEFINITIONS)
 endif()
 
 # Precompile types
-target_precompile_headers(Kronos PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_types.h>"
-                                         "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_error.h>")
+target_precompile_headers(Kronos PUBLIC "$<$<COMPILE_LANGUAGE:CXX>:${CMAKE_CURRENT_SOURCE_DIR}/core/ks_pch.h>")
 
 # Links libraries
 target_link_libraries(Kronos PUBLIC asf littlefs KronosPacket nameof::nameof)

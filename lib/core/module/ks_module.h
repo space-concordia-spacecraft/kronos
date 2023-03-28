@@ -12,7 +12,7 @@ namespace kronos {
         virtual ~IModule() = default;
 
         //! \brief
-        virtual ErrorOr<void> Init() const = 0;
+        [[nodiscard]] virtual KsResult Init() const = 0;
 
         //! \brief
         //!
@@ -42,7 +42,7 @@ namespace kronos {
 
     public:
         //! \copydoc
-        ErrorOr<void> Init() const override {}
+        [[nodiscard]] KsResult Init() const override { return {}; }
 
         //! \copydoc
         [[nodiscard]] TypeInfo GetModuleInfo() const final {

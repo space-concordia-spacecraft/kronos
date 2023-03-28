@@ -1,24 +1,24 @@
 #include "ks_framework.h"
-#include "ks_log_module.h"
-#include "ks_logger.h"
 
 namespace kronos {
 
     KS_SINGLETON_INSTANCE(Framework);
 
-    ErrorOr<void> Framework::_Start() {
+    KsResult Framework::_Start() {
         // Init Components
         for (auto& component: m_Components) {
-            TRY(ks_error_component_initialize, component.second->Init(), void);
+            KS_TRY(ks_error_component_initialize, component.second->Init());
         }
 
         // PostInit Components
         for (auto& component: m_Components) {
-            TRY(ks_error_component_post_initialize, component.second->PostInit();, void);
+            KS_TRY(ks_error_component_post_initialize, component.second->PostInit());
         }
+
+        return {};
     }
 
-    ErrorOr<void> Framework::_InitModules() {
+    KsResult Framework::_InitModules() {
         Map <KsIdType, Set<KsIdType>> moduleParents;
         Map <KsIdType, Set<KsIdType>> moduleChildren;
 
@@ -69,37 +69,39 @@ namespace kronos {
             moduleParents.end(),
             [](const auto& pair) { return !pair.second.empty(); }
         )) {
-            KS_THROW(ks_error_module_cyclic_dependency, void);
+            KS_THROW(ks_error_module_cyclic_dependency);
         }
 
         // Initialize modules
         for (const auto& module: m_ModuleList) {
-            TRY(ks_error_module_initialize, m_Modules[module]->Init(), void);
+            KS_TRY(ks_error_module_initialize, m_Modules[module]->Init());
         }
 
         return {};
     }
 
-    ErrorOr<Bus*> Framework::_GetBus(const String& name) {
-         KS_ASSERT(m_Busses.contains(name), "Bus with name doesn't exist");
+    Bus* Framework::_GetBus(const String& name) {
+        KS_ASSERT(m_Busses.contains(name), "Bus with name doesn't exist")
 
         KS_MAP_FIND(m_Busses, name, it) {
             return it->second.get();
         }
-        KS_THROW(ks_error_bus_missing, Bus*);
+        // TODO: Bus should be maybe sent back by ref?
+        // KS_THROW(ks_error_bus_missing);
     }
 
-    ErrorOr<IoDriver*> Framework::_GetDriver(const String& name) {
-        KS_ASSERT(m_Drivers.contains(name), "Driver with name doesn't exist");
+    IoDescriptor* Framework::_GetDescriptor(const String& name) {
+        KS_ASSERT(m_Drivers.contains(name), "Driver with name doesn't exist")
 
         KS_MAP_FIND(m_Drivers, name, it) {
             return it->second.get();
         }
-        KS_THROW(ks_error_drivers_missing, IoDriver*);
+        // TODO: Pass by ref?
+        // KS_THROW(ks_error_driver_missing);
     }
 
-    ErrorOr<EventMessage*> Framework::_CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus) {
-        Scope <EventMessage> eventMessage = std::make_unique<EventMessage>();
+    EventMessage* Framework::_CreateEventMessage(KsEventCodeType eventCode, Bus* returnBus) {
+        Scope <EventMessage> eventMessage = CreateScope<EventMessage>();
         eventMessage->eventCode = eventCode;
         eventMessage->returnBus = returnBus;
 
@@ -111,11 +113,10 @@ namespace kronos {
         return eventMessagePtr;
     }
 
-    ErrorOr<void> Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
-        if(m_EventMessages.erase(eventMessage) == 0) {
-            KS_THROW(ks_error_event_message_missing, void);
-        }
-        return{};
+    KsResult Framework::_DeleteEventMessage(const EventMessage* eventMessage) {
+        if(m_EventMessages.erase(eventMessage) == 0) KS_THROW(ks_error_event_message_missing);
+
+        return ks_success;
     }
 
 }

@@ -5,21 +5,26 @@ namespace kronos {
     ComponentPassive::ComponentPassive(const String& name)
         : ComponentBase(name) {}
 
-    ErrorOr<void> ComponentPassive::Init() {
-        return {};
+    KsResult ComponentPassive::Init() {
+        return ks_success;
     }
 
-    ErrorOr<void> ComponentPassive::PostInit() {
-        return {};
+    KsResult ComponentPassive::PostInit() {
+        return ks_success;
     }
 
-    ErrorOr<void> ComponentPassive::Destroy() {
-        return {};
+    KsResult ComponentPassive::Destroy() {
+        return ks_success;
     }
 
-    ErrorOr<void> ComponentPassive::ReceiveEvent(const EventMessage* message) {
-        ProcessEvent(*message);
-        return {};
+    KsResult ComponentPassive::ReceiveEvent(const EventMessage* message) {
+        KS_TRY(ks_error_component_receive_event, ProcessEvent(*message));
+
+        return ks_success;
+    }
+
+    KsResult ComponentPassive::ProcessEvent(const EventMessage& message) {
+        return ks_success;
     }
 
 }

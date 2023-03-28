@@ -43,27 +43,27 @@ namespace kronos {
         //! \brief initializes the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual ErrorOr<void> Init() = 0;
+        virtual KsResult Init() = 0;
 
         //! \brief This runs after all components have been initialized
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual ErrorOr<void> PostInit() = 0;
+        virtual KsResult PostInit() = 0;
 
         //! \brief destroys the component
         //!
         //! \return KS_SUCCESS if there was no errors
-        virtual ErrorOr<void> Destroy() = 0;
+        virtual KsResult Destroy() = 0;
 
         //! \brief Receives the event from the publishing bus
         //!
         //! \param message the event message containing the information being published on the bus
-        virtual ErrorOr<void> ReceiveEvent(const EventMessage* message) = 0;
+        virtual KsResult ReceiveEvent(const EventMessage* message) = 0;
 
         //! \brief Processes the event message
         //!
         //! \param message the event message containing the information that was published to the bus
-        virtual ErrorOr<void> ProcessEvent(const EventMessage& message) = 0;
+        virtual KsResult ProcessEvent(const EventMessage& message) = 0;
 
         //! \brief gets the name of the component
         //! \return

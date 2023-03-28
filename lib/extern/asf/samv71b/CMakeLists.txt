@@ -55,12 +55,16 @@ set(ASF_INCLUDE_DIRS
 
         #ASF HPL
         "hpl/core"
+        "hpl/efc"
         "hpl/mcan"
         "hpl/pio"
         "hpl/pmc"
-        "hpl/usart"
-        "hpl/mcan"
+        "hpl/qspi"
+        "hpl/rtc"
         "hpl/spi"
+        "hpl/twihs"
+        "hpl/uart"
+        "hpl/xdmac"
 
         # ASF HRI
         "hri"

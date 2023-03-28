@@ -59,4 +59,10 @@ static inline fn {                                         \
 #define TO_STRING(x) STRINGIFY(x)
 #define LOCATION TO_STRING(__FILE__) ":" TO_STRING(__LINE__)
 
+#if defined(KS_DEBUG) || defined(KS_TRACE)
+#define KS_DEBUGPRINT(...) printf(__VA_ARGS__)
+#else
+#define KS_DEBUGPRINT(...)
+#endif
+
 #include "ks_assert.h"

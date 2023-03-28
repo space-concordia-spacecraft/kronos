@@ -1,6 +1,5 @@
 #include "ks_component_worker.h"
 #include "ks_framework.h"
-#include "ks_profiler.h"
 
 namespace kronos {
     ComponentWorker::ComponentWorker(
@@ -13,21 +12,25 @@ namespace kronos {
         while (true) {
             { // SCOPE FOR PROFILER
                 const EventMessage* message;
-                if (m_Queue->Pop(&message, 0) == pdPASS) {
+                if (m_Queue->Pop(&message, 0) != ks_success) {
                     ComponentActive::ProcessEvent(*message);
                     Framework::DeleteEventMessage(message);
+
+                    // if(res.HasError()) StackTrace::Flush(), use the framework housekeeping
                 }
 
                 for (const auto& component: m_QueuedComponents)
                     component->ProcessEventQueue();
+
+                // if(res.HasError()) StackTrace::Flush(), use the framework housekeeping
             }
 
             taskYIELD();
         }
     }
 
-    ErrorOr<void> ComponentWorker::RegisterComponent(ComponentQueued* component) {
+    KsResult ComponentWorker::RegisterComponent(ComponentQueued* component) {
         m_QueuedComponents.push_back(component);
-        return {};
+        return ks_success;
     }
 }

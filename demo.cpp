@@ -1,6 +1,4 @@
 #include "kronos.h"
-#include "ks_worker_manager.h"
-#include "atmel_start.h"
 
 using namespace kronos;
 
@@ -11,7 +9,7 @@ int main() {
     xTaskCreate(
         Start,
         "MAIN",
-        KS_COMPONENT_STACK_SIZE_XLARGE,
+        KS_COMPONENT_STACK_SIZE_LARGE,
         nullptr,
         KS_COMPONENT_PRIORITY_HIGH,
         nullptr
@@ -19,7 +17,7 @@ int main() {
 
     // START FREERTOS
     vTaskStartScheduler();
-    return ks_success;
+    return 1;
 }
 
 static void Start(void* data) {
@@ -30,17 +28,14 @@ static void Start(void* data) {
     Framework::CreateInstance();
 
     // INITIALIZE ALL DRIVERS
-    Framework::CreateDriver<KsUsart>("U_UHF", &USART_UHF);
-    Framework::CreateDriver<KsUsart>("U_MUTUAL", &UART_MUTUAL);
+    Framework::CreateDescriptor<KsUsart>(KS_DESC_UART_COMMS, &USART_UHF);
 
     // ADD MODULES
-    Framework::AddModule<FsModule>();
-    Framework::AddModule<SchedModule>();
+    Framework::AddModule<FileManagerModule>();
+    Framework::AddModule<SchedulerModule>();
     Framework::AddModule<WorkerModule>();
-    Framework::AddModule<CmdModule>();
-    Framework::AddModule<LogModule>();
+    Framework::AddModule<CommunicationHandlerModule>();
     Framework::AddModule<ParamsModule>();
-    Framework::AddModule<ClkModule>();
 
     // INITIALIZE MODULES
     Framework::InitModules();

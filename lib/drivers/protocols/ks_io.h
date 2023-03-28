@@ -2,11 +2,11 @@
 
 namespace kronos {
 
-    class IoDriver {
+    class IoDescriptor {
 
     public:
         //! \brief Virtual destructor
-        virtual ~IoDriver() = default;
+        virtual ~IoDescriptor() = default;
 
         virtual int32_t Write(const uint8_t* buf, size_t length) = 0;
         virtual int32_t Write(const String& buf) = 0;

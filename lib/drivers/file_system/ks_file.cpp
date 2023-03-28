@@ -1,72 +1,77 @@
 #include "ks_file.h"
-
-#include <utility>
 #include "ks_filesystem.h"
 
 namespace kronos {
+
+    File::File(const String& path, int flags){
+        Open(path, flags);
+    }
+
     File::~File() {
         Close();
     };
 
-    ErrorOr<void> File::Sync() {
-        auto err = lfs_file_sync(FileSystem::FS(), &m_File);
-        if (err) KS_THROW(ks_error_file_sync, void);
+    bool File::IsOpen() const {
+        return m_IsOpen;
+    }
+
+    KsResult File::Sync() {
+        auto ret = lfs_file_sync(FileSystem::FS(), &m_FileHandle);
+        if (ret < 0) KS_THROW(ks_error_file_sync);
 
         return {};
     }
 
-    ErrorOr<int32_t> File::Read(void* buffer, uint32_t length) {
-        auto ret = lfs_file_read(FileSystem::FS(), &m_File, buffer, length);
-        if (ret < 0) KS_THROW(ks_error_file_read, int32_t);
+    int32_t File::Read(void* buffer, uint32_t length) {
+        auto ret = lfs_file_read(FileSystem::FS(), &m_FileHandle, buffer, length);
+        if (ret < 0) KS_THROW(ks_error_file_read);
 
         return ret;
     }
 
-    ErrorOr<int32_t> File::Write(const void* buffer, uint32_t length) {
-        auto ret = lfs_file_write(FileSystem::FS(), &m_File, buffer, length);
-        if (ret < 0) KS_THROW(ks_error_file_write, int32_t);
+    int32_t File::Write(const void* buffer, uint32_t length) {
+        auto ret = lfs_file_write(FileSystem::FS(), &m_FileHandle, buffer, length);
+        if (ret < 0) KS_THROW(ks_error_file_write);
 
         return ret;
     }
 
-    ErrorOr<int32_t> File::Seek(int32_t offset, int seekOrigin) {
-        auto ret = lfs_file_seek(FileSystem::FS(), &m_File, offset, seekOrigin);
-        if(ret < 0) KS_THROW(ks_error_file_seek, int32_t);
+    int32_t File::Seek(int32_t offset, int seekOrigin) {
+        auto ret = lfs_file_seek(FileSystem::FS(), &m_FileHandle, offset, seekOrigin);
+        if(ret < 0) KS_THROW(ks_error_file_seek);
 
         return ret;
     }
 
-    ErrorOr<void> File::Remove(const String& name) {
+    KsResult File::Remove(const String& name) {
         auto ret = lfs_remove(FileSystem::FS(), name.c_str());
-        if (ret < 0) KS_THROW(ks_error_file_remove, void);
+        if (ret < 0) KS_THROW(ks_error_file_remove);
 
-        return {};
+        return ks_success;
     }
 
-    ErrorOr<File> File::Open(const String& name, int flags) {
-        lfs_file_t file;
-        auto ret = lfs_file_open(FileSystem::FS(), &file, name.c_str(), flags);
-        if(ret < 0) KS_THROW(ks_error_file_open, File);
+    KsResult File::Open(const String& path, int flags) {
+        auto res = lfs_file_open(FileSystem::FS(), &m_FileHandle, path.c_str(), flags);
+        if(res < 0) KS_THROW(ks_error_file_open);
 
-        return File(file, name);
+        return ks_success;
     }
 
-    ErrorOr<void> File::Close() {
-        auto ret = lfs_file_close(FileSystem::FS(), &m_File);
-        if(ret < 0) KS_THROW(ks_error_file_close, void);
+    KsResult File::Close() {
+        auto ret = lfs_file_close(FileSystem::FS(), &m_FileHandle);
+        if(ret < 0) KS_THROW(ks_error_file_close);
 
-        return {};
+        return ks_success;
     }
 
-    ErrorOr<size_t> File::Size() {
-        auto ret = lfs_file_size(FileSystem::FS(), &m_File);
-        if (ret < 0) KS_THROW(ks_error_file_size, size_t);
+    size_t File::Size() {
+        auto ret = lfs_file_size(FileSystem::FS(), &m_FileHandle);
+        if (ret < 0) KS_THROW(ks_error_file_size);
 
         return ret;
     }
 
-    File::File(lfs_file_t file, String path): m_File(file), m_FilePath(std::move(path)) {
-
+    File::operator bool() const {
+        return IsOpen();
     }
-
 }

@@ -33,16 +33,16 @@ namespace kronos {
         );
 
         //! @copydoc
-        ErrorOr<void> Init() override;
+        KsResult Init() override;
 
         //! @copydoc
-        ErrorOr<void> Destroy() override;
+        KsResult Destroy() override;
 
         //! Function containing main loop for the event processing thread.
         [[noreturn]] virtual void Run();
 
         //! @copydoc
-        ErrorOr<void> ProcessEvent(const EventMessage& message) override;
+        KsResult ProcessEvent(const EventMessage& message) override;
 
     private:
         //! Stack size provided to the task
